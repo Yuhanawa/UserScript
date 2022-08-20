@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Yuhan User Script 搜索引擎/百度必应谷歌F搜/哔哩哔哩/CSDN/Github/开发/更多 优化/美化/净化/增强
-// @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
-// @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.0
-// @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @version      0.2.1
+// @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @node         8-20 0.2.1 视频快捷分享复制 四种模式
 // @node         8-20 0.1.9 推送到GitHub
 // @node         8-20 0.1.8 去除b站CSDN(知乎未测试)复制小尾巴
 // @node         8-20 0.1.7 添加菜单(在对应网站会显示对应网站的选项开关)
@@ -44,6 +45,18 @@
             }
         );
         return value;
+    }
+    const options = (name, key, ValueList) => {
+        const index = cget(key, 0)
+        name += `:${ValueList[index]}[${index+1}/${ValueList.length}]<点击切换模式`;
+        GM_registerMenuCommand(name,
+            () => {
+                if (index + 1 >= ValueList.length) cset(key, 0)
+                else cset(key, index + 1);
+                location.reload()
+            }
+        );
+        return index;
     }
 
     /* utils */
@@ -95,7 +108,7 @@
                 if (as.length > 0) console.log(`remove ${as.length} search icon`)
             }, 8000);
         }
-        if (menu("移除右侧新版反馈等按钮", 'bilibili_compact_reply_tag', true)) {
+        if (menu("修改UP觉得很赞标签位置", 'bilibili_compact_reply_tag', true)) {
             setInterval(() => {
                 let es = document.getElementsByClassName("reply-tag-list")
                 for (let i = 0; i < es.length; i++) {
@@ -110,12 +123,38 @@
                 }
             }, 8000);
         }
-        if (menu("修改UP觉得很赞标签位置", 'bilibili_remove_nav_menu', true)) {
+        if (menu("移除右侧新版反馈等按钮", 'bilibili_remove_nav_menu', true)) {
             load_then_delay(() => {
                 document.getElementsByClassName("fixed-nav")[0].remove()
-                setTimeout(() => document.getElementsByClassName("fixed-nav")[0].remove(), 1200)
+                setTimeout(() => {
+                    if (document.getElementsByClassName("fixed-nav").length > 0) document.getElementsByClassName("fixed-nav")[0].remove()
+                }, 1200)
             }, 1200)
         }
+
+        // 灵感来自 https://greasyfork.org/zh-CN/scripts/449865
+        const index = options("视频快捷分享复制模式", 'bilibili_copy', ["【标题】链接", "BV", "链接", "标题"])
+
+        load_then_delay(() => {
+            let text;
+            if (index === 0) { // All
+                text = `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`
+            } else if (index === 1) { // BV
+                text = location.pathname.split("/")[2]
+            } else if (index === 2) { // Link
+                text = `${location.origin}${location.pathname}`
+            } else if (index === 2) { // Title
+                text = `${document.querySelector('h1.video-title').innerText}`
+            }
+
+            const $btn = document.createElement('span')
+            $btn.title = `复制当前视频的${["【标题】链接", "BV", "链接", "标题"][index]}`
+            $btn.style.cursor = 'pointer'
+            $btn.innerText = '🏷️'
+            $btn.addEventListener('click', () => navigator.clipboard.writeText(text))
+
+            document.querySelector('h1.video-title').append($btn);
+        }, 800);
     }
 
     /* search */
