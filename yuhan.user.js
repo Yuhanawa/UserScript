@@ -2,8 +2,9 @@
 // @name         Yuhan User Script 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.1.8
+// @version      0.1.9
 // @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @node         8-20 0.1.9 推送到GitHub
 // @node         8-20 0.1.8 去除b站CSDN(知乎未测试)复制小尾巴
 // @node         8-20 0.1.7 添加菜单(在对应网站会显示对应网站的选项开关)
 // @node         完整更新日志请见 https://greasyfork.org/zh-CN/scripts/449705/versions/
@@ -22,7 +23,6 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
-// @grant        GM_setClipboard
 // @grant        GM_registerMenuCommand
 // ==/UserScript==
 
@@ -33,12 +33,12 @@
     const cget = (key, d) => GM_getValue(key, d)
     const cset = (key, v) => GM_setValue(key, v)
 
-    const menu = (name,key,defaultValue)=>{
-        const value = cget(key,defaultValue)
-        name += value?':开启':':关闭';
+    const menu = (name, key, defaultValue) => {
+        const value = cget(key, defaultValue)
+        name += value ? ':开启' : ':关闭';
         GM_registerMenuCommand(name,
-            ()=>{
-                cset(key,!value);
+            () => {
+                cset(key, !value);
                 location.reload()
             }
         );
@@ -46,8 +46,6 @@
     }
 
     /* utils */
-    const copy = (s) => GM_setClipboard(s)
-
     const match = (s) => {
         if (location.href.indexOf(s) !== -1) {
             console.log("Yuhan 自用 优化美化净化脚本 运行中...")
@@ -77,7 +75,7 @@
 
     /* bilibili */
     if (match("://www.bilibili.com/video/")) {
-        if (menu("移除评论关键字搜索图标",'bilibili_remove_search_icon',true)) {
+        if (menu("移除评论关键字搜索图标", 'bilibili_remove_search_icon', true)) {
             setInterval(() => {
                 // remove with class " icon search-word "
                 let icons = document.getElementsByClassName("icon search-word")
@@ -87,7 +85,7 @@
                 if (icons.length > 0) console.log(`remove ${icons.length} search icon`)
             }, 10000);
         }
-        if (menu("移除评论关键字搜索跳转",'bilibili_remove_search',true)) {
+        if (menu("移除评论关键字搜索跳转", 'bilibili_remove_search', true)) {
             setInterval(() => {
                 let as = document.getElementsByClassName("jump-link search-word")
                 for (let i = 0; i < as.length; i++) {
@@ -96,7 +94,7 @@
                 if (as.length > 0) console.log(`remove ${as.length} search icon`)
             }, 8000);
         }
-        if (menu("移除右侧新版反馈等按钮",'bilibili_compact_reply_tag',true)) {
+        if (menu("移除右侧新版反馈等按钮", 'bilibili_compact_reply_tag', true)) {
             setInterval(() => {
                 let es = document.getElementsByClassName("reply-tag-list")
                 for (let i = 0; i < es.length; i++) {
@@ -111,18 +109,18 @@
                 }
             }, 8000);
         }
-        if (menu("修改UP觉得很赞标签位置",'bilibili_remove_nav_menu',true)) {
+        if (menu("修改UP觉得很赞标签位置", 'bilibili_remove_nav_menu', true)) {
             load_then_delay(() => {
                 document.getElementsByClassName("fixed-nav")[0].remove()
-                setTimeout(() => document.getElementsByClassName("fixed-nav")[0].remove(),1200)
+                setTimeout(() => document.getElementsByClassName("fixed-nav")[0].remove(), 1200)
             }, 1200)
         }
     }
 
     /* search */
-    if (match("bing.com/search") || match("baidu.com/s") || match("fsoufsou.com/search")||match("google.com/search")) {
-        menu("搜索引擎优化美化净化",'search',true);
-        menu("搜索引擎快速切换工具",'search_engine_switch_tool',true);
+    if (match("bing.com/search") || match("baidu.com/s") || match("fsoufsou.com/search") || match("google.com/search")) {
+        menu("搜索引擎优化美化净化", 'search', true);
+        menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
 
         if (cget("search", true)) {
@@ -996,7 +994,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             addcss(css);
         }
         /* search engine switch tool */
-        if (cget("search_engine_switch_tool",true)){
+        if (cget("search_engine_switch_tool", true)) {
             document.addEventListener("DOMContentLoaded", () => {
                 document.body.innerHTML = `
                 <div id="engine_switch_tool">        
@@ -1017,8 +1015,8 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
     if (match("blog.csdn.net") && match("/article/details/")) {
         let css = "";
 
-        if (menu("CSDN极简化",'csdn_opt',true)) {
-            css +=  `
+        if (menu("CSDN极简化", 'csdn_opt', true)) {
+            css += `
             .hide-article-box,
             #recommendNps, .template-box, .blog-footer-bottom, #blogColumnPayAdvert, .article-type-img,
             .recommend-item-box, .recommend-right, #dmp_ad_58, aside{
@@ -1077,7 +1075,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
         `;
         }
 
-        if (menu("CSDN移除顶部",'csdn_remove_header',true)) {
+        if (menu("CSDN移除顶部", 'csdn_remove_header', true)) {
             css += `
             #csdn-toolbar{
                 display: none!important;
@@ -1089,11 +1087,11 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
 
         load_then_delay(() => {
             // 将代码块改为可修改
-            document.querySelectorAll("code").forEach(c=>{
-                c.contentEditable="true";
+            document.querySelectorAll("code").forEach(c => {
+                c.contentEditable = "true";
             });
 
-            if (cget("csdn_opt",true)) {
+            if (cget("csdn_opt", true)) {
                 // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
                 document.getElementsByClassName("option-box")[0].remove();
                 document.getElementsByClassName("option-box")[0].remove();
@@ -1112,7 +1110,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             }
 
             // 免登录复制
-            if (menu("CSDN免登录复制",'csdn_copy',true)) {
+            if (menu("CSDN免登录复制", 'csdn_copy', true)) {
                 const copy_without_sgin = () => {
                     const btns = document.getElementsByClassName("hljs-button");
                     for (let i = 0; i < btns.length; i++) {
@@ -1139,6 +1137,6 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
     window.addEventListener("copy", (e) => {
         e.stopPropagation();
         e.stopImmediatePropagation();
-    },true);
+    }, true);
 
 })();
