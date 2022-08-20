@@ -1,8 +1,9 @@
 // ==UserScript==
-// @name         Yuhan User Script 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name         Yuhan User Script 搜索引擎/百度必应谷歌F搜/哔哩哔哩/CSDN/Github/开发/更多 优化/美化/净化/增强
 // @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.1.9
+// @version      0.2.0
 // @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @node         8-20 0.1.9 推送到GitHub
 // @node         8-20 0.1.8 去除b站CSDN(知乎未测试)复制小尾巴
