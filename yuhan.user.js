@@ -3,13 +3,11 @@
 // @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.1
+// @version      0.2.2
 // @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @node         8-21 0.2.2 添加搜索引擎快速聚焦搜索框(Ctrl+[K|Q|S]) 模式：["清空","关闭", "选中", "聚焦"]
 // @node         8-20 0.2.1 视频快捷分享复制 四种模式
-// @node         8-20 0.1.9 推送到GitHub
-// @node         8-20 0.1.8 去除b站CSDN(知乎未测试)复制小尾巴
-// @node         8-20 0.1.7 添加菜单(在对应网站会显示对应网站的选项开关)
-// @node         完整更新日志请见 https://greasyfork.org/zh-CN/scripts/449705/versions/
+// @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
@@ -48,7 +46,7 @@
     }
     const options = (name, key, ValueList) => {
         const index = cget(key, 0)
-        name += `:${ValueList[index]}[${index+1}/${ValueList.length}]<点击切换模式`;
+        name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
         GM_registerMenuCommand(name,
             () => {
                 if (index + 1 >= ValueList.length) cset(key, 0)
@@ -63,6 +61,7 @@
     const match = (s) => {
         if (location.href.indexOf(s) !== -1) {
             console.log("Yuhan 自用 优化美化净化脚本 运行中...")
+            console.info("求star https://github.com/yuhanawa/UserScript")
             return true;
         }
         return false;
@@ -1033,7 +1032,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             // }
             addcss(css);
         }
-        /* search engine switch tool */
+        /* search tools */
         if (cget("search_engine_switch_tool", true)) {
             document.addEventListener("DOMContentLoaded", () => {
                 document.body.innerHTML = `
@@ -1048,6 +1047,18 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                     onclick="this.href = 'https://www.fsoufsou.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">fsou</a>
                 </div>` + document.body.innerHTML;
             })
+        }
+
+        const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", 'search_engine_quick_focus', ["清空", "关闭", "选中", "聚焦",])
+        if (index !== 1) {
+            document.onkeydown = (e) => {
+                if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
+                    document.querySelector("input").focus();
+                    if (index === 0) document.querySelector("input").value = "";
+                    else if (index === 2) document.querySelector("input").select();
+                    e.preventDefault();
+                }
+            }
         }
     }
 
