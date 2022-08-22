@@ -1,10 +1,16 @@
 // ==UserScript==
 // @name         Yuhan User Script 搜索引擎/百度必应谷歌F搜/哔哩哔哩/CSDN/Github/开发/更多 优化/美化/净化/增强
-// @name:zh      Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
-// @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:zh      Yuhan 自用 搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:zh-CN   Yuhan 自用 搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 CSDN极简化 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @name:en      Yuhan User Script
+// @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.2
-// @description  搜索引擎(百度 必应)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @version      0.2.3
+// @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
+// @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-22 0.2.3 添加谷歌f搜样式(累死) 修复搜索引擎快速切换的一个bug
 // @node         8-21 0.2.2 添加搜索引擎快速聚焦搜索框(Ctrl+[K|Q|S]) 模式：["清空","关闭", "选中", "聚焦"]
 // @node         8-20 0.2.1 视频快捷分享复制 四种模式
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
@@ -14,6 +20,8 @@
 // @license      GPL-3.0
 // @match        *.bing.com/*
 // @match        *.baidu.com/*
+// @match        *.fsoufsou.com/*
+// @match        *.google.com/*
 // @match        *://www.bilibili.com/video/*
 // @match        *://www.bilibili.com/read/*
 // @match        *://blog.csdn.net/*
@@ -36,32 +44,31 @@
     const menu = (name, key, defaultValue) => {
         const value = cget(key, defaultValue)
         name += value ? ':开启' : ':关闭';
-        GM_registerMenuCommand(name,
-            () => {
-                cset(key, !value);
-                location.reload()
-            }
-        );
+        GM_registerMenuCommand(name, () => {
+            cset(key, !value);
+            location.reload()
+        });
         return value;
     }
     const options = (name, key, ValueList) => {
         const index = cget(key, 0)
         name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
-        GM_registerMenuCommand(name,
-            () => {
-                if (index + 1 >= ValueList.length) cset(key, 0)
-                else cset(key, index + 1);
-                location.reload()
-            }
-        );
+        GM_registerMenuCommand(name, () => {
+            if (index + 1 >= ValueList.length) cset(key, 0)
+            else cset(key, index + 1);
+            location.reload()
+        });
         return index;
     }
 
+    let isRunning = false;
     /* utils */
     const match = (s) => {
         if (location.href.indexOf(s) !== -1) {
-            console.log("Yuhan 自用 优化美化净化脚本 运行中...")
-            console.info("求star https://github.com/yuhanawa/UserScript")
+            if (!isRunning) {
+                isRunning = true;
+                console.info("Yuhan 自用 优化美化净化脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
+            }
             return true;
         }
         return false;
@@ -164,160 +171,70 @@
 
         if (cget("search", true)) {
             let css = `
-        body {
-            background-color: #f5f5f5;
+        body, .body-awa {
+            background-color: #f5f5f5 !important;
         }
+        header, .header-awa
+        {
+            background-color: transparent !important;
+            padding-top: 18px !important;
+            position: static !important;
+        }
+        input, .inputbox-awa
+        {
+            background-color: #fff;
+        }
+        .item-awa{
+            word-wrap: break-word;
+            word-break: break-word;
+            color: #333;
+            line-height: 1.65;
+            background: #fff;
+            box-sizing: border-box;
+            border-radius: 4px;
+            padding: 12px 20px;
+            transition: all 450ms cubic-bezier(.23,1,.32,1) 0s;
+            box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+            border-collapse: collapse;
+            margin-bottom: 18px;
+            margin-top: 0px;
+            border: 1px solid rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .item-awa div{
+            background: transparent;
+            padding: revert !important;
+            box-shadow: unset;
+            margin-bottom: revert;
+            border:unset
+        }
+        .item-awa p, .item-awa span, .item-text-awa{
+            line-height: 20px;
+            color: #444;
+            font: 13px,'Microsoft YaHei',Arial,Helvetica,Sans-Serif;
+        } 
+        .item-awa h2, .item-awa a, .item-title-awa{
+            /*color: #555;*/
+            color: #3476dd;
+            font: 18px 'Microsoft YaHei UI','Microsoft YaHei',Arial,Helvetica,Sans-Serif;
+            line-height: 24px;
+            font-weight: 400;
+        }         
+        .auto{
+            margin:auto !important;
+            padding:auto !important;
+        }
+        .hidden{
+            display:none !important;
+            height:0px !important;
+            weight:0px !important;
+        }
+        
         
         /* 暴力解决 */
         #engine_switch_tool{
-            animation : none;
-            animation-delay : 0;
-            animation-direction : normal;
-            animation-duration : 0;
-            animation-fill-mode : none;
-            animation-iteration-count : 1;
-            animation-name : none;
-            animation-play-state : running;
-            animation-timing-function : ease;
-            backface-visibility : visible;
-            background : 0;
-            background-attachment : scroll;
-            background-clip : border-Box;
-            background-color : transparent;
-            background-image : none;
-            background-origin : padding-Box;
-            background-position : 0 0;
-            background-position-x : 0;
-            background-position-y : 0;
-            background-repeat : repeat;
-            background-size : auto auto;
-            border : 0;
-            border-style : none;
-            border-width : medium;
-            border-color : inherit;
-            border-bottom : 0;
-            border-bottom-color : inherit;
-            border-bottom-left-radius : 0;
-            border-bottom-right-radius : 0;
-            border-bottom-style : none;
-            border-bottom-width : medium;
-            border-collapse : separate;
-            border-image : none;
-            border-left : 0;
-            border-left-color : inherit;
-            border-left-style : none;
-            border-left-width : medium;
-            border-radius : 0;
-            border-right : 0;
-            border-right-color : inherit;
-            border-right-style : none;
-            border-right-width : medium;
-            border-spacing : 0;
-            border-top : 0;
-            border-top-color : inherit;
-            border-top-left-radius : 0;
-            border-top-right-radius : 0;
-            border-top-style : none;
-            border-top-width : medium;
-            bottom : auto;
-            Box-shadow : none;
-            Box-sizing : content-Box;
-            caption-side : top;
-            clear : none;
-            clip : auto;
-            color : inherit;
-            columns : auto;
-            column-count : auto;
-            column-fill : balance;
-            column-gap : normal;
-            column-rule : medium none currentColor;
-            column-rule-color : currentColor;
-            column-rule-style : none;
-            column-rule-width : none;
-            column-span : 1;
-            column-width : auto;
-            content : normal;
-            counter-increment : none;
-            counter-reset : none;
-            cursor : auto;
-            direction : ltr;
-            display : inline;
-            empty-cells : show;
-            float : none;
-            font : normal;
-            font-family : inherit;
-            font-size : medium;
-            font-style : normal;
-            font-variant : normal;
-            font-weight : normal;
-            height : auto;
-            hyphens : none;
-            left : auto;
-            letter-spacing : normal;
-            line-height : normal;
-            list-style : none;
-            list-style-image : none;
-            list-style-position : outside;
-            list-style-type : disc;
-            margin : 0;
-            margin-bottom : 0;
-            margin-left : 0;
-            margin-right : 0;
-            margin-top : 0;
-            max-height : none;
-            max-width : none;
-            min-height : 0;
-            min-width : 0;
-            opacity : 1;
-            orphans : 0;
-            outline : 0;
-            outline-color : invert;
-            outline-style : none;
-            outline-width : medium;
-            overflow : visible;
-            overflow-x : visible;
-            overflow-y : visible;
-            padding : 0;
-            padding-bottom : 0;
-            padding-left : 0;
-            padding-right : 0;
-            padding-top : 0;
-            page-break-after : auto;
-            page-break-before : auto;
-            page-break-inside : auto;
-            perspective : none;
-            perspective-origin : 50% 50%;
-            position : static;
-            right : auto;
-            tab-size : 8;
-            table-layout : auto;
-            text-align : inherit;
-            text-align-last : auto;
-            text-decoration : none;
-            text-decoration-color : inherit;
-            text-decoration-line : none;
-            text-decoration-style : solid;
-            text-indent : 0;
-            text-shadow : none;
-            text-transform : none;
-            top : auto;
-            transform : none;
-            transform-style : flat;
-            transition : none;
-            transition-delay : 0s;
-            transition-duration : 0s;
-            transition-property : none;
-            transition-timing-function : ease;
-            unicode-bidi : normal;
-            vertical-align : baseline;
-            visibility : visible;
-            white-space : normal;
-            widows : 0;
-            width : auto;
-            word-spacing : normal;
-            z-index : auto;
-        
-        
+            all: initial;
+            
             z-index: 1;
             position: fixed !important;
             top: 140px !important;
@@ -326,154 +243,8 @@
             flex-direction: column;
         }
         .engine_switch_btn {
-        
-            animation : none;
-            animation-delay : 0;
-            animation-direction : normal;
-            animation-duration : 0;
-            animation-fill-mode : none;
-            animation-iteration-count : 1;
-            animation-name : none;
-            animation-play-state : running;
-            animation-timing-function : ease;
-            backface-visibility : visible;
-            background : 0;
-            background-attachment : scroll;
-            background-clip : border-Box;
-            background-color : transparent;
-            background-image : none;
-            background-origin : padding-Box;
-            background-position : 0 0;
-            background-position-x : 0;
-            background-position-y : 0;
-            background-repeat : repeat;
-            background-size : auto auto;
-            border : 0;
-            border-style : none;
-            border-width : medium;
-            border-color : inherit;
-            border-bottom : 0;
-            border-bottom-color : inherit;
-            border-bottom-left-radius : 0;
-            border-bottom-right-radius : 0;
-            border-bottom-style : none;
-            border-bottom-width : medium;
-            border-collapse : separate;
-            border-image : none;
-            border-left : 0;
-            border-left-color : inherit;
-            border-left-style : none;
-            border-left-width : medium;
-            border-radius : 0;
-            border-right : 0;
-            border-right-color : inherit;
-            border-right-style : none;
-            border-right-width : medium;
-            border-spacing : 0;
-            border-top : 0;
-            border-top-color : inherit;
-            border-top-left-radius : 0;
-            border-top-right-radius : 0;
-            border-top-style : none;
-            border-top-width : medium;
-            bottom : auto;
-            Box-shadow : none;
-            Box-sizing : content-Box;
-            caption-side : top;
-            clear : none;
-            clip : auto;
-            color : inherit;
-            columns : auto;
-            column-count : auto;
-            column-fill : balance;
-            column-gap : normal;
-            column-rule : medium none currentColor;
-            column-rule-color : currentColor;
-            column-rule-style : none;
-            column-rule-width : none;
-            column-span : 1;
-            column-width : auto;
-            content : normal;
-            counter-increment : none;
-            counter-reset : none;
-            cursor : auto;
-            direction : ltr;
-            display : inline;
-            empty-cells : show;
-            float : none;
-            font : normal;
-            font-family : inherit;
-            font-size : medium;
-            font-style : normal;
-            font-variant : normal;
-            font-weight : normal;
-            height : auto;
-            hyphens : none;
-            left : auto;
-            letter-spacing : normal;
-            line-height : normal;
-            list-style : none;
-            list-style-image : none;
-            list-style-position : outside;
-            list-style-type : disc;
-            margin : 0;
-            margin-bottom : 0;
-            margin-left : 0;
-            margin-right : 0;
-            margin-top : 0;
-            max-height : none;
-            max-width : none;
-            min-height : 0;
-            min-width : 0;
-            opacity : 1;
-            orphans : 0;
-            outline : 0;
-            outline-color : invert;
-            outline-style : none;
-            outline-width : medium;
-            overflow : visible;
-            overflow-x : visible;
-            overflow-y : visible;
-            padding : 0;
-            padding-bottom : 0;
-            padding-left : 0;
-            padding-right : 0;
-            padding-top : 0;
-            page-break-after : auto;
-            page-break-before : auto;
-            page-break-inside : auto;
-            perspective : none;
-            perspective-origin : 50% 50%;
-            position : static;
-            right : auto;
-            tab-size : 8;
-            table-layout : auto;
-            text-align : inherit;
-            text-align-last : auto;
-            text-decoration : none;
-            text-decoration-color : inherit;
-            text-decoration-line : none;
-            text-decoration-style : solid;
-            text-indent : 0;
-            text-shadow : none;
-            text-transform : none;
-            top : auto;
-            transform : none;
-            transform-style : flat;
-            transition : none;
-            transition-delay : 0s;
-            transition-duration : 0s;
-            transition-property : none;
-            transition-timing-function : ease;
-            unicode-bidi : normal;
-            vertical-align : baseline;
-            visibility : visible;
-            white-space : normal;
-            widows : 0;
-            width : auto;
-            word-spacing : normal;
-            z-index : auto;
-        
+            all: initial;
+            
             margin: 10px;
             text-align: center;
             cursor: pointer;
@@ -496,7 +267,13 @@
             font-weight: normal;
             
         }        
-        `;
+        `.replaceAll(/\s*,/g, ",")
+                .replaceAll(/\s*{/g, "{");
+            const addClass = (y, add) => {
+                css = css
+                    .replaceAll(`${y},`, `${add},${y},`)
+                    .replaceAll(`${y}{`, `${add},${y}{`);
+            }
 
             /* bing */
             if (match("bing.com/search")) {
@@ -700,8 +477,7 @@
 
 
             }
-            /* baidu */
-            else if (match("baidu.com/s")) {
+            /* baidu */ else if (match("baidu.com/s")) {
                 css += `
         /* baidu */
         
@@ -1026,10 +802,61 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                     });
                 })
             }
-            /* fsou */
-            // else if ((match("fsoufsou.com/search")||match("google.com/search"))&&false) {
-            //     css += ``
-            // }
+            /* fsou */ else if (match("fsoufsou.com/search")) {
+                addClass(".header-awa", "._search-sticky-bar")
+                addClass(".inputbox-awa", ".input-group-container")
+                addClass(".item-awa", ".organic-results div")
+                addClass(".item-awa div", ".organic-results div div")
+                addClass(".item-title-awa", ".organic-results div a")
+                addClass(".item-text-awa", ".organic-results div span")
+                addClass(".auto", ".mobile-wiki-container")
+
+                load_then_delay(() => {
+                    const i = document.querySelector("#app > div > .false > .flex-column > div > .flex-row > .flex-column > div")
+                    if (i == null || i.innerText.length < 20) {
+                        i.remove()
+                    } else {
+                        i.className += "item-awa"
+                        i.querySelectorAll(".flex-row-center").forEach((x) => x.remove())
+                    }
+                }, 1000)
+
+
+                css += `
+                    #app div .false {
+                        padding-top: 0px !important;
+                    } 
+                `
+            }
+            /* google */ else if (match("google.com/search")) {
+                addClass(".header-awa", ".CvDJxb")
+                addClass(".item-awa", ".MjjYud")
+                addClass(".item-awa div", ".MjjYud div")
+                addClass(".item-title-awa", "h3.LC20lb")
+                addClass(".item-text-awa", ".MjjYud span")
+
+                css += `
+                .yg51vc, /*头部白色区域*/
+                .appbar /*获得约 * 条结果，以下是第 * 页*/
+                {
+                    background-color: transparent !important;
+                }
+                
+                .sfbg, /*令人疑惑的留白*/
+                .dodTBe/*同上*/
+                {
+                    display:none !important;
+                    height:0px !important;
+                    weight:0px !important;
+                }
+                `
+                document.addEventListener("click", () => {
+                    document.getElementById("switch_google").href = 'https://www.google.com/search?q=' + document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D');
+                    document.getElementById("switch_bing").href = 'https://www.bing.com/search?q=' + document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D');
+                    document.getElementById("switch_baidu").href = 'https://www.baidu.com/s?wd=' + document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D');
+                    document.getElementById("switch_fsou").href = 'https://www.fsoufsou.com/search?q=' + document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D');
+                }, true);
+            }
             addcss(css);
         }
         /* search tools */
@@ -1037,13 +864,13 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             document.addEventListener("DOMContentLoaded", () => {
                 document.body.innerHTML = `
                 <div id="engine_switch_tool">        
-                    <a class="engine_switch_btn"
+                    <a id="switch_google" class="engine_switch_btn" href = 'https://www.google.com/search?q='
                     onclick="this.href = 'https://www.google.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">google</a>
-                    <a class="engine_switch_btn"
+                    <a id="switch_bing" class="engine_switch_btn" href = 'https://www.bing.com/search?q='
                     onclick="this.href = 'https://www.bing.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">bing</a>
-                    <a class="engine_switch_btn"
+                    <a id="switch_baidu" class="engine_switch_btn" href = 'https://www.baidu.com/s?wd='
                     onclick="this.href = 'https://www.baidu.com/s?wd='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">baidu</a>
-                    <a class="engine_switch_btn"
+                    <a id="switch_fsou" class="engine_switch_btn" href = 'https://www.fsoufsou.com/search?q='
                     onclick="this.href = 'https://www.fsoufsou.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">fsou</a>
                 </div>` + document.body.innerHTML;
             })
@@ -1054,8 +881,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             document.onkeydown = (e) => {
                 if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
                     document.querySelector("input").focus();
-                    if (index === 0) document.querySelector("input").value = "";
-                    else if (index === 2) document.querySelector("input").select();
+                    if (index === 0) document.querySelector("input").value = ""; else if (index === 2) document.querySelector("input").select();
                     e.preventDefault();
                 }
             }
