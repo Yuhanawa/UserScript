@@ -5,17 +5,17 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.6
+// @version      0.2.7
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-23 0.2.7 优化必应样式(细节) 微调f搜样式(细节) 为自定义搜索引擎快速切换/自定义背景做准备
 // @node         8-23 0.2.6 细节调整
 // @node         8-23 0.2.5 移除必应首页下方黑条(footer)
 // @node         8-22 0.2.4 改进搜索引擎快速切换的一个细节 屏蔽一个广告屏蔽插件不认为是广告的广告(bing词典手机app下载)
 // @node         8-22 0.2.3 添加谷歌f搜样式(累死) 修复搜索引擎快速切换的一个bug
 // @node         8-21 0.2.2 添加搜索引擎快速聚焦搜索框(Ctrl+[K|Q|S]) 模式：["清空","关闭", "选中", "聚焦"]
-// @node         8-20 0.2.1 视频快捷分享复制 四种模式
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
@@ -40,6 +40,8 @@
 (function () {
     'use strict';
 
+    let css = "";
+
     /* config */
     const cget = (key, d) => GM_getValue(key, d)
     const cset = (key, v) => GM_setValue(key, v)
@@ -57,7 +59,7 @@
         const index = cget(key, 0)
         name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
         GM_registerMenuCommand(name, () => {
-            if (index + 1 >= ValueList.length) cset(key, 0)
+            if (index + 1 >= ValueList.length) cset(key, 0);
             else cset(key, index + 1);
             location.reload()
         });
@@ -75,21 +77,6 @@
             return true;
         }
         return false;
-    }
-
-    const addcss = (css) => {
-        css = css.replaceAll(/\s{2,}/g, " ")
-        if (typeof GM_addStyle != "undefined") {
-            GM_addStyle(css);
-        } else if (typeof PRO_addStyle != "undefined") {
-            PRO_addStyle(css);
-        } else if (typeof addStyle != "undefined") {
-            addStyle(css);
-        } else {
-            const node = document.createElement("style");
-            node.appendChild(document.createTextNode(css));
-            document.body.appendChild(node);
-        }
     }
 
     const onload = (f) => document.addEventListener("DOMContentLoaded", () => f());
@@ -167,12 +154,12 @@
     }
 
     /* search */
-    if (match("bing.com/search") || match("baidu.com/s") || match("fsoufsou.com/search") || match("google.com/search")) {
+    else if (match("bing.com/search") || match("baidu.com/s") || match("fsoufsou.com/search") || match("google.com/search")) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
         if (cget("search", true)) {
-            let css = `
+            css += `
         body, .body-awa {
             background-color: #f5f5f5 !important;
         }
@@ -210,12 +197,12 @@
             margin-bottom: revert;
             border:unset
         }
-        .item-awa p, .item-awa span, .item-text-awa{
+        p,span,.item-awa p, .item-awa span, .item-text-awa{
             line-height: 20px;
             color: #444;
             font: 13px,'Microsoft YaHei',Arial,Helvetica,Sans-Serif;
         } 
-        .item-awa h2, .item-awa a, .item-title-awa{
+        h2 .item-awa h2, .item-awa a, .item-title-awa{
             /*color: #555;*/
             color: #3476dd;
             font: 18px 'Microsoft YaHei UI','Microsoft YaHei',Arial,Helvetica,Sans-Serif;
@@ -226,12 +213,6 @@
             margin:auto !important;
             padding:auto !important;
         }
-        .hidden{
-            display:none !important;
-            height:0px !important;
-            weight:0px !important;
-        }
-        
         
         #engine_switch_tool{
             all: initial;
@@ -243,7 +224,7 @@
             display: flex;
             flex-direction: column;
         }
-        .engine_switch_btn {
+        #engine_switch_tool a {
             all: initial;
             
             margin: 10px;
@@ -268,186 +249,74 @@
             font-weight: normal;
         }       
         
-        a:visited {
+        #engine_switch_tool a:visited {
             color: #333 !important;
         }
         
-        `.replaceAll(/\s*,/g, ",")
-                .replaceAll(/\s*{/g, "{");
+        `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
+
             const addClass = (y, add) => {
                 css = css
                     .replaceAll(`${y},`, `${add},${y},`)
                     .replaceAll(`${y}{`, `${add},${y}{`);
-            }
+            };
 
             /* bing */
             if (match("bing.com/search")) {
                 css += `
-        .sh_favicon{
-            margin-left: 16px;
-        }
-        #b_content #b_results>li:not(#mfa_root) {
-            width: 670px;
-            padding: 12px 20px !important;
-            margin-top: 0px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-sizing: border-box;
-            border: 1px solid rgba(0,0,0,0.1);
-            transition: all 0.25s cubic-bezier(.23,1,.32,1) 0s;
-            overflow: hidden;
-        }
-        #b_content #b_results a,
-        #b_content #b_results h2 a {
-            position: relative;
-            color: #3476d2;
-        }
-        #b_content #b_results h2 a, #b_results h2 strong{
-            font-weight: bold;
-            font-size: medium;
-        }
-        #b_content #b_results>li:hover {
-            border: 1px solid rgba(0,0,0,0.3);
-            box-shadow: 0 0 1px grey;
-            -webkit-box-shadow: 0 0 1px grey;
-            -moz-box-shadow: 0 0 1px gray;
-        }
-        #b_content >#b_results li:not(#mfa_root) h2 {
-            background-color: #f8f8f8;
-            margin: -12px -20px 10px -20px;
-            padding: 8px 20px 5px;
-            border-radius: 5px 5px 0px 0px;
-        }
+                .sh_favicon{
+                    margin-left: 16px;
+                }
+                #b_content{
+                    padding-top: 25px;
+                }
         
-        a, a strong {
-            text-decoration: none;
-        }
-        
-        #b_content #b_results a strong,
-        #b_content #b_results h2 a strong {
-            text-decoration: none;
-        }
-        .b_algo:first-child:hover h2 a{
-            text-decoration: none !important;
-        }
-        #b_content #b_results a:hover:after,
-        #b_content #b_results h2 a:hover:after {
-            left: 0;
-            width: 100%;
-            -webkit-transition: width 350ms;
-            -moz-transition: width 350ms;
-            transition: width 350ms;
-        }
-        #b_content #b_results a:hover,
-        #b_content #b_results h2 a:hover{
-            text-decoration: none;
-        }
-        #b_content #b_results a:after,
-        #b_content #b_results h2 a:after {
-            content: "";
-            position: absolute;
-            border-bottom: 2px solid #3476d2;
-            bottom: -2px;
-            left: 100%;
-            width: 0;
-            -webkit-transition: width 350ms, left 350ms;
-            -moz-transition: width 350ms, left 350ms;
-            transition: width 350ms, left 350ms;
-        }
-        #b_content #b_results h2 a:visited,
-        #b_content #b_results h2 a:visited strong,
-        #b_content #b_results h2 h2 a:visited,
-        #b_content #b_results h2 h2 a:visited strong {
-            color: #660099;
-        }
-        #b_content #b_results h2 a:visited:hover:after,
-        #b_content #b_results h2 h2 a:visited:hover:after {
-            left: 0;
-            width: 100%;
-            -webkit-transition: width 350ms;
-            -moz-transition: width 350ms;
-            transition: width 350ms;
-        }
-        #b_content>ol#b_context{
-            display:none;
-        }
-        body #b_header{
-            background-color: #f5f5f5;
-        }
-        #b_content .b_underSearchbox{
-            margin-top: 10px;
-        }
-        #b_header .b_scopebar{
-            /*margin: unset;*/
-            margin: 2px 0 0 160px;
-        }
-        /*search engine jump*/
-        .tsf-p>.logocont, #sej-container{
-            margin-right: 350px;
-            text-align: center;
-        }
-        .tsf-p>.sfibbbc{
-            margin-right: 350px;
-            text-align: center;
-        }
-        .b_searchboxForm .sa_tm{
-            text-align: left; /* SearchBox text Center */
-        }
-        @media (max-width: 1100px){
-            body #b_header #est_switch{
-                transform: translateX(1.2rem);
-            }
-        }
-        /!* SearchItmes Bottom to Top ani *!/
-        #b_content{
-            animation-name: ani_topTobuttom;
-            animation-duration: 0.6s;
-            animation-timing-function: ease;
-            padding-top: 30px;
-        }
-        
-        #b-scopeListItem-video,
-        #b-scopeListItem-academic,
-        #b-scopeListItem-dictionary{
-            display: none;
-        }
-        
-        #id_sc,
-        #id_h #id_l {
-            margin-top: -46px;
-        }
-        body #b_header #est_switch {
-            position: relative;
-            right: 128px;
-            top: 5px;
-        }
-        
-        /* 国际版切换按钮 */
-        #est_cn, 
-        #est_en{
-            height: 12px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 8px;
-        }
-        
-        #est_cn::after,
-        #est_en::after{
-            border-radius: 5px;
-        }
-        
-        .b_hPanel{ /* bing词典手机app广告 */
-            display:none;
-        }
-        
-        
-        `;
+                .b_hPanel, /* bing词典手机app广告 */
+                #b-scopeListItem-video,
+                #b-scopeListItem-academic,
+                #b-scopeListItem-dictionary{
+                    display: none;
+                }
+                
+                #id_sc,#id_h #id_l {   /* 设置按钮 */
+                    margin-top: -46px;
+                }
+                body #b_header #est_switch {    /* 国际版切换按钮 */
+                    position: relative;
+                    right: 128px;
+                    top: 5px;
+                }
+                
+                #mfa_root{      /* 重置右下搜索按钮样式 */
+                    background: transparent!important;
+                    box-shadow: unset!important;
+                    margin-bottom: revert!important;
+                    border:unset!important;
+                }
+                
+                /* 国际版切换按钮 */
+                #est_cn, 
+                #est_en{
+                    height: 12px;
+                    border: 1px solid #ddd;
+                    padding: 10px;
+                    margin: 8px;
+                }
+                #est_cn::after,
+                #est_en::after{
+                    border-radius: 5px;
+                }
+                `;
+
+                addClass(".item-awa", "#b_results > li")
+                addClass(".item-title-awa", "h2")
+                addClass(".item-text-awa", "p")
+                /* 移动 切换按钮 位置 */
                 const est_switch_html = `>${document.getElementById("est_switch").outerHTML}<a id="id_l"`;
                 document.getElementById("est_switch").remove();
                 document.getElementById("id_h").outerHTML = document.getElementById("id_h").outerHTML
                     .replace(`><a id="id_l"`, est_switch_html)
-
+                /* 移除空白的div */
                 load_then_delay(() => {
                     const bc = document.getElementById("b_context");
                     if (bc.outerText.length < 20) {
@@ -466,13 +335,10 @@
                     css += `.sh_favicon{ display:none !important; }`
                 }
 
-
             }
             /* baidu */
             else if (match("baidu.com/s")) {
-                css += `
-        /* baidu */
-        
+                css += `        
 *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
 ::-webkit-scrollbar{width:6px;height:10px;background-color:rgba(0,0,0,0)}
 ::-webkit-scrollbar-track{background-color:rgba(0,0,0,.1)}
@@ -782,15 +648,11 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
 
 #container.sam_newgrid #content_left{
     padding-top: 8px;
-}
-
-
-
-`;
+}`;
 
                 onload(() => {
                     document.querySelectorAll("input").forEach(i => {
-                        if (i.type === 'hidden') i.remove();
+                        if (i.type !== 'text') i.remove();
                     });
                 })
             }
@@ -819,6 +681,10 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                     #app div .false {
                         padding-top: 0px !important;
                     } 
+                    
+                    .organic-results {
+                        padding-top: 16px;
+                    }
                 `
             }
             /* google */
@@ -851,20 +717,19 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                     document.getElementById("switch_fsou").href = 'https://www.fsoufsou.com/search?q=' + document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D');
                 }, true);
             }
-            addcss(css);
         }
         /* search tools */
         if (cget("search_engine_switch_tool", true)) {
             document.addEventListener("DOMContentLoaded", () => {
                 document.body.innerHTML = `
-                <div id="engine_switch_tool">        
-                    <a id="switch_google" class="engine_switch_btn" href = 'https://www.google.com/search?q='
+                <div id="engine_switch_tool"> 
+                    <a id="switch_google" href = 'https://www.google.com/search?q='
                     onclick="this.href = 'https://www.google.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">google</a>
-                    <a id="switch_bing" class="engine_switch_btn" href = 'https://www.bing.com/search?q='
+                    <a id="switch_bing" href = 'https://www.bing.com/search?q='
                     onclick="this.href = 'https://www.bing.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">bing</a>
-                    <a id="switch_baidu" class="engine_switch_btn" href = 'https://www.baidu.com/s?wd='
+                    <a id="switch_baidu" href = 'https://www.baidu.com/s?wd='
                     onclick="this.href = 'https://www.baidu.com/s?wd='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">baidu</a>
-                    <a id="switch_fsou" class="engine_switch_btn" href = 'https://www.fsoufsou.com/search?q='
+                    <a id="switch_fsou" href = 'https://www.fsoufsou.com/search?q='
                     onclick="this.href = 'https://www.fsoufsou.com/search?q='+document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#','%23').replaceAll('&','%26').replaceAll('+','%2B').replaceAll(' ','%20').replaceAll('?','%3F').replaceAll('=','%3D')">fsou</a>
                 </div>` + document.body.innerHTML;
             })
@@ -881,7 +746,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             }
         }
     } else if (match("bing.com")) {
-        addcss(`
+        css += (`
                 #footer { /*首页下方黑条*/
                     display:none;
                 }
@@ -893,9 +758,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
     }
 
     /* csdn */
-    if (match("blog.csdn.net") && match("/article/details/")) {
-        let css = "";
-
+    else if (match("blog.csdn.net") && match("/article/details/")) {
         if (menu("CSDN极简化", 'csdn_opt', true)) {
             css += `
             .hide-article-box,
@@ -964,8 +827,6 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
             `
         }
 
-        addcss(css);
-
         load_then_delay(() => {
             // 将代码块改为可修改
             document.querySelectorAll("code").forEach(c => {
@@ -1019,5 +880,20 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
         e.stopPropagation();
         e.stopImmediatePropagation();
     }, true);
+
+
+    // add css
+    css = css.replaceAll(/\s{2,}/g, " ")
+    if (typeof GM_addStyle != "undefined") {
+        GM_addStyle(css);
+    } else if (typeof PRO_addStyle != "undefined") {
+        PRO_addStyle(css);
+    } else if (typeof addStyle != "undefined") {
+        addStyle(css);
+    } else {
+        const node = document.createElement("style");
+        node.appendChild(document.createTextNode(css));
+        document.body.appendChild(node);
+    }
 
 })();
