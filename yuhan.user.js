@@ -10,6 +10,7 @@
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-23~8-24 0.2.7(4) 修复谷歌镜像下的一个切换bug
 // @node         8-23~8-24 0.2.7(3) 添加一个谷歌镜像 添加缺失的@match
 // @node         8-23~8-24 0.2.7(2) (不推送更新) 重构搜索引擎快速切换 自定义搜索引擎快速切换半成品 明天做完
 // @node         8-23 0.2.7 优化必应样式(细节) 微调f搜样式(细节) 为自定义搜索引擎快速切换/自定义背景做准备
@@ -56,8 +57,8 @@
         Bing搜索,https://cn.bing.com/search?q=$
         360搜索,https://www.so.com/s?q=$
         搜狗搜索,https://www.sogou.com/web?query=$
-        谷歌镜像,https://xn--flw351e.ml/search?q=$
-        谷歌镜像,https://search.aust.cf/search?q=$
+        谷歌镜像1,https://xn--flw351e.ml/search?q=$
+        谷歌镜像2,https://search.aust.cf/search?q=$
         雅虎,https://search.yahoo.com/search?p=$
         Yandex,https://yandex.com/search/?text=$
         -百度翻译,https://fanyi.baidu.com/#en/zh/$
@@ -861,7 +862,7 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
         if (cget("search_engine_switch_tool", true)) {
             document.addEventListener("DOMContentLoaded", () => {
                 let html = "";
-                searchList = searchList.replaceAll(/-.*\n/g, "");
+                searchList = searchList.replaceAll(/^-.*\n/g, "");
                 searchList.trim().split("\n").forEach((s) => {
                     s = s.replaceAll(/\s/g, "");
                     if (s.startsWith('#')) return;
