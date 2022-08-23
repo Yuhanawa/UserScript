@@ -5,11 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.5
+// @version      0.2.6
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-23 0.2.6 细节调整
 // @node         8-23 0.2.5 移除必应首页下方黑条(footer)
 // @node         8-22 0.2.4 改进搜索引擎快速切换的一个细节 屏蔽一个广告屏蔽插件不认为是广告的广告(bing词典手机app下载)
 // @node         8-22 0.2.3 添加谷歌f搜样式(累死) 修复搜索引擎快速切换的一个bug
@@ -393,7 +394,7 @@
         .b_searchboxForm .sa_tm{
             text-align: left; /* SearchBox text Center */
         }
-/*        @media (max-width: 1100px){
+        @media (max-width: 1100px){
             body #b_header #est_switch{
                 transform: translateX(1.2rem);
             }
@@ -405,18 +406,6 @@
             animation-timing-function: ease;
             padding-top: 30px;
         }
-        
-        /!* SearchBar Left to Right ani *!/
-        body #b_header {
-            animation-name: ani_topTobuttom;
-            animation-duration: 0.6s;
-            animation-timing-function: ease-out;
-        }
-        body{
-            animation-name: ani_hideToShow;
-            animation-duration: 0.6s;
-            animation-timing-function: ease-out;
-        }*/
         
         #b-scopeListItem-video,
         #b-scopeListItem-academic,
