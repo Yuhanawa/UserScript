@@ -5,16 +5,16 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.3.6
+// @version      0.3.7
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-24 0.3.7 细节修改 添加个性化界面为下个版本做准备
 // @node         8-24 0.3.6 缩减近300行代码 添加类谷歌(镜像)的支持
 // @node         8-24 0.3.5 紧急修复两个样式问题(百度和360)
 // @node         8-24 0.3.4 轻度美化搜狗360的样式
-// @node         8-24 0.3.3 添加一个谷歌镜像 修复一个谷歌镜像链接
-// @node         8-24 0.3.2 修复在必应加载时 画面扭曲
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
+// @note         快开学了 开学后可能更新缓慢 但会持续更新的 反馈可能一时半会看不到 请稍安勿躁
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
@@ -34,6 +34,8 @@
 // @match        *search.aust.cf/*
 // @match        *.yahoo.com/*
 // @match        *.yandex.com/*
+// @match        *searx.tiekoetter.com/*
+// @match        *.petalsearch.com/*
 // @icon         none
 // @run-at       document-start
 // @grant        GM_setValue
@@ -190,7 +192,13 @@
         // ---------------------------------------------------------------------------- //
 
     /* search */
-    else if (matchList(["bing.com/search", "baidu.com/s", "fsoufsou.com/search", "google.com/search", "so.com/s", "sogou.com/web?query", "search.yahoo.com/search", "yandex.com/search", "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search" /*谷歌镜像*/])) {
+    else if (matchList([
+        "bing.com/search", "baidu.com/s", "fsoufsou.com/search", "google.com/search",
+        "so.com/s", "sogou.com/web?query",
+        "search.yahoo.com/search", "yandex.com/search",
+        "searx.tiekoetter.com", "petalsearch.com",
+        "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search" /*谷歌镜像*/
+    ]) || match("/search?")) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
@@ -206,40 +214,44 @@
         /* search */
         if (cget("search", true)) {
             css += `
-            *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
+        *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
         body, .body-awa {
             background-color: #f5f5f5 !important;
               animation-name: ani_topTobuttom;
               animation-duration: 1s;
               animation-timing-function: ease;
+              {body-awa}
         }
-        header, .header, #header, .header-awa
+        .head, #head, header, .header, #header, .header-awa
         {
             background-color: transparent !important;
             padding-top: 18px !important;
             position: static !important;
+            {header-awa}
         }
         input, .inputbox-awa
         {
             background-color: rgba(255, 255, 255,0.3);
-            backdrop-filter: blur(10px)
+            {inputbox-awa}
         }
         .results > div, .results > li, .result, .item-awa{
             word-wrap: break-word;
             word-break: break-word;
             color: #333;
             line-height: 1.65;
-            background: #fff;
+            background-color: rgba(255, 255, 255,1);
+            backdrop-filter: blur(8px);
             box-sizing: border-box;
-            border-radius: 4px;
+            border-radius: 6px;
             padding: 12px 20px;
             transition: all 450ms cubic-bezier(.23,1,.32,1) 0s;
-            box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+            box-shadow: 0 2px 6px 0 rgb(0 0 0 / 14%);
             border-collapse: collapse;
             margin-bottom: 18px;
             margin-top: 0px;
             border: 1px solid rgba(0,0,0,0.1);
             overflow: hidden;
+            {item-awa}
         }
         .item-awa div{
             background: transparent;
@@ -248,10 +260,10 @@
             margin-bottom: revert;
             border:unset
         }
-        p,span,.item-awa p, .item-awa span, .item-text-awa{
+        span, p, .item-awa p, .item-awa span, .item-text-awa{
             line-height: 20px;
             color: #444;
-            font: 13px;
+            font-size: 13px;
         } 
         h2,h3,.item-awa h2, .item-awa a, .item-title-awa{
             /*color: #555;*/
@@ -446,6 +458,11 @@
                 addClass(".item-awa", ".result-op, .result-op")
 
                 css += `
+                #s_tab{
+                    padding-top: 0px !important;
+                }
+                #result_logo img{display:none}
+                #result_logo{background-image:url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMTAxIDMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxMDEgMzM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojNDg3OUJEO30KCS5zdDF7ZmlsbDojREQ0NDM2O30KCS5zdDJ7ZmlsbDojRkZGRkZGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTUwLjQsMTUuM2MtMy44LDAuMy00LDIuNi01LjcsNC43Yy0xLjgsMi4yLTUuNSw0LjEtNiw2LjdjLTAuNiwzLjMsMS4zLDUuMSwzLDUuN2MxLjksMC42LDYuMi0wLjUsOC40LTAuNWgwLjIKCWgwLjJjMi4yLDAsNi40LDEuMSw4LjQsMC41YzEuOC0wLjYsMy41LTMuMiwzLTUuN2MtMC40LTIuMS00LjQtNC41LTYuMi02LjdDNTQuMiwxOCw1NC4zLDE1LjYsNTAuNCwxNS4zeiBNMzcsMTQuOAoJYzAsMi40LDEuNiw0LjMsMy40LDQuM2MxLjksMCwzLjQtMS45LDMuNC00LjNjMC0yLjQtMS42LTQuMy0zLjQtNC4zUzM3LDEyLjUsMzcsMTQuOHogTTQzLjksOC42YzAsMi41LDEuNSw0LjUsMy4zLDQuNQoJYzEuOCwwLDMuMy0yLjEsMy4zLTQuNVM0OSw0LjEsNDcuMSw0LjFDNDUuMyw0LDQzLjksNiw0My45LDguNnogTTUyLjIsOC41YzAsMi4zLDEuNCw0LjMsMy4yLDQuM3MzLjItMS45LDMuMi00LjNzLTEuNC00LjMtMy4yLTQuMwoJUzUyLjIsNi4yLDUyLjIsOC41eiBNNTcuNSwxNS45YzAsMi4zLDEuNSw0LjMsMy4zLDQuM2MxLjgsMCwzLjMtMS45LDMuMy00LjNzLTEuNS00LjMtMy4zLTQuM0M1OC45LDExLjYsNTcuNSwxMy42LDU3LjUsMTUuOXoiLz4KPHBhdGggY2xhc3M9InN0MSIgZD0iTTQsMzAuNHYtNS4xaDYuNGMxLjYsMCwxLjYsMC4zLDEuNiwydjEuNGMwLDEuNi0yLjMsMS44LTMuOSwxLjhMNCwzMC40TDQsMzAuNHogTTQsMjN2LTQuOGg0LjEKCWMxLjYsMCwzLjksMCwzLjksMi4xdjAuMWMwLDEuNC0wLjUsMi42LTEuOCwyLjZDMTAuMywyMyw0LDIzLDQsMjN6IE0xLjcsMTZ2MTYuM2g2LjRjMywwLDYuMiwwLDYuMi0zLjZ2LTEuMWMwLTEuNi0wLjEtMi43LTEuMS0zLjUKCWMxLTAuOCwxLjEtMi4zLDEuMS0zLjZsMCwwYzAtNC41LTMuMi00LjUtNi4yLTQuNUwxLjcsMTZMMS43LDE2eiIvPgo8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjUsMjguOWMtMS4xLDEuMS0zLjMsMS4zLTMuNSwxLjNjLTEuMywwLTIuNy0wLjUtMi43LTIuMWMwLTEuNCwwLjUtMi4zLDIuMS0yLjNjMS4zLDAsMi44LDAuMSw0LjEsMC42VjI4Ljl6CgkgTTIxLjQsMzIuM2MwLjQsMCwyLjMtMC4xLDMuNy0wLjlsMC4yLDAuN2gyLjF2LTguOWMwLTMuNi0yLjMtNS01LjctNWMtMS44LDAtNC4zLDAuNy00LjcsMC45bDAuNCwyLjNjMS42LTAuNiwzLTAuNiw0LjItMC42CgljMS44LDAsMy4zLDAuNiwzLjMsMi42VjI0Yy0xLTAuNC0yLjQtMC42LTQuMS0wLjZjLTMsMC00LjUsMS42LTQuNSw0LjdDMTYuNCwzMS44LDE5LjYsMzIuMywyMS40LDMyLjN6Ii8+CjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0zMC4yLDE2LjFjMCwwLjYsMC42LDEuMiwxLjMsMS4yYzAuOCwwLDEuMy0wLjYsMS4zLTEuMmMwLTAuNy0wLjYtMS4zLTEuMy0xLjNDMzAuOCwxNC44LDMwLjIsMTUuMywzMC4yLDE2LjF6CgkgTTMwLjMsMzIuMWgyLjRWMTguNWgtMi40VjMyLjF6Ii8+CjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik03MS4yLDIyLjFoOC40YzAuNCwwLjEsMC42LDAuMywwLjYsMC43djIuNmgtOS43di0yLjZDNzAuNiwyMi40LDcwLjgsMjIuMiw3MS4yLDIyLjF6IE03MS4yLDMwLjUKCWMtMC40LDAtMC42LTAuMy0wLjctMC44di0yLjZoOS43djIuNmMwLDAuNC0wLjIsMC43LTAuNiwwLjdINzEuMnogTTczLjYsMThjLTAuMSwwLjQtMC4xLDAuOS0wLjQsMS43Yy0wLjEsMC4zLTAuMSwwLjUtMC4xLDAuNwoJaC0yLjZjLTEuMywwLjEtMS45LDAuOC0yLDJ2Ny45YzAuMSwxLjEsMC44LDEuOCwyLDEuOWgxMGMxLjItMC4xLDEuOC0wLjcsMS45LTEuOHYtNy45Yy0wLjEtMS4zLTAuNy0xLjktMS45LTIuMWgtNQoJYzAuMS0wLjMsMC4xLTAuOCwwLjMtMS40YzAuMS0wLjQsMC4xLTAuNywwLjEtMC45aDcuMnYtMS44SDY3LjRWMThMNzMuNiwxOEw3My42LDE4eiIvPgo8cGF0aCBjbGFzcz0ic3QxIiBkPSJNOTMuNywyMi43Yy0wLjQtMC4xLTAuNS0wLjItMC41LTAuNXYtMC42aDMuMnYwLjZjLTAuMSwwLjMtMC4yLDAuNC0wLjUsMC41SDkzLjd6IE05Ni42LDI0LjEKCWMxLjEtMC4xLDEuNi0wLjUsMS42LTEuNHYtMWgyLjN2LTEuNWgtMi4zdi0xLjFoLTEuOHYxLjFoLTMuMnYtMS4xaC0xLjh2MS4xaC0yLjN2MS41aDIuM3YxYzAuMSwwLjksMC42LDEuNCwxLjYsMS40SDk2LjZ6CgkgTTk0LjgsMzAuNGMxLjYsMC44LDMuNCwxLjMsNS40LDEuOGwwLjktMS43Yy0xLjQtMC4yLTIuOS0wLjYtNC40LTEuMWMxLjEtMC44LDItMS42LDIuNy0yLjVjMC4zLTAuNCwwLjQtMC45LDAuMi0xLjMKCWMtMC4zLTAuNi0wLjgtMC45LTEuNC0wLjloLTl2MS41aDcuN2MwLjIsMCwwLjQsMC4xLDAuNCwwLjFzMCwwLjEtMC4xLDAuM2MtMC42LDAuNi0xLjQsMS4zLTIuMywxLjhjLTEuMi0wLjctMi4xLTEuMy0yLjQtMS44aC0yLjIKCWMwLjksMSwxLjgsMS45LDIuOSwyLjdjLTEuNiwwLjYtMy4zLDEuMS00LjksMS4zbDAuOSwxLjZDOTEuMywzMS44LDkzLjIsMzEuMSw5NC44LDMwLjR6IE04OC4zLDI1LjJ2LTZjMC4xLTAuNiwwLjMtMC45LDAuOC0wLjkKCWgxMS44di0xLjZIOTVjLTAuMS0wLjEtMi4yLTAuMS0yLjIsMGgtNC43Yy0xLjEsMC4xLTEuNywwLjktMS44LDIuMlYyNWMwLjEsMi4xLTAuNCw0LjQtMS4xLDYuN2wxLjksMC42CglDODcuOSwyOS45LDg4LjMsMjcuNiw4OC4zLDI1LjJ6Ii8+CjxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik00Ni4zLDI0LjJjMC42LDAsMS4yLDAuMSwxLjcsMC40djMuNGMwLDAuMy0wLjYsMS0xLjksMWMtMS41LDAtMS44LTAuNi0xLjgtMi4xdi0wLjYKCUM0NC4yLDI0LjgsNDQuNywyNC4yLDQ2LjMsMjQuMnogTTQ5LjIsMjAuN0g0OHYyLjVDNDcuNiwyMy4xLDQ3LDIzLDQ2LjMsMjNjLTIuNywwLTMuMywxLTMuMywzLjV2MC4zYzAsMi40LDAuOSwzLjMsMy4yLDMuMwoJYzAuOCwwLDEuMy0wLjEsMS44LTAuNWwwLjEsMC42aDEuMUw0OS4yLDIwLjdMNDkuMiwyMC43eiIvPgo8cGF0aCBjbGFzcz0ic3QyIiBkPSJNNTYuNywyM2gtMS4ydjUuMmMtMC42LDAuNC0xLjcsMC42LTIuNCwwLjZjLTAuOCwwLTEtMC40LTEtMS4zdi00LjZoLTEuMXY0LjhjMCwxLjYsMC41LDIuMywyLjEsMi4zCgljMSwwLDIuMS0wLjMsMi42LTAuNmwwLjEsMC42aDEuMVYyM3oiLz4KPHBhdGggY2xhc3M9InN0MSIgZD0iTTkyLjcsMTUuN2MwLTAuNywwLjYtMS4zLDEuMi0xLjNjMC42LDAsMS4yLDAuNiwxLjIsMS4zUzk0LjUsMTcsOTMuOSwxN0M5My4zLDE2LjksOTIuNywxNi4zLDkyLjcsMTUuN3oiLz4KPC9zdmc+Cg==");background-repeat:no-repeat;background-position:center;width:112px;height: 36px;margin:10px 0 0 0!important;}
                 #content_right{display:none}
                 .wrapper_new #s_tab .cur-tab:before,
                 .wrapper_new #s_tab .s-tab-news:before,
@@ -630,6 +647,64 @@
                 }
             }
         }
+
+        /* search setting */
+        document.body.innerHTML = document.body.innerHTML + `
+    <style>
+        #search-setting-btn-awa{
+            z-index: 114514;
+            position: fixed;
+            left: 40px;
+            bottom: 30px;
+            background: transparent;
+            border: 0 transparent !important;
+            width: 50px;
+            height: 50px;
+            font-size: xx-large;
+            
+        }
+        #search-setting-awa {
+            z-index: 114514;
+            position: fixed;
+            margin: auto;
+            width: 70vw;
+            height: 70vh;
+            top: 10vh;
+            left: 10vw;
+            background-color: lightpink;
+            background-image: url(https://w.wallhaven.cc/full/o3/wallhaven-o3z7d7.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position-y: bottom;
+            opacity: 0.88;
+            border: 1px solid rgba(0,0,0,0.5);
+            box-shadow: 6px 10px 24px 6px rgba(0,0,0,0.65);
+            border-radius: 24px;
+            padding: 5vh 5vw;
+            overflow: hidden;
+        }
+        #search-setting-awa * {
+            color: black;
+            font-size: x-large;
+        }
+    </style>
+    <div>   
+       <button id="search-setting-btn-awa" onclick='let e = document.getElementById("search-setting-awa");e.style.display=e.style.display==="block"?"none":"block"'>🎨</button>
+       <div id="search-setting-awa" style="display: none">
+            <h1>
+                这个页面未完成： 这里将是未来的个性化页面
+                <br>
+                这将包括已下内容：
+                <br>
+                半自定义搜索引擎
+                <br>
+                自定义背景
+                <br>
+                自定义字体
+            </h1>
+        </div>
+    </div>
+        `;
     }
 
     // ---------------------------------------------------------------------------- //
