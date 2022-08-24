@@ -5,11 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.3.2
+// @version      0.3.3
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-24 0.3.3 添加一个谷歌镜像 修复一个谷歌镜像链接
 // @node         8-24 0.3.2 修复在必应加载时 画面扭曲
 // @node         8-24 0.3.1 修复在必应加载缓慢时 出现错误
 // @node         8-24 0.3.0 搜索引擎快速切换大量改动 搜索引擎列表修改功能预计今晚完成
@@ -34,7 +35,8 @@
 // @match        *.so.com/*
 // @match        *.sogou.com/*
 // @match        *.xn--flw351e.ml/*
-// @match        *.search.aust.cf/*
+// @match        *search.njau.cf/*
+// @match        *search.aust.cf/*
 // @match        *.yahoo.com/*
 // @match        *.yandex.com/*
 // @icon         none
@@ -57,8 +59,9 @@
         鸭鸭搜索,https://duckduckgo.com/?q=$
         搜狗搜索,https://www.sogou.com/web?query=$
         360搜索,https://www.so.com/s?q=$
-        谷歌镜像,https://xn--flw351e.ml/search?q=$
-        谷歌镜像,https://search.aust.cf/search?q=$
+        谷歌镜像ml,https://xn--flw351e.ml/search?q=$
+        谷歌镜像njau,https://search.njau.cf/search?q=$
+        谷歌镜像aust,https://search.aust.cf/search?q=$
         # 雅虎,https://search.yahoo.com/search?p=$
         Yandex,https://yandex.com/search/?text=$
         维基百科,https://zh.wikipedia.org/wiki/$
@@ -194,7 +197,7 @@
         match("fsoufsou.com/search") || match("google.com/search") ||
         match("so.com/s") || match("sogou.com/web?query") ||
         match("search.yahoo.com/search") || match("yandex.com/search") ||
-        match("xn--flw351e.ml/search") || match("https://search.aust.cf/search") /*谷歌镜像*/
+        match("xn--flw351e.ml/search") || match("search.aust.cf/search") || match("search.njau.cf/search") /*谷歌镜像*/
     ) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
