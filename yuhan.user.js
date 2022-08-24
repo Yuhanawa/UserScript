@@ -5,20 +5,17 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.8
+// @version      0.3.0
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-24 0.3.0 搜索引擎快速切换大量改动 搜索引擎列表修改功能预计今晚完成
 // @node         8-23~8-24 0.2.7(4) 修复谷歌镜像下的一个切换bug
 // @node         8-23~8-24 0.2.7(3) 添加一个谷歌镜像 添加缺失的@match
 // @node         8-23~8-24 0.2.7(2) (不推送更新) 重构搜索引擎快速切换 自定义搜索引擎快速切换半成品 明天做完
 // @node         8-23 0.2.7 优化必应样式(细节) 微调f搜样式(细节) 为自定义搜索引擎快速切换/自定义背景做准备
 // @node         8-23 0.2.6 细节调整
-// @node         8-23 0.2.5 移除必应首页下方黑条(footer)
-// @node         8-22 0.2.4 改进搜索引擎快速切换的一个细节 屏蔽一个广告屏蔽插件不认为是广告的广告(bing词典手机app下载)
-// @node         8-22 0.2.3 添加谷歌f搜样式(累死) 修复搜索引擎快速切换的一个bug
-// @node         8-21 0.2.2 添加搜索引擎快速聚焦搜索框(Ctrl+[K|Q|S]) 模式：["清空","关闭", "选中", "聚焦"]
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
@@ -55,27 +52,18 @@
         谷歌搜索,https://www.google.com/search?q=$
         百度搜索,https://www.baidu.com/s?wd=$
         Bing搜索,https://cn.bing.com/search?q=$
-        360搜索,https://www.so.com/s?q=$
+        鸭鸭搜索,https://duckduckgo.com/?q=$
         搜狗搜索,https://www.sogou.com/web?query=$
-        谷歌镜像1,https://xn--flw351e.ml/search?q=$
-        谷歌镜像2,https://search.aust.cf/search?q=$
-        雅虎,https://search.yahoo.com/search?p=$
+        360搜索,https://www.so.com/s?q=$
+        谷歌镜像,https://xn--flw351e.ml/search?q=$
+        谷歌镜像,https://search.aust.cf/search?q=$
+        # 雅虎,https://search.yahoo.com/search?p=$
         Yandex,https://yandex.com/search/?text=$
+        维基百科,https://zh.wikipedia.org/wiki/$
+        # 以下内容不支持
         -百度翻译,https://fanyi.baidu.com/#en/zh/$
         -谷歌翻译,https://translate.google.com/?hl=zh-CN&tab=wT0#view=home&op=translate&sl=auto&tl=zh-CN&text=$
         -搜狗翻译,https://fanyi.sogou.com/?keyword=$
-        -GitHub,https://github.com/search?utf8=✓&q=$
-        -Stackoverflow,https://stackoverflow.com/search?q=$
-        -Segmentfault,https://segmentfault.com/search?q=$
-        -Quora,https://www.quora.com/search?q=$
-        维基百科,https://zh.wikipedia.org/wiki/$
-        -知乎搜索,https://www.zhihu.com/search?type=content&q=$
-        -豆瓣搜索,https://www.douban.com/search?source=suggest&q=$
-        -博客园,https://zzk.cnblogs.com/s?w=$
-        -CSDN,https://so.csdn.net/so/search/s.do?q=$
-        -简书,https://www.jianshu.com/search?q=$
-        -掘金,https://juejin.im/search?query=$
-        -MSDN,https://docs.microsoft.com/zh-cn/search/?terms=$
         -百度图片,https://image.baidu.com/search/index?tn=baiduimage&word=$
         -Google图片,https://www.google.com/search?q=$&tbm=isch
         -Bing图片,https://cn.bing.com/images/search?q=$&scenario=ImageBasicHover
@@ -85,22 +73,6 @@
         -格林斯高阶,https://www.collinsdictionary.com/dictionary/english/$
         -剑桥词典,https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/$
         -韦氏词典,https://www.learnersdictionary.com/definition/$
-        -淘宝搜索,https://s.taobao.com/search?q=$
-        -天猫搜索,https://list.tmall.com/search_product.htm?q=$
-        -京东搜索,https://search.jd.com/Search?keyword=$
-        -亚马逊,https://www.amazon.cn/s?k=$
-        -当当网,https://search.dangdang.com/?key=$
-        -孔夫子,https://search.kongfz.com/product_result/?key=$
-        -YouTube,https://www.youtube.com/results?search_query=$
-        -BiliBili,https:////search.bilibili.com/all?keyword=$
-        -优酷搜索,https://so.youku.com/search_video/q_$
-        -爱奇艺搜索,https://so.iqiyi.com/so/q_$
-        -腾讯视频,https://v.qq.com/x/search/?q=$
-        -云盘精灵搜,https://www.yunpanjingling.com/search/$
-        -大圣盘搜索,https://www.dashengpan.com/search?keyword=$
-        -大力盘搜索,https://www.dalipan.com/search?keyword=$
-        -小昭来啦,https://www.xiaozhaolaila.com/s/search?q=$
-        -小可搜搜,https://www.xiaokesoso.com/s/search?q=$
     `;
 
     /* config */
@@ -225,6 +197,18 @@
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
+        /* 移除多余的input */
+        onload(() => {
+            if (match("sogou.com/web?query"))
+                document.getElementById("bottom_form_querytext").className += " search-input-awa ";
+            else {
+                document.querySelectorAll("input").forEach(i => {
+                    if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
+                });
+            }
+        })
+
+
         if (cget("search", true)) {
             css += `
         body, .body-awa {
@@ -283,16 +267,21 @@
             margin:auto !important;
             padding:auto !important;
         }
-        
+        `;
+            /* engine_switch_tool */
+            css += `
         #engine_switch_tool{
             all: initial;
             
-            z-index: 1;
+            z-index: 1024 !important;
             position: fixed !important;
-            top: 99px !important;
+            top: 96px ;
             left: 5px !important;
             display: flex;
             flex-direction: column;
+        }
+        #engine_switch_tool a:visited {
+            color: #333 !important;
         }
         #engine_switch_tool > div{
             opacity:.05;
@@ -300,32 +289,6 @@
         }
         #engine_switch_tool > div:hover{
             opacity:1;
-        }        
-        .switch_tool_invisible {
-            all: initial;
-            
-            margin: 10px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            padding: 5px;
-            font-size: 20px;
-            font-weight: lighter;
-            color: #333;
-            background-color: #fff;
-            width: 120px;
-            height: 28px;
-            touch-action: manipulation;
-            box-shadow: 0px 0px 1px #ccc;
-            transition: all 0.2s ease-in-out;
-            -webkit-transition: all 0.2s ease-in-out;
-            -moz-transition: all 0.2s ease-in-out;
-            -o-transition: all 0.2s ease-in-out;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: normal;
-            
-            opacity:.1;
         }
         .switch_tool_compact {
             all: initial;
@@ -388,10 +351,20 @@
             -o-transition: all 0.2s ease-in-out;
             font-family: 'Open Sans', sans-serif;
             font-weight: normal;
-        }   
-        #engine_switch_tool a:visited {
-            color: #333 !important;
         }
+        
+        .switch_tool_show {
+            opacity:1 !important;
+        }
+        .switch_tool_invisible {
+            opacity:0.2 !important;
+        }        
+        .switch_tool_auto {
+            opacity:0.2 !important;
+        }       
+        .switch_tool_auto:hover {
+            opacity:1 !important;
+        }           
         
         `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
 
@@ -789,12 +762,6 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
 #container.sam_newgrid #content_left{
     padding-top: 8px;
 }`;
-
-                onload(() => {
-                    document.querySelectorAll("input").forEach(i => {
-                        if (i.type !== 'text') i.remove();
-                    });
-                })
             }
             /* fsou */
             else if (match("fsoufsou.com/search")) {
@@ -862,59 +829,65 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
         if (cget("search_engine_switch_tool", true)) {
             document.addEventListener("DOMContentLoaded", () => {
                 let html = "";
-                searchList = searchList.replaceAll(/^-.*\n/g, "");
                 searchList.trim().split("\n").forEach((s) => {
                     s = s.replaceAll(/\s/g, "");
-                    if (s.startsWith('#')) return;
+                    if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
                     html += `
-                        <a class="switch_tool switch_tool_button switch_tool_show" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
-                         onclick="this.href=this.getAttribute('key').replace('$',document.querySelector('input').value.replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
+                        <a class="${cget("switch_tool_style", "switch_tool switch_tool_button switch_tool_show")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
+                         onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
                    `
                 });
 
-                document.body.innerHTML = `
-                <div id="engine_switch_tool"> 
-                <p id="noteawa">
-                配置保存功能还没做</br>
-                自定义搜索引擎还没做（划）</br>
-                8-24 1:16</br>
-                今天做不完惹 明天继续</br>
-                自定义搜索引擎需要脚本应用的所有网站</br>
-                我觉得这样是不太好的 至少不会让人放心</br>
-                所以改为半自定义搜索引擎</br>
-                当然你也可以自己修改脚本(GPL-3.0)</br>
-                </p>
-                <div>
+                document.body.innerHTML = document.body.innerHTML + `
+                <div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
+                <div id ="switch_tool_style" style="margin: auto;">
                     <div>
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a>/
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_show').replace('switch_tool_invisible','switch_tool_invisible')}); ">显示</a>/
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_invisible','switch_tool_auto').replace('switch_tool_show','switch_tool_show')}); ">自动</a>/
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a> /
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_show').replace('switch_tool_invisible','switch_tool_show')}); ">显示</a> /
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_invisible','switch_tool_auto').replace('switch_tool_show','switch_tool_auto')}); ">自动</a>
                     </div>                
                     <div>
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_link').replace('switch_tool_button','switch_tool_link')}); ">链接</a>/
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_button','switch_tool_compact').replace('switch_tool_link','switch_tool_compact')}); ">紧凑</a>/
-                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_button').replace('switch_tool_link','switch_tool_button')}); ">按钮</a>/
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_link').replace('switch_tool_button','switch_tool_link')}); ">链接</a> /
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_button','switch_tool_compact').replace('switch_tool_link','switch_tool_compact')}); ">紧凑</a> /
+                        <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_button').replace('switch_tool_link','switch_tool_button')}); ">按钮</a>
                     </div>
                 </div>
                     ${html}
-                </div>` + document.body.innerHTML;
-
-                document.getElementById("noteawa").style.display = "none"
-                document.getElementById("engine_switch_tool").addEventListener("mouseover", () => {
-                    document.getElementById("noteawa").style.display = "block"
-                })
-                document.getElementById("engine_switch_tool").addEventListener("mouseleave", () => {
-                    document.getElementById("noteawa").style.display = "none"
-                })
+                </div>`;
             })
+
+            let tool_top = 96;
+            load_then_delay(() => {
+                const tool = document.getElementById("engine_switch_tool");
+
+                document.getElementById("switch_tool_style").addEventListener("click", () => {
+                    cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
+                });
+
+                if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
+                    tool.addEventListener("click", () => {
+                        Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
+                            i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
+                        })
+                    });
+                }
+
+                window.onscroll = () => {
+                    console.log(tool_top);
+                    tool.style.top = (window.scrollY > tool_top ? 0 : tool_top - window.scrollY).toString() + "px";
+                }
+
+            }, 800)
+
         }
 
         const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", 'search_engine_quick_focus', ["清空", "关闭", "选中", "聚焦",])
         if (index !== 1) {
             document.onkeydown = (e) => {
                 if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
-                    document.querySelector("input").focus();
-                    if (index === 0) document.querySelector("input").value = ""; else if (index === 2) document.querySelector("input").select();
+                    if (index === 0) document.getElementsByClassName("search-input-awa")[0].value = "";
+                    else if (index === 2) document.querySelector("input").select();
+                    document.getElementsByClassName("search-input-awa")[0].focus();
                     e.preventDefault();
                 }
             }
@@ -928,7 +901,6 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                     opacity: 0.9 !important;
                 }
         `);
-        console.log("!!!!!!!!!!!!!!")
     }
 
     /* csdn */
