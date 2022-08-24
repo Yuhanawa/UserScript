@@ -10,16 +10,12 @@
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-24 0.3.5 紧急修复两个样式问题(百度和360)
 // @node         8-24 0.3.4 轻度美化搜狗360的样式
 // @node         8-24 0.3.3 添加一个谷歌镜像 修复一个谷歌镜像链接
 // @node         8-24 0.3.2 修复在必应加载时 画面扭曲
 // @node         8-24 0.3.1 修复在必应加载缓慢时 出现错误
 // @node         8-24 0.3.0 搜索引擎快速切换大量改动 搜索引擎列表修改功能预计今晚完成
-// @node         8-23~8-24 0.2.7(4) 修复谷歌镜像下的一个切换bug
-// @node         8-23~8-24 0.2.7(3) 添加一个谷歌镜像 添加缺失的@match
-// @node         8-23~8-24 0.2.7(2) (不推送更新) 重构搜索引擎快速切换 自定义搜索引擎快速切换半成品 明天做完
-// @node         8-23 0.2.7 优化必应样式(细节) 微调f搜样式(细节) 为自定义搜索引擎快速切换/自定义背景做准备
-// @node         8-23 0.2.6 细节调整
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
@@ -233,8 +229,7 @@
         {
             background-color: #fff;
         }
-        .results > div, .results > li, .result > div, .result > li,
-         .item-awa{
+        .results > div, .results > li, .result, .item-awa{
             word-wrap: break-word;
             word-break: break-word;
             color: #333;
@@ -845,7 +840,11 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                  }
                 `
             } else if (match("so.com")) {
+                addClass(".item-awa", ".result > li")
                 css += `
+                .result{
+                    all: unset;
+                }
                 /* 去除头部白色 */
                 #header .inner {
                     background:transparent;
@@ -857,6 +856,10 @@ h3 a{transition:all 450ms cubic-bezier(.23,1,.32,1) 0s}
                 .menu,  /* 移除多余 */
                 .double-eleven{
                     display:none !important;
+                }
+                /* 太胖了 */
+                .res-comm-con{
+                    width: 360px !important;
                 }
                 `
             }
