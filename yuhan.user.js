@@ -5,11 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.3.1
+// @version      0.3.2
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh-CN  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
 // @description:en_US Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-24 0.3.2 修复在必应加载时 画面扭曲
 // @node         8-24 0.3.1 修复在必应加载缓慢时 出现错误
 // @node         8-24 0.3.0 搜索引擎快速切换大量改动 搜索引擎列表修改功能预计今晚完成
 // @node         8-23~8-24 0.2.7(4) 修复谷歌镜像下的一个切换bug
@@ -400,6 +401,9 @@
                     right: 128px;
                     top: 5px;
                 }
+                #est_switch { 
+                    display:none;  /*防止页面闪烁 先隐藏等会显示*/
+                }
                 
                 #mfa_root{      /* 重置右下搜索按钮样式 */
                     background: transparent!important;
@@ -433,6 +437,7 @@
                     document.getElementById("est_switch").remove();
                     document.getElementById("id_h").outerHTML = document.getElementById("id_h").outerHTML
                         .replace(`><a id="id_l"`, est_switch_html)
+                    document.getElementById("est_switch").style.display="block";
                     /* 移除空白的div */
                     const bc = document.getElementById("b_context");
                     if (bc.outerText.length < 20) {
