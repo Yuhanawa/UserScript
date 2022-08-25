@@ -5,10 +5,11 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.3.8
+// @version      0.4.0
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-25 0.4.0 自定义面板完成 支持自定义背景 自定义字体 自定义搜索引擎
 // @node         8-25 0.3.8 修复搜狗搜索下的2个bug 个性化开发中
 // @node         8-24 0.3.7(2) 个性化界面增加关闭按钮
 // @node         8-24 0.3.7 细节修改 添加个性化界面为下个版本做准备
@@ -31,6 +32,7 @@
 // @match        *.zhihu.com/*
 // @match        *.so.com/*
 // @match        *.sogou.com/*
+// @match        *.duckduckgo.com/*
 // @match        *.xn--flw351e.ml/*
 // @match        *search.njau.cf/*
 // @match        *search.aust.cf/*
@@ -52,7 +54,8 @@
 
     let css = "";
     let isRunning = false;
-    let searchList = `
+    let isLoaded = false;
+    let defaultSearchList = `
         谷歌搜索,https://www.google.com/search?q=$
         百度搜索,https://www.baidu.com/s?wd=$
         Bing搜索,https://cn.bing.com/search?q=$
@@ -79,6 +82,9 @@
         -剑桥词典,https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/$
         -韦氏词典,https://www.learnersdictionary.com/definition/$
     `;
+    const updateMap = new Map()
+
+    // ---------------------------------------------------------------------------- //
 
     const cget = (key, d) => GM_getValue(key, d)
     const cset = (key, v) => GM_setValue(key, v)
@@ -116,8 +122,39 @@
         }
         return false;
     }
-    const onload = (f) => document.addEventListener("DOMContentLoaded", () => f());
+    const addcss = (css) => {
+        css = css.replaceAll(/\s{2,}/g, " ")
+        if (typeof GM_addStyle != "undefined") {
+            GM_addStyle(css);
+        } else if (typeof PRO_addStyle != "undefined") {
+            PRO_addStyle(css);
+        } else if (typeof addStyle != "undefined") {
+            addStyle(css);
+        } else {
+            const node = document.createElement("style");
+            node.appendChild(document.createTextNode(css));
+            document.body.appendChild(node);
+        }
+    }
+    const onload = (f) => {
+        if (isLoaded) f();
+        else document.addEventListener("DOMContentLoaded", () => f())
+    };
     const load_then_delay = (f, t) => onload(() => setTimeout(() => f(), t));
+    const updateawa = (key) => {
+        if (!updateMap.has(key)) return;
+        const value = cget(key, "").trim();
+        // if (value !== "")
+        updateMap.get(key)(key, value)
+    }
+    const setupdateawa = (key, value, then) => {
+        updateMap.set(key, value);
+        if (then !== undefined) then();
+        updateawa(key);
+    }
+    // search-block-website
+
+    onload(() => isLoaded = true);
 
     // ---------------------------------------------------------------------------- //
 
@@ -204,8 +241,10 @@
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
-        /* 移除多余的input */
         onload(() => {
+            setupdateawa("search-font-family", (key, value) => addcss(`*{font-family:'${value}';}`));
+            setupdateawa("search-background-img", (key, value) => document.body.style.backgroundImage = `url(${value})`);
+            /* 移除多余的input */
             if (match("sogou.com/web?query")) document.getElementById("bottom_form_querytext").className += " search-input-awa "; else {
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
@@ -545,6 +584,8 @@
                 #tabs-wrap {
                     padding: 0 0 0 135px !important;
                 }
+                .biz_sponsor, /* AD */
+                .right /* 搜狗右侧 */
                 #side,
                 .menu,  /* 移除多余 */
                 .double-eleven{
@@ -590,19 +631,26 @@
 
         /* search tools */
         if (cget("search_engine_switch_tool", true)) {
-            document.addEventListener("DOMContentLoaded", () => {
-                let html = "";
-                searchList.trim().split("\n").forEach((s) => {
-                    s = s.replaceAll(/\s/g, "");
-                    if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
-                    html += ` <!--suppress HtmlUnknownAttribute -->
+            setupdateawa("engine_switch_tool_list", (key, value) => {
+                onload(() => {
+                    try {
+                        document.getElementById("engine_switch_tool").remove()
+                    } catch {
+                    }
+
+                    let html = "";
+                    if (value.trim() === "") value = defaultSearchList;
+                    value.trim().split("\n").forEach((s) => {
+                        s = s.replaceAll(/\s/g, "");
+                        if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
+                        html += ` <!--suppress HtmlUnknownAttribute -->
 <a class="${cget("switch_tool_style", "switch_tool switch_tool_button switch_tool_show")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
                          onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
                    `
-                });
+                    });
 
-                document.body.innerHTML = document.body.innerHTML + `
-                <div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
+                    const div = document.createElement("div");
+                    div.innerHTML = `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
                 <div id ="switch_tool_style" style="margin: auto;">
                     <div>
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a> /
@@ -617,29 +665,36 @@
                 </div>
                     ${html}
                 </div>`;
-            })
+                    document.body.appendChild(div);
+                })
 
-            load_then_delay(() => {
-                const tool = document.getElementById("engine_switch_tool");
+                load_then_delay(() => {
+                    const tool = document.getElementById("engine_switch_tool");
 
-                document.getElementById("switch_tool_style").addEventListener("click", () => {
-                    cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
-                });
-
-                if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
-                    tool.addEventListener("click", () => {
-                        Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
-                            i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
-                        })
+                    document.getElementById("switch_tool_style").addEventListener("click", () => {
+                        cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
                     });
-                }
 
-                window.onscroll = () => {
-                    tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
-                }
+                    try {
+                        if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
+                            tool.addEventListener("click", () => {
+                                Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
+                                    i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
+                                })
+                            });
+                        }
+                    } catch {
+                    }
 
-            }, 800)
 
+                    window.onscroll = () => {
+                        tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
+                    }
+
+                }, 800)
+            }, () => {
+                if (cget("engine_switch_tool_list", "").trim() === "") cset("engine_switch_tool_list", defaultSearchList);
+            });
         }
 
         const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", 'search_engine_quick_focus', ["清空", "关闭", "选中", "聚焦",])
@@ -655,7 +710,8 @@
 
         onload(() => {
             /* search setting */
-            document.body.innerHTML = document.body.innerHTML + `
+            const div = document.createElement("div");
+            div.innerHTML = `
     <style>
         #search-setting-btn-awa{
             z-index: 114514;
@@ -696,6 +752,7 @@
             border-radius: 24px;
             padding: 5vh 5vw;
             overflow: hidden;
+            overflow-y:auto
         }
         #search-setting-awa * {
             color: black;
@@ -725,36 +782,45 @@
             <button id="search-setting-close-awa" onclick="this.parentElement.style.display='none'">[X]</button>
             <p>该页面的修改会实时生效，留空使用默认值</p><br>
             <li title="留空使用脚本自带样式,需要系统安装此字体"> 
-            font-family: <input id="search-font-family"/>
+            font-family: <input id="search-font-family" value="${cget("search-font-family", "")}"/>
             </li>
             
             <li title="请输入指向图片一个链接"> 
-            background-img: <input id="search-background-img"/>
+            background-img: <input id="search-background-img" value="${cget("search-background-img", "")}"/>
             </li>
             
             <li title="#开头表示忽略"> 
-            屏蔽网站:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="search-block-website" contenteditable="true">${cget("search-block-website", "Test")}</pre>
+            屏蔽网站(暂不支持 因需要手动适配各个网站 工作量巨大):<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
+               <pre id="search-block-website" contenteditable="true">${cget("search-block-website", "")}</pre>
             </li>
                
             <li title="留空使用默认，#开头表示忽略"> 
             搜索引擎:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="search-tool-list" contenteditable="true">${cget("search-tool-list", "Test")}</pre>
+               <pre id="engine_switch_tool_list" contenteditable="true">${cget("engine_switch_tool_list", "")}</pre>
             </li>
        </div>
     </div>
         `;
+            document.body.appendChild(div);
 
             const addListener = (key) => {
-                document.getElementById(key).addEventListener("change", () => {
-                    // cset(key, document.getElementById(key).value)
-                    // update[key]();
-                })
+                const e = document.getElementById(key);
+                if (e.tagName === "INPUT") {
+                    e.addEventListener("change", () => {
+                        cset(key, document.getElementById(key).value)
+                        updateawa(key);
+                    })
+                } else if (e.tagName === "PRE") {
+                    document.getElementById("search-setting-awa").addEventListener("keyup", () => {
+                        cset(key, document.getElementById(key).innerText)
+                        updateawa(key);
+                    }, true)
+                }
             }
             addListener("search-font-family");
             addListener("search-background-img");
             addListener("search-block-website");
-            addListener("search-tool-list");
+            addListener("engine_switch_tool_list");
         });
     }
 
@@ -898,19 +964,5 @@
         e.stopImmediatePropagation();
     }, true);
 
-
-    // add css
-    css = css.replaceAll(/\s{2,}/g, " ")
-    if (typeof GM_addStyle != "undefined") {
-        GM_addStyle(css);
-    } else if (typeof PRO_addStyle != "undefined") {
-        PRO_addStyle(css);
-    } else if (typeof addStyle != "undefined") {
-        addStyle(css);
-    } else {
-        const node = document.createElement("style");
-        node.appendChild(document.createTextNode(css));
-        document.body.appendChild(node);
-    }
-
+    addcss(css);
 })();
