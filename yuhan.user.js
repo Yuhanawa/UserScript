@@ -5,10 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.3.7
+// @version      0.3.8
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-25 0.3.8 修复搜狗搜索下的2个bug 个性化开发中
+// @node         8-24 0.3.7(2) 个性化界面增加关闭按钮
 // @node         8-24 0.3.7 细节修改 添加个性化界面为下个版本做准备
 // @node         8-24 0.3.6 缩减近300行代码 添加类谷歌(镜像)的支持
 // @node         8-24 0.3.5 紧急修复两个样式问题(百度和360)
@@ -524,31 +526,6 @@
                 `
             }
             // --------------------------------------- //
-            else if (document.querySelector("title").innerText.indexOf("Google") !== -1) {
-                addClass(".header-awa", ".CvDJxb")
-                addClass(".item-awa", ".MjjYud")
-                addClass(".item-awa div", ".MjjYud div")
-                addClass(".item-title-awa", "h3.LC20lb")
-                addClass(".item-text-awa", ".MjjYud span")
-
-                css += `
-                .yg51vc, /*头部白色区域*/
-                .appbar /*获得约 * 条结果，以下是第 * 页*/
-                {
-                    background-color: transparent !important;
-                }
-                
-                .sfbg, /*令人疑惑的留白*/
-                .dodTBe/*同上*/
-                {
-                    display:none !important;
-                    height:0px !important;
-                    weight:0px !important;
-                }
-                `
-                /* 次要搜索引擎 */
-            }
-            // --------------------------------------- //
             else if (match("sogou.com") || match("so.com")) {
                 addClass(".item-awa", ".result > li")
 
@@ -578,6 +555,34 @@
                     width: 360px !important;
                 }
                 `
+            }
+            // --------------------------------------- //
+            else {
+                onload(() => {
+                    if (document.querySelector("title").innerText.indexOf("Google") !== -1) {
+                        addClass(".header-awa", ".CvDJxb")
+                        addClass(".item-awa", ".MjjYud")
+                        addClass(".item-awa div", ".MjjYud div")
+                        addClass(".item-title-awa", "h3.LC20lb")
+                        addClass(".item-text-awa", ".MjjYud span")
+
+                        css += `
+                .yg51vc, /*头部白色区域*/
+                .appbar /*获得约 * 条结果，以下是第 * 页*/
+                {
+                    background-color: transparent !important;
+                }
+                
+                .sfbg, /*令人疑惑的留白*/
+                .dodTBe/*同上*/
+                {
+                    display:none !important;
+                    height:0px !important;
+                    weight:0px !important;
+                }
+                `
+                    }
+                })
             }
         }
 
@@ -648,8 +653,9 @@
             }
         }
 
-        /* search setting */
-        document.body.innerHTML = document.body.innerHTML + `
+        onload(() => {
+            /* search setting */
+            document.body.innerHTML = document.body.innerHTML + `
     <style>
         #search-setting-btn-awa{
             z-index: 114514;
@@ -661,8 +667,16 @@
             width: 50px;
             height: 50px;
             font-size: xx-large;
-            
         }
+        #search-setting-close-awa{
+            z-index: 114514;
+            position: absolute;
+            right: 32px;
+            top: 24px;
+            background: transparent;
+            border: 0 transparent !important;
+            font-size: xxx-large;
+        }        
         #search-setting-awa {
             z-index: 114514;
             position: fixed;
@@ -686,25 +700,62 @@
         #search-setting-awa * {
             color: black;
             font-size: x-large;
+            overflow: hidden;
         }
+
+        #search-setting-awa pre{
+            height: 60px;
+            width: 60vw;
+            background-color: black;
+            opacity: 0.4;
+            color: white;
+            border: gray 1px;
+            box-shadow: 2px 4px 8px 2px rgba(0,0,0,0.65);
+        }
+        #search-setting-awa > li > button{
+                position: relative;
+                right: 5px;
+                top: 5px;
+        }
+        
     </style>
     <div>   
        <button id="search-setting-btn-awa" onclick='let e = document.getElementById("search-setting-awa");e.style.display=e.style.display==="block"?"none":"block"'>🎨</button>
        <div id="search-setting-awa" style="display: none">
-            <h1>
-                这个页面未完成： 这里将是未来的个性化页面
-                <br>
-                这将包括已下内容：
-                <br>
-                半自定义搜索引擎
-                <br>
-                自定义背景
-                <br>
-                自定义字体
-            </h1>
-        </div>
+            <button id="search-setting-close-awa" onclick="this.parentElement.style.display='none'">[X]</button>
+            <p>该页面的修改会实时生效，留空使用默认值</p><br>
+            <li title="留空使用脚本自带样式,需要系统安装此字体"> 
+            font-family: <input id="search-font-family"/>
+            </li>
+            
+            <li title="请输入指向图片一个链接"> 
+            background-img: <input id="search-background-img"/>
+            </li>
+            
+            <li title="#开头表示忽略"> 
+            屏蔽网站:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
+               <pre id="search-block-website" contenteditable="true">${cget("search-block-website", "Test")}</pre>
+            </li>
+               
+            <li title="留空使用默认，#开头表示忽略"> 
+            搜索引擎:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
+               <pre id="search-tool-list" contenteditable="true">${cget("search-tool-list", "Test")}</pre>
+            </li>
+       </div>
     </div>
         `;
+
+            const addListener = (key) => {
+                document.getElementById(key).addEventListener("change", () => {
+                    // cset(key, document.getElementById(key).value)
+                    // update[key]();
+                })
+            }
+            addListener("search-font-family");
+            addListener("search-background-img");
+            addListener("search-block-website");
+            addListener("search-tool-list");
+        });
     }
 
     // ---------------------------------------------------------------------------- //
@@ -721,7 +772,6 @@
     }
 
     /* csdn */
-
     else if (match("blog.csdn.net") && match("/article/details/")) {
         if (menu("CSDN极简化", 'csdn_opt', true)) {
             css += `
