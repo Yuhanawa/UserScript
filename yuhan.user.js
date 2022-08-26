@@ -9,15 +9,15 @@
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         8-25 0.4.1 搜狗/360广告屏蔽 修复类谷歌网站样式 优化自定义背景 添加背景模糊
 // @node         8-25 0.4.0 自定义面板完成 支持自定义背景 自定义字体 自定义搜索引擎
 // @node         8-25 0.3.8 修复搜狗搜索下的2个bug 个性化开发中
 // @node         8-24 0.3.7(2) 个性化界面增加关闭按钮
 // @node         8-24 0.3.7 细节修改 添加个性化界面为下个版本做准备
 // @node         8-24 0.3.6 缩减近300行代码 添加类谷歌(镜像)的支持
-// @node         8-24 0.3.5 紧急修复两个样式问题(百度和360)
-// @node         8-24 0.3.4 轻度美化搜狗360的样式
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         快开学了 开学后可能更新缓慢 但会持续更新的 反馈可能一时半会看不到 请稍安勿躁
+// @note         预计下次更新时间9月11日(中秋)
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
@@ -148,9 +148,13 @@
         updateMap.get(key)(key, value)
     }
     const setupdateawa = (key, value, then) => {
-        updateMap.set(key, value);
-        if (then !== undefined) then();
-        updateawa(key);
+        try {
+            updateMap.set(key, value);
+            if (then !== undefined) then();
+            updateawa(key);
+        } catch (e) {
+            console.error("[Yuhan User Script] " + e)
+        }
     }
     // search-block-website
 
@@ -242,27 +246,52 @@
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
         onload(() => {
-            setupdateawa("search-font-family", (key, value) => addcss(`*{font-family:'${value}';}`));
-            setupdateawa("search-background-img", (key, value) => document.body.style.backgroundImage = `url(${value})`);
+            /*添加背景*/
+            document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>")
             /* 移除多余的input */
             if (match("sogou.com/web?query")) document.getElementById("bottom_form_querytext").className += " search-input-awa "; else {
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
             }
+
+            setupdateawa("search-font-family", (key, value) => addcss(`*{font-family:'${value}';}`));
+            setupdateawa("search-background-img", (key, value) => {
+                document.body.style.backgroundImage = `url(${value})`;
+                document.getElementById("search-setting-awa").style.backgroundImage = `url(${value})`;
+            });
         })
 
         /* search */
         if (cget("search", true)) {
             css += `
         *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
+        *{z-index: 10;}
         body, .body-awa {
-            background-color: #f5f5f5 !important;
+              background-color: #f5f5f5 !important;
+              background-image: url(${cget("search-background-img", "")});
+              background-size: 100% auto;
+              background-attachment: fixed;
+              background-position-y: center;
               animation-name: ani_topTobuttom;
               animation-duration: 1s;
               animation-timing-function: ease;
+              position: absolute;
+              width: 100%;
               {body-awa}
         }
+        #blur-awa {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-size: 100% auto;
+            background-attachment: fixed;
+            background-position-y: center;
+            z-index: -1;
+            backdrop-filter: blur(8px);
+        }        
         .head, #head, header, .header, #header, .header-awa
         {
             background-color: transparent !important;
@@ -490,6 +519,14 @@
                     }
                 })
 
+                if (cget("search-background-img", "").trim() !== "") {
+                    css += `
+                        #b_header {
+                            border-bottom: 0px !important;
+                        }
+                    `
+                }
+
                 if (cget("remove_favicon_icon", true)) {
                     css += `.sh_favicon{ display:none !important; }`
                 }
@@ -584,10 +621,10 @@
                 #tabs-wrap {
                     padding: 0 0 0 135px !important;
                 }
-                .biz_sponsor, /* AD */
-                .right /* 搜狗右侧 */
+                .biz_sponsor,#so-10th-anni-user-guider-dlg, /* AD */
+                .right, /* 搜狗右侧 */
                 #side,
-                .menu,  /* 移除多余 */
+                .menu,#promotion_adv_container,.top-hintBox,#rs-top,  /* 移除多余 */
                 .double-eleven{
                     display:none !important;
                 }
@@ -599,15 +636,13 @@
             }
             // --------------------------------------- //
             else {
-                onload(() => {
-                    if (document.querySelector("title").innerText.indexOf("Google") !== -1) {
-                        addClass(".header-awa", ".CvDJxb")
-                        addClass(".item-awa", ".MjjYud")
-                        addClass(".item-awa div", ".MjjYud div")
-                        addClass(".item-title-awa", "h3.LC20lb")
-                        addClass(".item-text-awa", ".MjjYud span")
+                addClass(".header-awa", ".CvDJxb")
+                addClass(".item-awa", ".MjjYud")
+                addClass(".item-awa div", ".MjjYud div")
+                addClass(".item-title-awa", "h3.LC20lb")
+                addClass(".item-text-awa", ".MjjYud span")
 
-                        css += `
+                css += `
                 .yg51vc, /*头部白色区域*/
                 .appbar /*获得约 * 条结果，以下是第 * 页*/
                 {
@@ -622,8 +657,6 @@
                     weight:0px !important;
                 }
                 `
-                    }
-                })
             }
         }
 
@@ -742,7 +775,7 @@
             top: 10vh;
             left: 10vw;
             background-color: lightpink;
-            background-image: url(https://w.wallhaven.cc/full/o3/wallhaven-o3z7d7.jpg);
+            background-image: url(${cget("search-background-img")});
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: bottom;
