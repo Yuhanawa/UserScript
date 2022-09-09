@@ -5,10 +5,11 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.3
+// @version      0.4.4
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
 // @node         9-09 0.4.3 删除百度搜索预测(暂时) 优化自定义背景
 // @node         9-09 0.4.2 添加鸭鸭镜像 细节修改
 // @node         8-25 0.4.1 搜狗/360广告屏蔽 修复类谷歌网站样式 优化自定义背景 添加背景模糊
@@ -337,8 +338,7 @@
             if (cget("search-background-img", "").trim()!=="") css+=`
                     .results > div, .results > li, .result, .item-awa{
                         background-color: rgba(255, 255, 255,.65);
-                    }
-`
+                    }`.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
             /* engine_switch_tool */
             css += `
         #engine_switch_tool{
@@ -987,6 +987,14 @@
                 setTimeout(() => copy_without_sgin(), 3200);
             }
         }, 350);
+    }
+    /* 知乎 */
+    else if (match("zhihu.com/question")){
+        if (menu("隐藏知乎右侧文字(备案信息等)", 'zhihu_remove_footer', true)) {
+            css+=`
+            footer{display:none}
+            `;
+        }
     }
 
     // -------------------------------------------------------------------------- //
