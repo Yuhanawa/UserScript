@@ -5,10 +5,11 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.2
+// @version      0.4.3
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         9-09 0.4.3 删除百度搜索预测(暂时) 优化自定义背景
 // @node         9-09 0.4.2 添加鸭鸭镜像 细节修改
 // @node         8-25 0.4.1 搜狗/360广告屏蔽 修复类谷歌网站样式 优化自定义背景 添加背景模糊
 // @node         8-25 0.4.0 自定义面板完成 支持自定义背景 自定义字体 自定义搜索引擎
@@ -53,6 +54,8 @@
 (function () {
     'use strict';
 
+    const engine_switch_tool_version = 0;
+
     let css = "";
     let isRunning = false;
     let isLoaded = false;
@@ -84,7 +87,6 @@
         -剑桥词典,https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/$
         -韦氏词典,https://www.learnersdictionary.com/definition/$
     `;
-    const updateMap = new Map()
 
     // ---------------------------------------------------------------------------- //
 
@@ -143,21 +145,7 @@
         else document.addEventListener("DOMContentLoaded", () => f())
     };
     const load_then_delay = (f, t) => onload(() => setTimeout(() => f(), t));
-    const updateawa = (key) => {
-        if (!updateMap.has(key)) return;
-        const value = cget(key, "").trim();
-        // if (value !== "")
-        updateMap.get(key)(key, value)
-    }
-    const setupdateawa = (key, value, then) => {
-        try {
-            updateMap.set(key, value);
-            if (then !== undefined) then();
-            updateawa(key);
-        } catch (e) {
-            console.error("[Yuhan User Script] " + e)
-        }
-    }
+
     // search-block-website
 
     onload(() => isLoaded = true);
@@ -256,25 +244,16 @@
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
             }
-
-            setupdateawa("search-font-family", (key, value) => addcss(`*{font-family:'${value}';}`));
-            setupdateawa("search-background-img", (key, value) => {
-                document.body.style.backgroundImage = `url(${value})`;
-                document.getElementById("search-setting-awa").style.backgroundImage = `url(${value})`;
-            });
+            /* 添加字体 */
+            addcss(`*{font-family:'${cget("search-font-family")}';}`);
         })
 
         /* search */
         if (cget("search", true)) {
             css += `
         *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
-        *{z-index: 10;}
         body, .body-awa {
-              background-color: #f5f5f5 !important;
-              background-image: url(${cget("search-background-img", "")});
-              background-size: 100% auto;
-              background-attachment: fixed;
-              background-position-y: center;
+              background: transparent !important
               animation-name: ani_topTobuttom;
               animation-duration: 1s;
               animation-timing-function: ease;
@@ -282,7 +261,13 @@
               width: 100%;
               {body-awa}
         }
-        #blur-awa {
+        body:before{
+            content: "";
+            background-color: #f5f5f5 !important;
+            background-image: url(${cget("search-background-img", "")});
+            background-size: 100% auto;
+            background-attachment: fixed;
+            background-position-y: center;
             position: fixed;
             top: 0;
             left: 0;
@@ -291,8 +276,8 @@
             background-size: 100% auto;
             background-attachment: fixed;
             background-position-y: center;
-            z-index: -1;
-            backdrop-filter: blur(8px);
+            z-index: -24;
+            filter: blur(12px);
         }        
         .head, #head, header, .header, #header, .header-awa
         {
@@ -349,6 +334,11 @@
             padding:auto !important;
         }
         `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
+            if (cget("search-background-img", "").trim()!=="") css+=`
+                    .results > div, .results > li, .result, .item-awa{
+                        background-color: rgba(255, 255, 255,.65);
+                    }
+`
             /* engine_switch_tool */
             css += `
         #engine_switch_tool{
@@ -555,6 +545,7 @@
                 .wrapper_new #s_tab .s-tab-b2b:before{
                     content: none;
                 }
+                .bdsug, /* 搜索预测 */
                 .s-tab-more,    /* tags */
                 .wrapper_new #s_tab .s-tab-news,
                 .wrapper_new #s_tab .s-tab-video,
@@ -562,7 +553,7 @@
                 .wrapper_new #s_tab .s-tab-zhidao,
                 .wrapper_new #s_tab .s-tab-wenku,
                 .wrapper_new #s_tab .s-tab-b2b{
-                    display:none;
+                    display:none !important;
                 }       
                 .wrapper_new #u{
                     margin: 21px 9px 5px 0;
@@ -666,26 +657,43 @@
 
         /* search tools */
         if (cget("search_engine_switch_tool", true)) {
-            setupdateawa("engine_switch_tool_list", (key, value) => {
-                onload(() => {
-                    try {
-                        document.getElementById("engine_switch_tool").remove()
-                    } catch {
-                    }
+            if (cget("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
+                cset("engine_switch_tool_version", engine_switch_tool_version);
+                if (cget("engine_switch_tool_version", -1) !== -1) {
+                    load_then_delay(() => {
+                        document.body.insertAdjacentHTML("afterend", `
+                        <div id="removeafter3s" style="font-size: xx-large;position: fixed;margin: auto;top: 20vh;left: 0;right: 0;width: max-content;height:min-content;padding: 40px;background: lightgreen;opacity: 0.8;">
+                            <h1 style="font-size: xx-large"> 此信息将会在3秒后自动消失 </h1>
+                            <h1 style="font-size: xx-large"> !!! 您的搜索引擎快速切换工具列表配置文件因为过于老旧而被重置 !!! </h1>
+                        </div>
+                    `)
+                        setTimeout(() => {
+                            document.getElementById("removeafter3s").remove();
+                        }, 3500)
+                    }, 600)
+                }
+            }
+            if (cget("engine_switch_tool_list", "").trim() === "") cset("engine_switch_tool_list", defaultSearchList);
+            let list = cget("engine_switch_tool_list").trim();
 
-                    let html = "";
-                    if (value.trim() === "") value = defaultSearchList;
-                    value.trim().split("\n").forEach((s) => {
-                        s = s.replaceAll(/\s/g, "");
-                        if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
-                        html += ` <!--suppress HtmlUnknownAttribute -->
+            onload(() => {
+                try {
+                    document.getElementById("engine_switch_tool").remove()
+                } catch {
+                }
+
+                let html = "";
+                list.split("\n").forEach((s) => {
+                    s = s.replaceAll(/\s/g, "");
+                    if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
+                    html += ` <!--suppress HtmlUnknownAttribute -->
 <a class="${cget("switch_tool_style", "switch_tool switch_tool_button switch_tool_show")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
                          onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
                    `
-                    });
+                });
 
-                    document.body.insertAdjacentHTML("afterend",
-                        `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
+                document.body.insertAdjacentHTML("afterend",
+                    `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
                 <div id ="switch_tool_style" style="margin: auto;">
                     <div>
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a> /
@@ -698,35 +706,32 @@
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_button').replace('switch_tool_link','switch_tool_button')}); ">按钮</a>
                     </div>
                 </div>${html}</div>`);
-                })
+            })
+            load_then_delay(() => {
+                const tool = document.getElementById("engine_switch_tool");
 
-                load_then_delay(() => {
-                    const tool = document.getElementById("engine_switch_tool");
+                document.getElementById("switch_tool_style").addEventListener("click", () => {
+                    cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
+                });
 
-                    document.getElementById("switch_tool_style").addEventListener("click", () => {
-                        cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
-                    });
-
-                    try {
-                        if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
-                            tool.addEventListener("click", () => {
-                                Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
-                                    i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
-                                })
-                            });
-                        }
-                    } catch {
+                try {
+                    if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
+                        tool.addEventListener("click", () => {
+                            Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
+                                i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
+                            })
+                        });
                     }
+                } catch {
+                }
 
 
-                    window.onscroll = () => {
-                        tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
-                    }
+                window.onscroll = () => {
+                    tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
+                }
 
-                }, 800)
-            }, () => {
-                if (cget("engine_switch_tool_list", "").trim() === "") cset("engine_switch_tool_list", defaultSearchList);
-            });
+            }, 800)
+
         }
 
         const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", 'search_engine_quick_focus', ["清空", "关闭", "选中", "聚焦",])
@@ -811,7 +816,7 @@
        <button id="search-setting-btn-awa" onclick='let e = document.getElementById("search-setting-awa");e.style.display=e.style.display==="block"?"none":"block"'>🎨</button>
        <div id="search-setting-awa" style="display: none">
             <button id="search-setting-close-awa" onclick="this.parentElement.style.display='none'">[X]</button>
-            <p>该页面的修改会实时生效，留空使用默认值</p><br>
+            <p>该页面的修改会自动保存，刷新生效，留空使用默认值</p><br>
             <li title="留空使用脚本自带样式,需要系统安装此字体"> 
             font-family: <input id="search-font-family" value="${cget("search-font-family", "")}"/>
             </li>
@@ -838,12 +843,10 @@
                 if (e.tagName === "INPUT") {
                     e.addEventListener("change", () => {
                         cset(key, document.getElementById(key).value)
-                        updateawa(key);
                     })
                 } else if (e.tagName === "PRE") {
                     document.getElementById("search-setting-awa").addEventListener("keyup", () => {
                         cset(key, document.getElementById(key).innerText)
-                        updateawa(key);
                     }, true)
                 }
             }
