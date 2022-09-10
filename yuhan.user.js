@@ -5,10 +5,11 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.4
+// @version      0.4.5
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         9-10 0.4.5 调整百度必应谷歌360搜狗 搜索内容位置 使其一致化 微调必应百度
 // @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
 // @node         9-09 0.4.3 删除百度搜索预测(暂时) 优化自定义背景
 // @node         9-09 0.4.2 添加鸭鸭镜像 细节修改
@@ -335,7 +336,7 @@
             padding:auto !important;
         }
         `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-            if (cget("search-background-img", "").trim()!=="") css+=`
+            if (cget("search-background-img", "").trim() !== "") css += `
                     .results > div, .results > li, .result, .item-awa{
                         background-color: rgba(255, 255, 255,.65);
                     }`.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
@@ -467,6 +468,16 @@
                 #est_switch { 
                     display:none;  /*防止页面闪烁 先隐藏等会显示*/
                 }
+                /* 首个搜索结果的遮罩和查看更多按钮 */
+                .b_rc_gb_bottom_cover,
+                .b_rc_gb_cover,
+                .rc_gb_seemore { 
+                    display:none !important;
+                }
+                /* 调整首个搜索结果的高度 */
+                .b_Richcard {
+                    max-height: none !important;
+                }
                 
                 #mfa_root{      /* 重置右下搜索按钮样式 */
                     background: transparent!important;
@@ -482,10 +493,11 @@
                     border: 1px solid #ddd;
                     padding: 10px;
                     margin: 8px;
+                    border-radius: 4px;
                 }
                 #est_cn::after,
                 #est_en::after{
-                    border-radius: 5px;
+                    border-radius: 2px;
                 }
                 `;
                 addClass(".item-awa", "#b_results > li")
@@ -558,10 +570,23 @@
                 .wrapper_new #u{
                     margin: 21px 9px 5px 0;
                 }
-                
+                /* 调整位置 */
+                #container{
+                    margin-left: 160px !important;
+                }
                 #container.sam_newgrid #content_left{
                     padding-top: 8px;
-                }`;
+                }
+                
+                /* 移除百度汉语等内容下的边框 */
+                .c-border {
+                    border: unset;
+                    box-shadow: unset;
+                    -webkit-box-shadow: unset;
+                    -moz-box-shadow: unset;
+                    -o-box-shadow: unset;
+                }
+                `;
             }
             // --------------------------------------- //
             else if (match("fsoufsou.com/search")) {
@@ -625,6 +650,10 @@
                 .res-comm-con{
                     width: 360px !important;
                 }
+                /* 调整位置 */
+                .wrapper, #wrapper, #container{
+                    padding-left: 160px !important;
+                }
                 `
             }
             // --------------------------------------- //
@@ -648,6 +677,11 @@
                     display:none !important;
                     height:0px !important;
                     weight:0px !important;
+                }
+                
+                /* 调整位置 */
+                .s6JM6d{
+                    margin-left:160px
                 }
                 `
             }
@@ -989,9 +1023,9 @@
         }, 350);
     }
     /* 知乎 */
-    else if (match("zhihu.com/question")){
+    else if (match("zhihu.com/question")) {
         if (menu("隐藏知乎右侧文字(备案信息等)", 'zhihu_remove_footer', true)) {
-            css+=`
+            css += `
             footer{display:none}
             `;
         }
