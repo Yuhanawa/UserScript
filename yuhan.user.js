@@ -5,10 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.5
+// @version      0.4.7
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         10-2 0.4.7 添加3个搜索引擎
+// @node         10-2 0.4.6 细节调整
 // @node         9-10 0.4.5 调整百度必应谷歌360搜狗 搜索内容位置 使其一致化 微调必应百度
 // @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
 // @node         9-09 0.4.3 删除百度搜索预测(暂时) 优化自定义背景
@@ -66,15 +68,19 @@
         百度搜索,https://www.baidu.com/s?wd=$
         Bing搜索,https://cn.bing.com/search?q=$
         鸭鸭搜索,https://duckduckgo.com/?q=$
-        鸭鸭镜像,https://ddg0.library.edu.eu.org/?q=$
         搜狗搜索,https://www.sogou.com/web?query=$
         360搜索,https://www.so.com/s?q=$
         谷歌镜像ml,https://xn--flw351e.ml/search?q=$
+        # 鸭鸭镜像,https://ddg0.library.edu.eu.org/?q=$
         # 谷歌镜像njau,https://search.njau.cf/search?q=$
         # 谷歌镜像aust,https://search.aust.cf/search?q=$
         # 雅虎,https://search.yahoo.com/search?p=$
         # Yandex,https://yandex.com/search/?text=$
         维基百科,https://zh.wikipedia.org/wiki/$
+        #无追搜索,https://www.wuzhuiso.com/s?q=$
+        #ecosia,https://www.ecosia.org/search?method=index&q=$
+        #startpage,https://www.startpage.com/sp/search
+        #qwant,https://www.qwant.com/?q=$
         # 以下内容不支持
         -百度翻译,https://fanyi.baidu.com/#en/zh/$
         -谷歌翻译,https://translate.google.com/?hl=zh-CN&tab=wT0#view=home&op=translate&sl=auto&tl=zh-CN&text=$
@@ -232,7 +238,8 @@
         "so.com/s", "sogou.com/web?query",
         "search.yahoo.com/search", "yandex.com/search",
         "searx.tiekoetter.com", "petalsearch.com",
-        "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search" /*谷歌镜像*/
+        "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
+        "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"
     ]) || match("/search?")) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
@@ -359,7 +366,7 @@
             opacity:.05;
             cursor: pointer;
         }
-        #engine_switch_tool > div:hover{
+        #engine_switch_tool:hover > div{
             opacity:1;
         }
         .switch_tool_compact {
@@ -475,8 +482,10 @@
                     display:none !important;
                 }
                 /* 调整首个搜索结果的高度 */
-                .b_Richcard {
+                .b_Richcard, .b_RichCardAnswerV2,
+                .b_rc_gb_sub{
                     max-height: none !important;
+                    height: auto !important;
                 }
                 
                 #mfa_root{      /* 重置右下搜索按钮样式 */
@@ -619,7 +628,7 @@
                     }
                 `
             }
-            // --------------------------------------- //
+            // -小众中国网站---------------------------- //
             else if (match("sogou.com") || match("so.com")) {
                 addClass(".item-awa", ".result > li")
 
@@ -654,6 +663,18 @@
                 .wrapper, #wrapper, #container{
                     padding-left: 160px !important;
                 }
+                `
+            }
+            // -小众外国网站---------------------------- //
+            else if (match("ecosia.org/search")) {
+                css += `
+                    #search-filters{
+                        margin-left: 24px;
+                    }
+                    main{
+                        padding-left: 36px;
+                        margin-top: -12px;
+                    }
                 `
             }
             // --------------------------------------- //
@@ -793,6 +814,10 @@
             width: 50px;
             height: 50px;
             font-size: xx-large;
+            opacity: 30%;
+        }
+        div:hover > #search-setting-btn-awa{
+            opacity: 100%;
         }
         #search-setting-close-awa{
             z-index: 114514;
