@@ -5,11 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.7
+// @version      0.4.9
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
-// @node         10-2 0.4.7 添加3个搜索引擎
+// @node         10-3 0.4.9 修复Violentmonkey下无法运行的问题
+// @node         10-2 0.4.7(8) 添加3个搜索引擎
 // @node         10-2 0.4.6 细节调整
 // @node         9-10 0.4.5 调整百度必应谷歌360搜狗 搜索内容位置 使其一致化 微调必应百度
 // @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
@@ -28,24 +29,26 @@
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
 // @license      GPL-3.0
-// @match        *.bing.com/*
-// @match        *.baidu.com/*
-// @match        *.fsoufsou.com/*
-// @match        *.google.com/*
-// @match        *://www.bilibili.com/video/*
-// @match        *://www.bilibili.com/read/*
-// @match        *://blog.csdn.net/*
-// @match        *.zhihu.com/*
-// @match        *.so.com/*
-// @match        *.sogou.com/*
-// @match        *.duckduckgo.com/*
-// @match        *.xn--flw351e.ml/*
-// @match        *search.njau.cf/*
-// @match        *search.aust.cf/*
-// @match        *.yahoo.com/*
-// @match        *.yandex.com/*
-// @match        *searx.tiekoetter.com/*
-// @match        *.petalsearch.com/*
+// @match        *://*.bing.com/*
+// @match        *://*.baidu.com/*
+// @match        *://*.fsoufsou.com/*
+// @match        *://*.google.com/*
+// @match        *://*.bilibili.com/*
+// @match        *://*.blog.csdn.net/*
+// @match        *://*.zhihu.com/*
+// @match        *://*.so.com/*
+// @match        *://*.sogou.com/*
+// @match        *://*.duckduckgo.com/*
+// @match        *://*.xn--flw351e.ml/*
+// @match        *://*.search.njau.cf/*
+// @match        *://*.search.aust.cf/*
+// @match        *://*.yahoo.com/*
+// @match        *://*.yandex.com/*
+// @match        *://*.searx.tiekoetter.com/*
+// @match        *://*.petalsearch.com/*
+// @match        *://*.wuzhuiso.com/*
+// @match        *://*.ecosia.org/*
+// @match        *://*.startpage.com/*
 // @icon         none
 // @run-at       document-start
 // @grant        GM_setValue
@@ -58,7 +61,7 @@
 (function () {
     'use strict';
 
-    const engine_switch_tool_version = 0;
+    const engine_switch_tool_version = 1;
 
     let css = "";
     let isRunning = false;
