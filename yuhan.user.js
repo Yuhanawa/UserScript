@@ -5,24 +5,17 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.4.10
+// @version      0.5.0
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         12-5 0.5.0 新增CSDN 底部工具栏不跟随 修复CSDN用户浮窗不显示 代码块下方大量空白 百度卡片不起作用 样式失效 现在特殊界面将自动回复原样式(如世界杯) bilibili切换视频复制按钮消失(现在也可以关闭该功能了)
 // @node         11-5 0.4.10 修复 duckduckgo 下无效的问题
 // @node         10-3 0.4.9 修复Violentmonkey下无法运行的问题
 // @node         10-2 0.4.7(8) 添加3个搜索引擎
 // @node         10-2 0.4.6 细节调整
 // @node         9-10 0.4.5 调整百度必应谷歌360搜狗 搜索内容位置 使其一致化 微调必应百度
 // @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
-// @node         9-09 0.4.3 删除百度搜索预测(暂时) 优化自定义背景
-// @node         9-09 0.4.2 添加鸭鸭镜像 细节修改
-// @node         8-25 0.4.1 搜狗/360广告屏蔽 修复类谷歌网站样式 优化自定义背景 添加背景模糊
-// @node         8-25 0.4.0 自定义面板完成 支持自定义背景 自定义字体 自定义搜索引擎
-// @node         8-25 0.3.8 修复搜狗搜索下的2个bug 个性化开发中
-// @node         8-24 0.3.7(2) 个性化界面增加关闭按钮
-// @node         8-24 0.3.7 细节修改 添加个性化界面为下个版本做准备
-// @node         8-24 0.3.6 缩减近300行代码 添加类谷歌(镜像)的支持
 // @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         快开学了 开学后可能更新缓慢 但会持续更新的 反馈可能一时半会看不到 请稍安勿躁
 // @note         预计下次更新时间9月11日(中秋)
@@ -51,7 +44,7 @@
 // @match        *://*.ecosia.org/*
 // @match        *://*.startpage.com/*
 // @icon         none
-// @run-at       document-start
+// @run-at       document-body
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
@@ -176,7 +169,7 @@
                 if (icons.length > 0) console.log(`remove ${icons.length} search icon`)
             }, 10000);
         }
-        if (menu("移除评论关键字搜索跳转", 'bilibili_remove_search', true)) {
+        if (menu("移除评论关键字搜索跳转", 'bilibili_remove_search', false)) {
             setInterval(() => {
                 let as = document.getElementsByClassName("jump-link search-word")
                 for (let i = 0; i < as.length; i++) {
@@ -210,35 +203,37 @@
         }
 
         // 灵感来自 https://greasyfork.org/zh-CN/scripts/449865
-        const index = options("视频快捷分享复制模式", 'bilibili_copy', ["【标题】链接", "BV", "链接", "标题"])
+        const index = options("视频快捷分享复制模式", 'bilibili_copy', ["【标题】链接", "BV", "链接", "标题", "关闭"])
+        if (index !== 4)
+            setInterval(()=>{
+                if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️')!==-1) return
 
-        load_then_delay(() => {
-            let text;
-            if (index === 0) { // All
-                text = `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`
-            } else if (index === 1) { // BV
-                text = location.pathname.split("/")[2]
-            } else if (index === 2) { // Link
-                text = `${location.origin}${location.pathname}`
-            } else if (index === 2) { // Title
-                text = `${document.querySelector('h1.video-title').innerText}`
-            }
+                let text;
+                if (index === 0) { // All
+                    text = `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`
+                } else if (index === 1) { // BV
+                    text = location.pathname.split("/")[2]
+                } else if (index === 2) { // Link
+                    text = `${location.origin}${location.pathname}`
+                } else if (index === 3) { // Title
+                    text = `${document.querySelector('h1.video-title').innerText}`
+                }
 
-            const $btn = document.createElement('span')
-            $btn.title = `复制当前视频的${["【标题】链接", "BV", "链接", "标题"][index]}`
-            $btn.style.cursor = 'pointer'
-            $btn.innerText = '🏷️'
-            $btn.addEventListener('click', () => navigator.clipboard.writeText(text))
+                const $btn = document.createElement('span')
+                $btn.title = `复制当前视频的${["【标题】链接", "BV", "链接", "标题"][index]}`
+                $btn.style.cursor = 'pointer'
+                $btn.innerText = '🏷️'
+                $btn.addEventListener('click', () => navigator.clipboard.writeText(text))
 
-            document.querySelector('h1.video-title').append($btn);
-        }, 800);
+                document.querySelector('h1.video-title').append($btn);
+            },3500)
     }
 
         // ---------------------------------------------------------------------------- //
 
     /* search */
     else if (matchList([
-        "bing.com/search", "baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q",
+        "bing.com/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q",
         "so.com/s", "sogou.com/web?query",
         "search.yahoo.com/search", "yandex.com/search",
         "searx.tiekoetter.com", "petalsearch.com",
@@ -599,7 +594,28 @@
                     -moz-box-shadow: unset;
                     -o-box-shadow: unset;
                 }
+                
+                /* 搜索预测 */
+                .c-group-wrapper{
+                    margin: 0 !important;
+                }
+
+                #content_left .search-source-wrap {
+                    position: relative !important;
+                    margin-top: -12px !important;
+                    margin-bottom: 18px !important;
+                    margin-left: 8px !important;
+                }
+
                 `;
+
+                onload( ()=> {
+                    if (document.querySelectorAll("#con-at").length > 0) {
+                        document.getElementById("su").click();
+                        return;
+                    }
+                    document.body.insertAdjacentHTML("afterend",`<style>${css}</style>`);
+                })
             }
             // --------------------------------------- //
             else if (match("fsoufsou.com/search")) {
@@ -937,12 +953,12 @@
     else if (match("blog.csdn.net") && match("/article/details/")) {
         if (menu("CSDN极简化", 'csdn_opt', true)) {
             css += `
-            .hide-article-box,
+            .hide-article-box,.sidecolumn, .hide-preCode-box, .passport-login-container,
             #recommendNps, .template-box, .blog-footer-bottom, #blogColumnPayAdvert, .article-type-img,
             .recommend-item-box, .recommend-right, #dmp_ad_58, aside{
                 display: none!important;
             } 
-            .article-info-box, .article-bar-top, #article_content, #csdn-toolbar,
+            .article-info-box, .article-bar-top, #article_content,
             main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box,
             header div.article-info-box div.blog-tags-box .tags-box.artic-tag-box a.tag-link,
             main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box .tags-box,
@@ -978,7 +994,8 @@
                 margin-left: 10px;            
             }
             
-            .copybtn{
+            pre .hljs-button{
+                display:block;
                 position: absolute;
                 right: 4px;
                 top: 4px;
@@ -992,7 +1009,23 @@
                 box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 2px 4px rgb(0 0 0 / 5%);
             }
             
+            main div.blog-content-box pre.set-code-hide {
+                height: auto!important;
+            }
+            
         `;
+        }
+
+        if (menu("CSDN底部不跟随", 'csdn_toolbox', true)) {
+            css += `
+            .left-toolbox{
+                z-index: 996!important;
+                left: 0px!important;
+                bottom: 0px!important;
+                width: 900px!important;
+                position: relative!important;
+            }
+            `
         }
 
         if (menu("CSDN移除顶部", 'csdn_remove_header', true)) {
@@ -1029,27 +1062,19 @@
 
             // 免登录复制
             if (menu("CSDN免登录复制", 'csdn_copy', true)) {
-                const copy_without_sgin = () => {
-                    const btns = document.getElementsByClassName("hljs-button");
-                    for (let i = 0; i < btns.length; i++) {
-                        btns[i].outerHTML = `
-                <button class="copybtn" onclick="
-                this.innerText = '';
-                navigator.clipboard.writeText(this.parentNode.innerText);
-                this.innerText = '复制成功';
-                setTimeout(() => {this.innerText = '点击复制'},1000);"
-                >点击复制</button>
-                `
-                    }
-                }
-                copy_without_sgin();
-                // 二次免登录复制 反正顽固分子 可恶可恶可恶可恶可恶可恶可恶可恶可恶可恶可恶
-                setTimeout(() => copy_without_sgin(), 400);
-                setTimeout(() => copy_without_sgin(), 850);
-                setTimeout(() => copy_without_sgin(), 1600);
-                setTimeout(() => copy_without_sgin(), 3200);
+                    document.querySelectorAll(".hljs-button").forEach((e) => {
+                        e.setAttribute("data-title", "点击复制");
+                        e.classList.remove('signin');
+                        e.removeAttribute("onclick");
+                        e.addEventListener("click",()=>{
+                            e.setAttribute("data-title", " ");
+                            navigator.clipboard.writeText(e.parentNode.innerText);
+                            e.setAttribute("data-title", "复制成功");
+                            setTimeout(() => e.setAttribute("data-title", "点击复制"),1200);
+                        })
+                    })
             }
-        }, 350);
+        }, 80);
     }
     /* 知乎 */
     else if (match("zhihu.com/question")) {
