@@ -5,10 +5,11 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.0
+// @version      0.5.1
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
+// @node         12-7 0.5.1 更换设置界面背景颜色(网课太慢,鸽了)
 // @node         12-5 0.5.0 新增CSDN 底部工具栏不跟随 修复CSDN用户浮窗不显示 代码块下方大量空白 百度卡片不起作用 样式失效 现在特殊界面将自动回复原样式(如世界杯) bilibili切换视频复制按钮消失(现在也可以关闭该功能了)
 // @node         11-5 0.4.10 修复 duckduckgo 下无效的问题
 // @node         10-3 0.4.9 修复Violentmonkey下无法运行的问题
@@ -856,21 +857,21 @@
             height: 70vh;
             top: 10vh;
             left: 10vw;
-            background-color: lightpink;
+            background-color: rgba(33,33,33,0.8);
             background-image: url(${cget("search-background-img")});
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: bottom;
             opacity: 0.88;
             border: 1px solid rgba(0,0,0,0.5);
-            box-shadow: 6px 10px 24px 6px rgba(0,0,0,0.65);
+            box-shadow: 6px 10px 24px 6px rgba(100,100,100,0.65);
             border-radius: 24px;
             padding: 5vh 5vw;
             overflow: hidden;
             overflow-y:auto
         }
         #search-setting-awa * {
-            color: black;
+            color: #ffffff;
             font-size: x-large;
             overflow: hidden;
         }
@@ -882,7 +883,7 @@
             opacity: 0.4;
             color: white;
             border: gray 1px;
-            box-shadow: 2px 4px 8px 2px rgba(0,0,0,0.65);
+            box-shadow: 2px 4px 8px 2px rgba(100,100,100,0.65);
         }
         #search-setting-awa > li > button{
                 position: relative;
