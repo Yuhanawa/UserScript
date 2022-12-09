@@ -5,11 +5,12 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.1
+// @version      0.5.2
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
-// @node         12-7 0.5.1 更换设置界面背景颜色(网课太慢,鸽了)
+// @node         12-9 0.5.2 临时紧急修复bing众多问题 (网课太忙,较慢)
+// @node         12-7 0.5.1 更换设置界面背景颜色(网课太忙,鸽了)
 // @node         12-5 0.5.0 新增CSDN 底部工具栏不跟随 修复CSDN用户浮窗不显示 代码块下方大量空白 百度卡片不起作用 样式失效 现在特殊界面将自动回复原样式(如世界杯) bilibili切换视频复制按钮消失(现在也可以关闭该功能了)
 // @node         11-5 0.4.10 修复 duckduckgo 下无效的问题
 // @node         10-3 0.4.9 修复Violentmonkey下无法运行的问题
@@ -240,15 +241,20 @@
         "searx.tiekoetter.com", "petalsearch.com",
         "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
         "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"
-    ]) || match("/search?")) {
+    ])) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
         onload(() => {
             /*添加背景*/
             document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>")
-            /* 移除多余的input */
-            if (match("sogou.com/web?query")) document.getElementById("bottom_form_querytext").className += " search-input-awa "; else {
+            /* 匹配搜索框 */
+            if (match("sogou.com/web?query"))
+                document.getElementById("bottom_form_querytext").className += " search-input-awa ";
+            else if (match("bing.com")) {
+                document.getElementById("sb_form_q").className += " search-input-awa ";
+            }
+            else {
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
@@ -508,6 +514,25 @@
                 #est_en::after{
                     border-radius: 2px;
                 }
+                
+                /* 特殊横条 */
+                #b_pole{
+                    opacity:0.85;
+                }
+                
+                /* 临时删除id_rh */
+                #id_rh{
+                    display:none;
+                }
+                
+                .b_scopebar{
+                    top: auto!important;
+                    bottom: auto!important;
+                }
+                
+                #b_header {
+                    height: unset!important;
+                }
                 `;
                 addClass(".item-awa", "#b_results > li")
 
@@ -611,6 +636,7 @@
                 `;
 
                 onload( ()=> {
+                    // 特殊界面自动跳过
                     if (document.querySelectorAll("#con-at").length > 0) {
                         document.getElementById("su").click();
                         return;
@@ -800,7 +826,6 @@
                     }
                 } catch {
                 }
-
 
                 window.onscroll = () => {
                     tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
