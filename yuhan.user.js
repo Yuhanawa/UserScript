@@ -5,47 +5,16 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.3
+// @version      0.5.3.2
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
-// @node         12-10 0.5.3 临时修复一个bug 明天大规模重构
-// @node         12-9 0.5.2 临时紧急修复bing众多问题 (网课太忙,较慢)
-// @node         12-7 0.5.1 更换设置界面背景颜色(网课太忙,鸽了)
-// @node         12-5 0.5.0 新增CSDN 底部工具栏不跟随 修复CSDN用户浮窗不显示 代码块下方大量空白 百度卡片不起作用 样式失效 现在特殊界面将自动回复原样式(如世界杯) bilibili切换视频复制按钮消失(现在也可以关闭该功能了)
-// @node         11-5 0.4.10 修复 duckduckgo 下无效的问题
-// @node         10-3 0.4.9 修复Violentmonkey下无法运行的问题
-// @node         10-2 0.4.7(8) 添加3个搜索引擎
-// @node         10-2 0.4.6 细节调整
-// @node         9-10 0.4.5 调整百度必应谷歌360搜狗 搜索内容位置 使其一致化 微调必应百度
-// @node         9-09 0.4.4 隐藏知乎右侧文字(备案信息等)
-// @node         完整更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
-// @note         快开学了 开学后可能更新缓慢 但会持续更新的 反馈可能一时半会看不到 请稍安勿躁
-// @note         预计下次更新时间9月11日(中秋)
+// @node         更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @note         虽是自用但如果你无意发现了这个脚本 欢迎提出建议
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
 // @license      GPL-3.0
-// @match        *://*.bing.com/*
-// @match        *://*.baidu.com/*
-// @match        *://*.fsoufsou.com/*
-// @match        *://*.google.com/*
-// @match        *://*.bilibili.com/*
-// @match        *://*.blog.csdn.net/*
-// @match        *://*.zhihu.com/*
-// @match        *://*.so.com/*
-// @match        *://*.sogou.com/*
-// @match        *://*.duckduckgo.com/*
-// @match        *://*.xn--flw351e.ml/*
-// @match        *://*.search.njau.cf/*
-// @match        *://*.search.aust.cf/*
-// @match        *://*.yahoo.com/*
-// @match        *://*.yandex.com/*
-// @match        *://*.searx.tiekoetter.com/*
-// @match        *://*.petalsearch.com/*
-// @match        *://*.wuzhuiso.com/*
-// @match        *://*.ecosia.org/*
-// @match        *://*.startpage.com/*
+// @match        *://*/*
 // @icon         none
 // @run-at       document-body
 // @grant        GM_setValue
@@ -56,8 +25,6 @@
 
 
 (function () {
-    'use strict';
-
     const engine_switch_tool_version = 1;
 
     let css = "";
@@ -96,30 +63,33 @@
         -韦氏词典,https://www.learnersdictionary.com/definition/$
     `;
 
+    const get = (key, d) => GM_getValue(key, d)
+    const set = (key, v) => GM_setValue(key, v)
+
+
     // ---------------------------------------------------------------------------- //
 
-    const cget = (key, d) => GM_getValue(key, d)
-    const cset = (key, v) => GM_setValue(key, v)
+
     const menu = (name, key, defaultValue) => {
-        const value = cget(key, defaultValue)
+        const value = get(key, defaultValue)
         name += value ? ':开启' : ':关闭';
         GM_registerMenuCommand(name, () => {
-            cset(key, !value);
+            set(key, !value);
             location.reload()
         });
         return value;
     }
     const options = (name, key, ValueList) => {
-        const index = cget(key, 0)
+        const index = get(key, 0)
         name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
         GM_registerMenuCommand(name, () => {
-            if (index + 1 >= ValueList.length) cset(key, 0); else cset(key, index + 1);
+            if (index + 1 >= ValueList.length) set(key, 0); else set(key, index + 1);
             location.reload()
         });
         return index;
     }
     const match = (s) => {
-        if (location.href.indexOf(s) !== -1) {
+        if (document.URL.indexOf(s) !== -1) {
             if (!isRunning) {
                 isRunning = true;
                 console.info("Yuhan 自用 优化美化净化脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
@@ -149,100 +119,144 @@
         }
     }
     const onload = (f) => {
-        if (isLoaded) f();
-        else document.addEventListener("DOMContentLoaded", () => f())
+        if (isLoaded) f(); else document.addEventListener("DOMContentLoaded", () => f())
     };
-    const load_then_delay = (f, t) => onload(() => setTimeout(() => f(), t));
+    const setTimeoutBeforeLoad = (f, t) => onload(() => setTimeout(() => f(), t));
+
+    const setIntervalBeforeLoad = (f, timeout) => onload(() => {
+        f();
+        setInterval(f, timeout);
+    })
 
     // search-block-website
 
     onload(() => isLoaded = true);
 
-    // ---------------------------------------------------------------------------- //
 
-    /* bilibili */
-    if (match("://www.bilibili.com/video/")) {
-        if (menu("移除评论关键字搜索图标", 'bilibili_remove_search_icon', true)) {
-            setInterval(() => {
-                // remove with class " icon search-word "
-                let icons = document.getElementsByClassName("icon search-word")
-                for (let i = 0; i < icons.length; i++) {
-                    icons[i].remove()
-                }
-                if (icons.length > 0) console.log(`remove ${icons.length} search icon`)
-            }, 10000);
+    const features = {
+        /*
+        test: {
+            name: "测试", match: ['bing.com/search?q='], value: {
+                '开启': () => {
+                    console.log('开启');
+                }, '关闭': null
+            },
+        },
+        */
+        bilibili_remove_search_icon: {
+            name: "移除评论关键字搜索图标", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
+                '已启用': () => {
+                    setIntervalBeforeLoad(() => {
+                        // remove with class " icon search-word "
+                        let icons = document.getElementsByClassName("icon search-word")
+                        for (let i = 0; i < icons.length; i++) {
+                            icons[i].remove()
+                        }
+                        if (icons.length > 0) console.log(`remove ${icons.length} search icon`)
+                    }, 8000);
+                }, '已关闭': null,
+            },
+        }, bilibili_remove_search: {
+            name: "移除评论关键字搜索跳转", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
+                '已关闭': null, '已开启': () => {
+                    setIntervalBeforeLoad(() => {
+                        let as = document.getElementsByClassName("jump-link search-word")
+                        for (let i = 0; i < as.length; i++) {
+                            as[i].parentElement.outerHTML = as[i].parentElement.outerHTML.replace(as[i].outerHTML, as[i].outerText)
+                        }
+                        if (as.length > 0) console.log(`remove ${as.length} search icon`)
+                    }, 8000);
+                },
+            },
+        }, bilibili_Style_adjustments: {
+            name: "bilibili样式微调", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
+                '已关闭': null, '已开启': () => {
+                    setIntervalBeforeLoad(() => {
+                        let es = document.getElementsByClassName("reply-tag-list")
+                        for (let i = 0; i < es.length; i++) {
+                            if (es[i].style.marginTop !== "0px") {
+                                es[i].style.marginTop = "0px";
+                                es[i].style.marginLeft = "18px";
+                                let html = `</span>${es[i].outerHTML}<div class="reply-operation-warp`;
+                                let s = es[i].previousElementSibling;
+                                es[i].remove();
+                                s.outerHTML = s.outerHTML.replace(`</span><div class="reply-operation-warp`, html);
+                            }
+                        }
+                    }, 8000);
+                    setTimeoutBeforeLoad(() => {
+                        document.getElementsByClassName("fixed-nav")[0].remove()
+                        setTimeout(() => {
+                            if (document.getElementsByClassName("fixed-nav").length > 0) document.getElementsByClassName("fixed-nav")[0].remove()
+                        }, 1200)
+                    }, 1200)
+                },
+            },
+        }, 'bilibili_copy_url': {
+            fn: (title, text) => {
+                    if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️') !== -1) return
+                    const copy_btn = document.createElement('span')
+                    copy_btn.title = `复制当前视频的${title}`
+                    copy_btn.style.cursor = 'pointer'
+                    copy_btn.innerText = '🏷️'
+                    copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
+
+                    document.querySelector('h1.video-title').append(copy_btn);
+            }, name: '视频快捷分享复制模式', match: ['www.bilibili.com/video'], value: {
+                '[标题]链接': (feature) => {
+                    setIntervalBeforeLoad(()=>{
+                        feature.fn('[标题]链接', `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`)
+                    },1200);
+                }, 'BV': (feature) => {
+                    setIntervalBeforeLoad(()=>{
+                        feature.fn('BV', location.pathname.split("/")[2])
+                    },1200);
+                }, '链接': (feature) => {
+                    setIntervalBeforeLoad(()=>{
+                        feature.fn('链接', `${location.origin}${location.pathname}`)
+                },1200);
+                    }, '标题': (feature) => {
+                    setIntervalBeforeLoad(()=>{
+                        feature.fn('标题', `${document.querySelector('h1.video-title').innerText}`)
+                    },1200);
+                }, '关闭': null
+            },
+
+
         }
-        if (menu("移除评论关键字搜索跳转", 'bilibili_remove_search', false)) {
-            setInterval(() => {
-                let as = document.getElementsByClassName("jump-link search-word")
-                for (let i = 0; i < as.length; i++) {
-                    as[i].parentElement.outerHTML = as[i].parentElement.outerHTML.replace(as[i].outerHTML, as[i].outerText)
-                }
-                if (as.length > 0) console.log(`remove ${as.length} search icon`)
-            }, 8000);
-        }
-        if (menu("修改UP觉得很赞标签位置", 'bilibili_compact_reply_tag', true)) {
-            setInterval(() => {
-                let es = document.getElementsByClassName("reply-tag-list")
-                for (let i = 0; i < es.length; i++) {
-                    if (es[i].style.marginTop !== "0px") {
-                        es[i].style.marginTop = "0px";
-                        es[i].style.marginLeft = "18px";
-                        let html = `</span>${es[i].outerHTML}<div class="reply-operation-warp`;
-                        let s = es[i].previousElementSibling;
-                        es[i].remove();
-                        s.outerHTML = s.outerHTML.replace(`</span><div class="reply-operation-warp`, html);
-                    }
-                }
-            }, 8000);
-        }
-        if (menu("移除右侧新版反馈等按钮", 'bilibili_remove_nav_menu', true)) {
-            load_then_delay(() => {
-                document.getElementsByClassName("fixed-nav")[0].remove()
-                setTimeout(() => {
-                    if (document.getElementsByClassName("fixed-nav").length > 0) document.getElementsByClassName("fixed-nav")[0].remove()
-                }, 1200)
-            }, 1200)
-        }
 
-        // 灵感来自 https://greasyfork.org/zh-CN/scripts/449865
-        const index = options("视频快捷分享复制模式", 'bilibili_copy', ["【标题】链接", "BV", "链接", "标题", "关闭"])
-        if (index !== 4)
-            setInterval(()=>{
-                if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️')!==-1) return
 
-                let text;
-                if (index === 0) { // All
-                    text = `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`
-                } else if (index === 1) { // BV
-                    text = location.pathname.split("/")[2]
-                } else if (index === 2) { // Link
-                    text = `${location.origin}${location.pathname}`
-                } else if (index === 3) { // Title
-                    text = `${document.querySelector('h1.video-title').innerText}`
-                }
-
-                const $btn = document.createElement('span')
-                $btn.title = `复制当前视频的${["【标题】链接", "BV", "链接", "标题"][index]}`
-                $btn.style.cursor = 'pointer'
-                $btn.innerText = '🏷️'
-                $btn.addEventListener('click', () => navigator.clipboard.writeText(text))
-
-                document.querySelector('h1.video-title').append($btn);
-            },3500)
     }
 
-        // ---------------------------------------------------------------------------- //
+    for (let key of Object.keys(features)) {
+        let feature = features[key];
+
+        if (!matchList(feature.match)) continue;
+
+        // 添加菜单
+        const current = get(key, 0);
+        const objKeys = Object.keys(feature.value)
+        let fullname = `${feature.name}:${objKeys[current]}[${current + 1}/${objKeys.length}]<点击切换`;
+        // noinspection JSUnresolvedFunction
+        GM_registerMenuCommand(fullname, () => {
+            if (current + 1 >= objKeys.length) set(key, 0); else set(key, current + 1);
+            location.reload()
+        });
+
+        try {
+            const value = feature.value[objKeys[current]];
+            if (value == null) continue;
+            else if (typeof value === "function") value(feature);
+            else if (typeof value === "string") addcss(value);
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
 
     /* search */
-    else if (matchList([
-        "bing.com/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q",
-        "so.com/s", "sogou.com/web?query",
-        "search.yahoo.com/search", "yandex.com/search",
-        "searx.tiekoetter.com", "petalsearch.com",
-        "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
-        "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"
-    ])) {
+    if (matchList(["bing.com/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q", "so.com/s", "sogou.com/web?query", "search.yahoo.com/search", "yandex.com/search", "searx.tiekoetter.com", "petalsearch.com", "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
+        "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"])) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
@@ -250,22 +264,22 @@
             /*添加背景*/
             document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>")
             /* 匹配搜索框 */
-            if (match("sogou.com/web?query"))
-                document.getElementById("bottom_form_querytext").className += " search-input-awa ";
-            else if (match("bing.com")) {
+            if (match("sogou.com/web?query")) document.getElementById("bottom_form_querytext").className += " search-input-awa "; else if (match("bing.com")) {
                 document.getElementById("sb_form_q").className += " search-input-awa ";
-            }
-            else {
+            } else if (match("duckduckgo.com/")) {
+                document.getElementById("search_form_input").className += " search-input-awa ";
+            } else {
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
             }
             /* 添加字体 */
-            addcss(`*{font-family:'${cget("search-font-family")}';}`);
+            document.head.insertAdjacentHTML("afterbegin", `<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/misans@3.1.1/lib/misans-400-regular.min.css"/>`)
+            addcss(`* {font-family: MiSans,Microsoft YaHei,Tahoma,Arial,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif !important;}`);
         })
 
         /* search */
-        if (cget("search", true)) {
+        if (get("search", true)) {
             css += `
         *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
         body, .body-awa {
@@ -280,7 +294,7 @@
         body:before{
             content: "";
             background-color: #f5f5f5 !important;
-            background-image: url(${cget("search-background-img", "")});
+            background-image: url(${get("search-background-img", "")});
             background-size: 100% auto;
             background-attachment: fixed;
             background-position-y: center;
@@ -350,7 +364,7 @@
             padding:auto !important;
         }
         `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-            if (cget("search-background-img", "").trim() !== "") css += `
+            if (get("search-background-img", "").trim() !== "") css += `
                     .results > div, .results > li, .result, .item-awa{
                         background-color: rgba(255, 255, 255,.65);
                     }`.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
@@ -558,7 +572,7 @@
                     }
                 })
 
-                if (cget("search-background-img", "").trim() !== "") {
+                if (get("search-background-img", "").trim() !== "") {
                     css += `
                         #b_header {
                             border-bottom: 0px !important;
@@ -566,7 +580,7 @@
                     `
                 }
 
-                if (cget("remove_favicon_icon", true)) {
+                if (get("remove_favicon_icon", true)) {
                     css += `.sh_favicon{ display:none !important; }`
                 }
             }
@@ -636,13 +650,13 @@
 
                 `;
 
-                onload( ()=> {
+                onload(() => {
                     // 特殊界面自动跳过
                     if (document.querySelectorAll("#con-at").length > 0) {
                         document.getElementById("su").click();
                         return;
                     }
-                    document.body.insertAdjacentHTML("afterend",`<style>${css}</style>`);
+                    document.body.insertAdjacentHTML("afterend", `<style>${css}</style>`);
                 })
             }
             // --------------------------------------- //
@@ -655,7 +669,7 @@
                 addClass(".item-text-awa", ".organic-results div span")
                 addClass(".auto", ".mobile-wiki-container")
 
-                load_then_delay(() => {
+                setTimeoutBeforeLoad(() => {
                     const i = document.querySelector("#app > div > .false > .flex-column > div > .flex-row > .flex-column > div")
                     if (i == null || i.innerText.length < 20) {
                         i.remove()
@@ -759,11 +773,11 @@
         // ---------------------------------------------------------------------------- //
 
         /* search tools */
-        if (cget("search_engine_switch_tool", true)) {
-            if (cget("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
-                cset("engine_switch_tool_version", engine_switch_tool_version);
-                if (cget("engine_switch_tool_version", -1) !== -1) {
-                    load_then_delay(() => {
+        if (get("search_engine_switch_tool", true)) {
+            if (get("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
+                set("engine_switch_tool_version", engine_switch_tool_version);
+                if (get("engine_switch_tool_version", -1) !== -1) {
+                    setTimeoutBeforeLoad(() => {
                         document.body.insertAdjacentHTML("afterend", `
                         <div id="removeafter3s" style="font-size: xx-large;position: fixed;margin: auto;top: 20vh;left: 0;right: 0;width: max-content;height:min-content;padding: 40px;background: lightgreen;opacity: 0.8;">
                             <h1 style="font-size: xx-large"> 此信息将会在3秒后自动消失 </h1>
@@ -776,8 +790,8 @@
                     }, 600)
                 }
             }
-            if (cget("engine_switch_tool_list", "").trim() === "") cset("engine_switch_tool_list", defaultSearchList);
-            let list = cget("engine_switch_tool_list").trim();
+            if (get("engine_switch_tool_list", "").trim() === "") set("engine_switch_tool_list", defaultSearchList);
+            let list = get("engine_switch_tool_list").trim();
 
             onload(() => {
                 try {
@@ -790,13 +804,12 @@
                     s = s.replaceAll(/\s/g, "");
                     if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
                     html += ` <!--suppress HtmlUnknownAttribute -->
-<a class="${cget("switch_tool_style", "switch_tool switch_tool_button switch_tool_show")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
+<a class="${get("switch_tool_style", "switch_tool switch_tool_button switch_tool_show")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
                          onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
                    `
                 });
 
-                document.body.insertAdjacentHTML("afterend",
-                    `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
+                document.body.insertAdjacentHTML("afterend", `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
                 <div id ="switch_tool_style" style="margin: auto;">
                     <div>
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a> /
@@ -810,11 +823,11 @@
                     </div>
                 </div>${html}</div>`);
             })
-            load_then_delay(() => {
+            setTimeoutBeforeLoad(() => {
                 const tool = document.getElementById("engine_switch_tool");
 
                 document.getElementById("switch_tool_style").addEventListener("click", () => {
-                    cset("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
+                    set("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
                 });
 
                 try {
@@ -884,7 +897,7 @@
             top: 10vh;
             left: 10vw;
             background-color: rgba(33,33,33,0.8);
-            background-image: url(${cget("search-background-img")});
+            background-image: url(${get("search-background-img")});
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: bottom;
@@ -924,21 +937,21 @@
             <button id="search-setting-close-awa" onclick="this.parentElement.style.display='none'">[X]</button>
             <p>该页面的修改会自动保存，刷新生效，留空使用默认值</p><br>
             <li title="留空使用脚本自带样式,需要系统安装此字体"> 
-            font-family: <input id="search-font-family" value="${cget("search-font-family", "")}"/>
+            font-family: <input id="search-font-family" value="${get("search-font-family", "")}"/>
             </li>
             
             <li title="请输入指向图片一个链接"> 
-            background-img: <input id="search-background-img" value="${cget("search-background-img", "")}"/>
+            background-img: <input id="search-background-img" value="${get("search-background-img", "")}"/>
             </li>
             
             <li title="#开头表示忽略"> 
             屏蔽网站(暂不支持 因需要手动适配各个网站 工作量巨大):<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="search-block-website" contenteditable="true">${cget("search-block-website", "")}</pre>
+               <pre id="search-block-website" contenteditable="true">${get("search-block-website", "")}</pre>
             </li>
                
             <li title="留空使用默认，#开头表示忽略"> 
             搜索引擎:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="engine_switch_tool_list" contenteditable="true">${cget("engine_switch_tool_list", "")}</pre>
+               <pre id="engine_switch_tool_list" contenteditable="true">${get("engine_switch_tool_list", "")}</pre>
             </li>
        </div>
     </div>
@@ -948,11 +961,11 @@
                 const e = document.getElementById(key);
                 if (e.tagName === "INPUT") {
                     e.addEventListener("change", () => {
-                        cset(key, document.getElementById(key).value)
+                        set(key, document.getElementById(key).value)
                     })
                 } else if (e.tagName === "PRE") {
                     document.getElementById("search-setting-awa").addEventListener("keyup", () => {
-                        cset(key, document.getElementById(key).innerText)
+                        set(key, document.getElementById(key).innerText)
                     }, true)
                 }
             }
@@ -976,8 +989,7 @@
         `);
     }
 
-    /* csdn */
-    else if (match("blog.csdn.net") && match("/article/details/")) {
+    /* csdn */ else if (match("blog.csdn.net") && match("/article/details/")) {
         if (menu("CSDN极简化", 'csdn_opt', true)) {
             css += `
             .hide-article-box,.sidecolumn, .hide-preCode-box, .passport-login-container,
@@ -1063,13 +1075,13 @@
             `
         }
 
-        load_then_delay(() => {
+        setTimeoutBeforeLoad(() => {
             // 将代码块改为可修改
             document.querySelectorAll("code").forEach(c => {
                 c.contentEditable = "true";
             });
 
-            if (cget("csdn_opt", true)) {
+            if (get("csdn_opt", true)) {
                 // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
                 document.getElementsByClassName("option-box")[0].remove();
                 document.getElementsByClassName("option-box")[0].remove();
@@ -1089,22 +1101,21 @@
 
             // 免登录复制
             if (menu("CSDN免登录复制", 'csdn_copy', true)) {
-                    document.querySelectorAll(".hljs-button").forEach((e) => {
-                        e.setAttribute("data-title", "点击复制");
-                        e.classList.remove('signin');
-                        e.removeAttribute("onclick");
-                        e.addEventListener("click",()=>{
-                            e.setAttribute("data-title", " ");
-                            navigator.clipboard.writeText(e.parentNode.innerText);
-                            e.setAttribute("data-title", "复制成功");
-                            setTimeout(() => e.setAttribute("data-title", "点击复制"),1200);
-                        })
+                document.querySelectorAll(".hljs-button").forEach((e) => {
+                    e.setAttribute("data-title", "点击复制");
+                    e.classList.remove('signin');
+                    e.removeAttribute("onclick");
+                    e.addEventListener("click", () => {
+                        e.setAttribute("data-title", " ");
+                        navigator.clipboard.writeText(e.parentNode.innerText);
+                        e.setAttribute("data-title", "复制成功");
+                        setTimeout(() => e.setAttribute("data-title", "点击复制"), 1200);
                     })
+                })
             }
         }, 80);
     }
-    /* 知乎 */
-    else if (match("zhihu.com/question")) {
+    /* 知乎 */ else if (match("zhihu.com/question")) {
         if (menu("隐藏知乎右侧文字(备案信息等)", 'zhihu_remove_footer', true)) {
             css += `
             footer{display:none}
@@ -1122,3 +1133,4 @@
 
     addcss(css);
 })();
+
