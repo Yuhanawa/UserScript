@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.3.2
+// @version      0.5.3.3
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -255,7 +255,7 @@
 
 
     /* search */
-    if (matchList(["bing.com/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q", "so.com/s", "sogou.com/web?query", "search.yahoo.com/search", "yandex.com/search", "searx.tiekoetter.com", "petalsearch.com", "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
+    if (matchList(["bing.com/search", "woc.cool/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q", "so.com/s", "sogou.com/web?query", "search.yahoo.com/search", "yandex.com/search", "searx.tiekoetter.com", "petalsearch.com", "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
         "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"])) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
@@ -272,16 +272,61 @@
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
+                if (document.querySelectorAll(".search-input-awa").length===0){
+                    setTimeout(()=>{
+                        document.querySelectorAll("input").forEach(i => {
+                            if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
+                        });
+                    },2000)
+                }
             }
-            /* 添加字体 */
-            document.head.insertAdjacentHTML("afterbegin", `<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/misans@3.1.1/lib/misans-400-regular.min.css"/>`)
-            addcss(`* {font-family: MiSans,Microsoft YaHei,Tahoma,Arial,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif !important;}`);
         })
+        /* 添加字体 */
+        addcss(`
+        @import url('https://unpkg.com/misans@3.1.1/lib/misans-400-regular.min.css');
+        @import url('https://unpkg.com/misans@3.1.1/lib/misans-500-medium.min.css');
+        * {font-family: MiSans,Microsoft YaHei,Tahoma,Arial,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif !important;}
+        `
+        );
 
         /* search */
         if (get("search", true)) {
             css += `
-        *{font-family:-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif}
+            
+        em, strong{
+            color: #f73131 !important;
+        }
+        div>strong{
+             color: unset !important;
+        }
+        a:not(.trgr_icon) {
+          position: relative;
+          text-decoration: none !important;
+          color: #2d65b3 !important;
+        /* 3476d2   */
+        }
+        a:hover:after {
+          left: 0 !important;
+          width: 100% !important;
+          transition: width 350ms !important;
+        }
+        a:hover {
+          text-decoration: none !important;
+        }
+        a:after {
+          content: ""!important;
+          position: absolute!important;
+          border-bottom: 2px solid #f16d7a !important;
+        /*  #3476d2  */
+          bottom: -2px!important;
+          left: 100%!important;
+          width: 0!important;
+          transition: width 350ms, left 350ms!important;
+        }
+        
+
+        
+            
         body, .body-awa {
               background: transparent !important
               animation-name: ani_topTobuttom;
@@ -347,6 +392,11 @@
             margin-bottom: revert;
             border:unset
         }
+        /* 鼠标悬浮添加内阴影 */
+        .item-awa:hover {
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          box-shadow: 0,0, 1px rgba(0,0,0,0.3);
+        }
         span, p, .item-awa p, .item-awa span, .item-text-awa{
             line-height: 20px;
             color: #444;
@@ -355,10 +405,11 @@
         h2,h3,.item-awa h2, .item-awa a, .item-title-awa{
             /*color: #555;*/
             color: #3476dd;
-            font: 18px 'Microsoft YaHei UI','Microsoft YaHei',Arial,Helvetica,Sans-Serif;
+            font-size: 18px;
             line-height: 24px;
             font-weight: 400;
-        }         
+        }
+        
         .auto{
             margin:auto !important;
             padding:auto !important;
@@ -408,7 +459,6 @@
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
-            font-family: 'Open Sans', sans-serif;
             font-weight: normal;
         }
         .switch_tool_link {
@@ -425,7 +475,6 @@
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
-            font-family: 'Open Sans', sans-serif;
             font-weight: normal;
         }
         .switch_tool_button {
@@ -449,7 +498,6 @@
             -webkit-transition: all 0.2s ease-in-out;
             -moz-transition: all 0.2s ease-in-out;
             -o-transition: all 0.2s ease-in-out;
-            font-family: 'Open Sans', sans-serif;
             font-weight: normal;
         }
         
@@ -660,7 +708,7 @@
                 })
             }
             // --------------------------------------- //
-            else if (match("fsoufsou.com/search")) {
+            else if (match("fsoufsou.com/search")||match("woc.cool/search")) {
                 addClass(".header-awa", "._search-sticky-bar")
                 addClass(".inputbox-awa", ".input-group-container")
                 addClass(".item-awa", ".organic-results div")
@@ -669,15 +717,16 @@
                 addClass(".item-text-awa", ".organic-results div span")
                 addClass(".auto", ".mobile-wiki-container")
 
-                setTimeoutBeforeLoad(() => {
-                    const i = document.querySelector("#app > div > .false > .flex-column > div > .flex-row > .flex-column > div")
-                    if (i == null || i.innerText.length < 20) {
-                        i.remove()
-                    } else {
-                        i.className += "item-awa"
-                        i.querySelectorAll(".flex-row-center").forEach((x) => x.remove())
-                    }
-                }, 1000)
+                /* ! 意义不明的代码 暂时注释掉 !*/
+                // setTimeoutBeforeLoad(() => {
+                //     const i = document.querySelector("#app > div > .false > .flex-column > div > .flex-row > .flex-column > div")
+                //     if (i != null && i.innerText.length < 20) {
+                //         i.remove()
+                //     } else {
+                //         i.className += "item-awa"
+                //         i.querySelectorAll(".flex-row-center").forEach((x) => x.remove())
+                //     }
+                // }, 1000)
 
 
                 css += `
@@ -687,6 +736,19 @@
                     
                     .organic-results {
                         padding-top: 16px;
+                    }
+                    
+                    #search-input{
+                        background-color: transparent !important;
+                    }
+                    
+                    .organic-results{
+                        max-width: 618px !important;
+                        margin-left: 48px !important;
+                    }
+                    
+                    #code-block-container{
+                        max-width: 480px;
                     }
                 `
             }
