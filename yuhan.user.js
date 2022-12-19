@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.3.3
+// @version      0.5.3.4
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -170,27 +170,25 @@
             },
         }, bilibili_Style_adjustments: {
             name: "bilibili样式微调", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
-                '已关闭': null, '已开启': () => {
-                    setIntervalBeforeLoad(() => {
-                        let es = document.getElementsByClassName("reply-tag-list")
-                        for (let i = 0; i < es.length; i++) {
-                            if (es[i].style.marginTop !== "0px") {
-                                es[i].style.marginTop = "0px";
-                                es[i].style.marginLeft = "18px";
-                                let html = `</span>${es[i].outerHTML}<div class="reply-operation-warp`;
-                                let s = es[i].previousElementSibling;
-                                es[i].remove();
-                                s.outerHTML = s.outerHTML.replace(`</span><div class="reply-operation-warp`, html);
-                            }
+                 '已开启': () => {
+                    css+=`
+                        .vcd , #live_recommand_report, 
+                        .fixed-nav
+                        {
+                                display: none !important;
                         }
-                    }, 8000);
-                    setTimeoutBeforeLoad(() => {
-                        document.getElementsByClassName("fixed-nav")[0].remove()
-                        setTimeout(() => {
-                            if (document.getElementsByClassName("fixed-nav").length > 0) document.getElementsByClassName("fixed-nav")[0].remove()
-                        }, 1200)
-                    }, 1200)
-                },
+                        .reply-tag-list {
+                            display: inline-flex;
+                            bottom: 30px;
+                            left: 272px;
+                            position: relative;
+                        }
+                        .emoji-large{
+                            vertical-align: middle !important;
+                            margin-top: -14px !important;
+                        }
+                    `;
+                },'已关闭': null,
             },
         }, 'bilibili_copy_url': {
             fn: (title, text) => {
@@ -222,6 +220,44 @@
                 }, '关闭': null
             },
 
+            bilibili_filtration:{
+                name: "bilibili评论过滤", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
+                    '已开启(开发中)': () => {
+                        css+=`
+                    `;
+                        /*
+TODO 明天写
+无用参数
+'spm_id_from',
+'from_source',
+'msource',
+'bsource',
+'seid',
+'source',
+'session_id',
+'visit_id',
+'sourceFrom',
+'from_spmid',
+'share_source',
+'share_medium',
+'share_plat',
+'share_session_id',
+'share_tag',
+'unique_k',
+"csource",
+"vd_source",
+"tab",
+"is_story_h5",
+"share_from"
+评论
+reply-item
+reply-list
+ */
+
+
+                    },'已关闭': null,
+                },
+            }
 
         }
 
@@ -246,7 +282,7 @@
         try {
             const value = feature.value[objKeys[current]];
             if (value == null) continue;
-            else if (typeof value === "function") value(feature);
+            if (typeof value === "function") value(feature);
             else if (typeof value === "string") addcss(value);
         } catch (e) {
             console.error(e)
@@ -293,11 +329,9 @@
         if (get("search", true)) {
             css += `
             
-        em, strong{
+        a em, a strong{
             color: #f73131 !important;
-        }
-        div>strong{
-             color: unset !important;
+            text-decoration: none !important;
         }
         a:not(.trgr_icon) {
           position: relative;
