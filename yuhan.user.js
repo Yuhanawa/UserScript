@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.3.5
+// @version      0.5.4.0
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -185,80 +185,90 @@
                         }
                         .emoji-large{
                             vertical-align: middle !important;
-                            margin-top: -14px !important;
+                            margin-top: -10px !important;
+                            margin-left: 2px;
+                            margin-right: 2px;
                         }
                     `;
                 },'已关闭': null,
             },
         }, 'bilibili_copy_url': {
             fn: (title, text) => {
-                    if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️') !== -1) return
-                    const copy_btn = document.createElement('span')
-                    copy_btn.title = `复制当前视频的${title}`
-                    copy_btn.style.cursor = 'pointer'
-                    copy_btn.innerText = '🏷️'
-                    copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
+                if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️') !== -1) return
+                const copy_btn = document.createElement('span')
+                copy_btn.title = `复制当前视频的${title}`
+                copy_btn.style.cursor = 'pointer'
+                copy_btn.innerText = '🏷️'
+                copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
 
-                    document.querySelector('h1.video-title').append(copy_btn);
+                document.querySelector('h1.video-title').append(copy_btn);
             }, name: '视频快捷分享复制模式', match: ['www.bilibili.com/video'], value: {
                 '[标题]链接': (feature) => {
-                    setIntervalBeforeLoad(()=>{
+                    setIntervalBeforeLoad(() => {
                         feature.fn('[标题]链接', `【${document.querySelector('h1.video-title').innerText}】\n${location.origin}${location.pathname}`)
-                    },1200);
+                    }, 1200);
                 }, 'BV': (feature) => {
-                    setIntervalBeforeLoad(()=>{
+                    setIntervalBeforeLoad(() => {
                         feature.fn('BV', location.pathname.split("/")[2])
-                    },1200);
+                    }, 1200);
                 }, '链接': (feature) => {
-                    setIntervalBeforeLoad(()=>{
+                    setIntervalBeforeLoad(() => {
                         feature.fn('链接', `${location.origin}${location.pathname}`)
-                },1200);
-                    }, '标题': (feature) => {
-                    setIntervalBeforeLoad(()=>{
+                    }, 1200);
+                }, '标题': (feature) => {
+                    setIntervalBeforeLoad(() => {
                         feature.fn('标题', `${document.querySelector('h1.video-title').innerText}`)
-                    },1200);
+                    }, 1200);
                 }, '关闭': null
             },
-
-            bilibili_filtration:{
-                name: "bilibili评论过滤", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
-                    '已开启(开发中)': () => {
-                        css+=`
+        },
+        bilibili_filtration: {
+            name: "bilibili评论过滤", match: ["www.bilibili.com/video", "www.bilibili.com/read"],
+            rules: [
+                /^.?6{1,12}.?$/,
+                /考古/,
+                /^.{0,8}小号.{0,8}$/,
+                /^(@.{1,12}\s?.{0,12}){1,24}$/,
+                /压缩毛巾/,
+                /你说得对/
+            ],
+            value: {
+                '已关闭': null,
+                '已开启(测试)': (f) => {
+                    css += `
+                        .reply-item-hide{
+                            display:none;
+                        }
                     `;
-                        /*
-TODO 明天写
-无用参数
-'spm_id_from',
-'from_source',
-'msource',
-'bsource',
-'seid',
-'source',
-'session_id',
-'visit_id',
-'sourceFrom',
-'from_spmid',
-'share_source',
-'share_medium',
-'share_plat',
-'share_session_id',
-'share_tag',
-'unique_k',
-"csource",
-"vd_source",
-"tab",
-"is_story_h5",
-"share_from"
-评论
-reply-item
-reply-list
- */
 
+                    let fn = () => {
+                        for (const x of document.getElementsByClassName("reply-item")) {
+                            try {
+                                const ctx = x.getElementsByClassName("reply-content")[0];
+                                if (x.classList.contains("awa") || ctx.innerHTML === "") continue;
+                                x.classList.add("awa");
+                                if (Number(ctx.outerText) > 25) continue;
+                                if (ctx.innerHTML !== "" && ctx.innerText === "") continue
+                                for (const r of f.rules) {
+                                    if (r.test((x.getElementsByClassName("reply-content")[0].outerText))) {
+                                        x.classList.add("reply-item-hide");
+                                        console.log(`已屏蔽: ${x.getElementsByClassName("reply-content")[0].outerText} \n 原因: ${r.toString()}`);
+                                        break;
+                                    }
+                                }
+                            } catch (e) {
+                                x.classList.add("awa");
+                            }
+                        }
 
-                    },'已关闭': null,
+                    }
+                    setIntervalBeforeLoad(() => {
+                        for (const x of document.getElementsByClassName("reply-item")) fn();
+                        for (const x of document.getElementsByClassName("sub-reply-item")) fn();
+                    }, 2000)
+
                 },
-            }
-
+            },
         }
 
 
