@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.4.0
+// @version      0.5.5.0
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -21,49 +21,105 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
+// @note         迷惑行为v~
+// @match        bing.com
+// @match        woc.cool
+// @match        baidu.com
+// @match        fsoufsou.com
+// @match        google.com
+// @match        duckduckgo.com
+// @match        so.com
+// @match        sogou.com
+// @match        search.yahoo.comh
+// @match        yandex.com
+// @match        searx.tiekoetter.com
+// @match        petalsearch.com
+// @match        xn--flw351e.ml
+// @match        search.aust.cf
+// @match        search.njau.cf
+// @match        wuzhuiso.com
+// @match        ecosia.org
+// @match        startpage.com
+// @match        you.com
+// @match        bilibili.com
+// @match        csdn.net
 // ==/UserScript==
 
 
 (function () {
-    const engine_switch_tool_version = 1;
+    const engine_switch_tool_version = 2;
 
     let css = "";
     let isRunning = false;
     let isLoaded = false;
-    let defaultSearchList = `
-        谷歌搜索,https://www.google.com/search?q=$
-        百度搜索,https://www.baidu.com/s?wd=$
-        Bing搜索,https://cn.bing.com/search?q=$
-        鸭鸭搜索,https://duckduckgo.com/?q=$
-        搜狗搜索,https://www.sogou.com/web?query=$
-        360搜索,https://www.so.com/s?q=$
-        谷歌镜像ml,https://xn--flw351e.ml/search?q=$
-        # 鸭鸭镜像,https://ddg0.library.edu.eu.org/?q=$
-        # 谷歌镜像njau,https://search.njau.cf/search?q=$
-        # 谷歌镜像aust,https://search.aust.cf/search?q=$
-        # 雅虎,https://search.yahoo.com/search?p=$
-        # Yandex,https://yandex.com/search/?text=$
-        维基百科,https://zh.wikipedia.org/wiki/$
-        #无追搜索,https://www.wuzhuiso.com/s?q=$
-        #ecosia,https://www.ecosia.org/search?method=index&q=$
-        #startpage,https://www.startpage.com/sp/search
-        #qwant,https://www.qwant.com/?q=$
-        # 以下内容不支持
-        -百度翻译,https://fanyi.baidu.com/#en/zh/$
-        -谷歌翻译,https://translate.google.com/?hl=zh-CN&tab=wT0#view=home&op=translate&sl=auto&tl=zh-CN&text=$
-        -搜狗翻译,https://fanyi.sogou.com/?keyword=$
-        -百度图片,https://image.baidu.com/search/index?tn=baiduimage&word=$
-        -Google图片,https://www.google.com/search?q=$&tbm=isch
-        -Bing图片,https://cn.bing.com/images/search?q=$&scenario=ImageBasicHover
-        -有道词典,https://dict.youdao.com/w/$
-        -必应词典,https://cn.bing.com/dict/search?q=$
-        -Vocabulary,https://www.vocabulary.com/dictionary/$
-        -格林斯高阶,https://www.collinsdictionary.com/dictionary/english/$
-        -剑桥词典,https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/$
-        -韦氏词典,https://www.learnersdictionary.com/definition/$
-    `;
 
+    let searchURLMatchList = `
+    # 一行一个 井号开头的行将被忽略
+    bing.com/search
+    woc.cool/search
+    www.baidu.com/s
+    fsoufsou.com/search
+    google.com/search
+    duckduckgo.com/?q
+    so.com/s
+    sogou.com/web?query
+    search.yahoo.com/search
+    yandex.com/search
+    searx.tiekoetter.com
+    petalsearch.com
+    xn--flw351e.ml/search
+    search.aust.cf/search
+    search.njau.cf/search
+    wuzhuiso.com/s
+    ecosia.org/search
+    startpage.com/sp/search
+    you.com/
+    `
+    let defaultSearchList = `
+    # 格式: “名称,链接”, 一行一个 井号开头的行将被忽略
+    谷歌搜索,https://www.google.com/search?q=$
+    百度搜索,https://www.baidu.com/s?wd=$
+    Bing搜索,https://cn.bing.com/search?q=$
+    鸭鸭搜索,https://duckduckgo.com/?q=$
+    搜狗搜索,https://www.sogou.com/web?query=$
+    360搜索,https://www.so.com/s?q=$
+    谷歌镜像ml,https://xn--flw351e.ml/search?q=$
+    # 鸭鸭镜像,https://ddg0.library.edu.eu.org/?q=$
+    # 谷歌镜像njau,https://search.njau.cf/search?q=$
+    # 谷歌镜像aust,https://search.aust.cf/search?q=$
+    # 雅虎,https://search.yahoo.com/search?p=$
+    # Yandex,https://yandex.com/search/?text=$
+    维基百科,https://zh.wikipedia.org/wiki/$
+    #无追搜索,https://www.wuzhuiso.com/s?q=$
+    #ecosia,https://www.ecosia.org/search?method=index&q=$
+    #startpage,https://www.startpage.com/sp/search
+    #qwant,https://www.qwant.com/?q=$
+    `;
+    let translateURLMatchList = `
+    https://fanyi.baidu.com/
+    https://translate.google.com/
+    https://dict.youdao.com/
+    https://cn.bing.com/dict/search
+    https://www.vocabulary.com/dictionary/
+    https://dictionary.cambridge.org/zhs
+    https://www.learnersdictionary.com/definition/
+    `
+    // noinspection JSUnusedLocalSymbols
+    let translateList = `
+    百度翻译,https://fanyi.baidu.com/#en/zh/$
+    谷歌翻译,https://translate.google.com/?hl=zh-CN&tab=wT0#view=home&op=translate&sl=auto&tl=zh-CN&text=$
+    搜狗翻译,https://fanyi.sogou.com/?keyword=$
+    有道词典,https://dict.youdao.com/w/$
+    必应词典,https://cn.bing.com/dict/search?q=$
+    Vocabulary,https://www.vocabulary.com/dictionary/$
+    格林斯高阶,https://www.collinsdictionary.com/dictionary/english/$
+    剑桥词典,https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/$
+    韦氏词典,https://www.learnersdictionary.com/definition/$    
+    `
+
+    // noinspection JSUnresolvedFunction
     const get = (key, d) => GM_getValue(key, d)
+    // noinspection JSUnresolvedFunction
     const set = (key, v) => GM_setValue(key, v)
 
 
@@ -73,6 +129,7 @@
     const menu = (name, key, defaultValue) => {
         const value = get(key, defaultValue)
         name += value ? ':开启' : ':关闭';
+        // noinspection JSUnresolvedFunction
         GM_registerMenuCommand(name, () => {
             set(key, !value);
             location.reload()
@@ -82,22 +139,43 @@
     const options = (name, key, ValueList) => {
         const index = get(key, 0)
         name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
+        // noinspection JSUnresolvedFunction
         GM_registerMenuCommand(name, () => {
             if (index + 1 >= ValueList.length) set(key, 0); else set(key, index + 1);
             location.reload()
         });
         return index;
     }
-    const match = (s) => {
-        if (document.URL.indexOf(s) !== -1) {
-            if (!isRunning) {
-                isRunning = true;
-                console.info("Yuhan 自用 优化美化净化脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
+    const match = (x) => {
+        if (typeof x == "undefined") return false;
+        if (typeof x == "string") {
+            if (document.URL.indexOf(x) !== -1) {
+                if (!isRunning) {
+                    isRunning = true;
+                    console.info("> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
+                }
+                return true;
             }
-            return true;
-        }
+        } else if (typeof x == "object") {
+            if (x.test(document.URL)) {
+                if (!isRunning) {
+                    isRunning = true;
+                    console.info("> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
+                }
+                return true;
+            }
+        } else console.error(`? 意料之外的错误: x:${x} URL:${URL}`)
+
+
         return false;
     }
+    const str2list = (s) =>
+        s.split('\n').map((x) => {
+            if (!x.trim().startsWith('#') && x.trim().length > 3) {
+                return x.trim();
+            }
+        })
+
     const matchList = (l) => {
         for (let i = 0; i < l.length; i++) {
             if (match(l[i])) return true;
@@ -128,8 +206,6 @@
         setInterval(f, timeout);
     })
 
-    // search-block-website
-
     onload(() => isLoaded = true);
 
 
@@ -143,6 +219,7 @@
             },
         },
         */
+        // BiliBili
         bilibili_remove_search_icon: {
             name: "移除评论关键字搜索图标", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
                 '已启用': () => {
@@ -170,8 +247,8 @@
             },
         }, bilibili_Style_adjustments: {
             name: "bilibili样式微调", match: ["www.bilibili.com/video", "www.bilibili.com/read"], value: {
-                 '已开启': () => {
-                    css+=`
+                '已开启': () => {
+                    css += `
                         .vcd , #live_recommand_report, 
                         .fixed-nav
                         {
@@ -190,7 +267,7 @@
                             margin-right: 2px;
                         }
                     `;
-                },'已关闭': null,
+                }, '已关闭': null,
             },
         }, 'bilibili_copy_url': {
             fn: (title, text) => {
@@ -221,16 +298,16 @@
                     }, 1200);
                 }, '关闭': null
             },
-        },
-        bilibili_filtration: {
-            name: "bilibili评论过滤", match: ["www.bilibili.com/video", "www.bilibili.com/read"],
+        }, bilibili_filtration: {
+            name: "bilibili评论过滤[BETA]", match: ["www.bilibili.com/video", "www.bilibili.com/read"],
             rules: [
                 /^.?6{1,12}.?$/,
                 /考古/,
                 /^.{0,8}小号.{0,8}$/,
                 /^(@.{1,12}\s?.{0,12}){1,24}$/,
                 /压缩毛巾/,
-                /你说得对/
+                /你说得对/,
+                /答辩/
             ],
             value: {
                 '已关闭': null,
@@ -269,28 +346,209 @@
 
                 },
             },
-        }
+        },
+        // BING
+        "bing_opt": {
+            name: "必应首页微调", match: ['bing.com/'], value: {
+                '开启': () => {
+                    css += `
+                    #footer { /*首页下方黑条*/
+                        display:none;
+                    }
+                    .img_cont{ /*修改背景图片不透明度*/
+                        opacity: 0.9 !important;
+                    }
+            `;
+                }, '关闭': null
+            },
+        },
+        // CSDN
+        "csdn_opt": {
+            name: "CSDN极简化", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+                '开启': () => {
+                    css += `
+            .hide-article-box,.sidecolumn, .hide-preCode-box, .passport-login-container,
+            #recommendNps, .template-box, .blog-footer-bottom, #blogColumnPayAdvert, .article-type-img,
+            .recommend-item-box, .recommend-right, #dmp_ad_58, aside{
+                display: none!important;
+            } 
+            .article-info-box, .article-bar-top, #article_content,
+            main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box,
+            header div.article-info-box div.blog-tags-box .tags-box.artic-tag-box a.tag-link,
+            main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box .tags-box,
+            #mainBox{
+                margin: auto;
+                width: auto!important;
+                height: auto!important;
+                padding: 0!important;
+                padding-left: 0!important;
+                overflow: hidden;
+            }
+            
+            .tag-link{
+                margin: 5px 0 0 0!important;
+                overflow: hidden;
+            }
+            
+            main div.blog-content-box article {
+                padding-top: 10px;
+            }
+            
+            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top span
+            {
+                margin-right: 4px;
+            }
+            
+            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .follow-nickName {
+                margin-right: 2px;
+            }
+            
+            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .bar-conten{
+                padding-left: 0;
+                margin-left: 10px;            
+            }
+            
+            pre .hljs-button{
+                display:block;
+                position: absolute;
+                right: 4px;
+                top: 4px;
+                font-size: 12px;
+                color: #ffffff;
+                background-color: #666666;
+                padding: 4px 12px;
+                margin: 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 2px 4px rgb(0 0 0 / 5%);
+            }
+            
+            main div.blog-content-box pre.set-code-hide {
+                height: auto!important;
+            }
+            
+        `;
+
+                    setTimeoutBeforeLoad(() => {
+                        // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
+                        document.getElementsByClassName("option-box")[0].remove();
+                        document.getElementsByClassName("option-box")[0].remove();
+                        document.getElementsByClassName("option-box")[0].remove();
+                        // 移动文字标签位置
+                        const taghtml = document.getElementsByClassName("blog-tags-box")[0].outerHTML + "";
+                        document.getElementsByClassName("blog-tags-box")[0].remove();
+                        document.getElementsByClassName("article-bar-top")[0].innerHTML = document.getElementsByClassName("article-bar-top")[0].innerHTML + taghtml;
+                        // 简介时间格式
+                        document.getElementsByClassName("time")[0].innerHTML = document.getElementsByClassName("time")[0].innerHTML
+                            .replace("于&nbsp;", "").replace("&nbsp;发布", "");
+                        // 刷新底部工具栏位置 使其居中
+                        document.getElementsByClassName("left-toolbox")[0].style.left = "auto";
+                        // 删除不美观的冒号
+                        document.getElementsByClassName("blog-tags-box")[0].innerHTML = document.getElementsByClassName("blog-tags-box")[0].innerHTML.replaceAll("：", "");
+                    }, 100)
+
+                }, '关闭': null
+            },
+        },
+
+        "csdn_toolbox": {
+            name: "CSDN底部不跟随", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+                '开启': () => {
+                    css += `
+            .left-toolbox{
+                z-index: 996!important;
+                left: 0px!important;
+                bottom: 0px!important;
+                width: 900px!important;
+                position: relative!important;
+            }
+            `
+                }, '关闭': null
+            },
+        },
+        "csdn_remove_header": {
+            name: "CSDN移除顶部", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+                '开启': () => {
+                    css += `
+            #csdn-toolbar{
+                display: none!important;
+            }
+            `
+                }, '关闭': null
+            },
+        },
+        "csdn_copy": {
+            name: "CSDN免登录复制", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+                '开启': () => {
+                    onload(() => {
+                        // 将代码块改为可修改
+                        document.querySelectorAll("code").forEach(c => {
+                            c.contentEditable = "true";
+                        });
+                        // 修改复制按钮
+                        document.querySelectorAll(".hljs-button").forEach((e) => {
+                            e.setAttribute("data-title", "点击复制");
+                            e.classList.remove('signin');
+                            e.removeAttribute("onclick");
+                            e.addEventListener("click", () => {
+                                e.setAttribute("data-title", " ");
+                                // noinspection JSUnresolvedVariable
+                                navigator.clipboard.writeText(e.parentNode.innerText);
+                                e.setAttribute("data-title", "复制成功");
+                                setTimeout(() => e.setAttribute("data-title", "点击复制"), 1200);
+                            })
+                        })
+                    })
+                }, '关闭': null
+            },
+        },
+        // 知乎
+        "zhihu_remove_footer": {
+            name: "隐藏知乎右侧文字(备案信息等)", match: ["zhihu.com/question"], value: {
+                '开启': () => {
+                    css += `
+            footer{display:none}
+            `;
+                }, '关闭': null
+            },
+        },
+        // 翻译快速跳转工具
+        "translate_switch_tool": {
+            name: "translate_switch_tool",
+            match: str2list(translateURLMatchList), value: {
+                '关闭': null
+            },
+        },
 
 
     }
 
+    // 实现功能
     for (let key of Object.keys(features)) {
         let feature = features[key];
-
+        // 匹配网站
         if (!matchList(feature.match)) continue;
 
-        // 添加菜单
-        const current = get(key, 0);
+        // 变量
         const objKeys = Object.keys(feature.value)
-        let fullname = `${feature.name}:${objKeys[current]}[${current + 1}/${objKeys.length}]<点击切换`;
+        let current = get(key, objKeys[0]);
+        let index = objKeys.indexOf(current);
+        // 自检
+        if (index === -1) {
+            set(key, objKeys[0]);
+            current = objKeys[0];
+            index = 0;
+        }
+        // 添加菜单
+        let fullName = `${feature.name}:${current}[${index + 1}/${objKeys.length}]<点击切换`;
         // noinspection JSUnresolvedFunction
-        GM_registerMenuCommand(fullname, () => {
-            if (current + 1 >= objKeys.length) set(key, 0); else set(key, current + 1);
+        GM_registerMenuCommand(fullName, () => {
+            if (index + 1 >= objKeys.length) set(key, objKeys[0]); else set(key, objKeys[index + 1]);
             location.reload()
         });
-
+        // 功能
         try {
-            const value = feature.value[objKeys[current]];
+            const value = feature.value[current];
             if (value == null) continue;
             if (typeof value === "function") value(feature);
             else if (typeof value === "string") addcss(value);
@@ -299,10 +557,9 @@
         }
     }
 
-
+    console.log(str2list(searchURLMatchList));
     /* search */
-    if (matchList(["bing.com/search", "woc.cool/search", "www.baidu.com/s", "fsoufsou.com/search", "google.com/search", "duckduckgo.com/?q", "so.com/s", "sogou.com/web?query", "search.yahoo.com/search", "yandex.com/search", "searx.tiekoetter.com", "petalsearch.com", "xn--flw351e.ml/search", "search.aust.cf/search", "search.njau.cf/search", /*谷歌镜像*/
-        "wuzhuiso.com/s", "ecosia.org/search", "startpage.com/sp/search"])) {
+    if (matchList(str2list(searchURLMatchList))) {
         menu("搜索引擎优化美化净化", 'search', true);
         menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
 
@@ -318,12 +575,12 @@
                 document.querySelectorAll("input").forEach(i => {
                     if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                 });
-                if (document.querySelectorAll(".search-input-awa").length===0){
-                    setTimeout(()=>{
+                if (document.querySelectorAll(".search-input-awa").length === 0) {
+                    setTimeout(() => {
                         document.querySelectorAll("input").forEach(i => {
                             if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
                         });
-                    },2000)
+                    }, 2000)
                 }
             }
         })
@@ -339,10 +596,10 @@
         if (get("search", true)) {
             css += `
             
-        a em, a strong{
+        a > em, a > strong{
             color: #f73131 !important;
             text-decoration: none !important;
-        }
+        }    
         a:not(.trgr_icon) {
           position: relative;
           text-decoration: none !important;
@@ -570,10 +827,8 @@
                     padding-top: 25px;
                 }
         
-                .b_hPanel, /* bing词典手机app广告 */
-                #b-scopeListItem-video,
-                #b-scopeListItem-academic,
-                #b-scopeListItem-dictionary{
+                .b_hPanel /* bing词典手机app广告 */
+                {
                     display: none;
                 }
                 
@@ -582,8 +837,9 @@
                 }
                 body #b_header #est_switch {    /* 国际版切换按钮 */
                     position: relative;
-                    right: 128px;
+                    right: 240px;
                     top: 5px;
+                    display:block!important;
                 }
                 #est_switch { 
                     display:none;  /*防止页面闪烁 先隐藏等会显示*/
@@ -606,6 +862,7 @@
                     box-shadow: unset!important;
                     margin-bottom: revert!important;
                     border:unset!important;
+                    backdrop-filter:unset!important;
                 }
                 
                 /* 国际版切换按钮 */
@@ -627,9 +884,9 @@
                     opacity:0.85;
                 }
                 
-                /* 临时删除id_rh */
+                /* rewards */
                 #id_rh{
-                    display:none;
+                    margin-top: -46px;
                 }
                 
                 .b_scopebar{
@@ -650,6 +907,7 @@
                     document.getElementById("id_h").outerHTML = document.getElementById("id_h").outerHTML
                         .replace(`><a id="id_l"`, est_switch_html)
                     document.getElementById("est_switch").style.display = "block";
+
                     /* 移除空白的div */
                     const bc = document.getElementById("b_context");
                     if (bc.outerText.length < 20) {
@@ -701,8 +959,6 @@
                 .bdsug, /* 搜索预测 */
                 .s-tab-more,    /* tags */
                 .wrapper_new #s_tab .s-tab-news,
-                .wrapper_new #s_tab .s-tab-video,
-                .wrapper_new #s_tab .s-tab-tieba,
                 .wrapper_new #s_tab .s-tab-zhidao,
                 .wrapper_new #s_tab .s-tab-wenku,
                 .wrapper_new #s_tab .s-tab-b2b{
@@ -747,7 +1003,7 @@
                 })
             }
             // --------------------------------------- //
-            else if (match("fsoufsou.com/search")||match("woc.cool/search")) {
+            else if (match("fsoufsou.com/search") || match("woc.cool/search")) {
                 addClass(".header-awa", "._search-sticky-bar")
                 addClass(".inputbox-awa", ".input-group-container")
                 addClass(".item-awa", ".organic-results div")
@@ -870,8 +1126,6 @@
                 `
             }
         }
-
-        // ---------------------------------------------------------------------------- //
 
         /* search tools */
         if (get("search_engine_switch_tool", true)) {
@@ -1076,161 +1330,6 @@
             addListener("engine_switch_tool_list");
         });
     }
-
-    // ---------------------------------------------------------------------------- //
-
-    else if (match("bing.com")) {
-        css += (`
-                #footer { /*首页下方黑条*/
-                    display:none;
-                }
-                .img_cont{ /*修改背景图片不透明度*/
-                    opacity: 0.9 !important;
-                }
-        `);
-    }
-
-    /* csdn */ else if (match("blog.csdn.net") && match("/article/details/")) {
-        if (menu("CSDN极简化", 'csdn_opt', true)) {
-            css += `
-            .hide-article-box,.sidecolumn, .hide-preCode-box, .passport-login-container,
-            #recommendNps, .template-box, .blog-footer-bottom, #blogColumnPayAdvert, .article-type-img,
-            .recommend-item-box, .recommend-right, #dmp_ad_58, aside{
-                display: none!important;
-            } 
-            .article-info-box, .article-bar-top, #article_content,
-            main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box,
-            header div.article-info-box div.blog-tags-box .tags-box.artic-tag-box a.tag-link,
-            main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box .tags-box,
-            #mainBox{
-                margin: auto;
-                width: auto!important;
-                height: auto!important;
-                padding: 0!important;
-                padding-left: 0!important;
-                overflow: hidden;
-            }
-            
-            .tag-link{
-                margin: 5px 0 0 0!important;
-                overflow: hidden;
-            }
-            
-            main div.blog-content-box article {
-                padding-top: 10px;
-            }
-            
-            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top span
-            {
-                margin-right: 4px;
-            }
-            
-            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .follow-nickName {
-                margin-right: 2px;
-            }
-            
-            main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .bar-conten{
-                padding-left: 0;
-                margin-left: 10px;            
-            }
-            
-            pre .hljs-button{
-                display:block;
-                position: absolute;
-                right: 4px;
-                top: 4px;
-                font-size: 12px;
-                color: #ffffff;
-                background-color: #666666;
-                padding: 4px 12px;
-                margin: 8px;
-                border-radius: 4px;
-                cursor: pointer;
-                box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 2px 4px rgb(0 0 0 / 5%);
-            }
-            
-            main div.blog-content-box pre.set-code-hide {
-                height: auto!important;
-            }
-            
-        `;
-        }
-
-        if (menu("CSDN底部不跟随", 'csdn_toolbox', true)) {
-            css += `
-            .left-toolbox{
-                z-index: 996!important;
-                left: 0px!important;
-                bottom: 0px!important;
-                width: 900px!important;
-                position: relative!important;
-            }
-            `
-        }
-
-        if (menu("CSDN移除顶部", 'csdn_remove_header', true)) {
-            css += `
-            #csdn-toolbar{
-                display: none!important;
-            }
-            `
-        }
-
-        setTimeoutBeforeLoad(() => {
-            // 将代码块改为可修改
-            document.querySelectorAll("code").forEach(c => {
-                c.contentEditable = "true";
-            });
-
-            if (get("csdn_opt", true)) {
-                // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
-                document.getElementsByClassName("option-box")[0].remove();
-                document.getElementsByClassName("option-box")[0].remove();
-                document.getElementsByClassName("option-box")[0].remove();
-                // 移动文字标签位置
-                const taghtml = document.getElementsByClassName("blog-tags-box")[0].outerHTML + "";
-                document.getElementsByClassName("blog-tags-box")[0].remove();
-                document.getElementsByClassName("article-bar-top")[0].innerHTML = document.getElementsByClassName("article-bar-top")[0].innerHTML + taghtml;
-                // 简介时间格式
-                document.getElementsByClassName("time")[0].innerHTML = document.getElementsByClassName("time")[0].innerHTML
-                    .replace("于&nbsp;", "").replace("&nbsp;发布", "");
-                // 刷新底部工具栏位置 使其居中
-                document.getElementsByClassName("left-toolbox")[0].style.left = "auto";
-                // 删除不美观的冒号
-                document.getElementsByClassName("blog-tags-box")[0].innerHTML = document.getElementsByClassName("blog-tags-box")[0].innerHTML.replaceAll("：", "");
-            }
-
-            // 免登录复制
-            if (menu("CSDN免登录复制", 'csdn_copy', true)) {
-                document.querySelectorAll(".hljs-button").forEach((e) => {
-                    e.setAttribute("data-title", "点击复制");
-                    e.classList.remove('signin');
-                    e.removeAttribute("onclick");
-                    e.addEventListener("click", () => {
-                        e.setAttribute("data-title", " ");
-                        navigator.clipboard.writeText(e.parentNode.innerText);
-                        e.setAttribute("data-title", "复制成功");
-                        setTimeout(() => e.setAttribute("data-title", "点击复制"), 1200);
-                    })
-                })
-            }
-        }, 80);
-    }
-    /* 知乎 */ else if (match("zhihu.com/question")) {
-        if (menu("隐藏知乎右侧文字(备案信息等)", 'zhihu_remove_footer', true)) {
-            css += `
-            footer{display:none}
-            `;
-        }
-    }
-
-    // -------------------------------------------------------------------------- //
-
-    // 去除复制限制
-    window.addEventListener("copy", (e) => {
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-    }, true);
 
     addcss(css);
 })();
