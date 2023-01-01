@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.5.0
+// @version      0.5.5.1
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -43,6 +43,10 @@
 // @match        you.com
 // @match        bilibili.com
 // @match        csdn.net
+// @match        dict.youdao.com
+// @match        www.vocabulary.com/dictionary
+// @match        dictionary.cambridge.org/zhs
+// @match        www.learnersdictionary.com/definition
 // ==/UserScript==
 
 
@@ -74,6 +78,8 @@
     ecosia.org/search
     startpage.com/sp/search
     you.com/
+    www.qwant.com
+    www.startpage.com
     `
     let defaultSearchList = `
     # 格式: “名称,链接”, 一行一个 井号开头的行将被忽略
@@ -588,7 +594,7 @@
         addcss(`
         @import url('https://unpkg.com/misans@3.1.1/lib/misans-400-regular.min.css');
         @import url('https://unpkg.com/misans@3.1.1/lib/misans-500-medium.min.css');
-        * {font-family: MiSans,Microsoft YaHei,Tahoma,Arial,-apple-system,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif !important;}
+        * {font-family: MiSans,-apple-system,Microsoft YaHei,Tahoma,Arial,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif !important;}
         `
         );
 
@@ -618,16 +624,12 @@
           content: ""!important;
           position: absolute!important;
           border-bottom: 2px solid #f16d7a !important;
-        /*  #3476d2  */
           bottom: -2px!important;
           left: 100%!important;
           width: 0!important;
           transition: width 350ms, left 350ms!important;
         }
-        
-
-        
-            
+                  
         body, .body-awa {
               background: transparent !important
               animation-name: ani_topTobuttom;
@@ -667,7 +669,7 @@
             background-color: rgba(255, 255, 255,0.3);
             {inputbox-awa}
         }
-        .results > div, .results > li, .result, .item-awa{
+        .results > div, .results > li, .result, .container, .item-awa{
             word-wrap: break-word;
             word-break: break-word;
             color: #333;
@@ -1012,18 +1014,6 @@
                 addClass(".item-text-awa", ".organic-results div span")
                 addClass(".auto", ".mobile-wiki-container")
 
-                /* ! 意义不明的代码 暂时注释掉 !*/
-                // setTimeoutBeforeLoad(() => {
-                //     const i = document.querySelector("#app > div > .false > .flex-column > div > .flex-row > .flex-column > div")
-                //     if (i != null && i.innerText.length < 20) {
-                //         i.remove()
-                //     } else {
-                //         i.className += "item-awa"
-                //         i.querySelectorAll(".flex-row-center").forEach((x) => x.remove())
-                //     }
-                // }, 1000)
-
-
                 css += `
                     #app div .false {
                         padding-top: 0px !important;
@@ -1122,6 +1112,17 @@
                 /* 调整位置 */
                 .s6JM6d{
                     margin-left:160px
+                }
+                
+                .hlcw0c, .ULSxyf, .hlcw0c {
+                    margin-bottom: auto !important;
+                }
+                
+                .MXl0lf.tKtwEb {
+                    background: #4285f4 !important;
+                }
+                .u7yw9 {
+                    background: #ffffff !important;
                 }
                 `
             }
