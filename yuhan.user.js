@@ -5,7 +5,7 @@
 // @name:en      Yuhan User Script
 // @name:en-US   Yuhan User Script
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.5.5.1
+// @version      0.5.5.2
 // @description  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:zh  搜索引擎(百度 必应 谷歌 f搜)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili B站)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中
 // @description:en Search engine (Baidu Bing, Google f search) optimization and beautification of search engines, quick switching, Bilibili (bilibili B station), details, optimization, video, quick sharing, copying, removing comment area, keyword search, blue word CSDN, extremely simplified CSDN, immersive reading, CSDN free login Copy and remove some websites, copy the small tail, and continue to update
@@ -21,32 +21,6 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
-// @note         迷惑行为v~
-// @match        bing.com
-// @match        woc.cool
-// @match        baidu.com
-// @match        fsoufsou.com
-// @match        google.com
-// @match        duckduckgo.com
-// @match        so.com
-// @match        sogou.com
-// @match        search.yahoo.comh
-// @match        yandex.com
-// @match        searx.tiekoetter.com
-// @match        petalsearch.com
-// @match        xn--flw351e.ml
-// @match        search.aust.cf
-// @match        search.njau.cf
-// @match        wuzhuiso.com
-// @match        ecosia.org
-// @match        startpage.com
-// @match        you.com
-// @match        bilibili.com
-// @match        csdn.net
-// @match        dict.youdao.com
-// @match        www.vocabulary.com/dictionary
-// @match        dictionary.cambridge.org/zhs
-// @match        www.learnersdictionary.com/definition
 // ==/UserScript==
 
 
@@ -563,7 +537,6 @@
         }
     }
 
-    console.log(str2list(searchURLMatchList));
     /* search */
     if (matchList(str2list(searchURLMatchList))) {
         menu("搜索引擎优化美化净化", 'search', true);
