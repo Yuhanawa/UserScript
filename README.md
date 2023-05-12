@@ -4,6 +4,15 @@
 #### 与其它修改样式的美化脚本冲突(如AC-Baidud等) 建议配合 广告屏蔽插件 自动翻页插件 使用
 [[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)
 
+
+### 近期计划
++ 拆分为多个脚本
++ 修复已知bug
+
+
+
+
+
 ### 已有功能 支持开关(在对应网站会显示对应网站的选项开关)
 - 去除部分网站复制小尾巴(无法关闭)
 - 搜索引擎优化美化净化
