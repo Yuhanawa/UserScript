@@ -69,7 +69,7 @@ class untils {
         // 功能
         try {
             const value = values[current];
-            if (value == null) continue;
+            if (value == null) return;
             if (typeof value === "function") value(feature);
             else if (typeof value === "string") this.addCss(value);
             else console.error(`出现了不应该出现的类型: ${typeof value} ${value}`)
