@@ -26,7 +26,7 @@
 
 (function () {
 
-    const engine_switch_tool_version = 2;
+    const engine_switch_tool_version = 3;
 
     let css = "";
     let isRunning = false;
@@ -64,12 +64,8 @@
     鸭鸭搜索,https://duckduckgo.com/?q=$
     搜狗搜索,https://www.sogou.com/web?query=$
     360搜索,https://www.so.com/s?q=$
-    谷歌镜像ml,https://xn--flw351e.ml/search?q=$
-    # 鸭鸭镜像,https://ddg0.library.edu.eu.org/?q=$
-    # 谷歌镜像njau,https://search.njau.cf/search?q=$
-    # 谷歌镜像aust,https://search.aust.cf/search?q=$
     # 雅虎,https://search.yahoo.com/search?p=$
-    # Yandex,https://yandex.com/search/?text=$
+    Yandex,https://yandex.com/search/?text=$
     维基百科,https://zh.wikipedia.org/wiki/$
     #无追搜索,https://www.wuzhuiso.com/s?q=$
     #ecosia,https://www.ecosia.org/search?method=index&q=$
