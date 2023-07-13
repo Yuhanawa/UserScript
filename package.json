@@ -1,0 +1,19 @@
+{
+  "name": "userscripts",
+  "version": "1.0.0",
+  "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Yuhanawa",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "csso": "^5.0.5",
+    "sass": "^1.63.6",
+    "uglify-js": "^3.17.4"
+  },
+  "dependencies": {
+    "banana": "link:banana"
+  }
+}

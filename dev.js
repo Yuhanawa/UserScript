@@ -6,6 +6,7 @@
 // @author       Yuhanawa
 // @match        *://*/*
 // @require      file:///E:/src/tampermonkey/yuhan.user.js
+// @require      file:///E:/src/tampermonkey/out/UserScript1.js
 // @run-at       document-start
 // @grant        GM_setValue
 // @grant        GM_getValue
