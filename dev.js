@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name         Yuhan User Script 开发使用
+// @name         User Script 开发使用
 // @namespace    http://github.com/yuhanawa/
 // @version      dev
-// @description  搜索引擎优化美化 风格统一化 部分网站优化
 // @author       Yuhanawa
 // @match        *://*/*
-// @require      file:///E:/src/tampermonkey/yuhan.user.js
-// @require      file:///E:/src/tampermonkey/out/UserScript1.js
+// @require      file:///{PATH}/out/all.js
+// !!! 通过修改{PATH} 为当前目录, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
+// !例如@require  file:///E://UserScript/out/all.js
 // @run-at       document-start
 // @grant        GM_setValue
 // @grant        GM_getValue
@@ -16,8 +16,7 @@
 // ==/UserScript==
 
 (function() {
-    'use strict';
-    /* !!! 通过修改//@require 为本地文件来使用IDE开发 !!! */
-    /* !!! 通过修改//@require 为本地文件来使用IDE开发 !!! */
-    /* !!! 通过修改//@require 为本地文件来使用IDE开发 !!! */
+    // !!! 通过修改{PATH} 为当前目录, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
+    // !!! 通过修改{PATH} 为当前目录, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
+    // !!! 通过修改{PATH} 为当前目录, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
 })();

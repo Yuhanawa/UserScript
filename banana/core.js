@@ -1,13 +1,8 @@
 isLoaded = false
 onload(() => isLoaded = true);
 
-function cfg_get(k, d) { GM_getValue(k, d) }
-function cfg_set(k, v) { GM_setValue(k, v) }
-
-function cfg(k, v) {
-    if (v === undefined) return cfg_get(k);
-    else cfg_set(k, v);
-}
+function cfg_get(k, d) { return GM_getValue(k, d) }
+function cfg_set(k, v) { return GM_setValue(k, v) }
 
 // add style
 function style(css) {
@@ -19,14 +14,24 @@ function style(css) {
     }
 }
 
-// add options on menu
-function option (name, key, ValueList, onclick) {
-    const index = get(key, 0)
-    name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
+function option(name, key, options, current, index, onclick) {
+    if (current === undefined || current === null || index == -undefined) {
+        current = cfg_set(key, getOptionKeyAndName(options[0]).key);
+        index = options.indexOf(current);
+    }
+    if (index === -1 || index == undefined) {
+        cfg_set(key, getOptionKeyAndName(options[0]).key);
+        index = 0;
+        current = getOptionKeyAndName(options[0]).key;
+    }
+
+    name += `:${getOptionKeyAndName(options[index]).name}[${index + 1}/${options.length}]<点击切换模式`;
     // noinspection JSUnresolvedFunction
     GM_registerMenuCommand(name, () => {
-        if (index + 1 >= ValueList.length) set(key, 0); else set(key, index + 1);
-        if (onclick != null && onclick != undefined) try { onclick() } catch { }
+        if (index + 1 >= options.length) cfg_set(key, getOptionKeyAndName(options[0]).key);
+        else cfg_set(key, getOptionKeyAndName(options[index + 1]).key);
+        if (onclick) try { onclick() } catch { }
+        location.reload();
     });
     return index;
 }
@@ -43,8 +48,9 @@ function run(fts) {
     }
 
     for (const key of Object.keys(fts)) {
-        const v = f[key];
-        if (!v.match.test(window.location.href)) continue;
+        const v = fts[key];
+
+        if (v.match.filter((m) => m.test(window.location.href)).length == 0) continue;
 
         feature(v.name, key, v.values);
     }
@@ -52,23 +58,39 @@ function run(fts) {
 }
 
 function feature(name, key, values) {
-
     const options = Object.keys(values)
-    let current = get(key, objKeys[0]);
-    let index = objKeys.indexOf(current);
+    const key0 = getOptionKeyAndName(options[0]).key
+    let current = cfg_get(key, key0);
+    let index = options.indexOf(current);
 
-    if (index === -1) set(key, options[0]);
-    option(name, key, options)
+    if (index === -1 || index == undefined) {
+        cfg_set(key, key0);
+        index = 0;
+        current = key0;
+    }
 
-    // 功能
+    option(name, key, options, current, index)
+
+    // 功能实现
     try {
-        const value = values[current];
+        const value = values[options[index]];
 
-        if (value == null) return;
-        if (typeof value === "function") value(feature);
+        if (value === null || value === undefined) return;
+        if (typeof value === "function") {
+            const result = value(feature);
+            if (typeof result === "string") style(result)
+        }
         else if (typeof value === "string") style(value);
         else console.error(`出现了不应该出现的类型: ${typeof value} ${value}`)
     } catch (e) {
         console.error(e)
     }
 }
+
+
+function getOptionKeyAndName(optionStr) {
+    const key = optionStr.match(/\$([^ ]+)/)?.[0];
+
+    if (key) return { key: key.replace("$", ""), name: optionStr.replace(key, '') };
+    return { key: optionStr, name: optionStr };
+};

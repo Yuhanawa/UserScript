@@ -1,8 +1,8 @@
 {
   "name": "banana",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "",
-  "main": "build.js",
+  "main": "main.js",
   "scripts": {
     "test": ""
   },
@@ -10,6 +10,7 @@
   "author": "Yuhanawa",
   "license": "GPL-3.0",
   "devDependencies": {
+    "chokidar": "^3.5.3",
     "csso": "^5.0.5",
     "sass": "^1.63.6",
     "uglify-js": "^3.17.4"

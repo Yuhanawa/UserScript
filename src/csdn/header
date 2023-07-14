@@ -9,6 +9,8 @@
 // @name:es      Simplificar y embellecer la experiencia de navegación de CSDN - Lectura inmersiva, sin anuncios, etc.  
 // @name:de      Optimieren und verschönern Sie das CSDN-Browsen - immersives Lesen, werbefrei, etc. 
 // @name:it      Semplificare e abbellire l'esperienza di navigazione CSDN - Lettura immersiva, senza pubblicità, ecc.
+// @namespace    http://github.com/yuhanawa/UserScript
+// @version      0.0.1.0
 // @description:        优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
 // @description:zh      优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
 // @description:zh-CN   优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
@@ -19,17 +21,15 @@
 // @description:es     Script de usuario: Simplificar y embellecer la experiencia de navegación de CSDN - Lectura inmersiva, sin anuncios, etc.
 // @description:de     Benutzer-Skript: Optimieren und verschönern Sie das CSDN-Browsen - immersives Lesen, werbefrei, etc.
 // @description:it      Script utente: Semplificare e abbellire l'esperienza di navigazione CSDN - Lettura immersiva, senza pubblicità, ecc.
-// @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.0.1.0
 // @node         更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
 // @license      GPL-3.0
+// @match        *://*.csdn.net//*
 // @icon         none
 // @run-at       document-start
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
-// @match        *://*//*
 // ==/UserScript==

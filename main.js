@@ -1,3 +1,3 @@
 const banana = require('banana')
 
-banana.build();
+banana.dev();

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 devDependencies:
+  chokidar:
+    specifier: ^3.5.3
+    version: 3.5.3
   csso:
     specifier: ^5.0.5
     version: 5.0.5

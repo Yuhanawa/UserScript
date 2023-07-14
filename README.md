@@ -4,7 +4,7 @@
 #### 与其它修改样式的美化脚本冲突(如AC-Baidud等) 建议配合 广告屏蔽插件 自动翻页插件 使用
 [[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)
 
-
+## 重构中
 ### 近期计划
 + 拆分为多个脚本
 + 修复已知bug
