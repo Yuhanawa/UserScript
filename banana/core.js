@@ -1,8 +1,8 @@
 isLoaded = false
 onload(() => isLoaded = true);
 
-function cfg_get(k, d) { return GM_getValue(k, d) }
-function cfg_set(k, v) { return GM_setValue(k, v) }
+function $get(k, d) { return GM_getValue(k, d) }
+function $set(k, v) { return GM_setValue(k, v) }
 
 // add style
 function style(css) {
@@ -16,11 +16,11 @@ function style(css) {
 
 function option(name, key, options, current, index, onclick) {
     if (current === undefined || current === null || index == -undefined) {
-        current = cfg_set(key, getOptionKeyAndName(options[0]).key);
+        current = $set(key, getOptionKeyAndName(options[0]).key);
         index = options.indexOf(current);
     }
     if (index === -1 || index == undefined) {
-        cfg_set(key, getOptionKeyAndName(options[0]).key);
+        $set(key, getOptionKeyAndName(options[0]).key);
         index = 0;
         current = getOptionKeyAndName(options[0]).key;
     }
@@ -28,8 +28,8 @@ function option(name, key, options, current, index, onclick) {
     name += `:${getOptionKeyAndName(options[index]).name}[${index + 1}/${options.length}]<点击切换模式`;
     // noinspection JSUnresolvedFunction
     GM_registerMenuCommand(name, () => {
-        if (index + 1 >= options.length) cfg_set(key, getOptionKeyAndName(options[0]).key);
-        else cfg_set(key, getOptionKeyAndName(options[index + 1]).key);
+        if (index + 1 >= options.length) $set(key, getOptionKeyAndName(options[0]).key);
+        else $set(key, getOptionKeyAndName(options[index + 1]).key);
         if (onclick) try { onclick() } catch { }
         location.reload();
     });
@@ -50,7 +50,9 @@ function run(fts) {
     for (const key of Object.keys(fts)) {
         const v = fts[key];
 
-        if (v.match.filter((m) => m.test(window.location.href)).length == 0) continue;
+        if (v.match.filter(
+            (m) => typeof m === "string" ? window.location.href.match(m) !== null : m.test(window.location.href)
+        ).length == 0) continue;
 
         feature(v.name, key, v.values);
     }
@@ -60,11 +62,11 @@ function run(fts) {
 function feature(name, key, values) {
     const options = Object.keys(values)
     const key0 = getOptionKeyAndName(options[0]).key
-    let current = cfg_get(key, key0);
+    let current = $get(key, key0);
     let index = options.indexOf(current);
 
     if (index === -1 || index == undefined) {
-        cfg_set(key, key0);
+        $set(key, key0);
         index = 0;
         current = key0;
     }

@@ -5,7 +5,6 @@ function dev() {
     const outputAll = require('./build').outputAll;
     const chokidar = require('chokidar');
     const fs = require('fs');
-    const pathJoin = require('path').join;
 
     // 获取src下的一级子文件夹
     const subDirs = getSubDirectories('./src');
@@ -25,13 +24,13 @@ function dev() {
     // 监听事件
     watcher.on('all', (event, path) => {
         const dir = path.split('\\')[1];
-        toBuild(pathJoin("src", dir));
+        toBuild(dir);
     });
 
     // 构建
     function toBuild(dir) {
         try {
-            build(dir);
+            if (!build(dir)) return;
             outputAll();
             console.info(`(${new Date().toISOString()}) ⭕ ${dir} rebuild successful`);
         } catch (error) {
