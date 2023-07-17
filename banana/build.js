@@ -52,7 +52,7 @@ function _build(dir) {
         const jsPath = path.join(dirPath, js);
         if (!fs.statSync(jsPath).isFile() || !js.endsWith(".js") || js.startsWith('.')) return
 
-        const content = fs.readFileSync(jsPath, 'utf8');
+        const content = fs.readFileSync(jsPath, 'utf8').trim();
         contents.set(jsPath, content)
     });
 
