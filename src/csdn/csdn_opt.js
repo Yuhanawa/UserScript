@@ -1,5 +1,4 @@
-CSDN极简化,
-[/blog\.csdn\.net\/.*\/article\/details/],
+CSDN极简化, [/blog\.csdn\.net\/.*\/article\/details/],
 {
     '已开启$on': () => {
         timeoutOnLoad(() => {
@@ -19,7 +18,6 @@ CSDN极简化,
             // 删除不美观的冒号
             document.getElementsByClassName("blog-tags-box")[0].innerHTML = document.getElementsByClassName("blog-tags-box")[0].innerHTML.replaceAll("：", "");
         }, 100)
-
-        return $CSS(css/csdn.css)
+        return $CSS(css / csdn.css)
     }, '已关闭$off': null
 }
