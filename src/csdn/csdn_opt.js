@@ -21,5 +21,5 @@ CSDN极简化,
         }, 100)
 
         return $CSS(css/csdn.css)
-    }, '已关闭': null
+    }, '已关闭$off': null
 }
