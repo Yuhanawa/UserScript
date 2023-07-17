@@ -15,9 +15,9 @@ function style(css) {
 }
 
 function option(name, key, options, current, index, onclick) {
-    if (current === undefined || current === null || index == -undefined) {
+    if (current === undefined || current === null || index == undefined) {
         current = $set(key, getOptionKeyAndName(options[0]).key);
-        index = options.indexOf(current);
+        index = options.indexOf(options.filter(x=>getOptionKeyAndName(x).key==current)[0])
     }
     if (index === -1 || index == undefined) {
         $set(key, getOptionKeyAndName(options[0]).key);
@@ -48,22 +48,25 @@ function run(fts) {
     }
 
     for (const key of Object.keys(fts)) {
-        const v = fts[key];
+        const feature = fts[key];
 
-        if (v.match.filter(
+        if (feature.match.filter(
             (m) => typeof m === "string" ? window.location.href.match(m) !== null : m.test(window.location.href)
         ).length == 0) continue;
 
-        feature(v.name, key, v.values);
+        addFeature(key, feature);
     }
 
 }
 
-function feature(name, key, values) {
+function addFeature(key, feature) {
+    console.log(feature);
+    const name = feature.name
+    const values = feature.values
     const options = Object.keys(values)
     const key0 = getOptionKeyAndName(options[0]).key
     let current = $get(key, key0);
-    let index = options.indexOf(current);
+    let index = options.indexOf(options.filter(x=>getOptionKeyAndName(x).key==current)[0])
 
     if (index === -1 || index == undefined) {
         $set(key, key0);
