@@ -39,4 +39,4 @@ jobs:
         
     - name: Push to releases
       run: |
-        git push origin HEAD:releases
+        git push -f origin HEAD:releases
