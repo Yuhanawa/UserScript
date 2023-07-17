@@ -95,7 +95,7 @@ function processingFeatures(js, selfpath, dir) {
     // 正则表达式匹配$CSS(xxx)
     const regex_CSS = /\$CSS\((.+?)\)/g;
     js = js.replace(regex_CSS, (match, filePath) => {
-        const fullPath = path.join(path.dirname(selfpath), filePath)
+        const fullPath = path.join(path.dirname(selfpath), filePath.replaceAll(' ', '').replaceAll('"', '').replaceAll("'", ''))
         const content = fs.readFileSync(fullPath, 'utf8');
         const minified = csso.minify(content).css;
         return `"${minified}"`;
@@ -103,7 +103,7 @@ function processingFeatures(js, selfpath, dir) {
 
     const regex_SASS = /\$SASS\((.+?)\)/g;
     js = js.replace(regex_SASS, (match, filePath) => {
-        fullPath = path.join(path.dirname(selfpath), filePath)
+        fullPath = path.join(path.dirname(selfpath), filePath.replaceAll(' ', '').replaceAll('"', '').replaceAll("'", ''))
         let replaces = "";
         const result = `'${csso.minify(sass.compile(fullPath).css).css}'`
             .replace(/(\"\s*\$get\([^)\n]+\)\s*\")/gi, (match) => {
