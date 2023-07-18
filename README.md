@@ -8,7 +8,7 @@
 ## !正在重构中 原脚本废弃!
 重构完成后, 原脚本会更新为新脚本  
 
-###目前进度
+### 目前进度
 - BILIBILI脚本拆分完成, 已有功能全部可用, 详情查看
   - https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify
   - TODO:
