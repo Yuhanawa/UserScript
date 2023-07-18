@@ -17,6 +17,12 @@
     - 彩色弹幕褪色
     - 细节调整
     - 隐藏头部
+    - 视频下载
+    - 封面下载
+    - 深色模式
+    - 护眼蒙版
+    - 页面宽屏(功能已有, 无开关)
+    - 
 - CSDN脚本拆分完成, 已有功能未经测试不保证可用, 详情查看
   - https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify
   - TODO:
