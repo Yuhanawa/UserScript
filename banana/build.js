@@ -78,6 +78,8 @@ function _build(dir) {
 
 
 function processingFeatures(js, selfpath, dir) {
+    if (js == "") return "";
+
     const key = getFileName(selfpath);
 
     // 正则表达式匹配$CSS(xxx)
@@ -85,7 +87,7 @@ function processingFeatures(js, selfpath, dir) {
     js = js.replace(regex_CSS, (match, fileName) => {
         fileName = fileName.replaceAll(' ', '').replaceAll('"', '').replaceAll("'", '');
         if (!fileName.endsWith('.css')) fileName += '.css';
-        const fullPath = path.join(srcDir,dir,'style', fileName);
+        const fullPath = path.join(srcDir, dir, 'style', fileName);
         const content = fs.readFileSync(fullPath, 'utf8');
         const minified = csso.minify(content).css;
         return `"${minified}"`;
@@ -95,7 +97,7 @@ function processingFeatures(js, selfpath, dir) {
     js = js.replace(regex_SASS, (match, fileName) => {
         fileName = fileName.replaceAll(' ', '').replaceAll('"', '').replaceAll("'", '');
         if (!fileName.endsWith('.sass')) fileName += '.sass';
-        fullPath = path.join(srcDir,dir,'style', fileName)
+        fullPath = path.join(srcDir, dir, 'style', fileName)
         let replaces = "";
         const result = `'${csso.minify(sass.compile(fullPath).css).css}'`
             .replace(/(\"\s*\$get\([^)\n]+\)\s*\")/gi, (match) => {
