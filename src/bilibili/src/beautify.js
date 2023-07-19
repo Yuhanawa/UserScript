@@ -12,6 +12,6 @@
 
     style(`html,:root{--background:${$get('bilibili_background_value', 'url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)')}}`)
 
-    return $SASS(css / beautify.sass)
+    return $SASS('beautify.sass')
   }, '已关闭$off': null,
 }

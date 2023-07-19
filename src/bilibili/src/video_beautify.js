@@ -4,7 +4,7 @@
       console.log(feature);
       window.addEventListener('scroll', () => feature.fn())
     }, 800)
-    return $SASS(css / video_beautify.sass)
+    return $SASS(video_beautify.sass)
   }, '已关闭$off': null,
 }, fn: () => {
   let playerWrap = document.getElementById("playerWrap");
