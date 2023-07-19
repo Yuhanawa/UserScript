@@ -18,7 +18,16 @@ CSDN免登录复制, [/blog\.csdn\.net\/.*\/article\/details/], {
                     setTimeout(() => e.setAttribute("data-title", "点击复制"), 1200);
                 })
             }, 250)
-        })
+
+            document.addEventListener("keydown", (e) => { 
+                if (e.ctrlKey && e.keyCode == 67) {
+                    e.stopPropagation()
+                    e.preventDefault()
+
+                    navigator.clipboard.writeText(window.getSelection().toString())
+                }
+            },true);
+        }, 500)
     },
     '已关闭$off': null
 }
