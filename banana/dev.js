@@ -13,7 +13,7 @@ function dev() {
     const watcher = chokidar.watch(subDirs, {
         ignored: /^\./, // 忽略隐藏文件
         persistent: true,
-        depth: 2,
+        depth: 3,
         ignoreInitial: true, // 如果设置为 false，那么当 chokidar 发现这些文件路径时（在 ready 事件之前）实例化监视时，也会为匹配路径发出 add/addDir 事件。
         awaitWriteFinish: true,
         awaitWriteFinish: {
