@@ -13,12 +13,14 @@ Github: http://github.com/yuhanawa/UserScript
 - 视频快捷分享复制模式
 - 移除评论关键字搜索图标
 - 移除评论关键字搜索跳转
+- 评论区过滤
+- 页面宽屏
+
 
 ### 目前进度
 - BILIBILI脚本拆分完成, 已有功能全部可用, 详情查看
   - https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify
   - TODO:
-    - 评论区过滤
     - 自动播放优化
     - 彩色弹幕褪色
     - 细节调整
@@ -27,7 +29,6 @@ Github: http://github.com/yuhanawa/UserScript
     - 封面下载
     - 深色模式
     - 护眼蒙版
-    - 页面宽屏(功能已有, 无开关)
     
 
 
