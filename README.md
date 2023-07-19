@@ -4,10 +4,41 @@
 #### 与其它修改样式的美化脚本冲突(如AC-Baidud等) 建议配合 广告屏蔽插件 自动翻页插件 使用
 [[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)
 
-## 重构中
+
+## !正在重构中 原脚本废弃!
+重构完成后, 原脚本会更新为新脚本  
+
+### 目前进度
+- BILIBILI脚本拆分完成, 已有功能全部可用, 详情查看
+  - https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify
+  - TODO:
+    - 评论区过滤
+    - 自动播放优化
+    - 彩色弹幕褪色
+    - 细节调整
+    - 隐藏头部
+    - 视频下载
+    - 封面下载
+    - 深色模式
+    - 护眼蒙版
+    - 页面宽屏(功能已有, 无开关)
+    - 
+- CSDN脚本拆分完成, 已有功能未经测试不保证可用, 详情查看
+  - https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify
+  - TODO:
+    - 去广告
+    - 自动展开
+    - 隐藏头部
+    - 隐藏底部
+    - 背景修改
+    - 专注模式(按钮,按下后全屏且仅显示文章内容)
+    - 样式,细节,动画调整
+
 ### 近期计划
 + 拆分为多个脚本
 + 修复已知bug
++ 重点放在CSDN脚本和搜索引擎脚本
++ 配置开关
 
 
 
