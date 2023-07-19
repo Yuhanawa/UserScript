@@ -17,7 +17,7 @@ function style(css) {
 function option(name, key, options, current, index, onclick) {
     if (current === undefined || current === null || index == undefined) {
         current = $set(key, getOptionKeyAndName(options[0]).key);
-        index = options.indexOf(options.filter(x=>getOptionKeyAndName(x).key==current)[0])
+        index = options.indexOf(options.filter(x => getOptionKeyAndName(x).key == current)[0])
     }
     if (index === -1 || index == undefined) {
         $set(key, getOptionKeyAndName(options[0]).key);
@@ -41,6 +41,7 @@ function onload(f) {
 };
 function timeoutOnLoad(f, t) { onload(() => setTimeout(() => f(), t)) }
 function intervalOnLoad(f, timeout) { onload(() => setInterval(f, timeout)) }
+function delay(fn, time, interval) { interval ? intervalOnLoad(fn, time) : timeoutOnLoad(fn, time) }
 
 function run(fts) {
     if (fts === undefined) {
@@ -66,7 +67,7 @@ function addFeature(key, feature) {
     const options = Object.keys(values)
     const key0 = getOptionKeyAndName(options[0]).key
     let current = $get(key, key0);
-    let index = options.indexOf(options.filter(x=>getOptionKeyAndName(x).key==current)[0])
+    let index = options.indexOf(options.filter(x => getOptionKeyAndName(x).key == current)[0])
 
     if (index === -1 || index == undefined) {
         $set(key, key0);
