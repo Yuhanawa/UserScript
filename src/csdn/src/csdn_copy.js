@@ -20,5 +20,5 @@ CSDN免登录复制, [/blog\.csdn\.net\/.*\/article\/details/], {
             }, 250)
         })
     },
-    '已关闭': null
+    '已关闭$off': null
 }
