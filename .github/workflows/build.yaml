@@ -1,7 +1,7 @@
 name: Build
 on:
   push:
-    if: ${{ GITHUB_ACTOR }} != 'github-actions[bot]' 
+    if: ${{ github.actor }} != 'github-actions[bot]' 
     branches:
       - master
       - track-version
