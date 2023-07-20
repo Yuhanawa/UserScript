@@ -1,11 +1,73 @@
 name: Build
 on:
   push:
+    if: ${{ github.actor != 'github-actions[bot]' }}
     branches:
       - master
+      - track-version
   workflow_dispatch:
 
 jobs:
+  track-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Get changed folders
+      id: changed
+      run: |
+        changed=$(git diff --name-only HEAD^ HEAD | grep src/ | cut -d '/' -f 2 | uniq)
+        echo ::set-output name=folders::${changed}
+        
+    - name: Update versions
+      if: ${{ steps.changed.outputs.folders != '' }}  
+      run: |  
+
+        incr_version() {
+          local version=$1
+          local major=$(echo $version | cut -d. -f1)
+          local minor=$(echo $version | cut -d. -f2)
+          local patch=$(echo $version | cut -d. -f3)
+
+          if [[ $patch == *"-"* ]]; then
+            prerelease=$(echo $version | cut -d. -f4)
+            local new_prerelease=$(($prerelease + 1))
+            echo "$major.$minor.$patch.$new_prerelease"
+
+          elif [[ $minor == *"-"* ]]; then
+            prerelease="0" 
+            local new_minor=$(($minor + 1))
+            echo "$major.$new_minor.$patch-$prerelease"
+
+          elif [[ $major == *"-"* ]]; then
+            minor="0"
+            patch="0"
+            prerelease="0"
+            local new_major=$(($major + 1))
+            echo "$new_major.$minor.$patch-$prerelease"
+
+          else
+            local new_patch=$(($patch + 1))
+            echo "$major.$minor.$new_patch"
+          fi
+        }
+
+        for folder in ${{ steps.changed.outputs.folders }}; do
+          folder_path="src/$folder"
+          version=$(jq -r '.version' $folder_path/config.js)
+          new_version=$(incr_version $version)
+          sed -i "s/\"version\":.*/\"version\": \"$new_version\"/" $folder_path/config.js
+          
+          git config --local user.email github-actions[bot]@users.noreply.github.com
+          git config --local user.name github-actions[bot]
+          git config --global core.autocrlf true
+          git config --global core.safecrlf false
+        
+          git commit -m "Update version for $folder" $folder_path/config.js
+
+          git push origin HEAD:track-version
+        done
+
   build:
     runs-on: ubuntu-latest
 
