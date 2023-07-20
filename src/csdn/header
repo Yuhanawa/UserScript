@@ -10,7 +10,7 @@
 // @name:de      Optimieren und verschönern Sie das CSDN-Browsen 
 // @name:it      Semplificare e abbellire l'esperienza di navigazione CSDN
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.0.1.1
+// @version      0.0.1.2
 // @description         优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
 // @description:zh      优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
 // @description:zh-CN   优化和美化CSDN浏览体验 - 沉浸式阅读、免登录复制、去广告等 
@@ -25,7 +25,7 @@
 // @author       Yuhanawa
 // @supportURL   https://greasyfork.org/zh-CN/scripts/471071/feedback
 // @license      GPL-3.0
-// @match        *://*.csdn.net//*
+// @match        *://*.csdn.net/*
 // @icon         none
 // @run-at       document-start
 // @grant        GM_setValue

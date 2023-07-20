@@ -6,7 +6,7 @@
 // @name:en      Beautify BILIBILI
 // @name:ja      BILIBILI美化
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.0.1.1
+// @version      0.0.1.2
 // @description         Beautify BILIBILI[WIP]
 // @description:zh      哔哩哔哩BILIBILI[开发中] 美化|增强|自定义背景|评论过滤等
 // @description:zh-CN   哔哩哔哩BILIBILI[开发中] 美化|增强|自定义背景|评论过滤等
@@ -17,7 +17,7 @@
 // @author       Yuhanawa
 // @supportURL   http://github.com/yuhanawa/UserScript
 // @license      GPL-3.0
-// @match        *://*.bilibili.com//*
+// @match        *://*.bilibili.com/*
 // @icon         none
 // @run-at       document-start
 // @grant        GM_setValue
