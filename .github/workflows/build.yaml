@@ -1,0 +1,39 @@
+name: Build
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: latest
+          run_install: true
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Git commit
+        id: commit
+        run: |
+          git config --local user.email github-actions[bot]@users.noreply.github.com
+          git config --local user.name github-actions[bot]
+          git config --global core.autocrlf true
+          git config --global core.safecrlf false
+          git add -f out
+          git commit -m "CI build"
+
+      - name: Push to releases
+        run: |
+          git push -f origin HEAD:releases
