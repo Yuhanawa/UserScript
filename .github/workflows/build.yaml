@@ -1,7 +1,6 @@
 name: Build
 on:
   push:
-    if: ${{ github.actor != 'github-actions[bot]' }}
     branches:
       - master
       - track-version
@@ -9,6 +8,8 @@ on:
 
 jobs:
   track-version:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -69,6 +70,8 @@ jobs:
         done
 
   build:
+    if: ${{ github.actor != 'github-actions[bot]' }}  
+    
     runs-on: ubuntu-latest
 
     steps:
