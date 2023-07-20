@@ -2,7 +2,6 @@ name: Build
 on:
   push:
     branches:
-      - master
       - track-version
   workflow_dispatch:
 
@@ -70,7 +69,7 @@ jobs:
         done
 
   build:
-    if: ${{ github.actor != 'github-actions[bot]' }}  
+    if: ${{ github.actor == 'github-actions[bot]' }}
     
     runs-on: ubuntu-latest
 
