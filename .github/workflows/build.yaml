@@ -37,7 +37,7 @@ jobs:
 
       - name: Commit versions-update
         run: |
-          git add src
+          git add src || true
           git commit -m "Update versions"
 
       - name: Push to ref
