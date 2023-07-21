@@ -42,10 +42,24 @@ function _build(dir) {
     // 检查路径是否为文件夹
     if (!fs.statSync(dirPath).isDirectory()) return;
 
+    // read config.json
+    const configPath = path.join(dirPath, 'config.json');
+    if (!fs.existsSync(configPath)) return;
+    const configContent = fs.readFileSync(configPath, 'utf8');
+    const config = JSON.parse(configContent);
+
     // 读取文件夹中的header文件
     const headerPath = path.join(dirPath, 'header');
     if (!fs.existsSync(headerPath)) return;
-    const headerContent = fs.readFileSync(headerPath, 'utf8');
+    let headerContent = fs.readFileSync(headerPath, 'utf8');
+
+    // 处理 config and header
+    if (config.version != undefined) {
+        headerContent = headerContent.replace(/\/\/\s*@version\s*(.*)/gi, (match, version) => {
+            return match.replace(version, config.version);
+        });
+    }
+
 
     let files = glob.sync(`${dirPath.replace(/\\/g, '/')}/**/*.js`, { ignore: ['**/main.js'], nodir: true });
     let featuresContent = files.map(
