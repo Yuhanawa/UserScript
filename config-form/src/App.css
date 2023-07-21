@@ -1,0 +1,38 @@
+:root,html,body{
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#root{
+    margin: 2px;
+    display: flex;
+
+    height: 100%;
+    width: 100%;
+}
+
+.menu {
+  background-color: white;
+  padding: 12px 2px 0 0;
+}
+
+.menu-about {
+  color: palevioletred !important;
+  position: absolute !important;
+  bottom: 12px !important;
+  width: auto;
+}
+
+.main {
+  flex: 1;
+
+  background-color: whitesmoke;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 20px;
+}
+
+.menu,
+.main {
+  overflow: auto;
+}
