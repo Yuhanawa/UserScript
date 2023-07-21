@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 
 
-
-// const items: MenuProps['items'] = [
-
-// ];
-
-interface FromMenuProps {
-  menuKey: string;
-  setMenuKey: (key: string) => void;
-}
-
-const FromMenu: React.FC<FromMenuProps> = ({ menuKey, setMenuKey }) => {
+const FromMenu = ({ menuKey, setMenuKey }) => {
   const [items, setItems] = useState([
     {
       label: 'Index ',
@@ -38,7 +27,7 @@ const FromMenu: React.FC<FromMenuProps> = ({ menuKey, setMenuKey }) => {
 
 
 
-  const onClick: MenuProps['onClick'] = (e) => {
+  const onClick = (e) => {
     setMenuKey(e.key);
   };
 

@@ -2,11 +2,8 @@ import React from 'react';
 import FormRender, { useForm } from 'form-render';
 
 
-interface FromMenuProps {
-    menuKey: string;
-}
 
-const FromMain: React.FC<FromMenuProps> = ({ menuKey }) => {
+const FromMain = ({ menuKey }) => {
     const form = useForm();
     let schema = {
         type: 'object',

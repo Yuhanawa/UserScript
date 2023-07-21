@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
 
-import React from 'react';
-import { DatePicker } from 'antd';
-import FromMenu from './components/FromMenu.tsx';
-import FromMain from './components/FromMain.tsx';
+import FromMenu from './components/FromMenu.jsx';
+import FromMain from './components/FromMain.jsx';
 
 
 function App() {
