@@ -21,7 +21,7 @@
   color: palevioletred !important;
   position: absolute !important;
   bottom: 12px !important;
-  width: auto;
+  width: auto !important;
 }
 
 .main {
