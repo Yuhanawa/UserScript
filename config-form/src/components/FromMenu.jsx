@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
+import { useEffect } from 'react';
 
 
 const FromMenu = ({ menuKey, setMenuKey }) => {
@@ -20,10 +21,14 @@ const FromMenu = ({ menuKey, setMenuKey }) => {
     }
   ]);
 
-  if (window.menu != undefined) {
-    const newItems = [...items, ...window.menu];
-    setItems(newItems);
-  }
+  useEffect(() => {
+    if (window.banana != undefined) {
+      let new_menu = [...Object.keys(window.banana)].map(item => { return { label: item, key: item }; })
+      const newItems = [...items, ...new_menu];
+      console.log(newItems);
+      setItems(newItems);
+    }
+  }, [])
 
 
 
