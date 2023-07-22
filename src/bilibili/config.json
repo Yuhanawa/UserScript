@@ -1,25 +1,25 @@
 {
-    "version": "0.1.3",
-    "properties": {
-        "eye_protection_cover": {
-            "title":"护眼蒙版",
-            "default":"on"
-        },
-        "eye_protection_cover_dark": {
-            "title":"暗色模式护眼蒙版",
-            "default":"rgb(0 0 0 / 23%)"
-        },
-        "eye_protection_cover_light": {
-            "title":"亮色模式护眼蒙版",
-            "default":"rgb(102 204 255 / 23%)"
-        },
-        "background_value": {
-            "title":"自定义背景 可填颜色或url(图片链接)",
-            "default":"url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
-        },
-        "test": {
-            "title":"其他选项暂无完成",
-            "default":" {{{(>_<)}}} (不建议修改这个值)"
-        }        
+  "version": "0.1.4",
+  "properties": {
+    "eye_protection_cover": {
+      "title": "护眼蒙版",
+      "default": "on"
+    },
+    "eye_protection_cover_dark": {
+      "title": "暗色模式护眼蒙版",
+      "default": "rgb(0 0 0 / 23%)"
+    },
+    "eye_protection_cover_light": {
+      "title": "亮色模式护眼蒙版",
+      "default": "rgb(102 204 255 / 23%)"
+    },
+    "background_value": {
+      "title": "自定义背景 可填颜色或url(图片链接)",
+      "default": "url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
+    },
+    "test": {
+      "title": "其他选项暂无完成",
+      "default": " {{{(>_<)}}} (不建议修改这个值)"
     }
+  }
 }
