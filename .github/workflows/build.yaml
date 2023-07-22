@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - track-version
+      - master
   workflow_dispatch:
 
 jobs:
