@@ -14,7 +14,7 @@
             "default":"rgb(102 204 255 / 23%)"
         },
         "bilibili_background_value": {
-            "title":"自定义背景 提示:可填颜色或url(图片链接)",
+            "title":"自定义背景 可填颜色或url(图片链接)",
             "default":"url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
         },
         "test": {
