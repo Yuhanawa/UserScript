@@ -5,6 +5,12 @@ function $get(k, d) { return GM_getValue(k, d) }
 function $set(k, v) { return GM_setValue(k, v) }
 
 function loadConfig(name, properties) {
+    GM_registerMenuCommand("打开设置中心(vercel|如果打不开点下一个)", () => {
+        location.href = 'https://user-script-config-form.vercel.app'
+    });
+    GM_registerMenuCommand("打开设置中心(netlify|如果打不开点上一个)", () => {
+        location.href = 'https://yuhan-script-config.netlify.app'
+    });
     if (location.href.match('yuhan-script-config.netlify.app') || location.href.match('user-script-config-form.vercel.app') || location.href.match('localhost')) {
         if (unsafeWindow.banana == undefined) unsafeWindow.banana = {};
 
