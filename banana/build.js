@@ -52,6 +52,7 @@ function _build(dir) {
     const headerPath = path.join(dirPath, 'header');
     if (!fs.existsSync(headerPath)) return;
     let headerContent = fs.readFileSync(headerPath, 'utf8');
+    headerContent = headerContent.replace(/\/\/\s*==\/UserScript==/g, '// @match\t*://yuhan-script-config.netlify.app/*\n// @match\t*://user-script-config-form.vercel.app/*\n// @grant\tunsafeWindow\n// ==/UserScript==')
 
     // 处理 config and header
     if (config.version != undefined) {
