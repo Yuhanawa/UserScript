@@ -4,6 +4,18 @@ onload(() => isLoaded = true);
 function $get(k, d) { return GM_getValue(k, d) }
 function $set(k, v) { return GM_setValue(k, v) }
 
+function loadConfig(name, properties) {
+    if (location.href.match('yuhan-script-config.netlify.app') || location.href.match('user-script-config-form.vercel.app') || location.href.match('localhost')) {
+        if (unsafeWindow.banana == undefined) unsafeWindow.banana = {};
+
+        unsafeWindow.banana[name] = {
+            props: properties,
+            get: $get,
+            set: $set,
+        }
+    }
+}
+
 // add style
 function style(css) {
     if (typeof GM_addStyle != "undefined") GM_addStyle(css);

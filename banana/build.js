@@ -60,6 +60,11 @@ function _build(dir) {
         });
     }
 
+    let code = '\n';
+    if (config.properties != undefined) {
+        code += `loadConfig('${dir}', ${JSON.stringify(config.properties)})\n`;
+    }
+
 
     let files = glob.sync(`${dirPath.replace(/\\/g, '/')}/**/*.js`, { ignore: ['**/main.js'], nodir: true });
     let featuresContent = files.map(
@@ -67,8 +72,6 @@ function _build(dir) {
     ).join(' ');
 
     const featuresName = `features_${path.basename(dirPath)}_${Math.floor(Math.random() * 10000)}`;
-
-    let code = '\n';
 
     const MainJsPath = path.join(dirPath, 'main.js');
     if (fs.existsSync(MainJsPath)) code += fs.readFileSync(MainJsPath, 'utf8') + '\n';
