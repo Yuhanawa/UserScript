@@ -31,12 +31,18 @@
                 } else {
                     playerWarp.style.height = 'auto';
                     playerWarp.style.width = 'auto';
-                    if (player.classList.contains('mode-webscreen')) {
+                    if (document.fullscreenElement) {
+                        // 全屏
+                        playerWarp.style.width = "auto"
+                        playerWarp.style.marginLeft = "0"
+                        player.style.width = "100%"
+                        video.style.maxHeight = ' ';                        
+                    } else if (player.classList.contains('mode-webscreen')) {
                         // 网页全屏
                         playerWarp.style.width = "auto"
                         playerWarp.style.marginLeft = "0"
                         player.style.width = "100%"
-                        video.style.maxHeight = '';
+                        video.style.maxHeight = ' ';
                     } else if (position == "relative") {
                         // 剧场模式
                         playerWarp.style.width = "120%"
