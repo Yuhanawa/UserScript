@@ -13,11 +13,6 @@ const FromMenu = ({ menuKey, setMenuKey }) => {
       label: 'About',
       key: 'about',
       className: 'menu-about',
-    },
-
-    {
-      label: 'Test',
-      key: 'test'
     }
   ]);
 
