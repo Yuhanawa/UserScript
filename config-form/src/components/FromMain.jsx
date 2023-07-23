@@ -2,23 +2,14 @@ import React from 'react';
 import FormRender, { useForm } from 'form-render';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Line from './Line.jsx';
 
 
 
 const FromMain = ({ menuKey }) => {
     const form = useForm();
     let winProps = {};
-    const [schema, setSchema] = useState({
-        type: 'object',
-        properties: {
-            input: {
-                title: '出现错误',
-                type: 'string',
-                widget: 'input',
-
-            }
-        }
-    });
+    const [schema, setSchema] = useState({});
 
     if (window.banana && window.banana[menuKey]) {
         // newSchema=window.banana[menuKey].schema
@@ -33,9 +24,17 @@ const FromMain = ({ menuKey }) => {
             newProps[key] = {
                 type: 'string',
                 widget: 'input',
-                title: winProps[key].title,
+                title: key,
                 description: `default: ${winProps[key].default}`,
                 default: window.banana[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
+                ...winProps[key]
+            }
+
+            if (winProps[key].widget) newProps[key].widget = winProps[key].widget
+            if (winProps[key].title) newProps[key].title = winProps[key].title;
+            if (winProps[key].description) {
+                if (newProps[key].widget == 'line') newProps[key].description = winProps[key].description
+                else newProps[key].description = winProps[key].description + ` default: ${winProps[key].default}`
             }
         });
 
@@ -67,6 +66,7 @@ const FromMain = ({ menuKey }) => {
         <FormRender
             form={form}
             schema={schema}
+            widgets={{Line}}
             onFinish={onFinish}
             maxWidth={360}
             footer={{
