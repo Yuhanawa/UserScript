@@ -1,11 +1,11 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.7",
   "properties": {
-    "line_ts":{
+    "line_ts": {
       "widget": "line",
-      "title":"如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+      "title": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
     },
-    "line_mh":{
+    "line_mh": {
       "widget": "line",
       "title": "美化",
       "description": "美化设置"
