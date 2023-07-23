@@ -1,25 +1,116 @@
 {
   "version": "0.1.5",
   "properties": {
+    "line_mh":{
+      "widget": "line",
+      "title":"美化",
+      "description": "美化设置"
+    },
+    "beautify": {
+      "title": "样式美化",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "开启","value": "on"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
+    },
+    "background_value": {
+      "title": "自定义背景 可填颜色或url(图片链接)(前置功能:样式美化)",
+      "default": "url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
+    },
+    "widescreen": {
+      "title": "宽屏功能",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "开启","value": "on"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
+    },
+    "line_mb":{
+      "widget": "line",
+      "title":"护眼蒙版(前置功能:样式美化)",
+      "description": "会在屏幕上添加一个半透明的蒙版"
+    },
     "eye_protection_cover": {
-      "title": "护眼蒙版",
-      "default": "on"
+      "title": "护眼蒙版(前置功能:样式美化)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "开启","value": "on"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
     },
     "eye_protection_cover_dark": {
-      "title": "暗色模式护眼蒙版",
+      "title": "暗色模式护眼蒙版(前置功能:护眼蒙版)",
       "default": "rgb(0 0 0 / 23%)"
     },
     "eye_protection_cover_light": {
-      "title": "亮色模式护眼蒙版",
+      "title": "亮色模式护眼蒙版(前置功能:护眼蒙版)",
       "default": "rgb(102 204 255 / 23%)"
     },
-    "background_value": {
-      "title": "自定义背景 可填颜色或url(图片链接)",
-      "default": "url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
+    "line_gn":{
+      "widget": "line",
+      "title":"功能",
+      "description": "实用功能"
     },
-    "test": {
-      "title": "其他选项暂无完成",
-      "default": " {{{(>_<)}}} (不建议修改这个值)"
+    "quickly_copy": {
+      "title": "标题快速复制",
+      "default": "all",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "[标题]链接","value": "all"},
+          {"label": "BV","value": "BV"},
+          {"label": "链接","value": "url"},
+          {"label": "标题","value": "title"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
+    },
+    "quickly_copy_hotkey": {
+      "title": "Ctrl+Shirt+C快速复制标题(前置功能:标题快速复制)",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "开启","value": "on"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
+    },
+    "hotkey": {
+      "title": "快捷键增强(暂时只支持按ESC关闭图片)",
+      "default": "on",
+      "description":"<-明明只是个简单的功能阿B却不做,真是太懒了(～￣(OO)￣)ブ <- 这个人只写了一个快捷键还说别人懒￣へ￣",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "开启","value": "on"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
+    },
+    "remove_keyword_search": {
+      "title": "移除评论关键字搜索跳转",
+      "description":"就是那个旁边带个放大镜的蓝字",
+      "default": "icon",
+      "widget": "select",
+      "props": {
+        "options": [
+          {"label": "移除图标","value": "icon"},
+          {"label": "移除图标和链接颜色(仍可点击)","value": "color"},
+          {"label": "彻底移除","value": "link"},
+          {"label": "关闭","value": "off"}
+        ]
+      }
     }
   }
 }
