@@ -1,9 +1,9 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.6",
   "properties": {
-    "line_mh":{
+    "line_mh": {
       "widget": "line",
-      "title":"美化",
+      "title": "美化",
       "description": "美化设置"
     },
     "beautify": {
@@ -12,8 +12,14 @@
       "widget": "select",
       "props": {
         "options": [
-          {"label": "开启","value": "on"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
@@ -27,14 +33,20 @@
       "widget": "select",
       "props": {
         "options": [
-          {"label": "开启","value": "on"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
-    "line_mb":{
+    "line_mb": {
       "widget": "line",
-      "title":"护眼蒙版(前置功能:样式美化)",
+      "title": "护眼蒙版(前置功能:样式美化)",
       "description": "会在屏幕上添加一个半透明的蒙版"
     },
     "eye_protection_cover": {
@@ -43,8 +55,14 @@
       "widget": "select",
       "props": {
         "options": [
-          {"label": "开启","value": "on"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
@@ -56,9 +74,9 @@
       "title": "亮色模式护眼蒙版(前置功能:护眼蒙版)",
       "default": "rgb(102 204 255 / 23%)"
     },
-    "line_gn":{
+    "line_gn": {
       "widget": "line",
-      "title":"功能",
+      "title": "功能",
       "description": "实用功能"
     },
     "quickly_copy": {
@@ -67,11 +85,26 @@
       "widget": "select",
       "props": {
         "options": [
-          {"label": "[标题]链接","value": "all"},
-          {"label": "BV","value": "BV"},
-          {"label": "链接","value": "url"},
-          {"label": "标题","value": "title"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "[标题]链接",
+            "value": "all"
+          },
+          {
+            "label": "BV",
+            "value": "BV"
+          },
+          {
+            "label": "链接",
+            "value": "url"
+          },
+          {
+            "label": "标题",
+            "value": "title"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
@@ -81,34 +114,58 @@
       "widget": "select",
       "props": {
         "options": [
-          {"label": "开启","value": "on"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
     "hotkey": {
       "title": "快捷键增强(暂时只支持按ESC关闭图片)",
       "default": "on",
-      "description":"<-明明只是个简单的功能阿B却不做,真是太懒了(～￣(OO)￣)ブ <- 这个人只写了一个快捷键还说别人懒￣へ￣",
+      "description": "<-明明只是个简单的功能阿B却不做,真是太懒了(～￣(OO)￣)ブ <- 这个人只写了一个快捷键还说别人懒￣へ￣",
       "widget": "select",
       "props": {
         "options": [
-          {"label": "开启","value": "on"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     },
     "remove_keyword_search": {
       "title": "移除评论关键字搜索跳转",
-      "description":"就是那个旁边带个放大镜的蓝字",
+      "description": "就是那个旁边带个放大镜的蓝字",
       "default": "icon",
       "widget": "select",
       "props": {
         "options": [
-          {"label": "移除图标","value": "icon"},
-          {"label": "移除图标和链接颜色(仍可点击)","value": "color"},
-          {"label": "彻底移除","value": "link"},
-          {"label": "关闭","value": "off"}
+          {
+            "label": "移除图标",
+            "value": "icon"
+          },
+          {
+            "label": "移除图标和链接颜色(仍可点击)",
+            "value": "color"
+          },
+          {
+            "label": "彻底移除",
+            "value": "link"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
         ]
       }
     }
