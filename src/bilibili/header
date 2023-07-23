@@ -3,17 +3,16 @@
 // @name:zh      哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
 // @name:zh-CN   哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
 // @name:zh-TW   哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
-// @name:en      Beautify BILIBILI
-// @name:ja      BILIBILI美化
+// @name:en      BILIBIL Beautify Ienhancement custom background
+// @name:ja      BILIBILI 美化｜強化｜カスタム背景｜レビューフィルタリング
 // @namespace    http://github.com/yuhanawa/UserScript
 // @version      0.0.1.2
-// @description         Beautify BILIBILI[WIP]
-// @description:zh      哔哩哔哩BILIBILI[开发中] 美化|增强|自定义背景|评论过滤等
-// @description:zh-CN   哔哩哔哩BILIBILI[开发中] 美化|增强|自定义背景|评论过滤等
-// @description:zh-TW   哔哩哔哩BILIBILI[开发中] 美化|增强|自定义背景|评论过滤等
-// @description:en      Beautify BILIBILI[WIP] Bilibili beautification | enhancement | custom background | comment filtering, etc
-// @description:ja     BILIBILI美化...
-// @node         更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
+// @description         Bilibili beautification | enhancement | custom background | comment filtering, etc
+// @description:zh      哔哩哔哩BILIBILI 美化|增强|自定义背景|宽屏|标题快速复制|评论过滤等
+// @description:zh-CN   哔哩哔哩BILIBILI 美化|增强|自定义背景|宽屏|标题快速复制|评论过滤等
+// @description:zh-TW   哔哩哔哩BILIBILI 美化|增强|自定义背景|宽屏|标题快速复制|评论过滤等
+// @description:en      Bilibili beautification | enhancement | custom background | comment filtering, etc
+// @description:ja     BILIBILI 美化｜強化｜カスタム背景｜レビューフィルタリングなど
 // @author       Yuhanawa
 // @supportURL   http://github.com/yuhanawa/UserScript
 // @license      GPL-3.0
