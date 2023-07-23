@@ -1,68 +1,98 @@
 {
-    "version":"0.1.3",
-    "properties": {
-        "line_ts":{
-            "widget": "line",
-            "title":"如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471071/feedback/"
+  "version": "0.1.4",
+  "properties": {
+    "line_ts": {
+      "widget": "line",
+      "title": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471071/feedback/"
+    },
+    "line_tz": {
+      "widget": "line",
+      "title": "脚本开发缓慢, 因为我正在写这个脚本: 哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等 https://greasyfork.org/zh-CN/scripts/471069"
+    },
+    "csdn_copy": {
+      "title": "免登录复制",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
           },
-          "line_tz":{
-            "widget": "line",
-            "title":"脚本开发缓慢, 因为我正在写这个脚本: 哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等 https://greasyfork.org/zh-CN/scripts/471069"
-          },
-          "csdn_copy": {
-            "title": "免登录复制",
-            "default": "on",
-            "widget": "select",
-            "props": {
-              "options": [
-                {"label": "开启","value": "on"},
-                {"label": "关闭","value": "off"}
-              ]
-            }
-          },
-        "csdn_opt": {
-            "title": "极简化|沉浸式阅读",
-            "default": "on",
-            "widget": "select",
-            "props": {
-              "options": [
-                {"label": "开启","value": "on"},
-                {"label": "关闭","value": "off"}
-              ]
-            }
-          },
-          "csdn_header": {
-            "title": "顶部菜单栏不跟随",
-            "default": "on",
-            "widget": "select",
-            "props": {
-              "options": [
-                {"label": "开启","value": "on"},
-                {"label": "关闭","value": "off"}
-              ]
-            }
-          },
-          "csdn_remove_header": {
-            "title": "文章页移除顶部菜单栏",
-            "default": "off",
-            "widget": "select",
-            "props": {
-              "options": [
-                {"label": "开启","value": "on"},
-                {"label": "关闭","value": "off"}
-              ]
-            }
-          },
-          "csdn_toolbox": {
-            "title": "低部菜单工具栏不跟随",
-            "default": "on",
-            "widget": "select",
-            "props": {
-              "options": [
-                {"label": "开启","value": "on"},
-                {"label": "关闭","value": "off"}
-              ]
-            }
+          {
+            "label": "关闭",
+            "value": "off"
           }
+        ]
+      }
+    },
+    "csdn_opt": {
+      "title": "极简化|沉浸式阅读",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "csdn_header": {
+      "title": "顶部菜单栏不跟随",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "csdn_remove_header": {
+      "title": "文章页移除顶部菜单栏",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "csdn_toolbox": {
+      "title": "低部菜单工具栏不跟随",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
     }
+  }
 }
