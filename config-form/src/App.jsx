@@ -14,7 +14,7 @@ function App() {
     let spKey = sp.get('menuKey')
     if (spKey) setMenuKey(spKey)
   }, [])
-  
+
   useEffect(() => {
     const searchParams = new URLSearchParams()
     searchParams.set('menuKey', menuKey)
@@ -31,11 +31,44 @@ function App() {
         {menuKey !== 'index' && menuKey !== 'about' && <FromMain menuKey={menuKey} />}
 
         {menuKey === 'index' && <>
-          <>该页面还在开发中,仅有部分功能可用</>
+          <h2> 点击左测标签栏选择脚本 </h2>
+
+          <h4>其他脚本: </h4>
+          <div>
+            <br></br>
+            <a href="https://greasyfork.org/zh-CN/scripts/471069">哔哩哔哩 BILIBILI 美化|增强|自定义背景|评论过滤等</a>
+          </div>
+          <div>
+            <br></br>
+            <a href="https://greasyfork.org/zh-CN/scripts/471071">CSDN-优化美化极简化-沉浸式阅读-免登录复制-去广告等</a>
+          </div>
+          <div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <a href="https://github.com/yuhanawa/UserScript">GITHUB仓库</a>
+          </div>
+          <a></a>
         </>}
 
         {menuKey === 'about' && <>
-
+          <h4>其他脚本: </h4>
+          <div>
+            <br></br>
+            <a href="https://greasyfork.org/zh-CN/scripts/471069">哔哩哔哩 BILIBILI 美化|增强|自定义背景|评论过滤等</a>
+          </div>
+          <div>
+            <br></br>
+            <a href="https://greasyfork.org/zh-CN/scripts/471071">CSDN-优化美化极简化-沉浸式阅读-免登录复制-去广告等</a>
+          </div>
+          <div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <a href="https://github.com/yuhanawa/UserScript">GITHUB仓库</a>
+          </div>
         </>}
       </div>
     </>
