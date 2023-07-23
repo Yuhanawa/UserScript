@@ -22,8 +22,15 @@ html,:root
             opacity: 0.97
 
         // 活动
-        .activity-m-v1,.act-end
+        .activity-m-v1,.act-end, #activity_vote
             border-radius: 12px
+            background: rgba(255,255,255,0.72)
+            opacity: 0.97
+            .right
+                ::after
+                    display: none
+                .b-img
+                    mask: linear-gradient(90deg, transparent, #fff)
 
         // 评论区
         .bili-comment,.browser-pc
