@@ -1,6 +1,10 @@
 {
   "version": "0.1.5",
   "properties": {
+    "line_ts":{
+      "widget": "line",
+      "title":"如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+    },
     "line_mh":{
       "widget": "line",
       "title":"美化",
