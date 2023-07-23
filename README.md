@@ -1,50 +1,33 @@
 
-### 搜索引擎(百度 必应 谷歌 fsou)优化美化 搜索引擎快速切换 哔哩哔哩(bilibili)细节优化 视频快捷分享复制 移除评论区关键字搜索蓝字 CSDN极简化 CSDN沉浸式阅读 CSDN免登录复制 去除部分网站复制小尾巴 持续更新中...
-#### 虽是自用但如果你无意发现了这个脚本 欢迎提出建议 (如果你喜欢这个脚本可以到"反馈"中吱一声嘛💝)
-#### 与其它修改样式的美化脚本冲突(如AC-Baidud等) 建议配合 广告屏蔽插件 自动翻页插件 使用
-[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)
+### 搜索引擎(百度/必应/谷歌)优化美化\快速切换|哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字|CSDN极简化\沉浸式阅读\免登录复制等待
 
 
-## !正在重构中 原脚本废弃!
-重构完成后, 原脚本会更新为新脚本  
+[[Github]](https://github.com/yuhanawa/UserScript): https://github.com/yuhanawa/UserScript     
+[[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069      
+[[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071): https://greasyfork.org/zh-CN/scripts/471071   
+
+## !正在重构中 原脚本停更(还能用)!
+重构完成后, [原脚本](https://greasyfork.org/zh-CN/scripts/449705)会更新为新脚本  
+
 
 ### 目前进度
-- BILIBILI脚本拆分完成, 已有功能全部可用, 详情查看
-  - https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify
-  - TODO:
-    - 评论区过滤
-    - 自动播放优化
-    - 彩色弹幕褪色
-    - 细节调整
-    - 隐藏头部
-    - 视频下载
-    - 封面下载
-    - 深色模式
-    - 护眼蒙版
-    - 页面宽屏(功能已有, 无开关)
-    - 
-- CSDN脚本拆分完成, 已有功能未经测试不保证可用, 详情查看
-  - https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify
-  - TODO:
-    - 去广告
-    - 自动展开
-    - 隐藏头部
-    - 隐藏底部
-    - 背景修改
-    - 专注模式(按钮,按下后全屏且仅显示文章内容)
-    - 样式,细节,动画调整
+- BILIBILI脚本拆分完成, 详情查看
+  - <https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify>
+  - 图片截取自 2023-07 距今可能发生较大变化   
+![Snipaste_2023-07-18_03-07-18.png](https://img1.imgtp.com/2023/07/18/j9cpS7Tt.png)
 
-### 近期计划
-+ 拆分为多个脚本
-+ 修复已知bug
-+ 重点放在CSDN脚本和搜索引擎脚本
-+ 配置开关
+- CSDN脚本拆分完成, 详情查看
+  - <https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify>
+  - 图片为脚本重构前的截图, 截取自 2022-8 距今可能发生较大变化  
+![极简CSDN](https://img1.imgtp.com/2023/07/24/h5NUVoYM.png)
 
 
+- 搜索引擎美化 | 切换工具
+  - ?
 
 
-
-### 已有功能 支持开关(在对应网站会显示对应网站的选项开关)
+### 原脚本功能 支持开关(在对应网站会显示对应网站的选项开关)
+- 以下为原脚本功能 <https://greasyfork.org/zh-CN/scripts/449705>
 - 去除部分网站复制小尾巴(无法关闭)
 - 搜索引擎优化美化净化
 - 搜索引擎快速切换工具
@@ -72,6 +55,3 @@
 - 图片搜索快速切换
 
 
-移除早些版本使用的开源css 现有css基本是自己手搓的
-
-（部分截图可能为旧版本）
