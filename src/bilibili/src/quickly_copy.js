@@ -26,4 +26,12 @@
     copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
 
     document.querySelector('h1.video-title').append(copy_btn);
+
+    if ($get("quickly_copy_hotkey",'off') === 'on') {
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'c') {
+                navigator.clipboard.writeText(text)
+            }
+        })
+    }
 }
