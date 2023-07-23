@@ -1,6 +1,5 @@
 # CSDN-优化美化极简化-沉浸式阅读-免登录复制-去广告等
 
-## 开发中
 
 [[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
 [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471071): https://greasyfork.org/zh-CN/scripts/471071
