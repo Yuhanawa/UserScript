@@ -1,5 +1,7 @@
 样式美化 | 自定义背景 | 大幅度修改, ["bilibili.com"], {
   '已开启$on': () => {
+    if (location.href.match('t.bilibili.com')) return
+
     if ($get('bilibili_eye_protection_cover', 'on') === 'on') {
       style('html,:root{--bodybackground: ' +
         (window.matchMedia("(prefers-color-scheme: dark)").matches
