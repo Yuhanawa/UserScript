@@ -27,6 +27,23 @@
         ]
       }
     },
+    "beautify_work_on_index": {
+      "title": "美化首页(前置功能:样式美化)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
     "background_value": {
       "title": "自定义背景 可填颜色或url(图片链接)(前置功能:样式美化)",
       "default": "url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)"
@@ -172,6 +189,34 @@
           }
         ]
       }
+    },
+    "line_xz": {
+      "widget": "line",
+      "title": "小众功能",
+      "description": "小众功能"
+    },
+    "information_diet": {
+      "title": "首页信息节食(前置功能:样式美化)",
+      "description": "⚠️限制首页视频加载数量⚠️",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "information_diet_num": {
+      "title": "首页视频加载数量(前置功能:信息节食)",
+      "description": "单位(屏)",
+      "default": "8"
     }
   }
 }
