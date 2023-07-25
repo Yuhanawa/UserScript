@@ -147,7 +147,14 @@ function uglify(js) {
         },
     });
 
-    if (result.error) throw new Error(result.error);
+    if (result.error) {
+        console.error(`${new Date().toISOString()} ❌ failed to build`);
+        console.error(`--- a error occurred ---`);
+        console.error(js.split('\n').slice(result.error.line -1 - 1, result.error.line+1));
+        console.error(result.error);
+        console.error(`--- full error message ---`);
+        throw new Error(result);
+    }
 
     return result.code;
 }
