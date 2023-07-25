@@ -16,7 +16,10 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
+    const searchParams = new URLSearchParams(window.location.search)
+    
+    if (searchParams.get('menuKey')==menuKey) return;
+
     searchParams.set('menuKey', menuKey)
     window.history.pushState(null, '', '?' + searchParams.toString())
   }, [menuKey])
