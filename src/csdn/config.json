@@ -62,7 +62,7 @@
     },
     "csdn_remove_header": {
       "title": "文章页移除顶部菜单栏",
-      "default": "off",
+      "default": "on",
       "widget": "select",
       "props": {
         "options": [
@@ -79,6 +79,309 @@
     },
     "csdn_toolbox": {
       "title": "低部菜单工具栏不跟随",
+      "default": "remove",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "移除",
+            "value": "remove"
+          },
+          {
+            "label": "不跟随",
+            "value": "relative"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "line_ai": {
+      "widget": "line",
+      "title": "以下开关的代码使用AI生成, 若无法正常开关请反馈: https://greasyfork.org/zh-CN/scripts/471071/feedback/",
+      "description": "应该没有问题"
+    },
+    "line_ui": {
+      "widget": "line",
+      "title": "自定义开关每一个UI的",
+      "description": "开启为显示该模块,关闭为隐藏该模块"
+    },
+    "ui": {
+      "title": "UI调整(总开关)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_toolbar": {
+      "title": "顶部菜单",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_toolbar_container_middle": {
+      "title": "搜索框",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_toolbar_container_right": {
+      "title": "搜索框右侧",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_toolbar_btn_vip": {
+      "title": "会员中心",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideProfile": {
+      "title": "作者档案",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideSearchArticle": {
+      "title": "搜索作者文章",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideHotArticle": {
+      "title": "热门文章",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideCategory": {
+      "title": "分类专栏",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideNewComments": {
+      "title": "最新评论",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideNewNps": {
+      "title": "您愿意向朋友推荐“博客详情页”吗",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asideArchive": {
+      "title": "最新文章",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_asidedirectory": {
+      "title": "文章目录",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_copyright_box": {
+      "title": "copyright-box",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_recommendNps": {
+      "title": "“相关推荐”对你有帮助么",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_recommend_box": {
+      "title": "文章推荐",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "ui_toolBarBox": {
+      "title": "下方工具栏",
       "default": "on",
       "widget": "select",
       "props": {
@@ -95,4 +398,3 @@
       }
     }
   }
-}
