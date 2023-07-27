@@ -7,18 +7,16 @@ import { useEffect } from 'react';
 
 
 function App() {
-  const [menuKey, setMenuKey] = useState('index');
-
-  useEffect(() => {
-    const sp = new URLSearchParams(window.location.search);
-    let spKey = sp.get('menuKey')
-    if (spKey) setMenuKey(spKey)
-  }, [])
+  const sp = new URLSearchParams(window.location.search);
+  const [menuKey, setMenuKey] = useState(sp.get('menuKey') || 'index');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
-    
+
+    console.log("searchParams.get('menuKey'):", searchParams.get('menuKey')) // test
+    console.log("menuKey:", menuKey)      // index
     if (searchParams.get('menuKey')==menuKey) return;
+
 
     searchParams.set('menuKey', menuKey)
     window.history.pushState(null, '', '?' + searchParams.toString())
