@@ -1,5 +1,5 @@
-const Line = (_props) => {
-    return (<hr className="line" />);
+const Line = (props) => {
+    return (<hr id={props.id} className="line" />);
 };
 
 export default Line;
