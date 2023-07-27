@@ -79,7 +79,6 @@ function run(fts) {
 }
 
 function addFeature(key, feature) {
-    console.log(feature);
     const name = feature.name
     const values = feature.values
     const options = Object.keys(values)
@@ -105,7 +104,6 @@ function addFeature(key, feature) {
             if (typeof result === "string") style(result)
         }
         else if (typeof value === "string") style(value);
-        else console.error(`出现了不应该出现的类型: ${typeof value} ${value}`)
     } catch (e) {
         console.error(e)
     }
