@@ -1,4 +1,4 @@
-CSDN极简化, [/blog\.csdn\.net\/.*\/article\/details/],
+极简化, [/blog\.csdn\.net\/.*\/article\/details/],
 {
     '已开启$on': () => {
         timeoutOnLoad(() => {
