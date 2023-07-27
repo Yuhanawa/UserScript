@@ -11,10 +11,8 @@ const FromMain = ({ menuKey }) => {
     let winProps = {};
     const [schema, setSchema] = useState({});
 
-    if (window.banana && window.banana[menuKey]) {
-        // newSchema=window.banana[menuKey].schema
+    if (window.banana && window.banana[menuKey])
         winProps = window.banana[menuKey].props;
-    }
 
 
     useEffect(() => {
@@ -25,13 +23,13 @@ const FromMain = ({ menuKey }) => {
                 type: 'string',
                 widget: 'input',
                 title: key,
+
+                ...winProps[key],
+
                 description: `default: ${winProps[key].default}`,
                 default: window.banana[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
-                ...winProps[key]
             }
 
-            if (winProps[key].widget) newProps[key].widget = winProps[key].widget
-            if (winProps[key].title) newProps[key].title = winProps[key].title;
             if (winProps[key].description) {
                 if (newProps[key].widget == 'line') newProps[key].description = winProps[key].description
                 else newProps[key].description = winProps[key].description + ` default: ${winProps[key].default}`
@@ -54,7 +52,6 @@ const FromMain = ({ menuKey }) => {
             const value = data[key]
             if (value != schema.properties[key].default) {
                 window.banana[menuKey].set(`${menuKey}_${key}`, value)
-                console.log("🚀 ~ file: FromMain.jsx:42 ~ Object.keys ~ value:", value)
             }
 
             location.reload();
@@ -66,7 +63,7 @@ const FromMain = ({ menuKey }) => {
         <FormRender
             form={form}
             schema={schema}
-            widgets={{Line}}
+            widgets={{ Line }}
             onFinish={onFinish}
             maxWidth={360}
             footer={{
