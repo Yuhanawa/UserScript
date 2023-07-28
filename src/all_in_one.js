@@ -353,7 +353,7 @@
         },
         // CSDN
         "csdn_opt": {
-            name: "CSDN极简化", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+            name: "CSDN极简化", match: [/blog\.csdn\.net(\/.*)?\/article\/details./], value: {
                 '开启': () => {
                     css += `
             .hide-article-box,.sidecolumn, .hide-preCode-box, .passport-login-container,
@@ -441,7 +441,7 @@
         },
 
         "csdn_toolbox": {
-            name: "CSDN底部不跟随", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+            name: "CSDN底部不跟随", match: [/blog\.csdn\.net(\/.*)?\/article\/details./], value: {
                 '开启': () => {
                     css += `
             .left-toolbox{
@@ -456,7 +456,7 @@
             },
         },
         "csdn_remove_header": {
-            name: "CSDN移除顶部", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+            name: "CSDN移除顶部", match: [/blog\.csdn\.net(\/.*)?\/article\/details./], value: {
                 '开启': () => {
                     css += `
             #csdn-toolbar{
@@ -467,7 +467,7 @@
             },
         },
         "csdn_copy": {
-            name: "CSDN免登录复制", match: [/blog\.csdn\.net\/.*\/article\/details/], value: {
+            name: "CSDN免登录复制", match: [/blog\.csdn\.net(\/.*)?\/article\/details./], value: {
                 '开启': () => {
                     setTimeoutBeforeLoad(() => {
                         // 将代码块改为可修改

@@ -1,4 +1,4 @@
-免登录复制, [/blog\.csdn\.net\/.*\/article\/details/], {
+免登录复制, [/blog\.csdn\.net(\/.*)?\/article\/details./], {
     '已开启$on': () => {
         timeoutOnLoad(() => {
             // 将代码块改为可修改

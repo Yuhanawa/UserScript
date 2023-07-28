@@ -1,4 +1,4 @@
-底部不跟随或移除, [/blog\.csdn\.net\/.*\/article\/details/], {
+底部不跟随或移除, [/blog\.csdn\.net(\/.*)?\/article\/details./], {
   '移除$remove': () => {
     return `.left-toolbox{
           display: none!important;
