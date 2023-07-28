@@ -9,7 +9,7 @@
       "widget": "line",
       "title": "脚本开发缓慢, 因为我正在写这个脚本: 哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等 https://greasyfork.org/zh-CN/scripts/471069"
     },
-    "csdn_copy": {
+    "copy": {
       "title": "免登录复制",
       "default": "on",
       "widget": "select",
@@ -26,7 +26,7 @@
         ]
       }
     },
-    "csdn_opt": {
+    "opt": {
       "title": "极简化|沉浸式阅读",
       "default": "on",
       "widget": "select",
@@ -43,7 +43,29 @@
         ]
       }
     },
-    "csdn_header": {
+    "width": {
+      "title": "调整文章宽度(前置功能:极简化)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },    
+    "width_value": {
+      "title": "文章宽度(前置功能:调整文章宽度)",
+      "default": "82",
+      "description":"单位:%|百分比"
+    },    
+    "header": {
       "title": "顶部菜单栏不跟随",
       "default": "on",
       "widget": "select",
@@ -60,7 +82,7 @@
         ]
       }
     },
-    "csdn_remove_header": {
+    "remove_header": {
       "title": "文章页移除顶部菜单栏",
       "default": "on",
       "widget": "select",
@@ -77,7 +99,7 @@
         ]
       }
     },
-    "csdn_toolbox": {
+    "toolbox": {
       "title": "低部菜单工具栏不跟随",
       "default": "remove",
       "widget": "select",
