@@ -59,12 +59,12 @@
           }
         ]
       }
-    },    
+    },
     "width_value": {
       "title": "文章宽度(前置功能:调整文章宽度)",
       "default": "82",
-      "description":"单位:%|百分比"
-    },    
+      "description": "单位:%|百分比"
+    },
     "header": {
       "title": "顶部菜单栏不跟随",
       "default": "on",
@@ -119,6 +119,43 @@
           }
         ]
       }
+    },
+    "line_fz": {
+      "widget": "line",
+      "title": "调整字体大小"
+    },
+    "fontsize": {
+      "title": "调整字体大小",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "font_size_title": {
+      "title": "标题",
+      "default": "32px"
+    },
+    "font-size-p": {
+      "title": "正文",
+      "default": "18px"
+    },
+    "font-size-h2": {
+      "title": "子标题",
+      "default": "24px"
+    },
+    "font_size_code": {
+      "title": "代码",
+      "default": "15px"
     },
     "line_ai": {
       "widget": "line",
