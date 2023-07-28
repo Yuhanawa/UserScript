@@ -69,3 +69,8 @@ pre .hljs-button {
 main div.blog-content-box pre.set-code-hide {
     height: auto !important;
 }
+
+/* 文章顶部信息 */
+.article-info-box{ 
+    opacity: 0.92;
+}
