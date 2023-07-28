@@ -1,5 +1,5 @@
 {
-  "version": "0.1.7",
+  "version": "0.1.8",
   "properties": {
     "line_ts": {
       "widget": "line",
@@ -59,12 +59,12 @@
           }
         ]
       }
-    },    
+    },
     "width_value": {
       "title": "文章宽度(前置功能:调整文章宽度)",
       "default": "82",
-      "description":"单位:%|百分比"
-    },    
+      "description": "单位:%|百分比"
+    },
     "header": {
       "title": "顶部菜单栏不跟随",
       "default": "on",
