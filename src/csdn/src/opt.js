@@ -3,7 +3,7 @@
     '已开启$on': () => {
         timeoutOnLoad(() => {
             // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
-            try {
+            try { // TODO
                 document.getElementsByClassName("option-box")[0].remove();
                 document.getElementsByClassName("option-box")[0].remove();
                 document.getElementsByClassName("option-box")[0].remove();                
