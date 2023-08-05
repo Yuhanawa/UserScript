@@ -17,6 +17,10 @@ const codes = new Map();
 function build() {
     // 遍历src目录
     fs.readdirSync(srcDir).forEach(dir => {
+        if (dir.startsWith('.')) {
+            console.log(`(${new Date().toISOString()}) ❗ ${dir} ignored`);
+            return;
+        }
         try {
             if (_build(dir))
                 console.log(`(${new Date().toISOString()}) ✅ ${dir} build success`);
