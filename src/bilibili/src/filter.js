@@ -43,5 +43,7 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
   /压缩毛巾/,
   /你说得对/,
   /答辩/,
-  /爷/
+  /爷/,
+  /谁问你了/,
+  /亡灵军团/
 ]
