@@ -1,0 +1,19 @@
+// ==UserScript==
+// @name         搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 
+// @name:zh      搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 搜索引擎快速切换
+// @namespace    http://github.com/yuhanawa/UserScript
+// @version      0.5.6.6
+// @description  搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 搜索引擎快速切换 开发中...
+// @description:zh  搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 搜索引擎快速切换 开发中...
+// @node         更新日志请见 https://github.com/yuhanawa/UserScript/blob/master/CHANGELOG.md
+// @author       Yuhanawa
+// @supportURL   https://greasyfork.org/zh-CN/scripts/449705/feedback
+// @license      GPL-3.0
+// @match        *://*/*
+// @icon         none
+// @run-at       document-start
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_addStyle
+// @grant        GM_registerMenuCommand
+// ==/UserScript==

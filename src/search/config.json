@@ -1,0 +1,9 @@
+{
+  "version": "0.5.7",
+  "properties": {
+    "config_test": {
+      "title": "测试",
+      "default": "开发中..."
+    }
+  }
+}
