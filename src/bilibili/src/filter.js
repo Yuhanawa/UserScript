@@ -45,5 +45,6 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
   /答辩/,
   /爷/,
   /谁问你了/,
-  /亡灵军团/
+  /亡灵军团/,
+  /死灵法师/
 ]
