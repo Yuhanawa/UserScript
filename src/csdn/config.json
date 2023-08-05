@@ -161,11 +161,6 @@
       "title": "代码",
       "default": "15px"
     },
-    "line_ai": {
-      "widget": "line",
-      "title": "以下开关的代码使用AI生成, 若无法正常开关请反馈: https://greasyfork.org/zh-CN/scripts/471071/feedback/",
-      "description": "应该没有问题"
-    },
     "line_ui": {
       "widget": "line",
       "title": "自定义开关每一个UI的",
