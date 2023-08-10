@@ -1,0 +1,17 @@
+// ==UserScript==
+// @name         okJiKe Enhancement (web.okjike.com)
+// @name:zh      即刻网页版增强 (web.okjike.com)
+// @description  okJiKe Enhancement and beautify it (web.okjike.com)
+// @description:zh  即刻网页版增强/美化 (web.okjike.com)
+// @namespace    http://github.com/yuhanawa/UserScript
+// @version      0.0.1.0
+// @author       Yuhanawa
+// @license      GPL-3.0
+// @icon         none
+// @run-at       document-start
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_addStyle
+// @grant        GM_registerMenuCommand
+// @match        *://web.okjike.com/*
+// ==/UserScript==
