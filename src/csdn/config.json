@@ -161,6 +161,47 @@
       "title": "代码",
       "default": "15px"
     },
+    "line_bg": {
+      "widget": "line",
+      "title": "自定义背景"
+    },
+    "background": {
+      "title": "自定义背景(总开关)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    }, 
+    "background-value": {
+      "title": "页面背景",
+      "description": "body的背景",
+      "default": "url(\"https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831\")"
+    },
+    "blog-content-box-background-value": {
+      "title": "文章背景",
+      "description": "用于放置文章的div颜色",
+      "default": "rgb(245 246 247 / 90%)"
+    },    
+    "blog-content-box-opacity-value": {
+      "title": "文章透明度",
+      "description": "文章整体透明度,包括文章内容",
+      "default": "0.98"
+    },
+    "header-box-background-value": {
+      "title": "文章标题及部分卡片背景",
+      "description": "建议保持透明或使用高透明度颜色",
+      "default": "transparent"
+    },    
     "line_ui": {
       "widget": "line",
       "title": "自定义开关每一个UI的",
