@@ -4,8 +4,8 @@
   "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
   "main": "main.js",
   "scripts": {
-    "build": "node build.js",
-    "test": "test"
+    "dev": "node main.js",
+    "build": "node build.js"
   },
   "author": "Yuhanawa",
   "license": "GPL-3.0-or-later",
