@@ -167,7 +167,7 @@
     },
     "background": {
       "title": "自定义背景(总开关)",
-      "default": "on",
+      "default": "off",
       "widget": "select",
       "props": {
         "options": [
