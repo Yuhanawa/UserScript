@@ -104,7 +104,10 @@ pnpm i
 pnpm build
 ```
 
-构建结果在 out 文件夹中 4.热更新
+构建结果在 out 文件夹中
+
+4. 热更新
+
 修改`dev.js`中的`{PATH}` 为当前目录的绝对路径, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限
 
 > 在 chrome 中, 你可以访问`chrome://extensions/`找到你的脚本管理器插件(Tampermonkey),点击`详情`, 打开`允许访问文件网址`选项
