@@ -41,7 +41,7 @@
 - 封面下载
 - 深色模式
 
-### CSDN 脚本-支持功能
+### [CSDN 脚本-优化美化极简化-沉浸式阅读-免登录复制-去广告](https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify)
 
 - 免登录复制
 - 样式美化|沉浸式阅读
