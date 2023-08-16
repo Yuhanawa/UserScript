@@ -39,5 +39,5 @@ UI调整 | 设置中可开关每个UI, ['csdn.net'], {
         // toolBarBox 下方工具栏
         add('csdn_ui_toolBarBox', '#toolBarBox', true)
     },
-    '已关闭': null
+    '已关闭$off': null
 }

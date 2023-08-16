@@ -13,5 +13,5 @@
           position: relative!important;
         }`
   },
-  '已关闭': null
+  '已关闭$off': null
 }
