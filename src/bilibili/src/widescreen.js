@@ -7,10 +7,7 @@
             const updateText = document.getElementsByClassName("pubdate-text")[0];
             let miniPlayerWarp = document.getElementsByClassName("bpx-player-mini-warp")[0];
 
-            let old_size = {
-                height: playerWarp.getBoundingClientRect().height,
-                width: playerWarp.getBoundingClientRect().width
-            }
+            let old_height = playerWarp.getBoundingClientRect().height
 
             let old_isFullScreen = (Boolean)(document.fullscreenElement)
             let old_text = updateText.innerHTML
@@ -22,22 +19,23 @@
                 let miniPlayerWarpDisplay = "none";
                 miniPlayerWarp = document.getElementsByClassName("bpx-player-mini-warp")[0];
                 if (miniPlayerWarp != null) miniPlayerWarpDisplay = miniPlayerWarp.style.display
-                if (old_position == position && old_text == updateText.innerHTML && old_miniPlayerWarpDisplay == miniPlayerWarpDisplay && old_isFullScreen == (Boolean)(document.fullscreenElement)) return;
 
-                if (miniPlayerWarpDisplay != 'none') {
-                    // 小窗
-                    playerWarp.style.height = old_size.height + "px";
-                    playerWarp.style.width = old_size.width + "px";
-                    video.style.maxHeight = '';
-                } else {
+                if (old_position == position && old_text == updateText.innerHTML && old_miniPlayerWarpDisplay == miniPlayerWarpDisplay && old_isFullScreen == (Boolean)(document.fullscreenElement)) return;
+                if (old_text != updateText.innerHTML) {
                     playerWarp.style.height = 'auto';
                     playerWarp.style.width = 'auto';
+                }
+                if (miniPlayerWarpDisplay != 'none') {
+                    // 小窗
+                    playerWarp.style.height = old_height + "px";
+                    video.style.maxHeight = '';
+                } else {
                     if (document.fullscreenElement) {
                         // 全屏
                         playerWarp.style.width = "auto"
                         playerWarp.style.marginLeft = "0"
                         player.style.width = "100%"
-                        video.style.maxHeight = '100%';                        
+                        video.style.maxHeight = '100%';
                     } else if (player.classList.contains('mode-webscreen')) {
                         // 网页全屏
                         playerWarp.style.width = "auto"
@@ -46,12 +44,14 @@
                         video.style.maxHeight = '100%';
                     } else if (position == "relative") {
                         // 剧场模式
+                        playerWarp.style.height = "auto"
                         playerWarp.style.width = "120%"
                         playerWarp.style.marginLeft = "7.2%"
                         player.style.width = "auto"
                         video.style.maxHeight = '80vh';
                     } else {
                         // 默认
+                        playerWarp.style.height = old_height + "px";
                         playerWarp.style.width = "auto"
                         playerWarp.style.marginLeft = "0"
                         player.style.width = "100%"
@@ -62,10 +62,8 @@
                     old_isFullScreen = (Boolean)(document.fullscreenElement)
                     old_text = updateText.innerHTML
                     old_miniPlayerWarpDisplay = miniPlayerWarpDisplay
-                    old_size = {
-                        height: playerWarp.getBoundingClientRect().height,
-                        width: playerWarp.getBoundingClientRect().width
-                    }
+                    old_height = playerWarp.getBoundingClientRect().height
+
                 }
             }, 200, true)
         }, 500)
