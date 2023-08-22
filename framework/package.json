@@ -1,0 +1,22 @@
+{
+  "name": "banana",
+  "version": "0.1.1",
+  "description": "",
+  "main": "main.js",
+  "bin": {
+    "build":"./bin/build.js",
+    "dev":"./bin/dev.js"
+  },
+  "scripts": {
+  },
+  "keywords": [],
+  "author": "Yuhanawa",
+  "license": "LGPL-3.0-or-later",
+  "devDependencies": {
+    "art-template": "^4.13.2",
+    "chokidar": "^3.5.3",
+    "csso": "^5.0.5",
+    "sass": "^1.63.6",
+    "uglify-js": "^3.17.4"
+  }
+}
