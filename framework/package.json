@@ -4,8 +4,8 @@
   "description": "",
   "main": "main.js",
   "bin": {
-    "build":"./bin/build.js",
-    "dev":"./bin/dev.js"
+    "build":"./cli/build.js",
+    "dev":"./cli/dev.js"
   },
   "scripts": {
   },
