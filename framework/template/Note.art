@@ -1,0 +1,5 @@
+/* 
+    {{@Name}} v.{{@Config.version}} by {{Config.author}}
+    Build with the framework: https://github.com/Yuhanawa/UserScript/tree/master/framework/
+    It doesn't have a good name, temporarily called banana.
+*/

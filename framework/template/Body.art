@@ -1,0 +1,5 @@
+
+{{@MainJs}}
+{{@LoadProperties}}
+{{@FeaturesContent}}
+run({{@FeaturesName}});

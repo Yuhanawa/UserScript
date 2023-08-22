@@ -1,0 +1,7 @@
+{{include './Header.art' Header}}
+
+{{include './Note.art' $data}}
+
+{{@CoreLib}}
+
+{{include './Body.art' Body}}

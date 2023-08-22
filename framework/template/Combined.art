@@ -1,0 +1,11 @@
+{{include './Header.art' Header}}
+
+{{@CoreLib}}
+
+{{each DataList}}
+{{include './Note.art' $value}}
+try {
+    {{include './Body.art' $value.Body}}
+} catch (e) {console.error(`{{$value.Name}}: ${e}`)}
+
+{{/each}}
