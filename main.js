@@ -1,3 +1,1 @@
-const banana = require('banana')
-
-banana.dev();
+require('banana').dev();
