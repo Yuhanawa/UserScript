@@ -32,15 +32,3 @@ if ([...process.argv].indexOf('--update-versions') !== -1) {
 } else {
     require('banana').build();
 }
-
-// all in one 
-setTimeout(() => {
-    try {
-        fs.writeFileSync('out/all_in_one.js', fs.readFileSync('src/all_in_one_header') + '\n' + fs.readFileSync('out/all.js'))
-        console.log(`(${new Date().toISOString()}) ✅ all_in_one success`);
-    } catch (error) {
-        console.error(`(${new Date().toISOString()}) ❌ all_in_one failed to build`);
-        console.error(error);
-    }
-}, 500);
-
