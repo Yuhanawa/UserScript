@@ -1,5 +1,6 @@
 视频页宽屏, ["www.bilibili.com/video"], {
     '已开启$on': () => {
+        style(`#app{--container_padding:${$get('bilibili-container-padding',60)}}`)
         timeoutOnLoad(() => {
             const player = document.getElementById("bilibili-player");
             const playerWarp = document.getElementById("playerWrap");
