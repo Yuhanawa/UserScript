@@ -1,0 +1,15 @@
+{
+    "author":"Yuhanawa",
+    "combined": [
+        {
+            "name": "all",
+            "header": "",
+            "script": "*"
+        },
+        {
+            "name": "all_in_one",
+            "header": "src/all_in_one_header",
+            "script": ["csdn","bilibili","search"]
+        }
+    ]
+}
