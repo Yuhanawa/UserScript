@@ -13,9 +13,7 @@
     "csso": "^5.0.5",
     "glob": "^10.3.3",
     "sass": "^1.63.6",
-    "uglify-js": "^3.17.4"
-  },
-  "dependencies": {
-    "banana": "link:banana"
+    "uglify-js": "^3.17.4",
+    "banana": "link:framework"
   }
 }
