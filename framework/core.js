@@ -3,7 +3,7 @@ onload(() => isLoaded = true);
 const props = new Map()
 
 function $get(k, d) { 
-    if (d==undefined) GM_getValue(k, props.get(k))
+    if (d===undefined) GM_getValue(k, props.get(k))
     return GM_getValue(k, d)
  }
 function $set(k, v) { return GM_setValue(k, v) }
