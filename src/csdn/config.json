@@ -9,10 +9,6 @@
       "widget": "line",
       "title": "❗❗❗修改完记得点保存(在最下面)❗❗❗"
     },
-    "line_tz": {
-      "widget": "line",
-      "title": "脚本开发缓慢, 因为我正在写这个脚本: 哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等 https://greasyfork.org/zh-CN/scripts/471069"
-    },
     "copy": {
       "title": "免登录复制",
       "default": "on",
