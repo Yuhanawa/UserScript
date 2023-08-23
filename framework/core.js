@@ -2,10 +2,10 @@ isLoaded = false
 onload(() => isLoaded = true);
 const props = new Map()
 
-function $get(k, d) { 
-    if (d===undefined) GM_getValue(k, props.get(k))
+function $get(k, d) {
+    if (d === undefined) GM_getValue(k, props.get(k))
     return GM_getValue(k, d)
- }
+}
 function $set(k, v) { return GM_setValue(k, v) }
 
 function loadConfig(name, properties) {
@@ -86,12 +86,25 @@ function run(fts) {
 }
 
 function addFeature(key, feature) {
-    const name = feature.name
-    const values = feature.values
+    const { name, values } = feature;
+    
+    if (name === '$') {
+        try {
+            if (typeof values === "function") {
+                const result = values(feature);
+                if (typeof result === "string") style(result)
+            }
+            else if (typeof values === "string") style(value);
+        } catch (e) {
+            console.error(e)
+        }
+        return;
+    }
+
     const options = Object.keys(values)
     const key0 = getOptionKeyAndName(options[0]).key
     let current = $get(key, key0);
-    let index = options.indexOf(options.filter(x => getOptionKeyAndName(x).key == current)[0])
+    let index = options.findIndex(x => getOptionKeyAndName(x).key === current)
 
     if (index === -1 || index == undefined) {
         $set(key, key0);
