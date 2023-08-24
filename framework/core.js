@@ -1,9 +1,9 @@
 isLoaded = false
 onload(() => isLoaded = true);
-const props = new Map()
+const __props__ = new Map()
 
 function $get(k, d) {
-    if (d === undefined) GM_getValue(k, props.get(k))
+    if (d === undefined) GM_getValue(k, __props__.get(k))
     return GM_getValue(k, d)
 }
 function $set(k, v) { return GM_setValue(k, v) }
@@ -16,7 +16,7 @@ function loadConfig(name, properties) {
         location.href = 'https://yuhan-script-config.netlify.app'
     });
 
-    Object.keys(properties).forEach(key => props.set(`${name}-${key}`, properties[key].default))
+    Object.keys(properties).forEach(key => __props__.set(`${name}_${key}`, properties[key].default))
 
     if (location.href.match('yuhan-script-config.netlify.app') || location.href.match('user-script-config-form.vercel.app') || location.href.match('localhost')) {
         if (unsafeWindow.banana == undefined) unsafeWindow.banana = {};
