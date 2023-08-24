@@ -45,13 +45,8 @@ function compile(name) {
         const data = getData(currentName);
         const outinfo = output2file(getContent(data));
 
-        console.log(`(${new Date().toISOString()}) ✅ ${currentName} build success`);
-
         return { success: true, outinfo, data }
     } catch (error) {
-        console.error(`(${new Date().toISOString()}) ❌ ${currentName} failed to build`);
-        console.error(error.message);
-        console.error(error);
         return { success: false, outinfo: error }
     }
 }

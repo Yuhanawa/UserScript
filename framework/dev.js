@@ -1,3 +1,4 @@
+const { buildScript } = require('./build');
 const compile = require('./compile');
 
 function dev() {
@@ -25,21 +26,19 @@ function dev() {
 
     // 监听事件
     watcher.on('all', (event, path) => {
-        const dir = path.split('\\')[1];
-        toBuild(dir);
+        const name = path.split('\\')[1];
+        const { success, outinfo } = buildScript(name);
+        // success: true false or undefined
+        if (success) {
+            outputAll(false);
+            console.log(`(${new Date().toISOString()}) ⭕ ${name} rebuild success`);
+        } else if (success === false) {
+            console.error(`(${new Date().toISOString()}) ❌ ${name} failed to rebuild`);
+            console.error(outinfo.message);
+            console.error(outinfo);
+        }
     });
 
-    // 构建
-    function toBuild(dir) {
-        try {
-            if (!compile(dir)) return;
-            outputAll();
-            console.info(`(${new Date().toISOString()}) ⭕ ${dir} rebuild successful`);
-        } catch (error) {
-            console.error(`(${new Date().toISOString()}) ❌ ${dir} failed to rebuild`);
-            console.error(error);
-        }
-    }
 
     // 获取子文件夹
     function getSubDirectories(dir) {

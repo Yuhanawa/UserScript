@@ -21,23 +21,35 @@ function build() {
             console.log(`(${new Date().toISOString()}) ${name} ignored`);
             return;
         }
-        const { success, outinfo, data } = compile(name);
+        const { success, outinfo } = buildScript(name);
+        // success: true false or undefined
         if (success) {
-            config.combined.forEach(i => {
-                if (i.script === undefined) return;
-                if (i.script === '*' || i.script.indexOf(name) !== -1) {
-                    if (!dataMaps.has(i.name))
-                        dataMaps.set(i.name, new Map())
-                    dataMaps.get(i.name).set(name, data)
-                }
-            })
+            console.log(`(${new Date().toISOString()}) ✅ ${name} build success`);
+        } else if (success === false) {
+            console.error(`(${new Date().toISOString()}) ❌ ${name} failed to build`);
+            console.error(outinfo.message);
+            console.error(outinfo);
         }
     });
 
     Combine();
 }
+function buildScript(name) {
+    const { success, outinfo, data } = compile(name);
+    if (success) {
+        config.combined.forEach(i => {
+            if (i.script === undefined) return;
+            if (i.script === '*' || i.script.indexOf(name) !== -1) {
+                if (!dataMaps.has(i.name))
+                    dataMaps.set(i.name, new Map())
+                dataMaps.get(i.name).set(name, data)
+            }
+        })
+    }
+    return { success, outinfo };
+}
 
-function Combine() {
+function Combine(log = true) {
     config.combined.forEach(i => {
         try {
             const dataMap = dataMaps.get(i.name)
@@ -56,17 +68,18 @@ function Combine() {
             }
 
             fs.writeFileSync(path.join("out", i.name + ".js"), rs);
-            console.log(`(${new Date().toISOString()}) ✅ ${i.name} combined success`);
+            if (log)
+                console.log(`(${new Date().toISOString()}) ✅ ${i.name} combined success`);
         } catch (error) {
             console.error(`(${new Date().toISOString()}) ❌ ${i.name} failed to combined`);
             console.error(error);
         }
-
     })
 }
 
 
 module.exports = {
     build: build,
+    buildScript: buildScript,
     outputAll: Combine,
 } 
