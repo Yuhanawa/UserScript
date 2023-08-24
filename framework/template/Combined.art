@@ -6,6 +6,9 @@
 {{include './Note.art' $value}}
 try {
     {{include './Body.art' $value.Body}}
-} catch (e) {console.error(`{{$value.Name}}: ${e}`)}
+} catch (e) {
+    console.error(`{{$value.Name}}: ${e.message}`);
+    console.error(e);
+}
 
 {{/each}}
