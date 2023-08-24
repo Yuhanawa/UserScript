@@ -11,5 +11,5 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
-// @match        *://*//*
+// @match        *://*/*
 // ==/UserScript==
