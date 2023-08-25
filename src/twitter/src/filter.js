@@ -12,8 +12,6 @@
                 const id = articleTextSplits[1].slice(1)
                 const content = article.querySelector("div[lang]")?.innerText ?? "以下媒体可能包含敏感内容。"
 
-                console.log(name, id, content);
-
                 for (const rule of rules) {
                     if (
                         rule.id?.includes(id) ||
