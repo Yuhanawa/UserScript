@@ -1,9 +1,9 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "properties": {
     "config_test": {
-        "title":"配置测试",
-        "default":""
+      "title": "配置测试",
+      "default": ""
     }
-}
+  }
 }
