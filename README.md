@@ -1,8 +1,8 @@
-# 搜索引擎(百度/必应/谷歌)优化美化\快速切换|哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字|CSDN 极简化\沉浸式阅读\免登录复制等
+# 搜索引擎(百度/必应/谷歌)优化美化\快速切换|哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字|CSDN 极简化\沉浸式阅读\免登录复制|推特屏蔽过滤器|黄推屏蔽器
 
 (脚本经历重构,原脚本以替换为新脚本,但部分代码未完成重构)
 
-## [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071)
+## [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
 
 ## 可用脚本
 
@@ -12,6 +12,9 @@
 - [CSDN 脚本-优化美化极简化-沉浸式阅读-免登录复制-去广告](https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify)
   - 图片为脚本重构前的截图, 截取自 2022-8 距今可能发生较大变化  
     ![极简CSDN](https://img1.imgtp.com/2023/07/24/h5NUVoYM.png)
+- [Twitter 推文屏蔽器&过滤器](https://greasyfork.org/zh-CN/scripts/473865)
+  - 图片截取自 2023-08 距今可能发生较大变化  
+    ![效果图](https://img1.imgtp.com/2023/08/25/Cm8a2dAl.png)
 - 搜索引擎美化 | 切换工具
   - ?
   - 目前可用使用,但有待重构,故不建议使用
@@ -57,6 +60,12 @@
 #### TODO:
 
 - 专注模式(按钮,按下后全屏且仅显示文章内容)
+
+### [Twitter 屏蔽器&过滤器](https://greasyfork.org/zh-CN/scripts/473865)
+
+- 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)
+- 支持自定义屏蔽规则,导入第三方规则等
+- 自动更新规则(每日更新一次)
 
 ### 搜索引擎美化 | 切换工具
 
