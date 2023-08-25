@@ -2,6 +2,8 @@
 
 Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 
+[[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)   
+  
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)  
 支持自定义屏蔽规则,导入第三方规则等  
 自动更新规则(每日更新一次)
