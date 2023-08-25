@@ -60,6 +60,13 @@ $, ['yuhan-script-config.netlify.app', 'twitter.com', 'x.com'], () => {
                 if (callback_num === 0) {
                     $set("twitter_feed_rule_cache_last_check", Date.now());
                     $set("twitter_feed_rule_cache", ruleObj);
+
+                    const btn = document.createElement('button')
+                    btn.onclick = ()=>location.reload()
+                    btn.className = "note-update"
+                    btn.innerText = "屏蔽器规则更新完成|刷新即可生效|点击刷新"
+                    
+                    document.body.insertAdjacentElement("beforeend",btn)
                 } else {
                     setTimeout(() => save(), 1000);
                 }
