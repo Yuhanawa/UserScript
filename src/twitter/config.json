@@ -1,6 +1,10 @@
 {
   "version": "0.0.2",
   "properties": {
+    "line_bc": {
+      "widget": "line",
+      "title": "❗❗❗修改完记得点保存(在最下面)❗❗❗"
+    },
     "show_note": {
       "title": "是否显示屏蔽提示",
       "default": true,
