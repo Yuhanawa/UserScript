@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "properties": {
     "show_note": {
       "title": "是否显示屏蔽提示",
@@ -15,7 +15,7 @@
       },
       "extra": "一行一条",
       "widget": "textArea"
-    },    
+    },
     "feed_rule_recommend": {
       "title": "订阅推荐",
       "default": "黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr\n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
