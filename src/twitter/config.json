@@ -1,9 +1,49 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.1",
   "properties": {
-    "config_test": {
-        "title":"配置测试",
-        "default":""
+    "show_note": {
+      "title": "是否显示屏蔽提示",
+      "default": true,
+      "widget": "switch",
+      "type": "boolean"
+    },
+    "feed_rule": {
+      "title": "规则订阅",
+      "default": "https://yuhan-script-config.netlify.app/sex.tr\n",
+      "props": {
+        "autoSize": true
+      },
+      "extra": "一行一条",
+      "widget": "textArea"
+    },    
+    "feed_rule_recommend": {
+      "title": "订阅推荐",
+      "default": "黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr\n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
+      "disabled": true,
+      "props": {
+        "autoSize": true
+      },
+      "extra": "把链接复制到规则订阅中即可",
+      "widget": "textArea"
+    },
+    "user_rule": {
+      "title": "自定义规则",
+      "default": " ",
+      "props": {
+        "autoSize": true
+      },
+      "extra": "规则示例在最下方",
+      "widget": "textArea"
+    },
+    "user_rule_example": {
+      "title": "规则示例",
+      "default": "#rule-name\n示例名称\n#rule-description\n这是第1条描述\n这是第2条描述\n#rule-timestamp\n1be90df8-4c2e-4ea3-8077-13521b23e4ab\n#rule-more\n更多内容..\n#name\n要屏蔽用户名关键词\n一行一个\n#id\n要屏蔽用户ID\n一行一个\n#content\n要屏蔽推文正文关键词\n一行一个\n#article\n不管在哪\n只要出现关键词\n就屏蔽这条推文\n一行一个",
+      "disabled": true,
+      "props": {
+        "autoSize": true
+      },
+      "extra": "请勿修改(修改无效,但是不会重置)",
+      "widget": "textArea"
     }
-}
+  }
 }
