@@ -7,17 +7,21 @@
                 article.setAttribute("data-filter-checked", "true")
 
                 const articleText = article.innerText
-                const articleTextSplits = article.innerText.split('\n')
-                const name = articleTextSplits[0]
-                const id = articleTextSplits[1].slice(1)
+                const retweet = article.querySelector("span[data-testid='socialContext'] > span >span")?.innerText
+                const name = article.querySelector("div[data-testid='User-Name'] div div a")?.innerText
+                const id = article.querySelector("div[data-testid='User-Name'] a > div > span")?.innerText
                 const content = article.querySelector("div[lang]")?.innerText ?? "以下媒体可能包含敏感内容。"
+
+                console.log(articleText);
+                console.log(retweet,name,id,content);
 
                 for (const rule of rules) {
                     if (
-                        rule.id?.includes(id) ||
-                        rule.name?.find(i => name.includes(i)) !== undefined ||
-                        rule.content?.find(i => content.includes(i)) !== undefined ||
-                        rule.article?.find(i => articleText.includes(i)) !== undefined ||
+                        (id && rule.id?.includes(id)) ||
+                        (name && rule.name?.find(i => name.includes(i)) !== undefined) ||
+                        (retweet && rule.name?.find(i => retweet.includes(i)) !== undefined) ||
+                        (rule.content?.find(i => content.includes(i)) !== undefined) ||
+                        (rule.article?.find(i => articleText.includes(i)) !== undefined) ||
                         false
                     ) {
                         article.style.display = "none";
