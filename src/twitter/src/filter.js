@@ -12,9 +12,6 @@
                 const id = article.querySelector("div[data-testid='User-Name'] a > div > span")?.innerText
                 const content = article.querySelector("div[lang]")?.innerText ?? "以下媒体可能包含敏感内容。"
 
-                console.log(articleText);
-                console.log(retweet,name,id,content);
-
                 for (const rule of rules) {
                     if (
                         (id && rule.id?.includes(id)) ||
