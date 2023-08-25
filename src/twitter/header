@@ -1,15 +1,25 @@
 // ==UserScript==
-// @name         TEST
-// @description  用于测试的脚本
+// @name         Twitter Tweets(X Posts) Blocker & Filter
+// @name:en      Twitter Tweets(X Posts) Blocker & Filter
+// @name:zh      Twitter 推特推文(X帖子) 屏蔽器&过滤器
+// @name:jp      Twitter ツイッターのツイート(Xの投稿)ブロック&フィルター
+// @description  Customize filters to block or hide unwanted tweets (adult content, political discussions, or specific groups, etc). Support custom blockers and importing third-party rules.
+// @description:en  Customize filters to block or hide unwanted tweets (adult content, political discussions, or specific groups, etc). Support custom blockers and importing third-party rules.
+// @description:zh  自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等),支持自定义屏蔽器,导入第三方规则等
+// @description:jp  迷惑なツイート(アダルト、政治、特定グループなど)をブロックまたは非表示にするために、フィルターをカスタマイズ可能。カスタムブロッカーに対応、サードパーティのルールもインポート可。
 // @namespace    http://github.com/yuhanawa/UserScript
 // @version      0.0.1.0
 // @author       Yuhanawa
 // @license      GPL-3.0
 // @icon         none
 // @run-at       document-start
+// @connect      yuhan-script-config.netlify.app
+// @connect      *
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
-// @match        *://*//*
+// @grant        GM_xmlhttpRequest
+// @match        *://twitter.com/*
+// @match        *://x.com/*
 // ==/UserScript==
