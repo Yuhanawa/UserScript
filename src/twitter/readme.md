@@ -2,36 +2,45 @@
 
 Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 
-[[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)   
-  
+[[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)
+
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)  
 支持自定义屏蔽规则,导入第三方规则等  
 自动更新规则(每日更新一次)
 
 ~~青丝老师屏蔽器~~黄推屏蔽器
 
-可以通过名字/内容的关键词或 id 进行屏蔽   
-自带一个黄推的屏蔽规则(感谢[这个列表](https://twitter.com/i/lists/1677334530754248706))   
-如果存在误伤或者遗漏请反馈  
+可以通过名字/内容的关键词或 id 进行屏蔽  
+自带一个黄推的屏蔽规则(感谢[这个列表](https://twitter.com/i/lists/1677334530754248706))  
+如果存在误伤或者遗漏请反馈
 
 ### 效果图
 
 ![tw-pb.png](https://img1.imgtp.com/2023/08/25/Cm8a2dAl.png)
-配置界面  
+
+配置界面
+
 ![tw-pz.png](https://img1.imgtp.com/2023/08/25/32sLIcR5.png)
+
 注意:初次安装或更新后刷新才能生效
+
 ![tw_gx.png](https://img1.imgtp.com/2023/08/25/ULWOnIV9.png)
 
 ### 使用方法
+
 #### 简单使用
+
 1. 安装脚本
+
 2. 打开推特
-3. 等待获取规则(右下角弹出刷新提示)
+
+3. 等待获取规则(右下角弹出刷新提示)  
    ![tw_gx.png](https://img1.imgtp.com/2023/08/25/ULWOnIV9.png)
+
 4. 刷新
 
-
 #### 自定义规则示例
+
 ```
 #rule-name
 示例名称
@@ -69,7 +78,6 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 一行一个
 
 ```
-
 
 ### TODO
 
