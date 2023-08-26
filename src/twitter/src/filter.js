@@ -38,7 +38,7 @@
             }
         }
         const wait = () => {
-            if (document.querySelector('main')) {
+            if (!document.querySelector('main')) {
                 setTimeout(wait, 200);
                 return;
             }
