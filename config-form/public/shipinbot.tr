@@ -7,9 +7,13 @@
 #rule-more
 烦
 #name
-视频下载机器人
+视频下载
+DownVideo
+GetVideo
 #id
 shipin_xiazai
+DownVideoBot
 #content
 @shipin_xiazai
+@DownVideoBot
 #article
