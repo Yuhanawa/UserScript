@@ -27,6 +27,15 @@
                     navigator.clipboard.writeText(window.getSelection().toString())
                 }
             },true);
+
+
+            document.querySelectorAll("code,pre").forEach(c => {
+                c.oncopy=null
+                c.copy=null
+                c.contentEditable = "true";
+            });
+            document.oncopy=null
+            window.oncopy=null
         }, 500)
     },
     '已关闭$off': null
