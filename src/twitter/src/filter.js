@@ -2,6 +2,13 @@
 {
     已开启$on: (f) => {
         const filter = () => {
+            if ($get("twitter_white_fo","on")==="on" &&
+                (
+                    window.location.href.includes("foryou")
+                   ||window.location.href.includes("follow")
+                )
+               ) return
+            
             const articles = document.querySelectorAll('article:not([data-filter-checked])');
             for (const article of articles) {
                 try {
