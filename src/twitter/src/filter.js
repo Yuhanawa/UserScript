@@ -2,7 +2,7 @@
 {
     已开启$on: (f) => {
         const filter = () => {
-            if ($get("twitter_white_fo","on")==="on" &&
+            if ($get("twitter_white_fo","off")==="on" &&
                 (
                     window.location.href.includes("foryou")
                    ||window.location.href.includes("follow")
