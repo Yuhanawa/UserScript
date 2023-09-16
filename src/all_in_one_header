@@ -21,4 +21,7 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
+// @match	*://yuhan-script-config.netlify.app/*
+// @match	*://user-script-config-form.vercel.app/*
+// @grant	unsafeWindow
 // ==/UserScript==
