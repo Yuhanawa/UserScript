@@ -9,6 +9,171 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
+function check(rule, screen_name, key, target) {
+    if (!target) return false;
+
+    if (rule[key]?.some(i => target?.includes(i))) {
+        blackList.set(screen_name, {
+            // id: id,
+            screen_name: screen_name,
+            rule: rule['rule-name'],
+            type: key,
+        })
+    } else if (rule[key + "-reg"]?.some(i => i.test(target ?? ''))) {
+        blackList.set(screen_name, {
+            // id: id,
+            screen_name: screen_name,
+            rule: rule['rule-name'],
+            type: key + "-reg",
+        })
+    } else return false
+
+    return true
+
+}
+
+unsafeWindow.addEventListener('load', function () {
+    var originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url) {
+
+        if (url.startsWith('https://twitter.com/i/api/2/notifications/all.json')) {
+            this.addEventListener('load', function () {
+                // console.log('拦截到请求:', method, url);
+                // console.log('响应内容:', this.responseText);
+
+
+                {
+
+                    if (this.responseText?.globalObjects?.users) {
+                        const users = this.responseText.globalObjects.users
+                        for (var user of users) {
+                            // var id = user.id_str
+                            var name = user.name
+                            var screen_name = user.screen_name
+                            var location = user.location
+                            var description = user.description
+                            var created_at = user.created_at
+                            var followers_count = user.followers_count
+                            var friends_count = user.friends_count
+                            var following = user.following
+                            var url = user.url
+
+                            if (whiteList.has(screen_name) || blackList.has(screen_name)) return;
+
+                            if (following) {
+                                whiteList.add(screen_name)
+                                return
+                            }
+
+
+
+                            for (const rule of rules) {
+                                if (rule["id_num"]?.some(i => id === i)) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id-num',
+                                    })
+                                } else if (rule["id"]?.some(i => screen_name === i)) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id',
+                                    })
+                                } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id-reg',
+                                    })
+                                } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
+                                    /* checking */
+                                } else continue
+
+                                break
+                            }
+
+                        }
+                    }
+                }
+            })
+        } else if (url.startsWith('https://twitter.com/i/api/graphql')) {
+            // console.log("拦截到请求:", method, url);
+
+            this.addEventListener('load', function () {
+
+                if (!this.responseText.includes('threaded_conversation_with_injections_v2')) {
+                    return
+                }
+
+                let instructions = JSON.parse(this.responseText).data.threaded_conversation_with_injections_v2.instructions;
+
+                for (entry of instructions.filter(i => i.entries).map(i => i.entries)) {
+                    for (content of entry.filter(i => i.content).map(i => i.content)) {
+                        let items = [];
+                        if (content.itemContent != undefined) {
+                            items = [content?.itemContent?.tweet_results?.result?.core]
+                        } else if (content.items != undefined) {
+                            items = content.items.filter(i => i.item?.itemContent?.tweet_results?.result?.core).map(i => i.item.itemContent.tweet_results.result.core)
+                        }
+
+                        for (const core of items) {
+                            if (core == null || core == undefined) {
+                                continue
+                            }
+                            let legacy = core.user_results.result.legacy
+
+                            let id = core.user_results.result.rest_id
+                            let name = legacy.name
+                            let created_at = legacy.created_at
+                            let description = legacy.description
+                            let followers_count = legacy.followers_count
+                            let location = legacy.location
+                            let screen_name = legacy.screen_name
+                            let following = legacy.following ?? false
+
+
+                            for (const rule of rules) {
+                                if (rule["id_num"]?.some(i => id === i)) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id-num',
+                                    })
+                                } else if (rule["id"]?.some(i => screen_name === i)) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id',
+                                    })
+                                } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
+                                    blackList.set(screen_name, {
+                                        id: id,
+                                        screen_name: screen_name,
+                                        rule: rule['rule-name'],
+                                        type: 'id-reg',
+                                    })
+                                } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
+                                    /* checking */
+                                } else continue
+
+                                break
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+        originalOpen.apply(this, arguments);
+        // console.log(blackList);
+    };
+});
 
 const urlListenCallbacks = []
 function UrlListener(callback) {
@@ -27,7 +192,9 @@ setInterval(() => {
     }
 }, 500)
 
-const rules = []
+const rules = new Set();
+const whiteList = new Set();
+const blackList = new Map();
 
 function loadRule(str) {
     if (!str || str.trim() === '') return;
@@ -38,18 +205,15 @@ function loadRule(str) {
         if (!line) return;
 
         if (line.startsWith('#')) {
-            key = line.slice(1).trim();
-            if (key.startsWith('rule-'))
-                rule[key] = '';
-            else
-                rule[key] = [];
-
+            key = line.slice(1);
+            rule[key] = [];
+            rule[key + "-reg"] = [];
         } else {
-            if (rule[key] instanceof Array)
-                rule[key].push(line.trim());
+            if (line.startsWith('\\') && line.endsWith('\\'))
+                rule[key + "-reg"].push(new RegExp(line.slice(1, line.length - 1)))
             else
-                rule[key] += line.trim();
+                rule[key].push(line);
         }
     });
-    rules.push(rule);
+    rules.add(rule);
 }
