@@ -2,7 +2,7 @@
 反贼屏蔽
 #rule-description
 屏蔽反贼,国外间谍
-#rule-timestamp
+#rule-lastupdate
 b467339e-c6d7-4f1c-9296-785b34479eaa
 #rule-more
 1
@@ -63,7 +63,7 @@ Jerry00107966
 RFA_Chinese
 Misaki_FIM92
 
-#content
+#text
 #article
 习包子
 白纸革命
