@@ -9,6 +9,55 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
+function getCookie(cname) {
+    const name = cname + '='
+    const ca = document.cookie.split(';')
+    for (let i = 0; i < ca.length; ++i) {
+        const c = ca[i].trim()
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length)
+        }
+    }
+    return ''
+}
+
+function blockUserByScreenName(screen_name) {
+    const xhr = new XMLHttpRequest();
+
+    // Open request
+    xhr.open('POST', 'https://api.twitter.com/1.1/blocks/create.json');
+    xhr.withCredentials = true
+
+    // Set request headers
+    xhr.setRequestHeader('Authorization', 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA');
+    xhr.setRequestHeader('X-Twitter-Auth-Type', 'OAuth2Session');
+    xhr.setRequestHeader('X-Twitter-Active-User', 'yes');
+    xhr.setRequestHeader('X-Csrf-Token', getCookie('ct0'));
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // Send request
+    xhr.send(`screen_name=${screen_name}`);
+    console.log(`已为您屏蔽用户 ${screen_name}`);
+}
+async function blockUserById(id, display) {
+    const xhr = new XMLHttpRequest();
+
+    // Open request
+    xhr.open('POST', 'https://api.twitter.com/1.1/blocks/create.json');
+    xhr.withCredentials = true
+
+    // Set request headers
+    xhr.setRequestHeader('Authorization', 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA');
+    xhr.setRequestHeader('X-Twitter-Auth-Type', 'OAuth2Session');
+    xhr.setRequestHeader('X-Twitter-Active-User', 'yes');
+    xhr.setRequestHeader('X-Csrf-Token', getCookie('ct0'));
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    // Send request
+    xhr.send(`user_id=${id}`);
+    console.log(`已为您屏蔽用户id ${id}, 用户名:${display ?? "未知"}`);
+}
+
 function check(rule, screen_name, key, target) {
     if (!target) return false;
 
@@ -47,7 +96,7 @@ unsafeWindow.addEventListener('load', function () {
                     if (this.responseText?.globalObjects?.users) {
                         const users = this.responseText.globalObjects.users
                         for (var user of users) {
-                            // var id = user.id_str
+                            var id = user.id_str
                             var name = user.name
                             var screen_name = user.screen_name
                             var location = user.location
@@ -144,6 +193,7 @@ unsafeWindow.addEventListener('load', function () {
                                         rule: rule['rule-name'],
                                         type: 'id-num',
                                     })
+                                    if ($get('twitter_auto_block', 'on') === 'on') blockUserById(id, screen_name)
                                 } else if (rule["id"]?.some(i => screen_name === i)) {
                                     blackList.set(screen_name, {
                                         id: id,
@@ -151,6 +201,7 @@ unsafeWindow.addEventListener('load', function () {
                                         rule: rule['rule-name'],
                                         type: 'id',
                                     })
+                                    if ($get('twitter_auto_block', 'on') === 'on') blockUserById(id, screen_name)
                                 } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
                                     blackList.set(screen_name, {
                                         id: id,
