@@ -33,6 +33,40 @@
       "widget": "switch",
       "type": "boolean"
     },
+    "block_on_home": {
+      "title": "是否在home页启用脚本",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "auto_block": {
+      "title": "是否自动屏蔽被精准匹配的用户",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
     "feed_rule": {
       "title": "规则订阅",
       "default": "https://yuhan-script-config.netlify.app/sex.tr\nhttps://yuhan-script-config.netlify.app/htv2.txt\n",
