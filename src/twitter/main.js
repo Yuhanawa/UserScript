@@ -209,7 +209,7 @@ function loadRule(str) {
             rule[key] = [];
             rule[key + "-reg"] = [];
         } else {
-            if (line.startsWith('\\') && line.endsWith('\\'))
+            if (line.startsWith('/') && line.endsWith('/'))
                 rule[key + "-reg"].push(new RegExp(line.slice(1, line.length - 1)))
             else
                 rule[key].push(line);
