@@ -1,7 +1,5 @@
 # 搜索引擎(百度/必应/谷歌)优化美化\快速切换|哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字|CSDN 极简化\沉浸式阅读\免登录复制|推特屏蔽过滤器|黄推屏蔽器
 
-(脚本经历重构,原脚本以替换为新脚本,但部分代码未完成重构)
-
 ## [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
 
 ## 可用脚本
@@ -84,8 +82,8 @@
 
 0. 项目结构
 
-- banana
-  - 依赖库(算是一个小框架,欢迎使用)
+- lib
+  - 依赖库
 - config-form
   - 设置网站源码
 - src
