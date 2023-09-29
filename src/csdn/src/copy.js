@@ -1,10 +1,6 @@
 免登录复制, [/blog\.csdn\.net(\/.*)?\/article\/details./], {
     '已开启$on': () => {
         timeoutOnLoad(() => {
-            // 将代码块改为可修改
-            document.querySelectorAll("code").forEach(c => {
-                c.contentEditable = "true";
-            });
 
             // 修改复制按钮
             document.querySelectorAll(".hljs-button").forEach((e) => {
@@ -19,24 +15,30 @@
                 })
             }, 250)
 
-            document.addEventListener("keydown", (e) => { 
+            // 复制功能
+            document.querySelector('.blog-content-box').addEventListener("copy", (e) => {
+                e.stopPropagation()
+                e.preventDefault()
+
+                navigator.clipboard.writeText(window.getSelection().toString())
+            }, true)
+            document.addEventListener("keydown", (e) => {
                 if (e.ctrlKey && e.keyCode == 67) {
                     e.stopPropagation()
                     e.preventDefault()
 
                     navigator.clipboard.writeText(window.getSelection().toString())
                 }
-            },true);
+            }, true);
 
 
-            document.querySelectorAll("code,pre").forEach(c => {
-                c.oncopy=null
-                c.copy=null
-                c.contentEditable = "true";
-            });
-            document.oncopy=null
-            window.oncopy=null
+
+            document.oncopy = null
+            window.oncopy = null
+
         }, 500)
+
+        return $SASS('copy')
     },
     '已关闭$off': null
 }
