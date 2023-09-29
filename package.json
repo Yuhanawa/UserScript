@@ -5,7 +5,8 @@
   "main": "gmu dev",
   "scripts": {
     "dev": "gmu dev",
-    "build": "gmu build"
+    "build": "gmu build",
+    "update-versions":"node ./update-versions.js"
   },
   "author": "Yuhanawa",
   "license": "GPL-3.0-or-later",
