@@ -5,13 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "name": "Launch via NPM",
             "request": "launch",
-            "name": "启动程序",
+            "runtimeArgs": [
+                "dev",
+            ],
+            "runtimeExecutable": "pnpm",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\main.js"
-        }
+            "type": "node"
+        }   
+
     ]
 }

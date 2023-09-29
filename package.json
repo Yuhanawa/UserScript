@@ -2,18 +2,18 @@
   "name": "userscripts",
   "version": "1.0.0",
   "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
-  "main": "main.js",
+  "main": "gmu dev",
   "scripts": {
-    "dev": "node main.js",
-    "build": "node build.js"
+    "dev": "gmu dev",
+    "build": "gmu build"
   },
   "author": "Yuhanawa",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "csso": "^5.0.5",
     "glob": "^10.3.3",
+    "gm_utils": "link:lib",
     "sass": "^1.63.6",
-    "uglify-js": "^3.17.4",
-    "banana": "link:framework"
+    "uglify-js": "^3.17.4"
   }
 }
