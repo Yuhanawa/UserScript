@@ -1,14 +1,12 @@
 {
-  "name": "banana",
-  "version": "0.1.1",
+  "name": "gm_utils",
+  "version": "0.1.3",
   "description": "",
   "main": "main.js",
   "bin": {
-    "build":"./cli/build.js",
-    "dev":"./cli/dev.js"
+    "gmu": "./cli.js"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [],
   "author": "Yuhanawa",
   "license": "LGPL-3.0-or-later",
@@ -18,5 +16,9 @@
     "csso": "^5.0.5",
     "sass": "^1.63.6",
     "uglify-js": "^3.17.4"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "inquirer": "^9.2.11"
   }
 }
