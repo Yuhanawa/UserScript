@@ -115,3 +115,7 @@ main div.blog-content-box pre.set-code-hide {
 .directory {
   display: none !important;
 }
+/* 右侧写作中心按钮 */
+.sidetool-writeguide-box{
+   display: none !important;
+}
