@@ -3,6 +3,7 @@ import FormRender, { useForm } from 'form-render';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Line from './Line.jsx';
+import Twitter_user_rule_editor from './Twitter_user_rule_editor.jsx';
 import { Button } from 'antd';
 
 
@@ -12,8 +13,8 @@ const FromMain = ({ menuKey }) => {
     let winProps = {};
     const [schema, setSchema] = useState({});
 
-    if (window.banana && window.banana[menuKey])
-        winProps = window.banana[menuKey].props;
+    if (window.userscript && window.userscript[menuKey])
+        winProps = window.userscript[menuKey].props;
 
 
     useEffect(() => {
@@ -27,14 +28,14 @@ const FromMain = ({ menuKey }) => {
 
                 ...winProps[key],
 
-                default: window.banana[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
+                default: window.userscript[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
                 extra: `default: ${winProps[key].default}`,
 
             }
 
             if (winProps[key].extra) {
                 if (newProps[key].widget == 'line') newProps[key].extra = winProps[key].extra
-                else newProps[key].extra = winProps[key].extra + ` default: ${(winProps[key].default??winProps[key].defaultValue)??""}`
+                else newProps[key].extra = winProps[key].extra + ` default: ${(winProps[key].default ?? winProps[key].defaultValue) ?? ""}`
             }
         });
 
@@ -56,7 +57,7 @@ const FromMain = ({ menuKey }) => {
 
             const value = data[key]
             if (value != schema.properties[key].default) {
-                window.banana[menuKey].set(`${menuKey}_${key}`, value)
+                window.userscript[menuKey].set(`${menuKey}_${key}`, value)
             }
 
             location.reload();
@@ -76,7 +77,7 @@ const FromMain = ({ menuKey }) => {
             <FormRender
                 form={form}
                 schema={schema}
-                widgets={{ Line }}
+                widgets={{ Line,Twitter_user_rule_editor }}
                 onFinish={onFinish}
                 maxWidth={360}
                 footer={false}
