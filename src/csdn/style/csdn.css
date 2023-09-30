@@ -119,3 +119,7 @@ main div.blog-content-box pre.set-code-hide {
 .sidetool-writeguide-box{
    display: none !important;
 }
+/* 登录想更多权益 */
+.passport-container-mini-tip{
+  display: none !important;
+}
