@@ -3,6 +3,7 @@ import FormRender, { useForm } from 'form-render';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Line from './Line.jsx';
+import { Button } from 'antd';
 
 
 
@@ -26,18 +27,20 @@ const FromMain = ({ menuKey }) => {
 
                 ...winProps[key],
 
-                description: `default: ${winProps[key].default}`,
                 default: window.banana[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
+                extra: `default: ${winProps[key].default}`,
+
             }
 
-            if (winProps[key].description) {
-                if (newProps[key].widget == 'line') newProps[key].description = winProps[key].description
-                else newProps[key].description = winProps[key].description + ` default: ${winProps[key].default}`
+            if (winProps[key].extra) {
+                if (newProps[key].widget == 'line') newProps[key].extra = winProps[key].extra
+                else newProps[key].extra = winProps[key].extra + ` default: ${(winProps[key].default??winProps[key].defaultValue)??""}`
             }
         });
 
         const newSchema = {
             type: 'object',
+            column: window.innerWidth > 720 ? 2 : 1,
             properties: newProps
         }
 
@@ -48,38 +51,43 @@ const FromMain = ({ menuKey }) => {
     const onFinish = (data) => {
         console.log('formData:', data);
 
-        Object.keys(data).forEach(key => {
+        for (var key of Object.keys(data)) {
+            if (key.startsWith('.')) continue;
+
             const value = data[key]
             if (value != schema.properties[key].default) {
                 window.banana[menuKey].set(`${menuKey}_${key}`, value)
             }
 
             location.reload();
-        })
+        }
 
     };
 
+    const onSaveBtnClick = () => {
+        form.submit();
+    };
+    const onCancelBtnClick = () => {
+        location.reload();
+    };
+
     return (
-        <FormRender
-            form={form}
-            schema={schema}
-            widgets={{ Line }}
-            onFinish={onFinish}
-            maxWidth={360}
-            footer={{
-                submit: {
-                    text: '保存',
-                    // loading: true
-                    // hide: true
-                    // ...btnProps
-                },
-                reset: {
-                    text: '刷新',
-                    // hide: true
-                    // ...btnProps
-                }
-            }}
-        />
+        <>
+            <FormRender
+                form={form}
+                schema={schema}
+                widgets={{ Line }}
+                onFinish={onFinish}
+                maxWidth={360}
+                footer={false}
+            />
+            <div style={{ position: 'fixed', bottom: '18px', right: '24px', zIndex: 999, fontSize: '18px', width: 'auto', height: 'auto' }}>
+                <Button onClick={onCancelBtnClick} type="default" size='large'
+                    style={{ position: 'relative', border: '1px solid #4ea1db', margin: "8px" }}>取消</Button>
+                <Button onClick={onSaveBtnClick} type="primary" size='large'
+                    style={{ position: 'relative', border: '1px solid #4ea1db', margin: "8px", boxShadow: '1px 1px 14px #4ea1db' }}>保存</Button>
+            </div >
+        </>
     );
 }
 
