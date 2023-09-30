@@ -68,7 +68,7 @@
         ]
       }
     },
-    "auto_block_by_name&bio": {
+    "auto_block_by_more": {
       "title": "自动屏蔽被用户名及BIO匹配的用户(少量误判但效果好)",
       "default": "off",
       "widget": "select",
@@ -83,7 +83,8 @@
             "value": "off"
           }
         ]
-      }
+      },
+      "hidden": "{{ formData.auto_block === 'off' }}"
     },
     "feed_rule": {
       "title": "规则订阅",
