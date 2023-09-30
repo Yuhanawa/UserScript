@@ -80,7 +80,7 @@ async function blockUserById(id, display) {
     showToast(`已为您自动屏蔽用户id ${id} ${display ? `用户名:${display}` : '(通过id精准匹配)'}`);
 }
 
-function check(rule, screen_name, key, target) {
+function check(rule, screen_name, key, target,notShowNote) {
     if (!target) return false;
 
     if (rule[key]?.some(i => target?.includes(i))) {
@@ -89,6 +89,7 @@ function check(rule, screen_name, key, target) {
             screen_name: screen_name,
             rule: rule['rule-name'],
             type: key,
+            notShowNote: notShowNote
         })
     } else if (rule[key + "-reg"]?.some(i => i.test(target ?? ''))) {
         blackList.set(screen_name, {
@@ -96,6 +97,7 @@ function check(rule, screen_name, key, target) {
             screen_name: screen_name,
             rule: rule['rule-name'],
             type: key + "-reg",
+            notShowNote: notShowNote
         })
     } else return false
 
@@ -135,7 +137,16 @@ unsafeWindow.addEventListener('load', function () {
                             continue
                         }
 
-
+                        var auto_block = $get('twitter_auto_block', 'on') === 'on';
+                        var auto_block_by_more = auto_block&&$get('twitter_auto_block_by_more', 'off') === 'on';
+                        if (check(internalRule, screen_name, 'name', name,auto_block) || check(internalRule, screen_name, 'bio', description,auto_block) 
+                        || check(internalRule, screen_name, 'location', location,auto_block) || check(internalRule, screen_name, 'url', url,auto_block)) {
+                            if (auto_block) { 
+                                blockUserById(id, screen_name) 
+                                showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`)
+                            }
+                            continue;
+                        }
 
                         for (const rule of rules) {
                             if (rule["id_num"]?.some(i => id === i)) {
@@ -159,10 +170,9 @@ unsafeWindow.addEventListener('load', function () {
                                     rule: rule['rule-name'],
                                     type: 'id-reg',
                                 })
-                            } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
-                                /* checking */
+                            } else if (check(rule, screen_name, 'name', name,auto_block_by_more) || check(rule, screen_name, 'bio', description,auto_block_by_more) || check(rule, screen_name, 'location', location,auto_block_by_more) || check(rule, screen_name, 'url', url,auto_block_by_more)) {
+                                if (auto_block_by_more) blockUserById(id, screen_name)
                             } else continue
-
                             break
                         }
                     }
@@ -202,7 +212,18 @@ unsafeWindow.addEventListener('load', function () {
                             let location = legacy.location
                             let screen_name = legacy.screen_name
                             let following = legacy.following ?? false
+                            var url = legacy.entities?.url?.urls[0]?.display_url ?? ''
 
+
+                            var auto_block = $get('twitter_auto_block', 'on') === 'on';
+                            var auto_block_by_more = auto_block&&$get('twitter_auto_block_by_more', 'off') === 'on';
+                            if (check(internalRule, screen_name, 'name', name,auto_block) || check(internalRule, screen_name, 'bio', description,auto_block) || check(internalRule, screen_name, 'location', location,auto_block) || check(internalRule, screen_name, 'url', url,auto_block)) {                                
+                                if (auto_block) { 
+                                    blockUserById(id, screen_name) 
+                                    showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`)
+                                }
+                                continue;
+                            }
 
                             for (const rule of rules) {
                                 if (rule["id_num"]?.some(i => id === i)) {
@@ -212,7 +233,7 @@ unsafeWindow.addEventListener('load', function () {
                                         rule: rule['rule-name'],
                                         type: 'id-num',
                                     })
-                                    if ($get('twitter_auto_block', 'on') === 'on') blockUserById(id, screen_name)
+                                    if (auto_block) blockUserById(id, screen_name)
                                 } else if (rule["id"]?.some(i => screen_name === i)) {
                                     blackList.set(screen_name, {
                                         id: id,
@@ -220,7 +241,7 @@ unsafeWindow.addEventListener('load', function () {
                                         rule: rule['rule-name'],
                                         type: 'id',
                                     })
-                                    if ($get('twitter_auto_block', 'on') === 'on') blockUserById(id, screen_name)
+                                    if (auto_block) blockUserById(id, screen_name)
                                 } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
                                     blackList.set(screen_name, {
                                         id: id,
@@ -228,11 +249,9 @@ unsafeWindow.addEventListener('load', function () {
                                         rule: rule['rule-name'],
                                         type: 'id-reg',
                                     })
-                                } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
-                                    if ($get('auto_block_by_name&bio', 'off') === 'on') blockUserById(id, screen_name)
+                                } else if (check(rule, screen_name, 'name', name,auto_block_by_more) || check(rule, screen_name, 'bio', description,auto_block_by_more) || check(rule, screen_name, 'location', location,auto_block_by_more) || check(rule, screen_name, 'url', url,auto_block_by_more)) {
+                                    if (auto_block_by_more) blockUserById(id, screen_name)
                                 } else continue
-
-                                break
                             }
                         }
                     }
@@ -261,6 +280,45 @@ setInterval(() => {
         old_url = window.location.href
     }
 }, 500)
+
+const internalRule = parseRule(`
+#rule-name
+内置屏蔽规则
+#rule-description
+最高优先级
+#rule-lastupdate
+2077-02-31
+#rule-more
+null
+
+#name
+🔞
+反差
+私信领福利
+同城
+可约
+
+#bio
+/(?=.*(私))(?=.*(福利))/
+/(?=.*(同城))(?=.*(约))/
+/(?=.*(寂寞|孤独|刺激|激情|情趣))(?=.*(性|骚扰))/
+/(?=.*(年轻|未成年|青少年|\d{2}以下)|未满\d{2})(?=.*(勿扰))/
+/(.*(男[Mm]|女[Ss]|反差|调教|勿扰|(探索|玩法)|(私信|电报|联系)|(sm|SM))){4}/
+t.me/dwaydgfuya
+t.me/OgdenDelia14
+t.me/RefMonster3
+
+#url
+t.me/dwaydgfuya
+t.me/OgdenDelia14
+t.me/RefMonster3
+t.me/Anzzmingyue
+t.me/Kau587
+t.me/MegNaLiSha520
+
+#text
+/^想上课的私信主人/
+`)
 
 const rules = new Set();
 const whiteList = new Set();

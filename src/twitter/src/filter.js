@@ -34,7 +34,7 @@
                     // console.log(blackList);
                     if (blackList.has(id)) {
                         article.style.display = "none";
-                        if ($get("twitter_show_note", true)&&blackList.get(id).type!=="id"&&blackList.get(id).type!=="id_sum") {
+                        if ($get("twitter_show_note", true) && blackList.get(id).notShowNote !== true && blackList.get(id).type !== "id" && blackList.get(id).type !== "id_sum") {
                             const note = document.createElement("div");
                             note.innerHTML = `<div class="note-tweet">推文已被<a href="" target="_blank">屏蔽器</a>通过⌊${blackList.get(id).rule}⌉(${blackList.get(id).type})规则屏蔽,点击显示推文(你可以通过设置不再显示该提示)</div>`;
                             note.onclick = () => {
@@ -43,8 +43,8 @@
                                 const blockbtn = document.createElement("a");
                                 blockbtn.className = "block_btn"
                                 blockbtn.innerText = "屏蔽用户"
-                                blockbtn.onclick = () => { 
-                                    blockUserByScreenName(id) 
+                                blockbtn.onclick = () => {
+                                    blockUserByScreenName(id)
                                     article.style.display = "none";
                                 };
                                 article.querySelector("div[data-testid=caret]").parentElement.parentElement.parentElement.insertAdjacentElement('beforeBegin', blockbtn)
