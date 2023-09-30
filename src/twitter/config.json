@@ -52,8 +52,25 @@
       }
     },
     "auto_block": {
-      "title": "是否自动屏蔽被精准匹配的用户",
+      "title": "自动屏蔽被精准匹配的用户",
       "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "auto_block_by_name&bio": {
+      "title": "自动屏蔽被用户名及BIO匹配的用户(少量误判但效果好)",
+      "default": "off",
       "widget": "select",
       "props": {
         "options": [
@@ -79,7 +96,7 @@
     },
     ".feed_rule_recommend": {
       "title": "订阅推荐",
-      "default": "黄推屏蔽v2https://yuhan-script-config.netlify.app/htv2.txt黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr\n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
+      "default": "黄推屏蔽v2:https://yuhan-script-config.netlify.app/htv2.txt | 黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr \n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
       "disabled": true,
       "props": {
         "autoSize": true
@@ -89,12 +106,11 @@
     },
     "user_rule": {
       "title": "自定义规则",
-      "default": " ",
+      "default": "// /支持正则/ \n\n#name\n// 用户名关键词\n\n#bio\n// 用户介绍关键词\n\n#text\n// 推文关键词 作用于正文",
       "props": {
         "autoSize": true
       },
-      "extra": "规则示例请查看脚本介绍页",
-      "widget": "textArea"
+      "widget": "twitter_user_rule_editor"
     }
   }
 }

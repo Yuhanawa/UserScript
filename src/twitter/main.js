@@ -1,3 +1,8 @@
+if (!location.host.includes('x.com') &&
+    !location.host.includes('twitter.com') &&
+    !location.host.includes('yuhan-script-config.netlify.app') &&
+    !location.host.includes('user-script-config-form.vercel.app')) return
+
 String.prototype.hashCode = function () {
     var hash = 0, i, chr;
     if (this.length === 0) return hash;
@@ -8,6 +13,26 @@ String.prototype.hashCode = function () {
     }
     return hash;
 };
+
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
+
+    setTimeout(() => {
+        toast.classList.add('toast-active');
+        setTimeout(() => {
+            toast.classList.add('hide');
+            setTimeout(() => {
+                toast.remove();
+            }, 3500)
+        }, 3500)
+    }, 500)
+
+    document.body.appendChild(toast);
+}
+
 
 function getCookie(cname) {
     const name = cname + '='
@@ -37,7 +62,8 @@ function blockUserByScreenName(screen_name) {
 
     // Send request
     xhr.send(`screen_name=${screen_name}`);
-    console.log(`已为您屏蔽用户 ${screen_name}`);
+    console.log(`已为您自动屏蔽用户 ${screen_name}`);
+    showToast(`已为您自动屏蔽用户 ${screen_name}`);
 }
 async function blockUserById(id, display) {
     const xhr = new XMLHttpRequest();
@@ -55,7 +81,8 @@ async function blockUserById(id, display) {
 
     // Send request
     xhr.send(`user_id=${id}`);
-    console.log(`已为您屏蔽用户id ${id}, 用户名:${display ?? "未知"}`);
+    console.log(`已为您自动屏蔽用户id ${id}, 用户名:${display ?? "未知"}`);
+    showToast(`已为您自动屏蔽用户id ${id} ${display ? `用户名:${display}` : '(通过id精准匹配)'}`);
 }
 
 function check(rule, screen_name, key, target) {
@@ -210,7 +237,7 @@ unsafeWindow.addEventListener('load', function () {
                                         type: 'id-reg',
                                     })
                                 } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
-                                    /* checking */
+                                    if ($get('auto_block_by_name&bio', 'off') === 'on') blockUserById(id, screen_name)
                                 } else continue
 
                                 break
@@ -247,24 +274,35 @@ const rules = new Set();
 const whiteList = new Set();
 const blackList = new Map();
 
-function loadRule(str) {
+function parseRule(str) {
     if (!str || str.trim() === '') return;
     let key;
     const rule = {};
-    str.split('\n').forEach(line => {
+    for (line of str.split('\n')) {
         line = line.trim();
-        if (!line) return;
+        if (!line || line.startsWith('//')) continue;
 
         if (line.startsWith('#')) {
             key = line.slice(1);
-            rule[key] = [];
-            rule[key + "-reg"] = [];
+            if (line.startsWith('#rule-')) {
+                rule[key] = '';
+            } else {
+                rule[key] = [];
+                rule[key + "-reg"] = [];
+            }
         } else {
-            if (line.startsWith('/') && line.endsWith('/'))
+            if (key.startsWith('rule-'))
+                rule[key] += line
+            else if (line.startsWith('/') && line.endsWith('/'))
                 rule[key + "-reg"].push(new RegExp(line.slice(1, line.length - 1)))
             else
                 rule[key].push(line);
         }
-    });
-    rules.add(rule);
+    };
+    return rule;
+}
+
+
+function loadRule(str) {
+    rules.add(parseRule(str));
 }
