@@ -7,7 +7,6 @@ body {
 }
 
 #root {
-  margin: 2px;
   display: flex;
 
   height: 100%;
