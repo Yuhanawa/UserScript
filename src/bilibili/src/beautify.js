@@ -12,11 +12,7 @@
       style('html,:root{--bodybackground:transparent}')
     }
 
-    if ($get('bilibili_information_diet', 'off') === 'on') {
-      style(`.container{max-height: ${$get('bilibili_information_diet_num', '8')}00vh;overflow: hidden;}`)
-    }
-
-    style(`html,:root{--background:${$get('bilibili_background_value', 'url(//s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png)')}}`)
+    style(`html,:root{--background:url(${$get('bilibili_background_value')})}`)
 
     return $SASS('beautify.sass')
   }, '已关闭$off': null,
