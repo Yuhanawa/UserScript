@@ -1,11 +1,11 @@
 {
   "version": "0.1.21",
   "properties": {
-    "line_ts": {
+    ".line_ts": {
       "widget": "line",
       "title": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471071/feedback/"
     },
-    "line_bc": {
+    ".line_bc": {
       "widget": "line",
       "title": "❗❗❗修改完记得点保存(在最下面)❗❗❗"
     },
@@ -63,7 +63,11 @@
     "width_value": {
       "title": "文章宽度(前置功能:调整文章宽度)",
       "default": "82",
-      "description": "单位:%|百分比"
+      "props": {
+        "addonAfter": "%"
+      },
+      "description": "单位:%|百分比",
+      "hidden": "{{ formData.width === 'off' }}"
     },
     "header": {
       "title": "顶部菜单栏不跟随",
@@ -120,7 +124,7 @@
         ]
       }
     },
-    "line_fz": {
+    ".line_fz": {
       "widget": "line",
       "title": "调整字体大小"
     },
@@ -143,21 +147,25 @@
     },
     "font_size_title": {
       "title": "标题",
-      "default": "32px"
+      "default": "32px",
+      "hidden": "{{ formData.fontsize === 'off' }}"
     },
     "font-size-p": {
       "title": "正文",
-      "default": "18px"
+      "default": "18px",
+      "hidden": "{{ formData.fontsize === 'off' }}"
     },
     "font-size-h2": {
       "title": "子标题",
-      "default": "24px"
+      "default": "24px",
+      "hidden": "{{ formData.fontsize === 'off' }}"
     },
     "font_size_code": {
       "title": "代码",
-      "default": "15px"
+      "default": "15px",
+      "hidden": "{{ formData.fontsize === 'off' }}"
     },
-    "line_bg": {
+    ".line_bg": {
       "widget": "line",
       "title": "自定义背景"
     },
@@ -181,12 +189,16 @@
     "background-value": {
       "title": "页面背景",
       "description": "body的背景",
-      "default": "url(\"https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831\")"
+      "default": "https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831",
+      "hidden": "{{ formData.background === 'off' }}"
+      ,"widget": "imageInput",
+      "format": "image"
     },
     "blog-content-box-background-value": {
       "title": "文章背景",
       "description": "用于放置文章的div颜色",
-      "default": "rgb(245 246 247 / 90%)"
+      "default": "#f5f6f7E6"
+      ,"widget": "color"
     },
     "blog-content-box-opacity-value": {
       "title": "文章透明度",
@@ -196,9 +208,10 @@
     "header-box-background-value": {
       "title": "文章标题及部分卡片背景",
       "description": "建议保持透明或使用高透明度颜色",
-      "default": "transparent"
+      "default": "#00000000"
+      ,"widget": "color"
     },
-    "line_ui": {
+    ".line_ui": {
       "widget": "line",
       "title": "自定义开关每一个UI的",
       "description": "开启为显示该模块,关闭为隐藏该模块"
