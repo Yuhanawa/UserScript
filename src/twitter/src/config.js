@@ -33,7 +33,12 @@ $, ['yuhan-script-config.netlify.app', 'twitter.com', 'x.com'], () => {
             }
         }
 
-        loadRule($get("twitter_user_rule"))
+        let user_rule = parseRule($get("twitter_user_rule"))
+        if (user_rule) {
+            user_rule['rule-name'] = "自定义用户规则"
+            rules.add(user_rule);
+        }
+
 
         const feed = $get("twitter_feed_rule").trim();
         const feed_hash = feed.hashCode();
