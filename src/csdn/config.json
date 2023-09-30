@@ -1,5 +1,5 @@
 {
-  "version": "0.1.24",
+  "version": "0.1.25",
   "properties": {
     ".line_ts": {
       "widget": "line",
@@ -225,7 +225,8 @@
           {
             "label": "极简化",
             "value": "lite"
-          },          {
+          },
+          {
             "label": "常规",
             "value": "normal"
           },
@@ -240,9 +241,9 @@
         ]
       }
     },
-    "ui_opt_value":{
+    "ui_opt_value": {
       "title": "UI净化",
-      "description":"需要UI净化为自定义模式",
+      "description": "需要UI净化为自定义模式",
       "default": [
         "#treeSkill",
         "#blogVoteBox",
@@ -277,7 +278,7 @@
         "#asideNewNps",
         "#asideArchive",
         "#asidedirectory"
-    ],
+      ],
       "widget": "CSDN_UI_editor",
       "disabled": "{{ formData.ui_opt !== 'custom' }}"
     }
