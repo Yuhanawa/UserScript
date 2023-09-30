@@ -1,13 +1,8 @@
-极简化, [/blog\.csdn\.net(\/.*)?\/article\/details./],
+废弃|极简化, [/blog\.csdn\.net(\/.*)?\/article\/details./],
 {
+    '废弃(即将删除)$off': null,
     '已开启$on': () => {
         timeoutOnLoad(() => {
-            // 移除右侧多余悬浮按钮 仅保留回到顶部按钮
-            try { // TODO
-                document.getElementsByClassName("option-box")[0].remove();
-                document.getElementsByClassName("option-box")[0].remove();
-                document.getElementsByClassName("option-box")[0].remove();                
-            } catch{}
             // 移动文字标签位置
             const taghtml = document.getElementsByClassName("blog-tags-box")[0].outerHTML + "";
             document.getElementsByClassName("blog-tags-box")[0].remove();
@@ -27,5 +22,5 @@
         }
 
         return $CSS(csdn.css)
-    }, '已关闭$off': null
+    }
 }
