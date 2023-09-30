@@ -1,8 +1,3 @@
-if (!location.host.includes('x.com') &&
-    !location.host.includes('twitter.com') &&
-    !location.host.includes('yuhan-script-config.netlify.app') &&
-    !location.host.includes('user-script-config-form.vercel.app')) return
-
 String.prototype.hashCode = function () {
     var hash = 0, i, chr;
     if (this.length === 0) return hash;
@@ -109,6 +104,8 @@ function check(rule, screen_name, key, target) {
 }
 
 unsafeWindow.addEventListener('load', function () {
+    if (!location.host.includes('x.com') && !location.host.includes('twitter.com')) return
+
     var originalOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function (method, url) {
 
