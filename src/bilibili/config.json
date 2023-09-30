@@ -1,5 +1,5 @@
 {
-  "version": "0.1.15",
+  "version": "0.1.16",
   "properties": {
     ".line_ts": {
       "widget": "line",
@@ -46,14 +46,14 @@
             "value": "off"
           }
         ]
-      }
-      ,"hidden": "{{ formData.beautify === 'off' }}"
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
     },
     "background_value": {
       "title": "自定义背景 填url(图片链接)(前置功能:样式美化)",
-      "default": "https://s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png"
-      ,"hidden": "{{ formData.beautify === 'off' }}"
-      ,"widget": "imageInput",
+      "default": "https://s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png",
+      "hidden": "{{ formData.beautify === 'off' }}",
+      "widget": "imageInput",
       "format": "image"
     },
     "widescreen": {
@@ -80,9 +80,8 @@
     ".line_mb": {
       "widget": "line",
       "title": "护眼蒙版(前置功能:样式美化)",
-      "description": "会在屏幕上添加一个半透明的蒙版"
-      ,"hidden": "{{ formData.beautify === 'off' }}"
-    
+      "description": "会在屏幕上添加一个半透明的蒙版",
+      "hidden": "{{ formData.beautify === 'off' }}"
     },
     "eye_protection_cover": {
       "title": "护眼蒙版(前置功能:样式美化)",
@@ -99,21 +98,20 @@
             "value": "off"
           }
         ]
-      }
-      ,"hidden": "{{ formData.beautify === 'off' }}"
-
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
     },
     "eye_protection_cover_dark": {
       "title": "暗色模式护眼蒙版(前置功能:护眼蒙版)",
-      "default": "#0000003B"
-      ,"hidden": "{{ formData.eye_protection_cover === 'off' }}"
-      ,"widget": "color"
+      "default": "#0000003B",
+      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
+      "widget": "color"
     },
     "eye_protection_cover_light": {
       "title": "亮色模式护眼蒙版(前置功能:护眼蒙版)",
-      "default": "#66ccff3B"
-      ,"hidden": "{{ formData.eye_protection_cover === 'off' }}"
-      ,"widget": "color"
+      "default": "#66ccff3B",
+      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
+      "widget": "color"
     },
     ".line_gn": {
       "widget": "line",

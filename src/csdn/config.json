@@ -1,5 +1,5 @@
 {
-  "version": "0.1.22",
+  "version": "0.1.23",
   "properties": {
     ".line_ts": {
       "widget": "line",
@@ -190,15 +190,15 @@
       "title": "页面背景",
       "description": "body的背景",
       "default": "https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831",
-      "hidden": "{{ formData.background === 'off' }}"
-      ,"widget": "imageInput",
+      "hidden": "{{ formData.background === 'off' }}",
+      "widget": "imageInput",
       "format": "image"
     },
     "blog-content-box-background-value": {
       "title": "文章背景",
       "description": "用于放置文章的div颜色",
-      "default": "#f5f6f7E6"
-      ,"widget": "color"
+      "default": "#f5f6f7E6",
+      "widget": "color"
     },
     "blog-content-box-opacity-value": {
       "title": "文章透明度",
@@ -208,8 +208,8 @@
     "header-box-background-value": {
       "title": "文章标题及部分卡片背景",
       "description": "建议保持透明或使用高透明度颜色",
-      "default": "#00000000"
-      ,"widget": "color"
+      "default": "#00000000",
+      "widget": "color"
     },
     ".line_ui": {
       "widget": "line",
