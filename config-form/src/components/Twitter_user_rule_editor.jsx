@@ -4,6 +4,7 @@ import { useState } from 'react'
 const Twitter_user_rule_editor = (props) => {
 
   const [nameKeyword, setNameKeyword] = useState('');
+  const [bioKeyword, setBioKeyword] = useState('');
   const [tweetKeyword, setTweetKeyword] = useState('');
 
   const addKeyword = (keyword, key) => {
@@ -16,14 +17,20 @@ const Twitter_user_rule_editor = (props) => {
     } else {
       props.onChange(`${props.value}\n${key}${keyword}\n`)
     }
+    message.success('添加成功!')
   }
   const addNameKeyword = () => {
-    addKeyword(nameKeyword, "#rule-name\n")
+    addKeyword(nameKeyword, "#name\n")
+    setNameKeyword('')
+  }
+  const addBioKeyword = () => {
+    addKeyword(bioKeyword, "#bio\n")
+    setBioKeyword('')
   }
   const addTweetKeyword = () => {
-    addKeyword(tweetKeyword, "#rule-text\n")
+    addKeyword(tweetKeyword, "#text\n")
+    setTweetKeyword('')
   }
-
 
   return (
     <>
@@ -31,6 +38,10 @@ const Twitter_user_rule_editor = (props) => {
         <Space.Compact>
           <Input defaultValue="" placeholder='用户名屏蔽词' value={nameKeyword} onChange={i => setNameKeyword(i.target.value)} />
           <Button type="primary" onClick={addNameKeyword}>添加用户名屏蔽词</Button>
+        </Space.Compact>
+        <Space.Compact>
+          <Input defaultValue="" placeholder='用户介绍Bio屏蔽词' value={bioKeyword} onChange={i => setBioKeyword(i.target.value)} />
+          <Button type="primary" onClick={addBioKeyword}>添加用户介绍Bio屏蔽词</Button>
         </Space.Compact>
         <Space.Compact>
           <Input defaultValue="" placeholder='推文屏蔽词' value={tweetKeyword} onChange={i => setTweetKeyword(i.target.value)} />
