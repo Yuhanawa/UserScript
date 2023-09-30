@@ -114,61 +114,56 @@ unsafeWindow.addEventListener('load', function () {
                 // console.log('拦截到请求:', method, url);
                 // console.log('响应内容:', this.responseText);
 
+                if (this.responseText?.globalObjects?.users) {
+                    const users = this.responseText.globalObjects.users
+                    for (var user of users) {
+                        var id = user.id_str
+                        var name = user.name
+                        var screen_name = user.screen_name
+                        var location = user.location
+                        var description = user.description
+                        var created_at = user.created_at
+                        var followers_count = user.followers_count
+                        var friends_count = user.friends_count
+                        var following = user.following
+                        var url = user.url
 
-                {
+                        if (whiteList.has(screen_name) || blackList.has(screen_name)) return;
 
-                    if (this.responseText?.globalObjects?.users) {
-                        const users = this.responseText.globalObjects.users
-                        for (var user of users) {
-                            var id = user.id_str
-                            var name = user.name
-                            var screen_name = user.screen_name
-                            var location = user.location
-                            var description = user.description
-                            var created_at = user.created_at
-                            var followers_count = user.followers_count
-                            var friends_count = user.friends_count
-                            var following = user.following
-                            var url = user.url
-
-                            if (whiteList.has(screen_name) || blackList.has(screen_name)) return;
-
-                            if (following) {
-                                whiteList.add(screen_name)
-                                return
-                            }
+                        if (following) {
+                            whiteList.add(screen_name)
+                            continue
+                        }
 
 
 
-                            for (const rule of rules) {
-                                if (rule["id_num"]?.some(i => id === i)) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id-num',
-                                    })
-                                } else if (rule["id"]?.some(i => screen_name === i)) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id',
-                                    })
-                                } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id-reg',
-                                    })
-                                } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
-                                    /* checking */
-                                } else continue
+                        for (const rule of rules) {
+                            if (rule["id_num"]?.some(i => id === i)) {
+                                blackList.set(screen_name, {
+                                    id: id,
+                                    screen_name: screen_name,
+                                    rule: rule['rule-name'],
+                                    type: 'id-num',
+                                })
+                            } else if (rule["id"]?.some(i => screen_name === i)) {
+                                blackList.set(screen_name, {
+                                    id: id,
+                                    screen_name: screen_name,
+                                    rule: rule['rule-name'],
+                                    type: 'id',
+                                })
+                            } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
+                                blackList.set(screen_name, {
+                                    id: id,
+                                    screen_name: screen_name,
+                                    rule: rule['rule-name'],
+                                    type: 'id-reg',
+                                })
+                            } else if (check(rule, screen_name, 'name', name) || check(rule, screen_name, 'bio', description) || check(rule, screen_name, 'location', location)) {
+                                /* checking */
+                            } else continue
 
-                                break
-                            }
-
+                            break
                         }
                     }
                 }
