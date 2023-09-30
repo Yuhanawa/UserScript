@@ -1,6 +1,32 @@
 {
   "beta": true,
-  "name":"example",
+  "name": "example",
   "version": "0.1.0",
-  "properties": {}
+  "properties": {
+    "num": {
+      "title": "复杂数字输入框",
+      "type": "number",
+      "defaultValue": 250,
+      "props": {
+        "placeholder": "520",
+        "addonBefore": "前置",
+        "addonAfter": "后置"
+      },
+      "description": "描述",
+      "tooltip": {
+        "title": "tooltip提示"
+      },
+      "extra": "补充",
+      "required": true,
+      "message": {
+        "required": "必须填哦~"
+      },
+      "widget": "inputNumber"
+    },
+    "color": {
+      "title": "颜色选择",
+      "type": "string",
+      "widget": "color"
+    }
+  }
 }
