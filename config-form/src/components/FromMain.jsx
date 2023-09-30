@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Line from './Line.jsx';
 import Twitter_user_rule_editor from './Twitter_user_rule_editor.jsx';
+import CSDN_UI_editor from './CSDN_UI_editor.jsx';
 import { Button } from 'antd';
 
 
@@ -77,7 +78,7 @@ const FromMain = ({ menuKey }) => {
             <FormRender
                 form={form}
                 schema={schema}
-                widgets={{ Line,Twitter_user_rule_editor }}
+                widgets={{ Line,Twitter_user_rule_editor,CSDN_UI_editor }}
                 onFinish={onFinish}
                 maxWidth={360}
                 footer={false}
