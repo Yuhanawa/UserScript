@@ -47,7 +47,7 @@ const Twitter_user_rule_editor = (props) => {
           <Input defaultValue="" placeholder='推文屏蔽词' value={tweetKeyword} onChange={i => setTweetKeyword(i.target.value)} />
           <Button type="primary" onClick={addTweetKeyword}>添加推文屏蔽词</Button>
         </Space.Compact>
-        <Input.TextArea autoSize value={props.value} />
+        <Input.TextArea autoSize value={props.value} onChange={i => props.onChange(i.target.value)} />
       </Space>
     </>
   );
