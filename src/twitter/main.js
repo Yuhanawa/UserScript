@@ -80,7 +80,7 @@ async function blockUserById(id, display) {
     showToast(`已为您自动屏蔽用户id ${id} ${display ? `用户名:${display}` : '(通过id精准匹配)'}`);
 }
 
-function check(rule, screen_name, key, target,notShowNote) {
+function check(rule, screen_name, key, target, notShowNote) {
     if (!target) return false;
 
     if (rule[key]?.some(i => target?.includes(i))) {
@@ -111,7 +111,7 @@ unsafeWindow.addEventListener('load', function () {
     var originalOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function (method, url) {
 
-        if (url.startsWith('https://twitter.com/i/api/2/notifications/all.json')) {
+        if (url.startsWith('https://twitter.com/i/api/2/notifications/all.json') && false) {
             this.addEventListener('load', function () {
                 // console.log('拦截到请求:', method, url);
                 // console.log('响应内容:', this.responseText);
@@ -138,11 +138,11 @@ unsafeWindow.addEventListener('load', function () {
                         }
 
                         var auto_block = $get('twitter_auto_block', 'on') === 'on';
-                        var auto_block_by_more = auto_block&&$get('twitter_auto_block_by_more', 'off') === 'on';
-                        if (check(internalRule, screen_name, 'name', name,auto_block) || check(internalRule, screen_name, 'bio', description,auto_block) 
-                        || check(internalRule, screen_name, 'location', location,auto_block) || check(internalRule, screen_name, 'url', url,auto_block)) {
-                            if (auto_block) { 
-                                blockUserById(id, screen_name) 
+                        var auto_block_by_more = auto_block && $get('twitter_auto_block_by_more', 'off') === 'on';
+                        if (check(internalRule, screen_name, 'name', name, auto_block) || check(internalRule, screen_name, 'bio', description, auto_block)
+                            || check(internalRule, screen_name, 'location', location, auto_block) || check(internalRule, screen_name, 'url', url, auto_block)) {
+                            if (auto_block) {
+                                blockUserById(id, screen_name)
                                 showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`)
                             }
                             continue;
@@ -170,7 +170,7 @@ unsafeWindow.addEventListener('load', function () {
                                     rule: rule['rule-name'],
                                     type: 'id-reg',
                                 })
-                            } else if (check(rule, screen_name, 'name', name,auto_block_by_more) || check(rule, screen_name, 'bio', description,auto_block_by_more) || check(rule, screen_name, 'location', location,auto_block_by_more) || check(rule, screen_name, 'url', url,auto_block_by_more)) {
+                            } else if (check(rule, screen_name, 'name', name, auto_block_by_more) || check(rule, screen_name, 'bio', description, auto_block_by_more) || check(rule, screen_name, 'location', location, auto_block_by_more) || check(rule, screen_name, 'url', url, auto_block_by_more)) {
                                 if (auto_block_by_more) blockUserById(id, screen_name)
                             } else continue
                             break
@@ -182,79 +182,109 @@ unsafeWindow.addEventListener('load', function () {
             // console.log("拦截到请求:", method, url);
 
             this.addEventListener('load', function () {
+                // console.log("响应内容:", this.responseText);
 
-                if (!this.responseText.includes('threaded_conversation_with_injections_v2')) {
-                    return
+                // 处理 result
+                const handledResult = (result) => {
+                    // console.log(result);
+
+
+                    let legacy = result.legacy
+
+                    let id = result.rest_id
+                    let name = legacy.name
+                    let created_at = legacy.created_at
+                    let description = legacy.description
+                    let followers_count = legacy.followers_count
+                    let location = legacy.location
+                    let screen_name = legacy.screen_name
+                    let following = legacy.following ?? false
+                    let blocking = legacy.blocking ?? false
+                    var url = legacy.entities?.url?.urls[0]?.display_url ?? ''
+
+                    if (following) {
+                        whiteList.add(screen_name)
+                        return
+                    }
+                    if (blocking) {
+                        blackList.set(screen_name, {
+                            id: id,
+                            screen_name: screen_name,
+                            rule: 'blocking',
+                            type: 'blocking',
+                            notShowNote: true
+                        })
+                        return
+                    }
+
+                    var auto_block = $get('twitter_auto_block', 'on') === 'on';
+                    var auto_block_by_more = auto_block && $get('twitter_auto_block_by_more', 'off') === 'on';
+                    if (check(internalRule, screen_name, 'name', name, auto_block) || check(internalRule, screen_name, 'bio', description, auto_block) || check(internalRule, screen_name, 'location', location, auto_block) || check(internalRule, screen_name, 'url', url, auto_block)) {
+                        if (auto_block) {
+                            blockUserById(id, screen_name)
+                            showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`)
+                        }
+                        return;
+                    }
+
+                    for (const rule of rules) {
+                        if (rule["id_num"]?.some(i => id === i)) {
+                            blackList.set(screen_name, {
+                                id: id,
+                                screen_name: screen_name,
+                                rule: rule['rule-name'],
+                                type: 'id-num',
+                            })
+                            if (auto_block) blockUserById(id, screen_name)
+                        } else if (rule["id"]?.some(i => screen_name === i)) {
+                            blackList.set(screen_name, {
+                                id: id,
+                                screen_name: screen_name,
+                                rule: rule['rule-name'],
+                                type: 'id',
+                            })
+                            if (auto_block) blockUserById(id, screen_name)
+                        } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
+                            blackList.set(screen_name, {
+                                id: id,
+                                screen_name: screen_name,
+                                rule: rule['rule-name'],
+                                type: 'id-reg',
+                            })
+                        } else if (check(rule, screen_name, 'name', name, auto_block_by_more) || check(rule, screen_name, 'bio', description, auto_block_by_more) || check(rule, screen_name, 'location', location, auto_block_by_more) || check(rule, screen_name, 'url', url, auto_block_by_more)) {
+                            if (auto_block_by_more) blockUserById(id, screen_name)
+                        } else continue
+                    }
                 }
 
-                let instructions = JSON.parse(this.responseText).data.threaded_conversation_with_injections_v2.instructions;
 
-                for (entry of instructions.filter(i => i.entries).map(i => i.entries)) {
-                    for (content of entry.filter(i => i.content).map(i => i.content)) {
-                        let items = [];
-                        if (content.itemContent != undefined) {
-                            items = [content?.itemContent?.tweet_results?.result?.core]
-                        } else if (content.items != undefined) {
-                            items = content.items.filter(i => i.item?.itemContent?.tweet_results?.result?.core).map(i => i.item.itemContent.tweet_results.result.core)
-                        }
+                if (this.responseText.startsWith('{"data":{"user":{"result"')) {
+                    // 用户页 
+                    handledResult(JSON.parse(this.responseText).data.user.result)
+                } else if (this.responseText.includes('threaded_conversation_with_injections_v2')) {
+                    // 推文页
+                    let instructions = JSON.parse(this.responseText).data.threaded_conversation_with_injections_v2.instructions;
 
-                        for (const core of items) {
-                            if (core == null || core == undefined) {
-                                continue
+                    for (entry of instructions.filter(i => i.entries).map(i => i.entries)) {
+                        for (content of entry.filter(i => i.content).map(i => i.content)) {
+                            let items = [];
+                            if (content.itemContent != undefined) {
+                                items = [content?.itemContent?.tweet_results?.result?.tweet?.core ?? content?.itemContent?.tweet_results?.result?.core]
+                            } else if (content.items != undefined) {
+                                items = content.items.filter(i => i.item?.itemContent?.tweet_results?.result?.core).map(i => i.item.itemContent.tweet_results.result.core)
                             }
-                            let legacy = core.user_results.result.legacy
 
-                            let id = core.user_results.result.rest_id
-                            let name = legacy.name
-                            let created_at = legacy.created_at
-                            let description = legacy.description
-                            let followers_count = legacy.followers_count
-                            let location = legacy.location
-                            let screen_name = legacy.screen_name
-                            let following = legacy.following ?? false
-                            var url = legacy.entities?.url?.urls[0]?.display_url ?? ''
-
-
-                            var auto_block = $get('twitter_auto_block', 'on') === 'on';
-                            var auto_block_by_more = auto_block&&$get('twitter_auto_block_by_more', 'off') === 'on';
-                            if (check(internalRule, screen_name, 'name', name,auto_block) || check(internalRule, screen_name, 'bio', description,auto_block) || check(internalRule, screen_name, 'location', location,auto_block) || check(internalRule, screen_name, 'url', url,auto_block)) {                                
-                                if (auto_block) { 
-                                    blockUserById(id, screen_name) 
-                                    showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`)
+                            for (const core of items) {
+                                if (core == null || core == undefined) {
+                                    continue
                                 }
-                                continue;
-                            }
 
-                            for (const rule of rules) {
-                                if (rule["id_num"]?.some(i => id === i)) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id-num',
-                                    })
-                                    if (auto_block) blockUserById(id, screen_name)
-                                } else if (rule["id"]?.some(i => screen_name === i)) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id',
-                                    })
-                                    if (auto_block) blockUserById(id, screen_name)
-                                } else if (rule["id-reg"]?.some(i => i.test(screen_name ?? ''))) {
-                                    blackList.set(screen_name, {
-                                        id: id,
-                                        screen_name: screen_name,
-                                        rule: rule['rule-name'],
-                                        type: 'id-reg',
-                                    })
-                                } else if (check(rule, screen_name, 'name', name,auto_block_by_more) || check(rule, screen_name, 'bio', description,auto_block_by_more) || check(rule, screen_name, 'location', location,auto_block_by_more) || check(rule, screen_name, 'url', url,auto_block_by_more)) {
-                                    if (auto_block_by_more) blockUserById(id, screen_name)
-                                } else continue
+                                handledResult(core.user_results.result)
                             }
                         }
                     }
+                } else {
+                    // console.log(`content:${this.responseText}`);
                 }
             })
         }
@@ -303,8 +333,8 @@ null
 /(?=.*(同城))(?=.*(约))/
 /(?=.*(寂寞|孤独|刺激|激情|情趣))(?=.*(性|骚扰))/
 /(?=.*(年轻|未成年|青少年|\d{2}以下)|未满\d{2})(?=.*(勿扰))/
-/(.*(男[Mm]|女[Ss]|反差|调教|勿扰|(探索|玩法)|(私信|电报|联系)|(sm|SM))){4}/
-/(.*(另一面|渴望|冲动|脱|放肆|宣泄|寂寞|孤独|刺激|激情|情趣|性|骚扰|(电报|私信|联系)|(线下|同城))){5}/
+/(.*(男[Mm]|女[Ss]|反差|调教|人妻|勿扰|(探索|玩法)|(线下|同城|私信|电报|联系)|(sm|SM))){4}/
+/(.*(另一面|渴望|冲动|脱|放肆|人妻|宣泄|寂寞|孤独|刺激|激情|情趣|性|骚扰|(电报|私信|联系)|(线下|同城))){5}/
 t.me/dwaydgfuya
 t.me/OgdenDelia14
 t.me/RefMonster3
@@ -316,9 +346,17 @@ t.me/RefMonster3
 t.me/Anzzmingyue
 t.me/Kau587
 t.me/MegNaLiSha520
+t.me/nDxyS520
+t.me/SegWKeC520
 
 #text
 /^想上课的私信主人/
+/^太阳射不进来的地方/
+/^挂空就是舒服，接点地气/
+/^总说我下面水太多/
+/^在这个炮火连天的夜晚/
+/^只进入身体不进入生活/
+
 `)
 
 const rules = new Set();
