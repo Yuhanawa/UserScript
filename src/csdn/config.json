@@ -277,7 +277,8 @@
         "#asideNewComments",
         "#asideNewNps",
         "#asideArchive",
-        "#asidedirectory"
+        "#asidedirectory",
+        ".passport-container-mini-tip"
       ],
       "widget": "CSDN_UI_editor",
       "disabled": "{{ formData.ui_opt !== 'custom' }}"

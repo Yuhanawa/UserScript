@@ -33,7 +33,8 @@
             "#asideNewComments",
             "#asideNewNps",
             "#asideArchive",
-            "#asidedirectory"
+            "#asidedirectory",
+            ".passport-container-mini-tip"
         ]
 
         style(`${value.join(', ')} { display: none !important; }`)
@@ -67,7 +68,8 @@
             ".sidetool-writeguide-box",
             ".option-box[data-type=guide]",
             ".option-box[data-type=cs]",
-            ".option-box[data-type=report]"
+            ".option-box[data-type=report]",
+            ".passport-container-mini-tip"
         ]
 
         style(`${value.join(', ')} { display: none !important; }`)
