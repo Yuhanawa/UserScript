@@ -16,6 +16,7 @@
         function part1SetSize() {
             // 是否宽屏
             var isWide = unsafeWindow.isWide;
+            document.querySelector('#biliMainHeader .bili-header.fixed-header').style.display = isWide ? 'none' : 'block'
 
             // 浏览器窗口高度
             var innerHeight = unsafeWindow.innerHeight;
@@ -96,18 +97,18 @@
             unsafeWindow.PlayerAgent = {
                 changed: true,
                 player_widewin: function () {
-                    "new_video" === unsafeWindow.__INITIAL_STATE__.pageVersion && unsafeWindow.scrollTo(0, 60),
-                        unsafeWindow.isWide = !0,
-                        setSize()
+                    "new_video" === unsafeWindow.__INITIAL_STATE__.pageVersion && unsafeWindow.scrollTo(0, 60)
+                    unsafeWindow.isWide = true
+                    setSize()
                 },
                 player_fullwin: function (i) {
-                    unsafeWindow.scrollTo(0, 0),
-                        unsafeWindow.isWide = !1,
-                        setSize()
+                    unsafeWindow.scrollTo(0, 0)
+                    unsafeWindow.isWide = false
+                    setSize()
                 },
                 toggleBlackSide: function (i) {
-                    unsafeWindow.hasBlackSide = i,
-                        setSize()
+                    unsafeWindow.hasBlackSide = i
+                    setSize()
                 }
             }
         }
