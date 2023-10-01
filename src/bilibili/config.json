@@ -1,5 +1,5 @@
 {
-  "version": "0.1.18",
+  "version": "0.1.19",
   "properties": {
     ".line_ts": {
       "widget": "line",
@@ -76,8 +76,8 @@
     "widescreen-width-times": {
       "title": "宽屏倍数",
       "type": "number",
-      "defaultValue": 1.20,
-      "default": 1.20,
+      "defaultValue": 1.2,
+      "default": 1.2,
       "required": true,
       "hidden": "{{ formData.widescreen === 'off' }}",
       "props": {
