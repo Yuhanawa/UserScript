@@ -1,10 +1,10 @@
 视频页宽屏, ["www.bilibili.com/video"], {
     '已开启$on': () => {
         function setSize() {
-            if (window.__INITIAL_STATE__) {
-                var i = window.__INITIAL_STATE__.pageVersion,
-                    e = window.__INITIAL_STATE__.isPrVideo;
-                "new_video" === i ? part1SetSize() : e && window.__INITIAL_STATE__.premiereInfo ? part1SetSize() : originSetSize()
+            if (unsafeWindow.__INITIAL_STATE__) {
+                var i = unsafeWindow.__INITIAL_STATE__.pageVersion,
+                    e = unsafeWindow.__INITIAL_STATE__.isPrVideo;
+                "new_video" === i ? part1SetSize() : e && unsafeWindow.__INITIAL_STATE__.premiereInfo ? part1SetSize() : originSetSize()
             } else originSetSize(),
                 part1SetSize()
         }
@@ -15,13 +15,13 @@
         }
         function part1SetSize() {
             // 是否宽屏
-            var isWide = window.isWide;
+            var isWide = unsafeWindow.isWide;
 
             // 浏览器窗口高度
-            var innerHeight = window.innerHeight;
+            var innerHeight = unsafeWindow.innerHeight;
 
             // 浏览器窗口宽度
-            var innerWidth = Math.max(document.body && document.body.clientWidth || window.innerWidth, 1100);
+            var innerWidth = Math.max(document.body && document.body.clientWidth || unsafeWindow.innerWidth, 1100);
 
             // 右侧栏宽度
             var rightWidth = innerWidth > 1680 ? 411 : 350;
@@ -31,7 +31,7 @@
             var mainWidth = innerWidth - 112 - rightWidth;
             var width = mainWidth < maxWidth ? mainWidth : maxWidth;
 
-            width = Math.round(width * $get('bilibili_widescreen-width-times', 1.22))
+            width = Math.round(width * $get('bilibili_widescreen-width-times', 1.2))
 
             // 设置最小和最大宽度
             if (width < 668) {
@@ -50,7 +50,7 @@
                 totalWidth -= 125;
                 width -= 100;
             }
-            if (window.hasBlackSide && !isWide) {
+            if (unsafeWindow.hasBlackSide && !isWide) {
                 height = Math.round((width - 14 + (isWide ? rightWidth : 0)) * (9 / 16) + (innerWidth > 1680 ? 56 : 46)) + 96;
             } else {
                 height = Math.round((width + (isWide ? rightWidth : 0)) * (9 / 16)) + (innerWidth > 1680 ? 56 : 46);
@@ -81,37 +81,6 @@
             });
             setSizeStyle.innerHTML = css
         }
-        function originSetSize() {
-            var i = window.isWide,
-                e = 350,
-                t = window.innerHeight;
-            w = window.innerWidth,
-                w1 = parseInt(16 * (.743 * t - 108.7) / 9),
-                w2 = w - 152 - e,
-                min = w1 > w2 ? w2 : w1,
-                min < 638 && (min = 638),
-                1630 < min && (min = 1630);
-            var n, o = min + e;
-            n = window.hasBlackSide && !window.isWide ? Math.round((min - 14 + (i ? e : 0)) * (9 / 16) + 46) + 96 : Math.round((min + (i ? e : 0)) * (9 / 16)) + 46;
-            var r = constructStyleString(".v-wrap", {
-                width: o + "px",
-                padding: "0 68px"
-            }) + constructStyleString(".l-con", {
-                width: o - e + "px"
-            }) + constructStyleString("#bilibili-player", {
-                width: o - (i ? 0 : e) + "px",
-                height: n + "px",
-                position: i ? "relative" : "static"
-            }) + constructStyleString("#oldfanfollowEntry", {
-                position: "relative",
-                top: i ? n + 28 - 18 + "px" : "0"
-            }) + constructStyleString("#danmukuBox", {
-                "margin-top": i ? n + 28 + "px" : "0"
-            }) + constructStyleString("#playerWrap", {
-                height: i ? n - 0 + "px" : "auto"
-            });
-            setSizeStyle.innerHTML = r
-        }
 
 
         const set = () => {
@@ -127,17 +96,17 @@
             unsafeWindow.PlayerAgent = {
                 changed: true,
                 player_widewin: function () {
-                    "new_video" === window.__INITIAL_STATE__.pageVersion && window.scrollTo(0, 60),
-                        window.isWide = !0,
+                    "new_video" === unsafeWindow.__INITIAL_STATE__.pageVersion && unsafeWindow.scrollTo(0, 60),
+                        unsafeWindow.isWide = !0,
                         setSize()
                 },
                 player_fullwin: function (i) {
-                    window.scrollTo(0, 0),
-                        window.isWide = !1,
+                    unsafeWindow.scrollTo(0, 0),
+                        unsafeWindow.isWide = !1,
                         setSize()
                 },
                 toggleBlackSide: function (i) {
-                    window.hasBlackSide = i,
+                    unsafeWindow.hasBlackSide = i,
                         setSize()
                 }
             }
