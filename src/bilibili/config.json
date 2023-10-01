@@ -73,9 +73,16 @@
         ]
       }
     },
-    "container_padding": {
-      "title": "宽屏宽度(其它宽度未测试,不建议修改)",
-      "default": "60"
+    "widescreen-width-times": {
+      "title": "宽屏倍数",
+      "type": "number",
+      "defaultValue": 1.24,
+      "required": true,
+      "hidden": "{{ formData.widescreen === 'off' }}",
+      "props": {
+        "addonAfter": "倍"
+      },
+      "description": "推荐范围1.00~1.30倍"
     },
     ".line_mb": {
       "widget": "line",
