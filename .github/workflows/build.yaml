@@ -28,6 +28,9 @@ jobs:
       - name: Update-versions
         run: pnpm run update-versions
 
+      - name: Build
+        run: pnpm run build
+
       - name: Git config
         run: |
           git config --local user.email github-actions[bot]@users.noreply.github.com
@@ -56,24 +59,11 @@ jobs:
         run: |
           git push origin HEAD:${{ github.ref_name }}
 
-      - name: Checkout releases
-        run: |
-          git stash
-          git fetch
-          git checkout -b remotes/origin/releases
-          git pull origin HEAD:releases
-          git rebase origin/releases
-          git stash pop
-
-      - name: Build
-        run: pnpm run build
-
       - name: Commit releases
         run: |
-          git add -f out
-          git add .
+          git add out
           git commit -m "CI build"
 
       - name: Push to releases
         run: |
-          git push origin HEAD:releases
+          git push -f origin HEAD:releases
