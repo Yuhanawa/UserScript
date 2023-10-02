@@ -62,6 +62,7 @@ jobs:
           git fetch
           git checkout -b remotes/origin/releases
           git pull origin HEAD:releases
+          git rebase origin/releases
           git stash pop
 
       - name: Build
