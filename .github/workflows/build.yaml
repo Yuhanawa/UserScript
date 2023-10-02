@@ -61,8 +61,7 @@ jobs:
 
       - name: Commit releases
         run: |
-          git config advice.addIgnoredFile false
-          git add out
+          git add -f out
           git commit -m "CI build"
 
       - name: Push to releases
