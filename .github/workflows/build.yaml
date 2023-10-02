@@ -59,11 +59,18 @@ jobs:
         run: |
           git push origin HEAD:${{ github.ref_name }}
 
+      - name: Checkout releases
+        run: |
+          git stash
+          git checkout HEAD:releases
+          git stash pop
+
       - name: Commit releases
         run: |
           git add -f out
+          git add .
           git commit -m "CI build"
 
       - name: Push to releases
         run: |
-          git push -f origin HEAD:releases
+          git push
