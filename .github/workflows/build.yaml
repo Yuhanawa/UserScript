@@ -61,6 +61,7 @@ jobs:
           git stash
           git fetch
           git checkout -b remotes/origin/releases
+          git pull
           git stash pop
 
       - name: Build
