@@ -7,7 +7,7 @@
     },
     "icon": {
       "title": "自定义图标开关",
-      "default": "on",
+      "default": "off",
       "widget": "select",
       "props": {
         "options": [
