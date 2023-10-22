@@ -6,7 +6,7 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)
 
-- 根据用户名/用户介绍Bio/id/内容等进行屏蔽
+- 根据用户名/用户介绍 Bio/id/内容等进行屏蔽
 - 支持关键词/正则表达式匹配
 - 支持自定义屏蔽规则,导入第三方规则
 - 自动更新规则(每日更新一次)
@@ -20,34 +20,24 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 如果存在误伤或者遗漏请反馈(或考虑自建规则(参考下方自定义规则示例))  
 附带自定义推特图标(默认关闭)
 
-### 新的效果图
-
-(2023/09/17)  
-![1694915262889.png](https://img1.imgtp.com/2023/09/17/sIdcwrF4.png)
-
 ### 效果图
 
-(2023/08/25)  
-![tw-pb.png](https://img1.imgtp.com/2023/08/25/Cm8a2dAl.png)
+(2023/09/17)  
+![image.png](https://s2.loli.net/2023/10/22/PBfTdO6rvuR8qJI.png)
+
+![image.png](https://s2.loli.net/2023/10/22/SBERCqHri7szoAQ.png)
 
 配置界面
-
-![tw-pz.png](https://img1.imgtp.com/2023/08/25/32sLIcR5.png)
-
-注意:初次安装或更新后刷新才能生效
-
-![tw_gx.png](https://img1.imgtp.com/2023/08/25/ULWOnIV9.png)
+![image.png](https://s2.loli.net/2023/10/22/UQN5I3PGSZMwg4K.png)
 
 ### 使用方法
-
-#### 简单使用
 
 1. 安装脚本
 
 2. 打开推特
 
 3. 等待获取规则(右下角弹出刷新提示)  
-   ![tw_gx.png](https://img1.imgtp.com/2023/08/25/ULWOnIV9.png)
+   ![tw_gx.png](https://s2.loli.net/2023/10/22/1JXnOiTIuRFev39.png)
 
 4. 刷新
 

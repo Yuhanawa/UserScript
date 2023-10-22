@@ -5,18 +5,19 @@
 ## 可用脚本
 
 - [哔哩哔哩脚本|美化|增强|自定义背景|评论过滤](https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify)
-  - 图片截取自 2023-07 距今可能发生较大变化  
-    ![Snipaste_2023-07-18_03-07-18.png](https://img1.imgtp.com/2023/07/18/j9cpS7Tt.png)
+  - 图片截取自 2023-10 距今可能发生较大变化  
+    ![image.png](https://s2.loli.net/2023/10/22/Pdq619G5lvDCO8X.png)
 - [CSDN 脚本-优化美化极简化-沉浸式阅读-免登录复制-去广告](https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify)
-  - 图片为脚本重构前的截图, 截取自 2022-8 距今可能发生较大变化  
-    ![极简CSDN](https://img1.imgtp.com/2023/07/24/h5NUVoYM.png)
+  - 图片截取自 2023-10 距今可能发生较大变化  
+    ![效果截图](https://s2.loli.net/2023/10/22/MNxA6JUz4uCEdDk.png)
+    ![设置界面](https://s2.loli.net/2023/10/22/yuOm9iBnS2kxpMq.png)
 - [Twitter 推文屏蔽器&过滤器](https://greasyfork.org/zh-CN/scripts/473865)
   - 图片截取自 2023-08 距今可能发生较大变化  
-    ![效果图](https://img1.imgtp.com/2023/08/25/Cm8a2dAl.png)
+    ![效果图](https://s2.loli.net/2023/10/22/PBfTdO6rvuR8qJI.png)
 - 搜索引擎美化 | 切换工具
   - ?
   - 目前可用使用,但有待重构,故不建议使用
-  - 但你可以[手动安装](https://github.com/Yuhanawa/UserScript/blob/releases/out/search.js)它
+  - 但你可以[手动安装](https://raw.githubusercontent.com/Yuhanawa/UserScript/releases/out/search.js)它
 
 ## 支持功能
 

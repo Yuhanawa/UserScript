@@ -1,12 +1,15 @@
 # 哔哩哔哩 BILIBILI 美化|增强|自定义背景|评论过滤等
 
-[[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript   
-[[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069   
-   
-部分功能默认关闭, 需手动开启   
-   
-图片截取自 2023-07 距今可能发生较大变化   
+[[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
+[[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069
+
+部分功能默认关闭, 需手动开启
+
+图片截取自 2023-07 距今可能发生较大变化  
 ![Snipaste_2023-07-18_03-07-18.png](https://img1.imgtp.com/2023/07/18/j9cpS7Tt.png)
+
+2023-10:  
+![image.png](https://s2.loli.net/2023/10/22/Pdq619G5lvDCO8X.png)
 
 ## 已支持功能:
 
