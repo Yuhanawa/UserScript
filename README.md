@@ -2,6 +2,11 @@
 
 ## [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
 
+
+## 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
+因此，所有的bug和功能需要等到春节才能进行修复
+
+
 ## 可用脚本
 
 - [哔哩哔哩脚本|美化|增强|自定义背景|评论过滤](https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify)

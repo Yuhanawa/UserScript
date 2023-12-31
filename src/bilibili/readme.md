@@ -3,6 +3,12 @@
 [[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
 [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069
 
+
+## 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
+因此，所有的bug和功能需要等到春节才能进行修复
+
+
+
 部分功能默认关闭, 需手动开启
 
 图片截取自 2023-07 距今可能发生较大变化  
