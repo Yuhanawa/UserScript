@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "gmu dev",
     "build": "gmu build",
-    "update-versions":"node ./update-versions.js"
+    "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
     "csso": "^5.0.5",
     "glob": "^10.3.3",
     "gm_utils": "link:lib",

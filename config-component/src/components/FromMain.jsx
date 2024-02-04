@@ -14,7 +14,7 @@ const FromMain = ({ menuKey }) => {
     let winProps = {};
     const [schema, setSchema] = useState({});
 
-    if (window.userscript && window.userscript[menuKey])
+    if (window.userscript?.[menuKey])
         winProps = window.userscript[menuKey].props;
 
 
@@ -48,15 +48,17 @@ const FromMain = ({ menuKey }) => {
 
         console.log(newSchema);
         setSchema(newSchema)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [menuKey])
 
     const onFinish = (data) => {
         console.log('formData:', data);
 
-        for (var key of Object.keys(data)) {
+        for (const key of Object.keys(data)) {
             if (key.startsWith('.')) continue;
 
             const value = data[key]
+            // biome-ignore lint/suspicious/noDoubleEquals: <explanation>
             if (value != schema.properties[key].default) {
                 window.userscript[menuKey].set(`${menuKey}_${key}`, value)
             }
@@ -78,7 +80,7 @@ const FromMain = ({ menuKey }) => {
             <FormRender
                 form={form}
                 schema={schema}
-                widgets={{ Line,Twitter_user_rule_editor,CSDN_UI_editor }}
+                widgets={{ Line, Twitter_user_rule_editor, CSDN_UI_editor }}
                 onFinish={onFinish}
                 maxWidth={360}
                 footer={false}
