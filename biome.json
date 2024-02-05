@@ -1,0 +1,12 @@
+{
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "suspicious": {
+                "noConfusingLabels": "off",
+                "noCommaOperator": "off"
+            },
+            "style": {}
+        }
+    }
+}
