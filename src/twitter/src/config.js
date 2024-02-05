@@ -1,5 +1,5 @@
 $, ['yuhan-script-config.netlify.app', 'twitter.com', 'x.com'], () => {
-    delay(async () => {
+    timeoutOnLoad(async () => {
         let callback_num = 0;
 
         const getText = (url, callback) => {

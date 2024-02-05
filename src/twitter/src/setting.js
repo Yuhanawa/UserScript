@@ -1,7 +1,7 @@
 设置按钮, [/./],
 {
     已开启$on: (f) => {
-        delay(() => {
+        timeoutOnLoad(() => {
             UrlListener((i) => {
                 f.add(f)
             })
