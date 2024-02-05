@@ -1,0 +1,323 @@
+<html lang="zh-CN">
+
+<head>
+    <title>测试用页面</title>
+    <style>
+        html {
+            --font-size-title: 36px;
+            --font-size-p: 18px;
+            --font-size-h2: 24px;
+            --font-size-code: 15px
+        }
+
+        html body main div.blog-content-box .article-header-box .article-header div.article-title-box .title-article {
+            font-size: var(--font-size-title) !important
+        }
+
+        html body main #content_views p {
+            font-size: var(--font-size-p) !important
+        }
+
+        html body main #content_views h2 {
+            font-size: var(--font-size-h2) !important
+        }
+
+        html body main #content_views pre code {
+            font-size: var(--font-size-code) !important
+        }
+
+        #content_views pre code {
+            user-select: text !important
+        }
+
+        body #mainBox {
+            width: 82% !important;
+        }
+
+        #article_content,
+        #mainBox,
+        .article-bar-top,
+        .article-info-box,
+        header div.article-info-box div.blog-tags-box .tags-box.artic-tag-box a.tag-link,
+        main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box,
+        main div.blog-content-box .article-header-box .article-header div.article-info-box div.blog-tags-box .tags-box {
+            margin: auto;
+            width: auto !important;
+            height: auto !important;
+            padding: 0 !important;
+            overflow: hidden
+        }
+
+        .tag-link {
+            margin: 5px 0 0 !important;
+            overflow: hidden
+        }
+
+        main div.blog-content-box article {
+            padding-top: 10px
+        }
+
+        main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top span {
+            margin-right: 4px
+        }
+
+        main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .follow-nickName {
+            margin-right: 2px
+        }
+
+        main div.blog-content-box .article-header-box .article-header div.article-info-box div.article-bar-top .bar-conten {
+            padding-left: 0;
+            margin-left: 10px
+        }
+
+        pre .hljs-button {
+            display: block;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            font-size: 12px;
+            color: #fff;
+            background-color: #666;
+            padding: 4px 12px;
+            margin: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .05), 0 2px 4px rgba(0, 0, 0, .05)
+        }
+
+        code,
+        main div.blog-content-box pre.set-code-hide,
+        pre {
+            height: auto !important
+        }
+
+        .hide-preCode-box {
+            display: none
+        }
+
+        .set-code-hide,
+        main div.blog-content-box pre {
+            max-height: max-content !important;
+            height: auto !important
+        }
+
+        .article-info-box {
+            opacity: .92
+        }
+
+        .blog-content-box {
+            overflow-y: auto
+        }
+
+        body {
+            background: url("https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831")
+        }
+
+        body {
+            --blog-content-box-background: #f5f6f7E6
+        }
+
+        :root body .blog-content-box {
+            background: var(--blog-content-box-background) !important;
+            opacity: var(--blog-content-box-opacity) !important
+        }
+
+        :root body #blogColumnPayAdvert,
+        :root body #blogHuaweiyunAdvert,
+        :root body .article-header-box {
+            background-color: var(--blog-header-box-background) !important
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main_father clearfix d-flex justify-content-center" style="height:100%;">
+        <div class="container clearfix" id="mainBox">
+            <main>
+                <div class="blog-content-box">
+                    <div class="article-header-box">
+                        <div class="article-header">
+                            <div class="article-title-box">
+                                <h1 class="title-article" id="articleContentId">继放弃 C/C++ 后，微软再组新团队，欲将 C# 代码改写为 Rust！
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <article class="baidu_pl" data-filter-checked="true">
+                        <div id="article_content" class="article_content clearfix">
+                            <div id="content_views" class="htmledit_views">
+                                <div id="js_content">
+                                    <p style="text-align:justify;"><strong>微软云服务向 Rust 代码看齐</strong></p>
+                                    <p style="text-align:justify;">这一次最新加入 Rust 浪潮的是来自 Microsoft 365
+                                        团队。根据其最新发布的招聘启事显示，微软欲聘请全职的&nbsp;Microsoft 365&nbsp;首席软件架构师，以此组建一个全新的团队，专注于采用
+                                        Rust <a target="_blank" class="hl hl-1" data-tit="编程语言"
+                                            data-pretit="编程语言">编程语言</a>作为现代化全球规模平台服务以及更多领域的基础。</p>
+                                    <p style="text-align:center;">
+                                        来源：https://jobs.careers.microsoft.com/global/en/job/1633482/Principal-Software-Architect
+                                    </p>
+                                    <p style="text-align:justify;">在其介绍中，该职位隶属于 Substrate App Platform 组，这是 Microsoft
+                                        365 核心平台组织的重要部分，构成了微软<a target="_blank" class="hl hl-1" data-tit="云服务"
+                                            data-pretit="云服务">云服务</a>的支柱。</p>
+                                    <p style="text-align:justify;">“成功的候选人将是具有深厚 Rust 编程语言技能的人，或者愿意在短期内成为 Rust
+                                        专家，同时作为倡议领导团队的成员，做出贡献。职责包括指导 Rust 组件库、SDK 的技术方向、设计和实现，以及将现有基于 C# 的全球规模服务重新实现为
+                                        Rust”，微软写道。</p>
+                                    <p style="text-align:justify;"><strong>微软全系列采用 Rust</strong></p>
+                                    <p style="text-align:justify;">要知道，这并不是微软第一次拥抱 Rust 这门语言。早些时候，微软 Azure 首席技术官 Mark
+                                        Russinovich 在推特上发文，呼吁业界淘汰 C / C++，应改用更加安全的 Rust 语言：</p>
+                                    <blockquote>
+                                        <p>说到语言，现在是时候停止用 C/C++ 启动任何新项目了，在需要使用非 GC 语言的情况下使用
+                                            Rust。为了安全性和可靠性，业界应该宣布这些语言已被淘汰。</p>
+                                    </blockquote>
+                                    <p style="text-align:center;"><img
+                                            src="./继放弃 C_C++ 后，微软再组新团队，欲将 C# 代码改写为 Rust！-CSDN博客_files/e51545299a57fa4e71cd4aa73e57ace8.png"
+                                            alt="e51545299a57fa4e71cd4aa73e57ace8.png"></p>
+                                    <p style="text-align:justify;">在去年微软举办的 BlueHat 安全大会上，微软宣布计划用 Rust 重写部分 Windows
+                                        内核，理由是它的现代性、易用性和整体清晰度。</p>
+                                    <p style="text-align:justify;">随即微软加快了推进「Rust 重写一切」的步伐，后来也陆续有媒体爆料：微软已经用 3.6 万行 Rust
+                                        代码改写了<a> Windows 内核</a>，放弃了 C/C++；同时其还在 Microsoft Career
+                                        网站上发布了多个招聘启事，急需 Rust 精兵强将加入新的团队。</p>
+                                    <p style="text-align:justify;">除此之外，2023 年 9 月，微软在发布新的 Azure
+                                        量子开发套件(QDK)预览版时，也透露了这一版本主要是用 Rust 编写的，可以轻松地将本机二进制文件定位为 Rust 编译器支持的任何平台，并构建
+                                        WebAssembly（通过 wasm-bindgen）以在浏览器中运行，最终该套件速度提高了 100 倍，代码大小减少了 100 倍。</p>
+                                    <p style="text-align:justify;">同时，微软还是 Rust 基金会的白金会员，进一步巩固了对该语言的承诺。</p>
+                                    <p>针对这一趋势，有外媒点评道，尽管微软最近裁了不少人，但近期其在持续的招聘上加大了对 Rust
+                                        技术的透露，也向科技行业的工程师和专业人士传递了一个明确的信息：即在竞争日益激烈的就业市场中，适应并获得新技能，如
+                                        Rust，变得至关重要。它还预示着行业中的一个重要趋势，即越来越多的公司趋向于更安全、更高效的编程语言，如 Rust，用于其关键服务。</p>
+                                    <p><strong><img
+                                                src="./继放弃 C_C++ 后，微软再组新团队，欲将 C# 代码改写为 Rust！-CSDN博客_files/c7257623cce027440f41f633e15dd30a.png"
+                                                alt="c7257623cce027440f41f633e15dd30a.png"></strong><br></p>
+                                    <p style="text-align:justify;"><strong>Rust 为什么能成为香饽饽？</strong></p>
+                                    <p>当然不止微软，Linux 之父 Linus&nbsp;Torvalds 也曾坚定地分享过：“Rust
+                                        还没有真正成为下一个伟大的事物。但我认为，在明年，我们将开始集成驱动程序，甚至一些主要的子系统也将开始积极使用
+                                        Rust。因此，<strong>要让它成为内核的重要组成部分，还需要数年时间。但它肯定会成为内核的一部分。</strong>”</p>
+                                    <p>同时，亚马逊的云服务、Google 的 Android、Meta /Facebook 的高性能构建系统....无不没有 Rust 的身影。除去大厂之外，几个月前
+                                        Facebook 法国前端工程师、React Native 和 Prettier 的联合创始人 Vjeux 在 Twitter 发帖，寻求有能力的开发者来使用
+                                        Rust 重写前端代码格式化工具 Prettier，并悬赏 1 万美元。</p>
+                                    <p>从编程语言的关键特性上来看，Rust 受到这些公司青睐的原因主要有几个方面：</p>
+                                    <ul>
+                                        <li>
+                                            <p><strong>内存安全性：</strong>Rust
+                                                被设计为一种系统级别的编程语言，具有强大的内存安全性。它通过所有权系统、借用检查器和生命周期系统等特性，防止了常见的内存错误，如空指针引用、数据竞争等。这使得
+                                                Rust 在开发中更容易编写出安全且可维护的代码，尤其在需要高性能和低级别控制的场景下。</p>
+                                        </li>
+                                        <li>
+                                            <p><strong>并发性能</strong>：Rust
+                                                的所有权和借用系统使其在并发编程方面表现优异。它允许开发者在不引入数据竞争的情况下编写高效的并发代码，通过借用检查器（Borrow
+                                                Checker）在编译时检查并发问题，而不是在运行时发生。</p>
+                                        </li>
+                                        <li>
+                                            <p><strong>系统编程</strong>：Rust
+                                                在系统编程领域表现出色，因为它提供了对硬件的低级别控制，并且允许直接访问内存，而且不需要运行时系统。这使得 Rust
+                                                成为编写操作系统、嵌入式系统和其他需要高度控制的应用的理想选择。</p>
+                                        </li>
+                                        <li>
+                                            <p><strong>跨平台性：</strong>Rust 具有很好的跨平台支持，可以轻松地在不同的操作系统上进行开发和部署。这使得 Rust
+                                                成为构建可移植和高性能应用程序的有力工具。</p>
+                                        </li>
+                                        <li>
+                                            <p><strong>与 WebAssembly（Wasm）的整合</strong>：Rust 对 WebAssembly
+                                                有天然的支持，使得它成为构建客户端和服务端的 WebAssembly 应用的良好选择。这使得 Rust 在一些云计算和 Web
+                                                开发领域受到欢迎。</p>
+                                        </li>
+                                    </ul>
+                                    <p style="text-align:justify;"><strong>用 Rust 重写代码需要付出什么样的代价？</strong></p>
+                                    <p>就微软而言，也有不少网友不解，难道仅仅是因为性能问题，微软难道就要大费周章地弃用 C# 代码？但是 C# 也不像 Python/Ruby 那样慢。</p>
+                                    <p>对此，微软官方并未做出任何进一步的技术分享，不过有位开发者的分析获得了高赞，其表示：</p>
+                                    <blockquote>
+                                        <p>有趣的事，微软首先决定用 Rust 重写，然后再去聘请一位首席架构师。由于他们的目标是采用 Rust，我有一种感觉，这是对 Rust
+                                            进行非核心业务评估的举措。正如其他人所指出的，为什么要用 Rust 替换 C# 呢？他们可能认为在预算内并值得为了评估而重写成 Rust
+                                            代码。我怀疑微软没有在不太关键的服务上进行技术评估之前，他们不会在所有业务中大规模转向
+                                            Rust。而且这个项目不在美国，对我来说更加确认了这不是业务关键的项目。</p>
+                                        <p>总体而言，对于 Rust 社区而言，这是个好消息，因为尽管微软目前没有用 Rust 替换他们的核心技术，但他们已经愿意在重要的底层服务上尝试使用
+                                            Rust。</p>
+                                    </blockquote>
+                                    <p>还有用户评论道：</p>
+                                    <blockquote>
+                                        <p>性能、无 GC、安全性，是微软采用 Rust 的关键原因。</p>
+                                        <p>一旦你拥有一个完成任务出色且相对成熟的微服务，优化运行时特性而非实现速度是有道理的。此外，现在有更多的人在使用 Rust
+                                            构建项目，因此你有更多有经验的开发人员和一个更加成熟的软件包社区可以利用。</p>
+                                    </blockquote>
+                                    <p>最后，也并不是所有公司都适合用 Rust 来重写业务代码，业务代码迁移也并非一朝一夕可以完成的事情，其中需要综合技术、成本和人力资源等多方面的因素来考虑。</p>
+                                    <p>你是否在项目尝试过 Rust 语言？体验如何？欢迎留言分享你的看法。</p>
+                                    <p>参考：<br></p>
+                                    <p>https://www.theregister.com/2024/01/31/microsoft_seeks_rust_developers/</p>
+                                    <p>https://jobs.careers.microsoft.com/global/en/job/1633482/Principal-Software-Architect
+                                    </p>
+                                    <p><strong>推荐阅读：</strong></p>
+                                    <p><a rel="nofollow">▶王腾：小米手机用户忠诚度安卓第一；谷歌2023年裁员逾1.2万，遣散费高达21亿美元；库克预告iOS 18重磅更新 |
+                                            极客头条</a>
+                                    <p><a rel="nofollow">▶Linus 久违“开炮”，怒喷谷歌大佬：“你的代码就是垃圾！”</a><a rel="nofollow"></a></p>
+                                    <p><a rel="nofollow">▶千元机也能本地跑起大模型？面壁智能开源 MiniCPM 终端旗舰大模型</a><a rel="nofollow"></a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="test.css" />
+
+    <div class="config-page-awa" id="config-page-awa">
+        <div class="config-page-container">
+            <div class="config-page-drag-area"></div>
+            <iframe class="config-page-iframe" src="https://yuhanawa.github.io/tools/userscriptconfig/"></iframe>
+
+            <button class="config-page-close-btn">⭕</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" async>
+        //#region dragElement
+
+        const configPage = document.querySelector("#config-page-awa");
+        const container = configPage.querySelector(".config-page-container");
+        const iframe = configPage.querySelector(".config-page-iframe");
+        const dragArea = configPage.querySelector(".config-page-drag-area");
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        dragArea.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            iframe.style.pointerEvents = "none";
+            configPage.onmouseup = closeDragElement;
+            configPage.onmousemove = elementDrag;
+            var cursorStyle = window.getComputedStyle(event.target).cursor;
+            console.log("当前鼠标样式：" + cursorStyle);
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            container.style.top = (container.offsetTop - pos2) + "px";
+            container.style.left = (container.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            iframe.style.pointerEvents = "auto";
+            configPage.onmouseup = null;
+            configPage.onmousemove = null;
+        }
+
+        //#endregion
+        //#region 
+        configPage.querySelector(".config-page-close-btn").onclick = function () {
+            configPage.style.display = "none";
+        }
+        //#endregion
+    </script>
+</body>
+
+</html>
