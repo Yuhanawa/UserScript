@@ -1,12 +1,13 @@
 视频页宽屏, ["www.bilibili.com/video"], {
     '已开启$on': () => {
         function setSize() {
-            if (unsafeWindow.__INITIAL_STATE__) {
-                var i = unsafeWindow.__INITIAL_STATE__.pageVersion,
-                    e = unsafeWindow.__INITIAL_STATE__.isPrVideo;
-                "new_video" === i ? part1SetSize() : e && unsafeWindow.__INITIAL_STATE__.premiereInfo ? part1SetSize() : originSetSize()
-            } else originSetSize(),
-                part1SetSize()
+            // if (unsafeWindow.__INITIAL_STATE__) {
+            //     var i = unsafeWindow.__INITIAL_STATE__.pageVersion,
+            //         e = unsafeWindow.__INITIAL_STATE__.isPrVideo;
+            //     "new_video" === i ? part1SetSize() : e && unsafeWindow.__INITIAL_STATE__.premiereInfo ? part1SetSize() : originSetSize()
+            // } else originSetSize(),
+            //! 我也不知道上面的代码干什么用的，反正注释掉就正常了
+            part1SetSize()
         }
         function constructStyleString(i, e) {
             for (var t = i + " {",
