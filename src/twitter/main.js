@@ -311,7 +311,9 @@ setInterval(() => {
     }
 }, 500)
 
-const internalRule = parseRule(`
+let internalRuleStr = ""
+if ($get("twitter_internal_blocker", true)) {
+    internalRuleStr = `
 #rule-name
 内置屏蔽规则
 #rule-description
@@ -365,8 +367,9 @@ t.me/SegWKeC520
 /^我希望以后可以不用再送我回家，而是我们一起回我们的家/
 /^勇敢一点我们在.*就有故事/
 /^只要你主动一点点我们就会有机会.*线下/
-
-`)
+`
+}
+const internalRule = parseRule(internalRuleStr)
 
 const rules = new Set();
 const whiteList = new Set();

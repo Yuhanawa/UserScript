@@ -28,6 +28,12 @@
       "extra": "默认是小蓝鸟",
       "hidden": "{{ formData.icon === 'off' }}"
     },
+    "internal_blocker": {
+      "title": "是否启用内置屏蔽规则(推荐)",
+      "default": true,
+      "widget": "switch",
+      "type": "boolean"
+    },
     "show_note": {
       "title": "是否显示屏蔽提示",
       "default": true,
