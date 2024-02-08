@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TreeTransfer } from "./TreeTransfer.jsx";
+import { Tree } from 'antd';
 
 const treeData = [
   {
@@ -264,13 +264,30 @@ const treeData = [
   }
 ];
 const CSDN_UI_editor = (props) => {
-  const [targetKeys, setTargetKeys] = useState(props.value);
-  const onChange = (keys) => {
-    setTargetKeys(keys);
+  const [checkedKeys, setCheckedKeys] = useState(props.value);
+  const [expandedKeys, setExpandedKeys] = useState(props.value);
+  const onCheck = (keys) => {
+    setCheckedKeys(keys);
     props.onChange(keys);
   };
-  return <>
-    <TreeTransfer disabled={props.disabled} dataSource={treeData} targetKeys={targetKeys} onChange={onChange} />
-  </>
+
+  return (<>
+    <div style={{ width: "100%", backgroundColor: "white", padding: "2px", borderRadius: "4px" }}>
+      <h3 style={{ margin: "4px" }}>❗勾选要⌊隐藏⌉的部分❗</h3>
+      <Tree
+        blockNode
+        checkable
+        showLine
+        defaultExpandParent
+        checkedKeys={checkedKeys}
+        expandedKeys={expandedKeys}
+        onExpand={setExpandedKeys}
+        treeData={treeData}
+        onCheck={onCheck}
+        style={{ width: "100%", padding: "10px" }}
+      />
+    </div>
+
+  </>)
 };
 export default CSDN_UI_editor;
