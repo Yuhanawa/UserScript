@@ -27,7 +27,7 @@
       }
     },
     "opt": {
-      "title": "极简化|沉浸式阅读",
+      "title": "极简|沉浸式阅读",
       "default": "on",
       "widget": "select",
       "props": {
@@ -44,7 +44,7 @@
       }
     },
     "width": {
-      "title": "调整文章宽度(前置功能:极简化)",
+      "title": "调整文章宽度",
       "default": "on",
       "widget": "select",
       "props": {
@@ -61,7 +61,7 @@
       }
     },
     "width_value": {
-      "title": "文章宽度(前置功能:调整文章宽度)",
+      "title": "文章宽度",
       "default": "82",
       "props": {
         "addonAfter": "%"
@@ -70,41 +70,36 @@
       "hidden": "{{ formData.width === 'off' }}"
     },
     "header": {
-      "title": "顶部菜单栏不跟随",
-      "default": "on",
+      "title": "顶部菜单栏",
+      "default": "remove",
       "widget": "select",
       "props": {
         "options": [
           {
-            "label": "开启",
-            "value": "on"
+            "label": "移除",
+            "value": "remove"
           },
           {
-            "label": "关闭",
-            "value": "off"
-          }
-        ]
-      }
-    },
-    "remove_header": {
-      "title": "文章页移除顶部菜单栏",
-      "default": "on",
-      "widget": "select",
-      "props": {
-        "options": [
-          {
-            "label": "开启",
-            "value": "on"
+            "label": "半透明",
+            "value": "opacity"
           },
           {
-            "label": "关闭",
+            "label": "淡化不跟随",
+            "value": "opacity_static"
+          },
+          {
+            "label": "不跟随",
+            "value": "static"
+          },
+          {
+            "label": "显示",
             "value": "off"
           }
         ]
       }
     },
     "toolbox": {
-      "title": "低部菜单工具栏不跟随",
+      "title": "低部菜单工具栏",
       "default": "remove",
       "widget": "select",
       "props": {
@@ -118,13 +113,21 @@
             "value": "relative"
           },
           {
-            "label": "关闭",
+            "label": "半透明",
+            "value": "opacity"
+          },
+          {
+            "label": "淡化不跟随",
+            "value": "opacity_relative"
+          },
+          {
+            "label": "显示",
             "value": "off"
           }
         ]
       }
     },
-    ".line_fz": {
+    "#line_fz": {
       "widget": "line",
       "title": "调整字体大小"
     },
@@ -161,16 +164,16 @@
       "hidden": "{{ formData.fontsize === 'off' }}"
     },
     "font_size_code": {
-      "title": "代码",
+      "title": "代码块",
       "default": "15px",
       "hidden": "{{ formData.fontsize === 'off' }}"
     },
-    ".line_bg": {
+    "#line_bg": {
       "widget": "line",
       "title": "自定义背景"
     },
     "background": {
-      "title": "自定义背景(总开关)",
+      "title": "自定义背景(开关)",
       "default": "off",
       "widget": "select",
       "props": {
@@ -211,13 +214,13 @@
       "default": "#00000000",
       "widget": "color"
     },
-    ".line_ui": {
+    "#line_ui": {
       "widget": "line",
-      "title": "自定义开关每一个UI的",
-      "description": "开启为显示该模块,关闭为隐藏该模块"
+      "title": "自定义UI",
+      "description": "自定义UI需将‘UI净化预设’设置为自定义模式"
     },
     "ui_opt": {
-      "title": "UI净化",
+      "title": "UI净化预设",
       "default": "lite",
       "widget": "select",
       "props": {
@@ -242,8 +245,8 @@
       }
     },
     "ui_opt_value": {
-      "title": "UI净化",
-      "description": "需要UI净化为自定义模式",
+      "title": "自定义UI",
+      "description": "需要UI净化预设为自定义模式",
       "default": [
         "#treeSkill",
         "#blogVoteBox",

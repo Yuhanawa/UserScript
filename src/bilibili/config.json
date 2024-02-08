@@ -9,7 +9,7 @@
       "widget": "line",
       "title": "❗❗❗修改完记得点保存(在最下面)❗❗❗"
     },
-    ".line_mh": {
+    "#line_mh": {
       "widget": "line",
       "title": "美化",
       "description": "美化设置"
@@ -85,7 +85,7 @@
       },
       "description": "推荐范围1.00~1.30倍"
     },
-    ".line_mb": {
+    "#line_mb": {
       "widget": "line",
       "title": "护眼蒙版(前置功能:样式美化)",
       "description": "会在屏幕上添加一个半透明的蒙版",
@@ -121,7 +121,7 @@
       "hidden": "{{ formData.eye_protection_cover === 'off' }}",
       "widget": "color"
     },
-    ".line_gn": {
+    "#line_gn": {
       "widget": "line",
       "title": "功能",
       "description": "实用功能"
