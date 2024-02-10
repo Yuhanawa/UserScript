@@ -60,7 +60,7 @@ const treeData = [
             key: '#csdn-toolbar .toolbar-btn-mp',
             title: '创作中心',
           }, {
-            key: '#csdn-toolbar .toolbar-btn-writet',
+            key: '#csdn-toolbar .toolbar-btn-write',
             title: '发布',
           },
         ],
