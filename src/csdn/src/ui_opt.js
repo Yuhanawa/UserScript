@@ -1,5 +1,5 @@
 净化, [/blog\.csdn\.net(\/.*)?\/article\/details./], {
-    '极简化$lite': () => {
+    '极简$lite': (self) => {
         var value = [
             "#treeSkill",
             "#blogVoteBox",
@@ -37,13 +37,115 @@
             ".passport-container-mini-tip"
         ]
 
-        style(`${value.join(', ')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
+        self.hide(value)
     },
-    '常规$normal': () => {
+    '简|作者+目录$lite1': (self) => {
+        self.hide([
+            ".passport-container-mini-tip",
+            "#asideArchive",
+            "#csdn-toolbar .toolbar-menus",
+            "#csdn-toolbar .toolbar-btn-vip",
+            "#csdn-toolbar .toolbar-btn-msg",
+            "#csdn-toolbar .toolbar-btn-mp",
+            "#csdn-toolbar .toolbar-btn-writet",
+            "#footerRightAds",
+            "#asideProfile .item-rank",
+            "#asideProfile .aside-box-footer",
+            "#asideWriteGuide",
+            "#asideHotArticle",
+            "#asideNewComments",
+            "#asideNewNps",
+            "main .article-bar-top",
+            "main .article-title-box .article-type-img",
+            "#recommendNps",
+            "#commentBox",
+            "#pcCommentBox",
+            "#treeSkill",
+            "#blogVoteBox",
+            ".recommend-box",
+            ".first-recommend-box",
+            ".second-recommend-box",
+            ".insert-baidu-box.recommend-box-style",
+            ".blog-footer-bottom",
+            "#toolBarBox",
+            ".sidetool-writeguide-box",
+            ".option-box[data-type=guide]",
+            ".option-box[data-type=cs]",
+            ".option-box[data-type=report]",
+            "#csdn-toolbar .toolbar-logo",
+            "#csdn-toolbar .toolbar-container-left",
+            "#asideProfile .data-info",
+            "#asideCategory"
+        ])
+    }, '简|作者+目录+菜单$lite2': (self) => {
+        self.hide([
+            ".passport-container-mini-tip",
+            "#asideArchive",
+            "#csdn-toolbar .toolbar-menus",
+            "#csdn-toolbar .toolbar-btn-vip",
+            "#footerRightAds",
+            "#asideProfile .item-rank",
+            "#asideProfile .aside-box-footer",
+            "#asideWriteGuide",
+            "#asideHotArticle",
+            "#asideNewComments",
+            "#asideNewNps",
+            "main .article-bar-top",
+            "main .article-title-box .article-type-img",
+            "#recommendNps",
+            "#commentBox",
+            "#pcCommentBox",
+            "#treeSkill",
+            "#blogVoteBox",
+            ".insert-baidu-box.recommend-box-style",
+            ".blog-footer-bottom",
+            ".sidetool-writeguide-box",
+            ".option-box[data-type=guide]",
+            ".option-box[data-type=cs]",
+            ".option-box[data-type=report]",
+            "#csdn-toolbar .toolbar-logo",
+            "#csdn-toolbar .toolbar-container-left",
+            "#asideCategory",
+            ".first-recommend-box",
+            ".second-recommend-box",
+            ".recommend-box",
+            "#toolBarBox"
+        ])
+    }, '简|以上信息+推荐$lite3': (self) => {
+        self.hide([
+            ".passport-container-mini-tip",
+            "#asideArchive",
+            "#csdn-toolbar .toolbar-btn-vip",
+            "#footerRightAds",
+            "#asideProfile .item-rank",
+            "#asideProfile .aside-box-footer",
+            "#asideWriteGuide",
+            "#asideHotArticle",
+            "#asideNewComments",
+            "#asideNewNps",
+            "main .article-bar-top",
+            "main .article-title-box .article-type-img",
+            "#recommendNps",
+            "#treeSkill",
+            "#blogVoteBox",
+            ".insert-baidu-box.recommend-box-style",
+            ".blog-footer-bottom",
+            ".sidetool-writeguide-box",
+            ".option-box[data-type=guide]",
+            ".option-box[data-type=cs]",
+            ".option-box[data-type=report]",
+            "#asideCategory",
+            "#toolBarBox",
+            "#csdn-toolbar .toolbar-menus",
+            "#csdn-toolbar .toolbar-logo",
+            "#csdn-toolbar .toolbar-container-left"
+        ])
+    },
+    '常规$normal': (self) => {
         var value = [
             "#csdn-toolbar .toolbar-logo",
             "#csdn-toolbar .toolbar-btn-mp",
-            "#csdn-toolbar .toolbar-btn-writet",
+            "#csdn-toolbar .toolbar-btn-write",
             "#csdn-toolbar .toolbar-btn-msg",
             "#csdn-toolbar .toolbar-btn-vip",
             "#asideProfile .profile-intro-name-boxOpration",
@@ -52,7 +154,6 @@
             "#footerRightAds",
             "#asideWriteGuide",
             "#asideHotArticle",
-            "#asideCategory",
             "#asideNewComments",
             "#asideNewNps",
             "#asideArchive",
@@ -72,7 +173,7 @@
             ".passport-container-mini-tip"
         ]
 
-        style(`${value.join(', ')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
+        self.hide(value)
     },
     '自定义$custom': () => {
         style(`${$get('csdn_ui_opt_value')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
@@ -80,4 +181,6 @@
     '已关闭$off': () => {
 
     },
+}, hide: (value) => {
+    style(`${value.join(', ')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
 }
