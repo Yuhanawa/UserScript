@@ -37,7 +37,7 @@
             ".passport-container-mini-tip"
         ]
 
-        style(`${value.join(', ')} { display: none !important; }`)
+        style(`${value.join(', ')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
     },
     '常规$normal': () => {
         var value = [
@@ -72,10 +72,10 @@
             ".passport-container-mini-tip"
         ]
 
-        style(`${value.join(', ')} { display: none !important; }`)
+        style(`${value.join(', ')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
     },
     '自定义$custom': () => {
-        style(`${$get('csdn_ui_opt_value')} { display: none !important; }`)
+        style(`${$get('csdn_ui_opt_value')} { display: none !important; width: 0 !important; height: 0 !important; visibility: collapse !important; }`)
     },
     '已关闭$off': () => {
 
