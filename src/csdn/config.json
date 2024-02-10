@@ -34,6 +34,7 @@
     },
     "width": {
       "title": "调整文章宽度",
+      "description": "该功能仅当左侧边栏隐藏时生效",
       "default": "on",
       "widget": "select",
       "props": {
@@ -51,11 +52,11 @@
     },
     "width_value": {
       "title": "文章宽度",
+      "description": "(单位:%|百分比) 该功能仅当左侧边栏隐藏时生效",
       "default": "82",
       "props": {
         "addonAfter": "%"
       },
-      "description": "单位:%|百分比",
       "hidden": "{{ formData.width === 'off' }}"
     },
     "header": {
@@ -218,8 +219,20 @@
       "props": {
         "options": [
           {
-            "label": "极简化",
+            "label": "极简",
             "value": "lite"
+          },
+          {
+            "label": "简|作者+目录",
+            "value": "lite1"
+          },
+          {
+            "label": "简|作者+目录+菜单",
+            "value": "lite2"
+          },
+          {
+            "label": "简|以上信息+推荐",
+            "value": "lite3"
           },
           {
             "label": "常规",

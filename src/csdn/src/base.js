@@ -15,11 +15,20 @@ $, ['csdn.net'], () => {
         }, 100)
     }
 
+    timeoutOnLoad(() => {
+        const aside = document.getElementsByClassName('blog_container_aside')[0]
+        if (getComputedStyle(aside).display === 'none') {
+            style(`#mainBox { width: auto !important; }`);
+            style(`main { margin: 0px 6px 40px 6px }`);
+            if ($get('csdn_width', 'on') === 'on') {
+                style(`#mainBox > main{ width: 100% !important; }`);
+                style(`body #mainBox{ width: ${$get('csdn_width_value', '82')}% !important; }`);
+            }
+        }
+    }, 200)
 
-    if ($get('csdn_width', 'on') === 'on') {
-        style(`#mainBox > main{ width: 100% !important; }`);
-        style(`body #mainBox{ width: ${$get('csdn_width_value', '82')}% !important; }`);
-    }
+
+
 
     return $SASS(base);
 }
