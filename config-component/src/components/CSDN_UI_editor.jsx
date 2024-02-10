@@ -274,7 +274,9 @@ const CSDN_UI_editor = (props) => {
   return (<>
     <div style={{ width: "100%", backgroundColor: "white", padding: "2px", borderRadius: "4px" }}>
       <h3 style={{ margin: "4px" }}>❗勾选要⌊隐藏⌉的部分❗</h3>
+      {props.disabled && (<h3 style={{ margin: "3px 5px" }}> 仅当UI净化预设为自定义时启用</h3>)}
       <Tree
+        disabled={props.disabled}
         blockNode
         checkable
         showLine
