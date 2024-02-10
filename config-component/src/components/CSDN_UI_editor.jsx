@@ -116,7 +116,7 @@ const treeData = [
           },
           {
             key: '#asideCategory',
-            title: '收藏',
+            title: '分类专栏',
           }, {
             key: '#asideNewComments',
             title: '最新评论',
