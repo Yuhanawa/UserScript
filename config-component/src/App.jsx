@@ -24,7 +24,7 @@ function App() {
 
     window.history.pushState(null, '',
       searchParams.toString() === ""
-        ? "/"
+        ? "."
         : `?${searchParams.toString()}`
     )
 
