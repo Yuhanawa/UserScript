@@ -117,7 +117,7 @@ const FromMain = ({ menuKey }) => {
                     <Radio.Group value={fromDisplayType} onChange={handFromDisplayType} style={{ margin: "0px 6px" }}>
                         <Radio.Button value='row'>row</Radio.Button>
                         <Radio.Button value='column'>column</Radio.Button>
-                        <Radio.Button value='inline'>Inline</Radio.Button>
+                        <Radio.Button value='inline' disabled>Inline</Radio.Button>
                     </Radio.Group>
                     <Radio.Group value={fromColumn} onChange={handFromColumnChange} style={{ margin: "0px 6px" }}>
                         <Radio.Button value={1}>一列</Radio.Button>
