@@ -26,22 +26,11 @@
         ]
       }
     },
-    "opt": {
-      "title": "极简|沉浸式阅读",
-      "default": "on",
-      "widget": "select",
-      "props": {
-        "options": [
-          {
-            "label": "开启",
-            "value": "on"
-          },
-          {
-            "label": "关闭",
-            "value": "off"
-          }
-        ]
-      }
+    "beautify": {
+      "title": "细节优化",
+      "default": true,
+      "widget": "switch",
+      "type": "boolean"
     },
     "width": {
       "title": "调整文章宽度",
@@ -201,16 +190,19 @@
       "title": "文章背景",
       "description": "用于放置文章的div颜色",
       "default": "#f5f6f7E6",
+      "hidden": "{{ formData.background === 'off' }}",
       "widget": "color"
     },
     "blog-content-box-opacity-value": {
       "title": "文章透明度",
       "description": "文章整体透明度,包括文章内容",
+      "hidden": "{{ formData.background === 'off' }}",
       "default": "0.98"
     },
     "header-box-background-value": {
       "title": "文章标题及部分卡片背景",
       "description": "建议保持透明或使用高透明度颜色",
+      "hidden": "{{ formData.background === 'off' }}",
       "default": "#00000000",
       "widget": "color"
     },
