@@ -13,8 +13,8 @@
     #csdn-toolbar:focus-within,
     #csdn-toolbar:active {
       opacity: 1;
-      backdrop-filter: blur(0px);
-      filter: blur(0px);
+      backdrop-filter: none;
+      filter: none;
     } `,
   '淡化不跟随$opacity_static':
     `#csdn-toolbar{position: static !important; opacity: 0.5; transition: opacity 1.5s!important;} #csdn-toolbar:hover{opacity: 1;}`,
