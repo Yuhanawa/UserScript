@@ -1,0 +1,50 @@
+.sidenav
+    width: fit-content
+    font-size: larger
+    & .sidenav-item
+        margin: 2px !important
+        padding: 14px
+        border-radius: 16px
+        & img
+            width: 24px
+            height: 24px
+
+        &:hover:not(.current-nav)
+            background: #cccccccc
+
+.sidenav-item.current-nav,.sidenav-category-active
+    padding: 14px !important
+    margin: 2px 4px 2px 2px !important
+    font-weight: bold
+    & img
+        width: 26px
+        height: 26px
+        box-shadow: inset 0px 0px 12px 32px #cdffffd9, -6px 3px 12px 6px #00ffff1f
+        border-radius: 18px
+
+#sidenav_more .dropdown-menu
+    left: 6px
+    top: 85%
+    font-size: large
+    &:hover
+        box-shadow: 2px 5px 16px 4px #ccc
+
+.post-list>.post-item>.post-item-body>.post-item-text>.post-item-title
+    font-weight: bold
+    font-size: 18px
+
+.post-list>.post-item>.post-item-body>.post-item-text>.post-item-summary
+    font-size: 14px
+
+.card.headline
+    background: #f0f8ffde
+    border-radius: 16px
+    box-shadow: 2px 2px 14px 1px #f0f8ffde
+    &:before
+        // content: "📢头条: "
+    & a
+        font-size: 14px
+        color: #003aae
+    .headline-label
+        font-size: 16px
+        color: #4242fb 

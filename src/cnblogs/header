@@ -1,0 +1,17 @@
+// ==UserScript==
+// @name        cnblogs garden
+// @name:zh      博客花园(cnblogs 博客园美化)
+// @description  better cnblogs
+// @description:zh  cnblogs 博客园 美化 增强
+// @namespace    http://github.com/yuhanawa/UserScript
+// @version      0.1.0
+// @author       Yuhanawa
+// @license      GPL-3.0
+// @icon         none
+// @run-at       document-start
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_addStyle
+// @grant        GM_registerMenuCommand
+// @match        cnblogs.com
+// ==/UserScript==
