@@ -13,5 +13,5 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
-// @match        cnblogs.com
+// @match        *://cnblogs.com/*
 // ==/UserScript==
