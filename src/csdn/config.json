@@ -282,7 +282,8 @@
         ".first-recommend-box",
         ".second-recommend-box",
         ".recommend-box",
-        "#toolBarBox"
+        "#toolBarBox",
+        ".passport-login-container"
       ],
       "widget": "CSDN_UI_editor",
       "disabled": "{{ formData.ui_opt !== 'custom' }}"

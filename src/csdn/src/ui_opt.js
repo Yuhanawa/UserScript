@@ -34,7 +34,8 @@
             "#asideNewNps",
             "#asideArchive",
             "#asidedirectory",
-            ".passport-container-mini-tip"
+            ".passport-container-mini-tip",
+            '.passport-login-container'
         ]
 
         self.hide(value)
@@ -75,7 +76,8 @@
             "#csdn-toolbar .toolbar-logo",
             "#csdn-toolbar .toolbar-container-left",
             "#asideProfile .data-info",
-            "#asideCategory"
+            "#asideCategory",
+            '.passport-login-container'
         ])
     }, '简|作者+目录+菜单$lite2': (self) => {
         self.hide([
@@ -109,7 +111,8 @@
             ".first-recommend-box",
             ".second-recommend-box",
             ".recommend-box",
-            "#toolBarBox"
+            "#toolBarBox",
+            '.passport-login-container'
         ])
     }, '简|以上信息+推荐$lite3': (self) => {
         self.hide([
@@ -170,7 +173,8 @@
             ".option-box[data-type=guide]",
             ".option-box[data-type=cs]",
             ".option-box[data-type=report]",
-            ".passport-container-mini-tip"
+            ".passport-container-mini-tip",
+            '.passport-login-container'
         ]
 
         self.hide(value)

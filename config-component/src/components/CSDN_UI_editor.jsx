@@ -261,6 +261,9 @@ const treeData = [
   }, {
     key: '.passport-container-mini-tip',
     title: '右下角登录提示'
+  }, {
+    key: '.passport-login-container',
+    title: '登录弹窗'
   }
 ];
 const CSDN_UI_editor = (props) => {
