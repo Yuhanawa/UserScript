@@ -1,5 +1,6 @@
 name: 美化
-match: ['.']
+match: 
+    - 'www.cnblogs.com'
 directlyRun: true
 ,
 $SASS(base)
