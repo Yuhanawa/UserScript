@@ -1,5 +1,5 @@
 *
-    transition: all 0.15s
+    transition: all 0.1s
 
 #side_nav
     position: sticky
@@ -20,6 +20,10 @@
             &:hover:not(.current-nav)
                 background: #cccccccc
 
+            .dropdown-button>a
+                display: flex
+                align-items: center
+
         .sidenav-item.current-nav,.sidenav-category-active
             padding: 14px !important
             margin: 2px 4px 2px 2px !important
@@ -30,11 +34,12 @@
                 box-shadow: inset 0px 0px 12px 32px #cdffffd9, -6px 3px 12px 6px #00ffff1f
                 border-radius: 18px
 
-#sidenav_more .dropdown-menu
-    left: 6px
-    top: 85%
-    font-size: large
-    &:hover
+#sidenav_more
+    .dropdown-menu
+        left: 6px
+        top: 85%
+        font-size: large
+    &:hover .dropdown-menu
         box-shadow: 2px 5px 16px 4px #ccc
 
 .post-list
