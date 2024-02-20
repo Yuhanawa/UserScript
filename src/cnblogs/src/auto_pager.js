@@ -12,7 +12,6 @@ directlyRun: true
             unsafeWindow.nextPage = nextPage
 
             setInterval(() => {
-                console.log((document.body.offsetHeight - window.scrollY - window.innerHeight) < window.innerHeight);
                 if ((document.body.offsetHeight - window.scrollY - window.innerHeight) < window.innerHeight * 2) {
                     nextPage();
                 }
