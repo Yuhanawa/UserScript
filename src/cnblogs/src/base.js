@@ -1,7 +1,5 @@
 name: 美化
 match: ['.']
+directlyRun: true
 ,
-{
-    已关闭$off: null,
-    已开启$on: $SASS(base),
-}
+$SASS(base)
