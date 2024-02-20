@@ -1,0 +1,77 @@
+.skin-lessismoreright
+    #blogTitle
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        align-content: stretch
+        justify-content: center
+        align-items: baseline
+        padding: 12px
+        .title:after
+            content: ' | '
+            white-space: pre
+        .subtitle
+            font-size: 15.5pt
+            color: #222
+            &::before
+                content: ' '
+                white-space: pre
+    #main
+        padding: 4px 20px
+        .post
+            .postTitle
+                border-bottom: 1px solid #4277ce88
+                border-bottom-style: dashed
+                font-size: 24px
+                font-weight: bold
+                margin: 20px 0 12px
+                width: fit-content
+
+            .postBody
+                color: #000000fc
+                font-size: 15px
+                line-height: 25px
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+            #blog_post_info
+                height: fit-content
+                width: -webkit-fill-available
+                display: inline-flex
+                flex-direction: row
+                justify-content: space-between
+
+                #author_profile
+                    border: 1px solid #ccc
+                    background: aliceblue
+                    padding: 12px 14px 0px
+                    width: fit-content
+                    height: 88px
+                    border-radius: 6px
+                    a
+                        text-decoration: none
+                        color: #000000fc
+                        font-size: 14px
+                        margin: 2px
+                    #author_profile_follow
+                        position: relative
+                        float: right
+                        top: -18px
+                        a
+                            color: #06c
+                    .author_avatar
+                        margin-right: 16px
+                        border: 1px solid #80808080
+                        border-radius: 6px
+                        width: 64px
+
+        #blog-comments-placeholder
+            .feedback_area_title
+                font-size: 18px
+            .layer
+                color: gray
+            .blog_comment_body
+                font-size: 15px
+                color: #000000fc
+
+    .commentbox_main.comment_textarea
+        width: 100%
