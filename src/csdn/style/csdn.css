@@ -87,8 +87,8 @@ main
 pre .hljs-button {
   display: block;
   position: absolute;
-  right: 4px;
-  top: 4px;
+  right: 2px;
+  top: 2px;
   font-size: 12px;
   color: #ffffff;
   background-color: #666666;
