@@ -1,7 +1,7 @@
 name: sidenav
 match:
     - /www.cnblogs.com\/[^\/]*$/
-    - /www.cnblogs.com\/(pick|candidate|subscription|following|aggsite|cate|comment)\//
+    - /www.cnblogs.com\/(sitehome|pick|candidate|subscription|following|aggsite|cate|comment)\//
 directlyRun: true
     ,
     () => {
