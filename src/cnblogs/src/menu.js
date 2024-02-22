@@ -3,6 +3,7 @@ match:
     - /www.cnblogs.com\/[^\/]*$/
     - /www.cnblogs.com\/(sitehome|pick|candidate|subscription|following|aggsite|cate|comment)\//
 directlyRun: true
+switchable: true
     ,
     () => {
         onload(() => {
@@ -19,15 +20,16 @@ directlyRun: true
                 sidenav.insertAdjacentElement(pos, li)
                 return li
             }
-            // const sidenav_ing = insertNavItem("afterBegin", "sidenav_ing", "#ing", "动态", "")
-            // sidenav_ing.addEventListener("click", () => {
-            //     show_ing()
-            // })
+            const sidenav_ing = insertNavItem("afterBegin", "sidenav_ing", "#ing", "闪存", "/images/icons/message.svg?v=9K5-cNsbJbeitPFRa_xhJlz37hiIsm4mu7-MMPgi9LQ")
+            sidenav_ing.addEventListener("click", () => show_ing_iframe())
 
             const sidenav_home = insertNavItem("afterBegin", "sidenav_home", "/", "主页", document.getElementById("user_icon").src)
-            if (/www.cnblogs.com\/[^\/]*$/.test(location.href)) {
+            if (/www.cnblogs.com\/#ing*$/.test(location.href)) {
+                sidenav_ing.className += " current-nav"
+            } else if (/www.cnblogs.com\/[^\/]*$/.test(location.href)) {
                 sidenav_home.className += " current-nav"
             }
+
             setTimeout(() => {
                 sidenav_home.querySelector('img').src = document.getElementById("user_icon").src
             }, 320);
