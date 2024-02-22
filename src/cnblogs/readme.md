@@ -1,14 +1,15 @@
 > 脚本目前已可以使用，但由于刚刚开始开发，仅实现了部分功能
 
-## 博客花园 -- 一个博客园美化脚本
+## 博客花园 -- 一个博客园美化/增强脚本
 
-脚本会对页面进行美化, 至少让它看起来现代化  
-对于博客页面, 脚本识别主题, 如果是比较简陋的主题, 那就对他进行美化
+脚本会对博客园首页和部分主题进行美化和增强
 
-图片来自 2024-02-22 日  
+图片来自 2024-02-22
 ![image.png](https://s2.loli.net/2024/02/22/aGYp6m3osOLIUjl.png)
 
 .
+
+下面内容似乎在 greasyfork 无法正常显示, 可以前往[readme.md](https://github.com/Yuhanawa/UserScript/blob/master/src/cnblogs/readme.md)查看
 
 ### 目前进度
 
