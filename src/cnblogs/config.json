@@ -1,7 +1,7 @@
 {
   "beta": true,
   "name": "cnblogs_garden",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "properties": {
     ".line_bc": {
       "widget": "line",
