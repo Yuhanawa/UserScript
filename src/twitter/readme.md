@@ -5,9 +5,11 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)
 
 
-## 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
-因此，所有的bug和功能需要等到春节才能进行修复
-
+> 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
+> 因此，所有的bug和功能需要等到春节才能进行修复
+>  
+> 开学了...
+> 2024-2月
 
 
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)
