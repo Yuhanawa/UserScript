@@ -256,7 +256,11 @@ const treeData = [
       }, {
         key: '.option-box[data-type=gotop]',
         title: '返回顶部',
+      },{
+        key: '.btn-side-chatdoc-contentbox',
+        title: 'C知道AI机器人',
       },
+
     ],
   }, {
     key: '.passport-container-mini-tip',

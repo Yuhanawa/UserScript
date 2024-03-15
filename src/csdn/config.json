@@ -276,6 +276,7 @@
         ".option-box[data-type=guide]",
         ".option-box[data-type=cs]",
         ".option-box[data-type=report]",
+        ".btn-side-chatdoc-contentbox",
         "#csdn-toolbar .toolbar-logo",
         "#csdn-toolbar .toolbar-container-left",
         "#asideCategory",
