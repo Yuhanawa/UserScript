@@ -1,15 +1,17 @@
 # CSDN-优化美化极简化-沉浸式阅读-免登录复制-去广告等
 
+[茧绡-茧喻污秽;绡(wan)指轻柔的丝绸;剥茧化绸,使 CSDN 重现柔曼如丝的新颜;]
+
+
 [[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
 [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471071): https://greasyfork.org/zh-CN/scripts/471071
 
-> ~~ 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜  ~~  
-> ~~  因此，所有的 bug 和功能需要等到春节才能进行修复  ~~  
+> ~~ 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜ ~~  
+> ~~ 因此，所有的 bug 和功能需要等到春节才能进行修复 ~~  
 > 2023-12 月
->  
+>
 > 开学了...
-> 2024-2月
-
+> 2024-2 月
 
 部分功能默认关闭, 需手动开启
 

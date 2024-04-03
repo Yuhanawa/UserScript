@@ -1,16 +1,16 @@
 ## Twitter Tweets(X Posts) Blocker & Filter
 
+[月潆-月为月光;潆为溪流代指推特信息流;以皎洁高雅的月光洗礼信息溪流;]
+
 Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 
 [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)
 
-
 > 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
-> 因此，所有的bug和功能需要等到春节才能进行修复
->  
+> 因此，所有的 bug 和功能需要等到春节才能进行修复
+>
 > 开学了...
-> 2024-2月
-
+> 2024-2 月
 
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)
 
@@ -95,3 +95,5 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 - 自动屏蔽触发脚本屏蔽功能的推特账号
 - 隐藏更新提示
 - 转推白名单
+
+
