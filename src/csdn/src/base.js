@@ -1,5 +1,7 @@
 $, ['csdn.net'], () => {
+    // 可能存在问题，临时删除
     if ($get('csdn_beautify', true)) {
+        if (false) {
         timeoutOnLoad(() => {
             // 移动文字标签位置
             const taghtml = document.getElementsByClassName("blog-tags-box")[0].outerHTML + "";
@@ -12,7 +14,9 @@ $, ['csdn.net'], () => {
             document.getElementsByClassName("left-toolbox")[0].style.left = "auto";
             // 删除不美观的冒号
             document.getElementsByClassName("blog-tags-box")[0].innerHTML = document.getElementsByClassName("blog-tags-box")[0].innerHTML.replaceAll("：", "");
-        }, 100)
+        }, 100)            
+        }
+
     }
 
     fn = () => {
