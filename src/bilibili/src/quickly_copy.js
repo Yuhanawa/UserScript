@@ -22,12 +22,13 @@
     const copy_btn = document.createElement('span')
     copy_btn.title = `复制当前视频的${title}`
     copy_btn.style.cursor = 'pointer'
+    copy_btn.style.fontSize = '22px'
     copy_btn.innerText = '🏷️'
     copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
 
     document.querySelector('h1.video-title').append(copy_btn);
 
-    if ($get("quickly_copy_hotkey",'off') === 'on') {
+    if ($get("quickly_copy_hotkey", 'off') === 'on') {
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key === 'c') {
                 navigator.clipboard.writeText(text)
