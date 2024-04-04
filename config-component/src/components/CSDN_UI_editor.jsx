@@ -198,6 +198,16 @@ const treeData = [
                 key: '#blogVoteBox',
                 title: '投票',
               },
+              {
+                key: '#blogExtensionBox',
+                title: 'blogExtensionBox',
+                children: [
+                  {
+                    key: '#blogExtensionBox .extension_official',
+                    title: '微信名片',
+                  }
+                ]
+              },
             ],
           },
           {
