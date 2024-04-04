@@ -38,7 +38,7 @@ main
 #mainBox {
   margin: auto;
   width: auto !important;
-  height: auto !important;
+  height: fit-content !important;
   padding: 0 !important;
   padding-left: 0 !important;
   overflow: hidden;
@@ -103,7 +103,6 @@ main div.blog-content-box pre.set-code-hide {
   height: auto !important;
 }
 
-
 /* 文章顶部信息 */
 .article-info-box {
   opacity: 0.92;
@@ -117,10 +116,27 @@ main div.blog-content-box pre.set-code-hide {
   display: none !important;
 }
 /* 右侧写作中心按钮 */
-.sidetool-writeguide-box{
-   display: none !important;
+.sidetool-writeguide-box {
+  display: none !important;
 }
 /* 登录想更多权益 */
-.passport-container-mini-tip{
+.passport-container-mini-tip {
   display: none !important;
+}
+
+/* 文章标签 间距等 */
+.tags-box.artic-tag-box {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.article-info-box .bar-content {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.article-info-box .bar-content .read-count-box {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
