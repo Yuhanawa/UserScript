@@ -173,7 +173,19 @@ const treeData = [
               {
                 key: '#blogColumnPayAdvert',
                 title: '专栏收录',
-              },              
+                children: [
+                  {
+                    key: '#blogColumnPayAdvert .column-group0',
+                    title: '第一项专栏',
+                  }, {
+                    key: '#blogColumnPayAdvert .column-group1',
+                    title: '第二项专栏(仅适用于多专栏收录的情况)',
+                  }, {
+                    key: '#blogColumnPayAdvert .column-group2',
+                    title: '第三项专栏(仅适用于多专栏收录的情况)',
+                  }
+                ]
+              },
               {
                 key: '#article_content',
                 title: '文章内容',
@@ -260,7 +272,7 @@ const treeData = [
       }, {
         key: '.option-box[data-type=gotop]',
         title: '返回顶部',
-      },{
+      }, {
         key: '.btn-side-chatdoc-contentbox',
         title: 'C知道AI机器人',
       },
