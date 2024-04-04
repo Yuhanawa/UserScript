@@ -20,7 +20,7 @@ switchable: true
                 sidenav.insertAdjacentElement(pos, li)
                 return li
             }
-            const sidenav_ing = insertNavItem("afterBegin", "sidenav_ing", "#ing", "闪存", "/images/icons/message.svg?v=9K5-cNsbJbeitPFRa_xhJlz37hiIsm4mu7-MMPgi9LQ")
+            const sidenav_ing = insertNavItem("afterBegin", "sidenav_ing", "#ing", "闪存", "https://assets.cnblogs.com/images/ing/lucky-star-3-1.png")
             sidenav_ing.addEventListener("click", () => show_ing_iframe())
 
             const sidenav_home = insertNavItem("afterBegin", "sidenav_home", "/", "主页", document.getElementById("user_icon").src)
