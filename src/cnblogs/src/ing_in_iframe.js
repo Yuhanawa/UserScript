@@ -10,16 +10,13 @@ directlyRun: true
 
         var style = style + $SASS(ing_in_iframe)
         var refreshHeight = () => {
-            console.log(document.documentElement);
             unsafeWindow.parent.postMessage({
                 type: "resizeIframe",
                 height: document.body.scrollHeight ?? document.body.clientHeight + 220
             }, "*")
         }
-
         const observer = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
-                console.log(mutation);
                 // 遍历所有变化
                 if (mutation.type === 'childList') {
                     refreshHeight()
@@ -40,6 +37,55 @@ directlyRun: true
         })
 
 
+        timeoutOnLoad(() => {
+            // if (!document.querySelector(".pager")) return
+
+            var timeout = 0
+            setInterval(() => { if (timeout > 0) timeout-- }, 1000);
+            unsafeWindow.nextPage = nextPage
+            document.querySelectorAll('.pager').forEach(el => el.remove())
+
+            function receiveMessage(event) {
+                const data = event.data
+                switch (data.type) {
+                    case "nextPage":
+                        nextPage();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            if ($get("cnblogs_auto_pager_ing_switch")) {
+                unsafeWindow.addEventListener("message", receiveMessage, false);
+            }
+
+
+            function nextPage() {
+                if (timeout > 0) return
+                timeout = 3;
+
+                IngListType = "All"
+                PageIndex = 2
+                getPage(`/ajax/ing/GetIngList?IngListType=${IngListType}&PageIndex=${PageIndex}&PageSize=30&Tag=&_=${Date.now()}`, {
+                    onload: (response) => {
+                        try {
+                            const doc = response.responseText
+                            document.querySelector('.feed_block').insertAdjacentHTML('beforeend', doc);
+
+                            document.querySelectorAll('.feed_loading').forEach(el => el.remove())
+                            document.querySelector('.feed_block').insertAdjacentHTML('beforeend', `<div class="feed_loading"><img align="absmiddle" src="//assets.cnblogs.com/images/loading.gif" alt=""> 正在加载数据...</div>`);
+                            PageIndex++
+                        } catch (e) {
+                            console.error('ERR', e, response.responseText);
+                        }
+                    },
+                    onerror: (response) => {
+                        console.error(`ERR: URL:${url}`, response);
+                    }
+                })
+            }
+        }, 400)
 
 
         return style

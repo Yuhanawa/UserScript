@@ -9,7 +9,7 @@
     },
     ".line_sw": {
       "widget": "line",
-      "title": "❗❗❗开关还没做好❗❗❗"
+      "title": "❗开关还没做完❗"
     },
     "logo_switch": {
       "title": "LOGO替换",
@@ -19,6 +19,12 @@
     },
     "menu_switch": {
       "title": "首页左侧菜单增强",
+      "default": true,
+      "widget": "switch",
+      "type": "boolean"
+    },
+    "auto_pager_ing_switch": {
+      "title": "闪存自动翻页开关",
       "default": true,
       "widget": "switch",
       "type": "boolean"
