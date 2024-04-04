@@ -171,6 +171,10 @@ const treeData = [
             title: '文章',
             children: [
               {
+                key: '#blogColumnPayAdvert',
+                title: '专栏收录',
+              },              
+              {
                 key: '#article_content',
                 title: '文章内容',
               },
