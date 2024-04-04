@@ -17,8 +17,9 @@ html,:root
             background-color: rgb(255 255 255 / 68%) !important
 
         .bili-video-card__wrap,.bili-live-card__wrap,  // 主页card
-        .floor-card-inner   // 主页特殊card    
+        .floor-card-inner   // 主页特殊card
             background-color: rgb(255 255 255 / 72%) !important
+            box-shadow: 1px 1px 4px 0px whitesmoke
 
         #i_cecream // 主页
             background-color: rgb(255 255 255 / 24%) !important
@@ -30,10 +31,13 @@ html,:root
             display: none
         .floor-card
             background: transparent
-        
+
         .bili-video-card__wrap,.bili-live-card__wrap  // 主页card
-            padding: 2px 2px 4px 2px
+            padding: 2px 1px 4px 2px
             border-radius: 8px
+            .bili-video-card__image .v-img.bili-video-card__cover
+                border-radius: 6px 6px 1px 1px
+
             .bili-video-card__info,.bili-live-card__info
                 padding: 0px 4px 4px
         .bili-live-card__wrap
@@ -80,15 +84,22 @@ html,:root
             padding-left: 12px
             padding-right: 12px
             border: 0
-            opacity: 0.8
+            opacity: 0.85
             background-color: rgba(255,255,255,0.65) !important
             border-radius: 0 0 6px 6px
+            transition: opacity 0.1s ease-in 0s
+            &:hover,&:focus
+                opacity: 1
 
         // 简介
         .video-desc-container
             padding: 10px 8px 14px 8px
             margin: 0
             opacity: 0.68
+            transition: opacity 0.1s ease-in 0s
+            &:hover,&:focus
+                opacity: 1
+
         // 标签
         .video-tag-container
             margin: 0
@@ -128,6 +139,25 @@ html,:root
         // 弹幕列表
         .danmaku-wrap > .bpx-docker
             background: transparent
+
+        // 标题栏
+        #viewbox_report
+            margin-bottom: 16px
+            padding: 2px
+            height: fit-content
+            transition: all 0.35s
+            &:hover, &:focus
+                box-shadow: 1px -1px 6px 4px whitesmoke
+                background-color: whitesmoke
+                padding: 4px
+                font-size: 13px
+                border-radius: 12px
+
+        .video-info-container
+            padding-top: 4px
+            margin-top: 20px
+            .show-more
+                display: none
 
         // 播放器背景
         #bilibili-player-placeholder
