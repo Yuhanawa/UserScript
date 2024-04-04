@@ -3,7 +3,6 @@ function receiveMessage(event) {
     const data = event.data
     switch (data.type) {
         case "resizeIframe":
-            console.log('receiveMessage', data)
             document.getElementById("ing_iframe").style.height = `${data.height}px`;
             break;
 
