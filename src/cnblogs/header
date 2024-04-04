@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         cnblogs garden
-// @name:zh      博客花园(cnblogs 博客园美化)
-// @name:zh-CN   博客花园(cnblogs 博客园美化)
+// @name:zh      博客花园-博客园(cnblogs)美化增强
+// @name:zh-CN   博客花园-博客园(cnblogs)美化增强
 // @description        better cnblogs
-// @description:zh     cnblogs 博客园 美化 增强
-// @description:zh-CN  cnblogs 博客园 美化 增强
+// @description:zh     博客园 首页及文章美化/自动翻页字体放大/样式调整等
+// @description:zh-CN  博客园 首页及文章美化/自动翻页/字体放大/样式调整等
 // @namespace    http://github.com/yuhanawa/UserScript
 // @version      0.1.0
 // @author       Yuhanawa
