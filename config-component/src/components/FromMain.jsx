@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import Line from './Line.jsx';
 import Twitter_user_rule_editor from './Twitter_user_rule_editor.jsx';
+import Twitter_rules_viewer from './Twitter_rules_viewer.jsx';
 import CSDN_UI_editor from './CSDN_UI_editor.jsx';
 import { Button, Anchor, Form, Radio } from 'antd';
 
@@ -30,7 +31,7 @@ const FromMain = ({ menuKey }) => {
         form.setSchema(schema, true);
         setFromDisplayType(value);
     };
-    
+
 
     if (window.userscript?.[menuKey])
         winProps = window.userscript[menuKey].props;
@@ -82,7 +83,7 @@ const FromMain = ({ menuKey }) => {
         console.log('formData:', data);
 
         for (const key of Object.keys(data)) {
-            if (key.startsWith('.')||key.startsWith('#')) continue;
+            if (key.startsWith('.') || key.startsWith('#')) continue;
 
             const value = data[key]
             // biome-ignore lint/suspicious/noDoubleEquals: <explanation>
@@ -97,7 +98,7 @@ const FromMain = ({ menuKey }) => {
 
     const onSaveBtnClick = () => form.submit();
     const onCancelBtnClick = () => location.reload();
-  
+
 
     return (
         <>
@@ -131,7 +132,7 @@ const FromMain = ({ menuKey }) => {
             <FormRender
                 form={form}
                 schema={schema}
-                widgets={{ Line, Twitter_user_rule_editor, CSDN_UI_editor }}
+                widgets={{ Line, Twitter_user_rule_editor, CSDN_UI_editor, Twitter_rules_viewer }}
                 onFinish={onFinish}
                 maxWidth={360}
                 footer={false}
