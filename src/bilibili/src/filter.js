@@ -1,8 +1,8 @@
 bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"], {
   // TODO 
-
-  '测试中$beta': null,
-  已开启_测试_$on: (f) => {
+  已关闭$off: null,
+  已开启_测试版本_$on: (f) => {
+    var rules = f.rules()
     const check = (x) => {
       try {
         // 获取回复内容元素
@@ -15,7 +15,7 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
         if (Number(ctx.outerText) > $get("bilibili_filter_length_limit", 25)) return;
         if (ctx.innerHTML !== "" && ctx.innerText === "") return
 
-        for (const r of f.rules) {
+        for (const r of rules) {
           if (r.test((x.getElementsByClassName("reply-content")[0].outerText))) {
             x.classList.add("🎇filtered");
             console.log(`已屏蔽: ${x.getElementsByClassName("reply-content")[0].outerText} \n 规则: ${r.toString()}`);
@@ -33,18 +33,21 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
     }, 2000)
 
     return `.🎇filtered{display:none;}`;
-  },
-  已关闭$off: null,
-}, rules: [
-  /^.?6{1,12}.?$/,
-  /考古/,
-  /^.{0,8}小号.{0,8}$/,
-  /^(@.{1,12}\s?.{0,12}){1,24}$/,
-  /压缩毛巾/,
-  /你说得对/,
-  /答辩/,
-  /爷/,
-  /谁问你了/,
-  /亡灵军团/,
-  /死灵法师/
-]
+  }
+}, rules: () => {
+  try {
+    return $get("bilibili_filter_rules").split("\n")
+      .filter((x) => x.trim() !== "")
+      .map((x) => {
+        if (x.startsWith("/") && x.endsWith("/")) {
+          return x.substring(1, x.length - 1);
+        }
+        return x;
+      })
+      .filter((x) => x.trim() !== "")
+      .map((x) => new RegExp(x));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}

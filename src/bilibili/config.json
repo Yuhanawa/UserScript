@@ -121,10 +121,10 @@
       },
       "description": "推荐范围1.00~1.30倍"
     },
-    "widescreen_hide_title_onWide":{
+    "widescreen_hide_title_onWide": {
       "title": "剧场模式下隐藏视频标题",
-      "type":"boolean",
-      "default":false,
+      "type": "boolean",
+      "default": false,
       "hidden": "{{ formData.widescreen === 'off' }}"
     },
     "#line_mb": {
@@ -213,6 +213,39 @@
           }
         ]
       }
+    },
+    "filter": {
+      "title": "评论过滤",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "filter_rules": {
+      "title": "正则过滤规则",
+      "type": "string",
+      "defaultValue": "/^.?6{1,12}.?$/ \n/^(@.{1,12}\\s?.{0,12}){1,24}$/ \n/压缩毛巾/ \n/答辩/ \n/爷/ \n/谁问你了/ \n/亡灵军团/ \n/死灵法师/ \n",
+      "props": {
+        "placeholder": "",
+        "autoSize": true
+      },
+      "description": "",
+      "tooltip": {
+        "title": "使用正则表达式,一行一个"
+      },
+      "extra": "这是一个搁置很久的功能, 可能存在bug",
+      "widget": "textArea",
+      "hidden": "{{ formData.filter === 'off' }}"
     },
     "hotkey": {
       "title": "按ESC关闭评论区图片",
