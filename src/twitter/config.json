@@ -101,6 +101,15 @@
       "extra": "一行一条",
       "widget": "textArea"
     },
+    "feed_rule_cache": {
+      "title": "规则查看",
+      "default": "",
+      "props": {
+        "autoSize": true
+      },
+      "extra": "目前支持预览功能,未来将支持快速添加与删除",
+      "widget": "Twitter_rules_viewer"
+    },
     ".feed_rule_recommend": {
       "title": "订阅推荐",
       "default": "黄推屏蔽v2:https://yuhan-script-config.netlify.app/htv2.txt | 黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr \n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
