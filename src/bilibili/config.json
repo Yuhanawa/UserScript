@@ -32,7 +32,25 @@
       }
     },
     "beautify_work_on_index": {
-      "title": "美化首页(前置功能:样式美化)",
+      "title": "美化首页",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "background": {
+      "title": "自定义背景开关",
       "default": "on",
       "widget": "select",
       "props": {
@@ -55,6 +73,24 @@
       "hidden": "{{ formData.beautify === 'off' }}",
       "widget": "imageInput",
       "format": "image"
+    },
+    "video_radius": {
+      "title": "视频小圆角",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
     },
     "widescreen": {
       "title": "宽屏功能",
