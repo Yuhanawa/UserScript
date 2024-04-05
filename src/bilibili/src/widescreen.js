@@ -91,6 +91,7 @@
             unsafeWindow.setSize = setSize;
 
             setSize();
+            setTimeout(setSize, 250);
             unsafeWindow.addEventListener("resize",
                 function () {
                     setSize()
