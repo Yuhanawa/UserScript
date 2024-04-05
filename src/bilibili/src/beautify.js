@@ -16,7 +16,6 @@
       style($SASS('beautify.video.sass'))
     }
     if ($get('bilibili_background', 'on') === 'on') {
-      style($SASS('beautify.background.sass'))
       style(`html,:root{--background:url(${$get('bilibili_background_value')})}`)
     }
     return $SASS('beautify.sass')
