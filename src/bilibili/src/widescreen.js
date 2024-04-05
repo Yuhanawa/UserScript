@@ -17,7 +17,15 @@
         function part1SetSize() {
             // 是否宽屏
             var isWide = unsafeWindow.isWide;
-            document.querySelector('#biliMainHeader .bili-header.fixed-header').style.display = isWide ? 'none' : 'block'
+
+            if ($get('bilibili_widescreen_hide_title_onWide', false)) {
+                setTimeout(() => {
+                    try {
+                        document.querySelector('#biliMainHeader .bili-header.fixed-header').style.display = isWide ? 'none' : 'block'
+                    } catch (error) {
+                    }
+                }, 50)
+            }
 
             // 浏览器窗口高度
             var innerHeight = unsafeWindow.innerHeight;

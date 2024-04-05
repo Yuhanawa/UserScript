@@ -121,6 +121,12 @@
       },
       "description": "推荐范围1.00~1.30倍"
     },
+    "widescreen_hide_title_onWide":{
+      "title": "剧场模式下隐藏视频标题",
+      "type":"boolean",
+      "default":false,
+      "hidden": "{{ formData.widescreen === 'off' }}"
+    },
     "#line_mb": {
       "widget": "line",
       "title": "护眼蒙版(前置功能:样式美化)",
