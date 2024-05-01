@@ -1,7 +1,7 @@
 快捷键增强, ["bilibili.com"], {
     '已开启$on': () => {
         if (location.href.match('www.bilibili.com/video')) {
-            intervalOnLoad(() => {
+            intervalAfterLoad(() => {
                 const img_view = document.querySelector('.reply-view-image')
                 if (img_view == undefined) return;
 

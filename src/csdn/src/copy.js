@@ -1,6 +1,6 @@
 免登录复制, [/blog\.csdn\.net(\/.*)?\/article\/details./], {
     '已开启$on': () => {
-        timeoutOnLoad(() => {
+        timeoutAfterLoad(() => {
 
             // 修改复制按钮
             document.querySelectorAll(".hljs-button").forEach((e) => {

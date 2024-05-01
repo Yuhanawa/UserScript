@@ -12,7 +12,7 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
         // 标记元素x已处理
         x.classList.add("🎇checked");
         // 如果回复内容文字长度大于限制(25)则跳过
-        if (Number(ctx.outerText) > $get("bilibili_filter_length_limit", 25)) return;
+        if (Number(ctx.outerText) > get("bilibili_filter_length_limit", 25)) return;
         if (ctx.innerHTML !== "" && ctx.innerText === "") return
 
         for (const r of rules) {
@@ -27,7 +27,7 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
       }
     }
 
-    intervalOnLoad(() => {
+    intervalAfterLoad(() => {
       for (const x of document.getElementsByClassName("reply-item")) check(x);
       for (const x of document.getElementsByClassName("sub-reply-item")) check(x);
     }, 2000)
@@ -36,7 +36,7 @@ bilibili评论过滤[BETA], ["www.bilibili.com/video", "www.bilibili.com/read"],
   }
 }, rules: () => {
   try {
-    return $get("bilibili_filter_rules").split("\n")
+    return get("bilibili_filter_rules").split("\n")
       .filter((x) => x.trim() !== "")
       .map((x) => {
         if (x.startsWith("/") && x.endsWith("/")) {

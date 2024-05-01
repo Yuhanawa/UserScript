@@ -55,7 +55,7 @@ let translateURLMatchList = `
     `
 const DefaultFontFamily = `MiSans,-apple-system,Microsoft YaHei,Tahoma,Arial,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif `;
 const get_search_font_family = () =>
-    $get("search-font-family", DefaultFontFamily).trim() === "" ? DefaultFontFamily : $get("search-font-family", defaultSearchList).trim();
+    get("search-font-family", DefaultFontFamily).trim() === "" ? DefaultFontFamily : get("search-font-family", defaultSearchList).trim();
 
 
 // noinspection JSUnresolvedFunction
@@ -69,21 +69,21 @@ const set = (key, v) => GM_setValue(key, v)
 
 
 const menu = (name, key, defaultValue) => {
-    const value = $get(key, defaultValue)
+    const value = get(key, defaultValue)
     name += value ? ':开启' : ':关闭';
     // noinspection JSUnresolvedFunction
     GM_registerMenuCommand(name, () => {
-        $set(key, !value);
+        set(key, !value);
         location.reload()
     });
     return value;
 }
 const options = (name, key, ValueList) => {
-    const index = $get(key, 0)
+    const index = get(key, 0)
     name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
     // noinspection JSUnresolvedFunction
     GM_registerMenuCommand(name, () => {
-        if (index + 1 >= ValueList.length) $set(key, 0); else $set(key, index + 1);
+        if (index + 1 >= ValueList.length) set(key, 0); else set(key, index + 1);
         location.reload()
     });
     return index;
@@ -187,7 +187,7 @@ if (matchList(str2list(searchURLMatchList))) {
     style(`* {font-family: ${get_search_font_family()}  !important;}`)
 
     /* search */
-    if ($get("search", true)) {
+    if (get("search", true)) {
         css += `
             
         a > em, a > strong{
@@ -230,7 +230,7 @@ if (matchList(str2list(searchURLMatchList))) {
         body:before{
             content: "";
             background-color: #f5f5f5 !important;
-            background-image: url(${$get("search-background-img", "")});
+            background-image: url(${get("search-background-img", "")});
             background-size: 100% auto;
             background-attachment: fixed;
             background-position-y: center;
@@ -306,7 +306,7 @@ if (matchList(str2list(searchURLMatchList))) {
             padding:auto !important;
         }
         `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-        if ($get("search-background-img", "").trim() !== "") css += `
+        if (get("search-background-img", "").trim() !== "") css += `
                     .results > div, .results > li, .result, .item-awa{
                         background-color: rgba(255, 255, 255,.65);
                     }`.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
@@ -521,7 +521,7 @@ if (matchList(str2list(searchURLMatchList))) {
                 }
             })
 
-            if ($get("search-background-img", "").trim() !== "") {
+            if (get("search-background-img", "").trim() !== "") {
                 css += `
                         #b_header {
                             border-bottom: 0px !important;
@@ -529,7 +529,7 @@ if (matchList(str2list(searchURLMatchList))) {
                     `
             }
 
-            if ($get("remove_favicon_icon", true)) {
+            if (get("remove_favicon_icon", true)) {
                 css += `.sh_favicon{ display:none !important; }`
             }
         }
@@ -757,10 +757,10 @@ if (matchList(str2list(searchURLMatchList))) {
     }
 
     /* search tools */
-    if ($get("search_engine_switch_tool", true)) {
-        if ($get("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
-            $set("engine_switch_tool_version", engine_switch_tool_version);
-            if ($get("engine_switch_tool_version", -1) !== -1) {
+    if (get("search_engine_switch_tool", true)) {
+        if (get("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
+            set("engine_switch_tool_version", engine_switch_tool_version);
+            if (get("engine_switch_tool_version", -1) !== -1) {
                 setTimeoutBeforeLoad(() => {
                     document.body.insertAdjacentHTML("afterend", `
                         <div id="removeafter3s" style="font-size: xx-large;position: fixed;margin: auto;top: 20vh;left: 0;right: 0;width: max-content;height:min-content;padding: 40px;background: lightgreen;opacity: 0.8;">
@@ -774,8 +774,8 @@ if (matchList(str2list(searchURLMatchList))) {
                 }, 600)
             }
         }
-        if ($get("engine_switch_tool_list", "").trim() === "") $set("engine_switch_tool_list", defaultSearchList);
-        let list = $get("engine_switch_tool_list").trim();
+        if (get("engine_switch_tool_list", "").trim() === "") set("engine_switch_tool_list", defaultSearchList);
+        let list = get("engine_switch_tool_list").trim();
 
         onload(() => {
             try {
@@ -811,7 +811,7 @@ if (matchList(str2list(searchURLMatchList))) {
             const tool = document.getElementById("engine_switch_tool");
 
             document.getElementById("switch_tool_style").addEventListener("click", () => {
-                $set("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
+                set("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
             });
 
             try {
@@ -945,11 +945,11 @@ if (matchList(str2list(searchURLMatchList))) {
             const e = document.getElementById(key);
             if (e.tagName === "INPUT") {
                 e.addEventListener("change", () => {
-                    $set(key, document.getElementById(key).value)
+                    set(key, document.getElementById(key).value)
                 })
             } else if (e.tagName === "PRE") {
                 document.getElementById("search-setting-awa").addEventListener("keyup", () => {
-                    $set(key, document.getElementById(key).innerText)
+                    set(key, document.getElementById(key).innerText)
                 }, true)
             }
         }

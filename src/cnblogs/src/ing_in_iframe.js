@@ -37,7 +37,7 @@ directlyRun: true
         })
 
 
-        timeoutOnLoad(() => {
+        timeoutAfterLoad(() => {
             // if (!document.querySelector(".pager")) return
 
             var timeout = 0
@@ -56,7 +56,7 @@ directlyRun: true
                         break;
                 }
             }
-            if ($get("cnblogs_auto_pager_ing_switch")) {
+            if (get("cnblogs_auto_pager_ing_switch")) {
                 unsafeWindow.addEventListener("message", receiveMessage, false);
             }
 

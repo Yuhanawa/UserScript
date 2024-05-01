@@ -137,8 +137,8 @@ unsafeWindow.addEventListener('load', function () {
                             continue
                         }
 
-                        var auto_block = $get('twitter_auto_block', 'on') === 'on';
-                        var auto_block_by_more = auto_block && $get('twitter_auto_block_by_more', 'off') === 'on';
+                        var auto_block = get('twitter_auto_block', 'on') === 'on';
+                        var auto_block_by_more = auto_block && get('twitter_auto_block_by_more', 'off') === 'on';
                         if (check(internalRule, screen_name, 'name', name, auto_block) || check(internalRule, screen_name, 'bio', description, auto_block)
                             || check(internalRule, screen_name, 'location', location, auto_block) || check(internalRule, screen_name, 'url', url, auto_block)) {
                             if (auto_block) {
@@ -217,8 +217,8 @@ unsafeWindow.addEventListener('load', function () {
                         return
                     }
 
-                    var auto_block = $get('twitter_auto_block', 'on') === 'on';
-                    var auto_block_by_more = auto_block && $get('twitter_auto_block_by_more', 'off') === 'on';
+                    var auto_block = get('twitter_auto_block', 'on') === 'on';
+                    var auto_block_by_more = auto_block && get('twitter_auto_block_by_more', 'off') === 'on';
                     if (check(internalRule, screen_name, 'name', name, auto_block) || check(internalRule, screen_name, 'bio', description, auto_block) || check(internalRule, screen_name, 'location', location, auto_block) || check(internalRule, screen_name, 'url', url, auto_block)) {
                         if (auto_block) {
                             blockUserById(id, screen_name)
@@ -312,7 +312,7 @@ setInterval(() => {
 }, 500)
 
 let internalRuleStr = ""
-if ($get("twitter_internal_blocker", true)) {
+if (get("twitter_internal_blocker", true)) {
     internalRuleStr = `
 #rule-name
 内置屏蔽规则

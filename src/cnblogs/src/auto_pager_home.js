@@ -6,7 +6,7 @@ directlyRun: true
 switchable: true
     ,
     () => {
-        timeoutOnLoad(() => {
+        timeoutAfterLoad(() => {
             if (!document.querySelector(".pager") || document.querySelector("#Autopage_number")) return
 
             var timeout = 0

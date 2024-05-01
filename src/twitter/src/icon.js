@@ -2,7 +2,7 @@
 {
     已关闭$off: null,
     已开启$on: () => {
-        style(`body{--twitter-icon-value: url("${$get("twitter_icon_value")}")`)
+        style(`body{--twitter-icon-value: url("${get("twitter_icon_value")}")`)
         return $SASS(icon)
     },
 }

@@ -12,5 +12,5 @@ switchable: true
             side.style.top = `${window.innerHeight - side.clientHeight}px`
         else setTimeout(fn, 200)
     }
-    timeoutOnLoad(fn, 200)
+    timeoutAfterLoad(fn, 200)
 }

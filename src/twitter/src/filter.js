@@ -2,7 +2,7 @@
 {
     已开启$on: (f) => {
         const filter = () => {
-            if (!$get("twitter_block_on_home", "on") === "on" && (location.href.includes("twitter.com/home") || location.href.includes("x.com/home"))) return
+            if (!get("twitter_block_on_home", "on") === "on" && (location.href.includes("twitter.com/home") || location.href.includes("x.com/home"))) return
 
             const articles = document.querySelectorAll('article:not([data-filter-checked])');
             for (const article of articles) {
@@ -42,7 +42,7 @@
                     // console.log(blackList);
                     if (blackList.has(id)) {
                         article.style.display = "none";
-                        if ($get("twitter_show_note", true) && blackList.get(id).notShowNote !== true && blackList.get(id).type !== "id" && blackList.get(id).type !== "id_sum") {
+                        if (get("twitter_show_note", true) && blackList.get(id).notShowNote !== true && blackList.get(id).type !== "id" && blackList.get(id).type !== "id_sum") {
                             const note = document.createElement("div");
                             note.innerHTML = `<div class="note-tweet">推文已被<a href="" target="_blank">屏蔽器</a>通过⌊${blackList.get(id).rule}⌉(${blackList.get(id).type})规则屏蔽,点击显示推文(你可以通过设置不再显示该提示)</div>`;
                             note.onclick = () => {

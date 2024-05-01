@@ -14,7 +14,7 @@ unsafeWindow.addEventListener("message", receiveMessage, false);
 
 function show_ing_iframe() {
     if (document.getElementById("ing_iframe")) return;
-    timeoutOnLoad(() => {
+    timeoutAfterLoad(() => {
         const iframe = document.createElement('iframe')
         iframe.id = "ing_iframe"
         iframe.src = "https://ing.cnblogs.com/"
