@@ -109,11 +109,11 @@ jobs:
       #       echo "::set-output name=has_changes::false"
       #     fi
 
-      - name: Commit config-component
-        # if: steps.check.outputs.has_changes == 'true'
-        run: |
-          git add src
-          git commit -m "Update config-component"
+      # - name: Commit config-component
+      #   # if: steps.check.outputs.has_changes == 'true'
+      #   run: |
+      #     git add src
+      #     git commit -m "Update config-component"
 
       - name: Push to ref
         # if: steps.check.outputs.has_changes == 'true'
