@@ -1,0 +1,44 @@
+.floating-ball {
+  display: flex !important;
+  position: fixed !important;
+  z-index: 5201314 !important;
+}
+
+.floating-ball-button {
+  display: flex;
+  position: fixed;
+  z-index: 1314520;
+
+  top: calc(72vh);
+  left: 0;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 6px;
+
+  opacity: 0.3;
+  transition: 0.2s;
+
+  cursor: pointer;
+  user-select: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  -webkit-tap-highlight-color: transparent;
+
+  transform-origin: center;
+  transform: translateX(-8px);
+
+  background: linear-gradient(90deg, #9796f0cc, #fbc7d4cc);
+  box-shadow: 1px 0px 4px 0px #42275a, -1px 0px 1px 0px #b682ae22;
+  border-radius: 0 50% 50% 0;
+
+  color: #bfe2d1;
+  font-size: large;
+}
+.floating-ball-button:hover {
+  opacity: 0.7;
+  transform: translateX(0);
+}
