@@ -86,12 +86,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd .\config-component\
+          cd config-component
           pnpm install
 
       - name: Build
         run: |
-          cd .\config-component\
+          cd config-component
           pnpm run build
 
       - name: Git config
@@ -124,7 +124,7 @@ jobs:
 
       - name: Commit releases
         run: |
-          cd .\config-component\
+          cd config-component
           git add -f dist
           git commit -m "CI build"
 
