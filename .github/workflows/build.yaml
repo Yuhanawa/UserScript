@@ -38,24 +38,24 @@ jobs:
           git config --global core.autocrlf true
           git config --global core.safecrlf false
 
-      - name: Check changes
-        id: check
-        run: |
-          changed=$(git diff --name-only remotes/origin/master..remotes/origin/releases -- src)
-          if [ -n "$changed" ]; then  
-            echo "::set-output name=has_changes::true"
-          else 
-            echo "::set-output name=has_changes::false"
-          fi
+      # - name: Check changes
+      #   id: check
+      #   run: |
+      #     changed=$(git diff --name-only remotes/origin/master..remotes/origin/releases -- src)
+      #     if [ -n "$changed" ]; then  
+      #       echo "::set-output name=has_changes::true"
+      #     else 
+      #       echo "::set-output name=has_changes::false"
+      #     fi
 
       - name: Commit versions-update
-        if: steps.check.outputs.has_changes == 'true'
+        # if: steps.check.outputs.has_changes == 'true'
         run: |
           git add src
           git commit -m "Update versions"
 
       - name: Push to ref
-        if: steps.check.outputs.has_changes == 'true'
+        # if: steps.check.outputs.has_changes == 'true'
         run: |
           git push origin HEAD:${{ github.ref_name }}
 
