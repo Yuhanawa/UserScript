@@ -14,7 +14,7 @@ function ConfigComponent() {
 
     const [display, setDisplay] = useState('none')
     const FloatingBallOnClick = () => {
-        const panel = document.getElementById('panel');
+        const panel = document.getElementById('config-panel');
 
         if (display == 'block') {
             panel.style.animation = 'collapsePanel 2s ease forwards';
@@ -39,7 +39,7 @@ function ConfigComponent() {
     return (
         <>
             <FloatingBall onClick={FloatingBallOnClick} />
-            <div id='panel' style={{ display: display }} >
+            <div id='config-panel' style={{ display: display }} >
                 <div className='config-main'>
                     <FromMain menuKey={window.awa.current} />
                 </div>
