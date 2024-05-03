@@ -5,14 +5,14 @@
 > 博客园(cnblog)美化/增强/字体放大
 > 推特推文屏蔽过滤器|黄推屏蔽器
 
-### [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
+#### [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865) - [[Greasyfork-博客园]](https://greasyfork.org/zh-CN/scripts/487754)
 
 
 > 因为开始一轮复习了，可能没有时间
 > 有些地方也因此写的很烂
 > 高考后见QAQ ＞︿＜
 
-## 可用脚本
+## 脚本
 
 - [哔哩哔哩脚本|美化|增强|自定义背景|评论过滤](https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify)
   - 图片截取自 2023-10 距今可能发生较大变化  
@@ -21,6 +21,9 @@
   - 图片截取自 2023-10 距今可能发生较大变化  
     ![效果截图](https://s2.loli.net/2023/10/22/MNxA6JUz4uCEdDk.png)
     ![设置界面](https://s2.loli.net/2023/10/22/yuOm9iBnS2kxpMq.png)
+- [博客花园-博客园美化增强](https://greasyfork.org/zh-CN/scripts/487754)
+  - 图片截取自 2024-02 距今可能发生较大变化  
+    ![效果截图](https://s2.loli.net/2024/02/22/aGYp6m3osOLIUjl.png)
 - [Twitter 推文屏蔽器&过滤器](https://greasyfork.org/zh-CN/scripts/473865)
   - 图片截取自 2023-08 距今可能发生较大变化  
     ![效果图](https://s2.loli.net/2023/10/22/PBfTdO6rvuR8qJI.png)
