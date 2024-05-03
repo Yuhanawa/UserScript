@@ -94,7 +94,7 @@
     },
     "feed_rule": {
       "title": "规则订阅",
-      "default": "https://yuhan-script-config.netlify.app/sex.tr\nhttps://yuhan-script-config.netlify.app/htv2.txt\n",
+      "default": "https://yuhan-script-config.netlify.app/xrules/sex.tr\nhttps://yuhan-script-config.netlify.app/xrules/htv2.txt\n",
       "props": {
         "autoSize": true
       },
@@ -112,7 +112,7 @@
     },
     ".feed_rule_recommend": {
       "title": "订阅推荐",
-      "default": "黄推屏蔽v2:https://yuhan-script-config.netlify.app/htv2.txt | 黄推屏蔽https://yuhan-script-config.netlify.app/sex.tr \n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/fh.tr",
+      "default": "黄推屏蔽v2:https://yuhan-script-config.netlify.app/xrules/htv2.txt | 黄推屏蔽https://yuhan-script-config.netlify.app/xrules/sex.tr \n视频下载机器人屏蔽https://yuhan-script-config.netlify.app/xrules/shipinbot.tr\n反贼屏蔽https://yuhan-script-config.netlify.app/xrules/fz.tr\n粉红屏蔽https://yuhan-script-config.netlify.app/xrules/fh.tr",
       "disabled": true,
       "props": {
         "autoSize": true
