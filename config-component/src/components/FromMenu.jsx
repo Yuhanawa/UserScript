@@ -20,7 +20,7 @@ const FromMenu = ({ menuKey, setMenuKey }) => {
     if (window.awa.userscript != undefined) {
       let new_menu = [...Object.keys(window.awa.userscript)].map(item => { return { label: item, key: item }; })
       const newItems = [...items, ...new_menu];
-      console.log(newItems);
+      // console.log(newItems);
       setItems(newItems);
     }
   }, [])

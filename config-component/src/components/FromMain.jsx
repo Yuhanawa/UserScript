@@ -65,7 +65,7 @@ const FromMain = ({ menuKey }) => {
             properties: newProps
         }
 
-        console.log(newSchema);
+        // console.log(newSchema);
         setSchema(newSchema)
 
         setAnchors([
@@ -80,7 +80,7 @@ const FromMain = ({ menuKey }) => {
     }, [menuKey])
 
     const onFinish = (data) => {
-        console.log('formData:', data);
+        // console.log('formData:', data);
 
         for (const key of Object.keys(data)) {
             if (key.startsWith('.') || key.startsWith('#')) continue;
