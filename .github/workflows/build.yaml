@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-script:
+  build:
     if: ${{ github.actor != 'github-actions[bot]' }}
 
     runs-on: ubuntu-latest
@@ -62,70 +62,6 @@ jobs:
       - name: Commit releases
         run: |
           git add -f out
-          git commit -m "CI build"
-
-      - name: Push to releases
-        run: |
-          git push -f origin HEAD:releases
-  build-config-component:
-    if: ${{ github.actor != 'github-actions[bot]' }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: latest
-          run_install: true
-
-
-      - name: Install dependencies
-        run: |
-          cd config-component
-          pnpm install
-
-      - name: Build
-        run: |
-          cd config-component
-          pnpm run build
-
-      - name: Git config
-        run: |
-          git config --local user.email github-actions[bot]@users.noreply.github.com
-          git config --local user.name github-actions[bot]
-          git config --global core.autocrlf true
-          git config --global core.safecrlf false
-
-      # - name: Check changes
-      #   id: check
-      #   run: |
-      #     changed=$(git diff --name-only remotes/origin/master..remotes/origin/releases -- src)
-      #     if [ -n "$changed" ]; then  
-      #       echo "::set-output name=has_changes::true"
-      #     else 
-      #       echo "::set-output name=has_changes::false"
-      #     fi
-
-      # - name: Commit config-component
-      #   # if: steps.check.outputs.has_changes == 'true'
-      #   run: |
-      #     git add src
-      #     git commit -m "Update config-component"
-
-      - name: Push to ref
-        # if: steps.check.outputs.has_changes == 'true'
-        run: |
-          git push origin HEAD:${{ github.ref_name }}
-
-      - name: Commit releases
-        run: |
-          cd config-component
-          git add -f dist
           git commit -m "CI build"
 
       - name: Push to releases
