@@ -7,19 +7,19 @@
   padding: 0;
 }
 
-.menu {
+.config-menu {
   background-color: white;
   padding: 12px 2px 0 0;
 }
 
-.menu-about {
+.config-menu-about {
   color: palevioletred !important;
   position: absolute !important;
   bottom: 12px !important;
   width: auto !important;
 }
 
-.main {
+.config-main {
   flex: 1;
 
   background-color: whitesmoke;
@@ -27,8 +27,8 @@
   padding: 20px;
 }
 
-.menu,
-.main {
+.config-menu,
+.config-main {
   overflow: auto;
 }
 

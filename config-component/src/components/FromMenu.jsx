@@ -17,8 +17,8 @@ const FromMenu = ({ menuKey, setMenuKey }) => {
   ]);
 
   useEffect(() => {
-    if (window.userscript != undefined) {
-      let new_menu = [...Object.keys(window.userscript)].map(item => { return { label: item, key: item }; })
+    if (window.awa.userscript != undefined) {
+      let new_menu = [...Object.keys(window.awa.userscript)].map(item => { return { label: item, key: item }; })
       const newItems = [...items, ...new_menu];
       console.log(newItems);
       setItems(newItems);
