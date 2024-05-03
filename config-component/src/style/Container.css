@@ -40,18 +40,21 @@
     background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+    filter: blur(0);
   }
   50% {
     width: 42px;
     height: 60%;
     background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    filter: blur(0);
   }
   55% {
     width: 50px;
     height: 60%;
     background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    filter: blur(0);
   }
   85% {
     width: 64%;
@@ -59,13 +62,15 @@
     background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     opacity: 0.95;
+    filter: blur(0);
   }
   100% {
     width: 65%;
     height: 65%;
     background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    opacity: 0.95;
+    opacity: 1;
+    filter: blur(0);
   }
 }
 
