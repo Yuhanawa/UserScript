@@ -4,31 +4,35 @@ const { Meta } = Card;
 
 
 function parseRule(str) {
-  if (!str || str.trim() === '') return;
-  let key;
-  const rule = {};
-  for (line of str.split('\n')) {
-    line = line.trim();
-    if (!line || line.startsWith('//')) continue;
+  try {
+    if (!str || str.trim() === '') return;
+    let key;
+    const rule = {};
+    for (line of str.split('\n')) {
+      line = line.trim();
+      if (!line || line.startsWith('//')) continue;
 
-    if (line.startsWith('#')) {
-      key = line.slice(1);
-      if (line.startsWith('#rule-')) {
-        rule[key] = '';
+      if (line.startsWith('#')) {
+        key = line.slice(1);
+        if (line.startsWith('#rule-')) {
+          rule[key] = '';
+        } else {
+          rule[key] = [];
+          rule[key + "-reg"] = [];
+        }
       } else {
-        rule[key] = [];
-        rule[key + "-reg"] = [];
+        if (key.startsWith('rule-'))
+          rule[key] += line
+        else if (line.startsWith('/') && line.endsWith('/'))
+          rule[key + "-reg"].push(new RegExp(line.slice(1, line.length - 1)))
+        else
+          rule[key].push(line);
       }
-    } else {
-      if (key.startsWith('rule-'))
-        rule[key] += line
-      else if (line.startsWith('/') && line.endsWith('/'))
-        rule[key + "-reg"].push(new RegExp(line.slice(1, line.length - 1)))
-      else
-        rule[key].push(line);
-    }
-  };
-  return rule;
+    };
+    return rule;
+  } catch (error) {
+    console.error("解析规则出现错误：" + error);
+  }
 }
 
 

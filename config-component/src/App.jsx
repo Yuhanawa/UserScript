@@ -34,12 +34,12 @@ function App() {
   return (
     <>
       {!inIframe && (
-        <div className='menu' >
+        <div className='config-menu' >
           <FromMenu menuKey={menuKey} setMenuKey={setMenuKey} />
         </div>
       )}
 
-      <div className='main'>
+      <div className='config-main'>
         {menuKey !== 'index' && menuKey !== 'about' && <FromMain menuKey={menuKey} />}
 
         {menuKey === 'index' && inIframe && <>

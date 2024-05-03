@@ -33,8 +33,8 @@ const FromMain = ({ menuKey }) => {
     };
 
 
-    if (window.userscript?.[menuKey])
-        winProps = window.userscript[menuKey].props;
+    if (window.awa.userscript?.[menuKey])
+        winProps = window.awa.userscript[menuKey].props;
 
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const FromMain = ({ menuKey }) => {
 
                 ...winProps[key],
 
-                default: window.userscript[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
+                default: window.awa.userscript[menuKey].get(`${menuKey}_${key}`, winProps[key].default),
                 extra: `default: ${winProps[key].default}`,
 
             }
@@ -65,22 +65,22 @@ const FromMain = ({ menuKey }) => {
             properties: newProps
         }
 
-        console.log(newSchema);
+        // console.log(newSchema);
         setSchema(newSchema)
 
         setAnchors([
             {
                 key: 'top',
-                href: `#top`,
+                href: `#config-top`,
                 title: 'Top',
             }
-        ].concat(window.userscript?.[menuKey]?.anchors || []));
+        ].concat(window.awa.userscript?.[menuKey]?.anchors || []));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [menuKey])
 
     const onFinish = (data) => {
-        console.log('formData:', data);
+        // console.log('formData:', data);
 
         for (const key of Object.keys(data)) {
             if (key.startsWith('.') || key.startsWith('#')) continue;
@@ -88,7 +88,7 @@ const FromMain = ({ menuKey }) => {
             const value = data[key]
             // biome-ignore lint/suspicious/noDoubleEquals: <explanation>
             if (value != schema.properties[key].default) {
-                window.userscript[menuKey].set(`${menuKey}_${key}`, value)
+                window.awa.userscript[menuKey].set(`${menuKey}_${key}`, value)
             }
 
             location.reload();
@@ -102,7 +102,7 @@ const FromMain = ({ menuKey }) => {
 
     return (
         <>
-            <div id='top' style={{ padding: "0 0 18px 0", margin: "-2px" }}>
+            <div id='config-top' style={{ padding: "0 0 18px 0", margin: "-2px" }}>
                 <div style={{ backgroundColor: "#FCFCFC", padding: "8px", borderRadius: "8px" }}>
                     <Anchor
                         direction="horizontal"
