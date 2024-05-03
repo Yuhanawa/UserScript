@@ -2,14 +2,15 @@ import { useState } from 'react'
 import { useEffect } from 'react';
 import './App.css'
 import './style/Container.css'
-import App from './App.jsx'
 
 import FloatingBall from './FloatingBall.jsx'
+import './App.css'
+
+import FromMain from './components/FromMain.jsx';
 
 
 
-
-function Container() {
+function ConfigComponent() {
 
     const [display, setDisplay] = useState('none')
     const FloatingBallOnClick = () => {
@@ -22,7 +23,7 @@ function Container() {
                     setDisplay('none')
                 }
             });
-        }else{
+        } else {
             setDisplay('block')
             panel.style.animation = 'expandPanel 3.5s ease forwards';
         }
@@ -39,10 +40,12 @@ function Container() {
         <>
             <FloatingBall onClick={FloatingBallOnClick} />
             <div id='panel' style={{ display: display }} >
-                <App />
+                <div className='config-main'>
+                    <FromMain menuKey={window.awa.current} />
+                </div>
             </div>
         </>
     )
 }
 
-export default Container
+export default ConfigComponent
