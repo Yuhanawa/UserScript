@@ -1,17 +1,16 @@
-# 搜索引擎(百度/必应/谷歌)优化美化\快速切换|哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字|CSDN 极简化\沉浸式阅读\免登录复制|推特屏蔽过滤器|黄推屏蔽器
+# Yuhan的脚本集
 
-## [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
+> CSDN 极简化\沉浸式阅读\免登录复制\自定义等等
+> 哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字等等
+> 博客园(cnblog)美化/增强/字体放大
+> 推特推文屏蔽过滤器|黄推屏蔽器
+
+### [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865)
 
 
-> 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
-> 因此，所有的bug和功能需要等到春节才能进行修复
->  
-> 开学了...
-> 2024-2月
->
-> 不出意外的话，明天将开始维护脚本
-> 同时每个脚本将有一个独立的名称
-> 2024-4-3 清明
+> 因为开始一轮复习了，可能没有时间
+> 有些地方也因此写的很烂
+> 高考后见QAQ ＞︿＜
 
 ## 可用脚本
 
