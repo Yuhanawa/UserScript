@@ -1,15 +1,31 @@
 视频封面获取按钮, ["www.bilibili.com/video"], {
     '已开启$on': () => {
-        intervalAfterLoad(() => {
-            const toolbar = document.querySelector('#arc_toolbar_report .video-toolbar-right:not([video_cover])');
-            if (!toolbar) return;
-
-            toolbar.setAttribute('video_cover', 'true');
-            const btn = document.createElement('div');
-            btn.className = 'video-toolbar-right-item';
-            btn.innerHTML = `<a class="video-toolbar-item-text" target="_blank" href="${unsafeWindow.__INITIAL_STATE__.videoData.pic}">获取封面</a>`;
-            toolbar.insertBefore(btn, toolbar.firstChild);
-        }, 8000, true);
+        old_pic = ""
+        timeoutAfterLoad(()=>{
+            setInterval(() => {
+                pic = unsafeWindow.__INITIAL_STATE__.videoData.pic;
+                if (old_pic === pic) return;
+                old_pic = pic;
+                setTimeout(() => {
+                    const toolbar = document.querySelector('#arc_toolbar_report .video-toolbar-right');
+                    if (!toolbar) return;
+                    if (!toolbar.querySelector('.video-tool-more')) {
+                        // 等待加载完全 否则会出bug
+                        old_pic = "";
+                        return;
+                    }
+    
+                    toolbar.querySelectorAll('.video-tool-getpic').forEach(e => e.remove());
+    
+                    const btn = document.createElement('div');
+                    btn.className = 'video-toolbar-right-item video-tool-getpic';
+                    btn.innerHTML = `<a class="video-toolbar-item-text" target="_blank" href="${pic}">获取封面</a>`;
+                    toolbar.insertBefore(btn, toolbar.firstChild);
+                }, 300);
+    
+            }, 1800);
+        },2500)
+        return $SASS('video_cover_download.sass')
     },
     '已关闭$off': null,
 }
