@@ -10,10 +10,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist/*
-!dist/assets/
-dist/assets/*.gz
-dist/assets/*/*.gz
+dist
 dist-ssr
 *.local
 

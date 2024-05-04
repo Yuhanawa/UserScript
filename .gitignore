@@ -1,7 +1,4 @@
-dist/*
-!dist/assets/
-dist/assets/*.gz
-dist/assets/*/*.gz
+dist
 
 ### VisualStudioCode template
 .vscode/*
