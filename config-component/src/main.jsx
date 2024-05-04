@@ -8,9 +8,9 @@ import r2wc from "react-to-webcomponent"
 
 
 
-const ConfigWebComponent = r2wc(ConfigComponent, React, ReactDOM)
+// const ConfigWebComponent = r2wc(ConfigComponent, React, ReactDOM)
 
-customElements.define("config-component", ConfigWebComponent)
+// customElements.define("config-component", ConfigWebComponent)
 
 if (window.ConfigWeb) {
   ReactDOM.createRoot(document.getElementById('config-web-root')).render(
