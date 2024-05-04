@@ -1,5 +1,7 @@
 快捷键增强, ["bilibili.com"], {
+    '已关闭$off': null,
     '已开启$on': () => {
+        // TODO 烂代码 需重构
         if (location.href.match('www.bilibili.com/video')) {
             intervalAfterLoad(() => {
                 const img_view = document.querySelector('.reply-view-image')
@@ -12,5 +14,5 @@
                 })
             }, 400);
         }
-    }, '已关闭$off': null,
+    },
   }
