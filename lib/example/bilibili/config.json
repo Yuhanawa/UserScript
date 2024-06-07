@@ -1,0 +1,295 @@
+{
+  "version": "0.1.36",
+  "properties": {
+    ".line_ts": {
+      "widget": "line",
+      "title": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+    },
+    ".line_bc": {
+      "widget": "line",
+      "title": "❗❗❗修改完记得点保存(在最下面)❗❗❗"
+    },
+    "#line_mh": {
+      "widget": "line",
+      "title": "美化",
+      "description": "美化设置"
+    },
+    "beautify": {
+      "title": "样式美化",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "beautify_work_on_index": {
+      "title": "美化首页",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "background": {
+      "title": "自定义背景开关",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "background_value": {
+      "title": "自定义背景 填url(图片链接)(前置功能:样式美化)",
+      "default": "https://s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png",
+      "hidden": "{{ formData.beautify === 'off' }}",
+      "widget": "imageInput",
+      "format": "image"
+    },
+    "video_radius": {
+      "title": "视频小圆角",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "widescreen": {
+      "title": "宽屏功能",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "widescreen-width-times": {
+      "title": "宽屏倍数",
+      "type": "number",
+      "defaultValue": 1.2,
+      "default": 1.2,
+      "required": true,
+      "hidden": "{{ formData.widescreen === 'off' }}",
+      "props": {
+        "addonAfter": "倍"
+      },
+      "description": "推荐范围1.00~1.30倍"
+    },
+    "widescreen_hide_title_onWide": {
+      "title": "剧场模式下隐藏视频标题",
+      "type": "boolean",
+      "default": false,
+      "hidden": "{{ formData.widescreen === 'off' }}"
+    },
+    "#line_mb": {
+      "widget": "line",
+      "title": "护眼蒙版(前置功能:样式美化)",
+      "description": "会在屏幕上添加一个半透明的蒙版",
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "eye_protection_cover": {
+      "title": "护眼蒙版(前置功能:样式美化)",
+      "default": "on",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      },
+      "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "eye_protection_cover_dark": {
+      "title": "暗色模式护眼蒙版(前置功能:护眼蒙版)",
+      "default": "#0000003B",
+      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
+      "widget": "color"
+    },
+    "eye_protection_cover_light": {
+      "title": "亮色模式护眼蒙版(前置功能:护眼蒙版)",
+      "default": "#66ccff3B",
+      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
+      "widget": "color"
+    },
+    "#line_gn": {
+      "widget": "line",
+      "title": "功能",
+      "description": "实用功能"
+    },
+    "quickly_copy": {
+      "title": "标题快速复制",
+      "default": "all",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "[标题]链接",
+            "value": "all"
+          },
+          {
+            "label": "BV",
+            "value": "BV"
+          },
+          {
+            "label": "链接",
+            "value": "url"
+          },
+          {
+            "label": "标题",
+            "value": "title"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "quickly_copy_hotkey": {
+      "title": "Ctrl+Shirt+C快速复制标题(前置功能:标题快速复制)",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "filter": {
+      "title": "评论过滤",
+      "default": "off",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "filter_rules": {
+      "title": "正则过滤规则",
+      "type": "string",
+      "defaultValue": "/^.?6{1,12}.?$/ \n/^(@.{1,12}\\s?.{0,12}){1,24}$/ \n/压缩毛巾/ \n/答辩/ \n/爷/ \n/谁问你了/ \n/亡灵军团/ \n/死灵法师/ \n",
+      "props": {
+        "placeholder": "",
+        "autoSize": true
+      },
+      "description": "",
+      "tooltip": {
+        "title": "使用正则表达式,一行一个"
+      },
+      "extra": "这是一个搁置很久的功能, 可能存在bug",
+      "widget": "textArea",
+      "hidden": "{{ formData.filter === 'off' }}"
+    },
+    "hotkey": {
+      "title": "按ESC关闭评论区图片",
+      "default": "on",
+      "description": "",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "开启",
+            "value": "on"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    },
+    "remove_keyword_search": {
+      "title": "移除评论关键字搜索跳转",
+      "description": "就是那个旁边带个放大镜的蓝字",
+      "default": "icon",
+      "widget": "select",
+      "props": {
+        "options": [
+          {
+            "label": "移除图标",
+            "value": "icon"
+          },
+          {
+            "label": "移除图标和链接颜色(仍可点击)",
+            "value": "color"
+          },
+          {
+            "label": "彻底移除",
+            "value": "link"
+          },
+          {
+            "label": "关闭",
+            "value": "off"
+          }
+        ]
+      }
+    }
+  }
+}

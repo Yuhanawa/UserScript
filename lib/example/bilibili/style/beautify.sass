@@ -1,0 +1,165 @@
+html,:root
+    background-attachment: fixed !important
+    background: var(--background)
+    background-repeat: no-repeat repeat
+    background-size: 100% 100%
+
+    bottom: 0
+    --text3: var(--text2)
+    body
+        background-color: transparent
+        background: var(--bodybackground)
+        height: auto
+
+        .visitor, // 用户页#app
+        .app-v1,
+        .fixed-reply-box
+            background-color: rgb(255 255 255 / 68%) !important
+
+        .bili-video-card__wrap,.bili-live-card__wrap,  // 主页card
+        .floor-card-inner   // 主页特殊card
+            background-color: rgb(255 255 255 / 72%) !important
+            box-shadow: 1px 1px 4px 0px whitesmoke
+
+        #i_cecream // 主页
+            background-color: rgb(255 255 255 / 24%) !important
+
+        .bili-header, .bili-header__channel // 主页header
+            background-color: transparent
+
+        .bili-header__bar.mini-header
+            opacity: 0.98
+            backdrop-filter: blur(8px)
+            background: #ffffffcc
+
+        .floor-single-card .layer // 主页每栏最右侧视频突出的阴影
+            display: none
+        .floor-card
+            background: transparent
+
+        .bili-video-card__wrap,.bili-live-card__wrap  // 主页card
+            padding: 2px 1px 4px 2px
+            border-radius: 8px
+            .bili-video-card__image .v-img.bili-video-card__cover
+                border-radius: 6px 6px 1px 1px
+
+            .bili-video-card__info,.bili-live-card__info
+                padding: 0px 4px 4px
+        .bili-live-card__wrap
+            padding: 2px 2px 24px 2px
+
+        .visitor,
+        .right-container,.left-container-under-player,
+        .fixed-reply-box
+            opacity: 0.97
+
+        // 活动
+        .activity-m-v1,.act-end, #activity_vote
+            border-radius: 12px
+            background: rgba(255,255,255,0.72)
+            opacity: 0.97
+            .right
+                ::after
+                    display: none
+                .b-img
+                    mask: linear-gradient(90deg, transparent, #fff)
+
+        // 评论区
+        .bili-comment,.browser-pc
+            background-color: rgba(255,255,255,0.68) !important
+            border-radius: 10px
+            padding: 0
+            margin: 0
+        #comment
+            box-shadow: 0 0 4px whitesmoke
+            margin-top: 2px
+            padding: 0
+            border-radius: 10px
+            .reply-list
+                padding: 0 18px 0 2px
+
+        // 左侧播放器下方
+        .left-container-under-player
+            background-color: transparent !important
+
+        // 三连功能栏
+        #arc_toolbar_report
+            margin-top: -5px
+            padding-top: 20px
+            padding-left: 12px
+            padding-right: 12px
+            border: 0
+            opacity: 0.85
+            background-color: rgba(255,255,255,0.65) !important
+            border-radius: 0 0 6px 6px
+            transition: opacity 0.1s ease-in 0s
+            &:hover,&:focus
+                opacity: 1
+
+        // 简介
+        .video-desc-container
+            padding: 10px 8px 14px 8px
+            margin: 0
+            opacity: 0.68
+            transition: opacity 0.1s ease-in 0s
+            &:hover,&:focus
+                opacity: 1
+
+        // 标签
+        .video-tag-container
+            margin: 0
+            padding: 0
+            padding: 8px 2px 2px 2px
+            border-style: solid
+            border-style: dashed
+            border-width: 1px 0
+            border-color: #e3e5e7
+            border-color: var(--text4)
+
+            // tag a
+            .tag-panel a
+                background: white
+        .tag-link .newchannel-link
+            background: white
+
+        // header
+        .bili-header__bar .mini-header
+            opacity: 0.96
+
+        // 评论区顶部文字
+        .reply-header
+            margin: 0px 0px -4px 14px
+            padding: 12px 0px 0px 2px
+
+        // 回复框
+        .reply-box
+            padding-right: 16px !important
+
+        // 弹幕列表
+        .danmaku-wrap > .bpx-docker
+            background: transparent
+
+        // 标题栏
+        #viewbox_report
+            margin-bottom: 16px
+            padding: 2px
+            height: fit-content
+            transition: all 0.35s
+            &:hover, &:focus
+                box-shadow: 1px -1px 6px 4px whitesmoke
+                background-color: whitesmoke
+                padding: 4px
+                font-size: 13px
+                border-radius: 12px
+
+        .video-info-container
+            padding-top: 4px
+            margin-top: 20px
+            .show-more
+                display: none
+
+        // 播放器背景
+        #bilibili-player-placeholder
+            box-shadow: 0 -2px 4px 1px rgba(255,255,255,0.1)
+            #bilibili-player-placeholder-top
+                background: transparent !important
