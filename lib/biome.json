@@ -1,0 +1,11 @@
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "suspicious": {
+        "useLiteralKeys": "off"
+      },
+      "style": {}
+    }
+  }
+}
