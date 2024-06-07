@@ -12,9 +12,12 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "csso": "^5.0.5",
     "glob": "^10.3.3",
     "gm_utils": "link:lib",
+    "lefthook": "^1.6.15",
     "sass": "^1.63.6",
     "uglify-js": "^3.17.4"
   }
