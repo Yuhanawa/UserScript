@@ -98,9 +98,9 @@ function processSingleJs(filename: string, path: string, buildInfo: BuildInfo): 
 			// 在第一个{后添加key:filename.substring(0, filename.firstIndexOf("."))
 			code = code.substring(0, code.indexOf("{") + 1) + `\nkey: "${key}", ` + code.substring(code.indexOf("{") + 1);
 		}
-		if (evalCode.showInMenu) {
-			result += `addOptionOnMenu("${key}")\n`
-		}
+		// if (evalCode.showInMenu) {
+		// 	result += `addOptionOnMenu("${key}")\n`
+		// }
 		logger.log(`processSingleJs: ${path}, evalCode: ${evalCode}`);
 	} catch (error) {
 		logger.err(`processSingleJs: ${path}`, error as Error);
@@ -138,7 +138,6 @@ function getFullCode(codemap: Map<string, string>, styleCode: string, buildInfo:
 	const headerStr = fs.readFileSync(buildInfo.paths.headerfile, "utf8") + "\n"
 	const config = fs.readJsonSync(buildInfo.paths.configfile, "utf8");
 	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`
-
 
 	const fullCode = headerStr
 		+ `(function() {\n${configVarStr + code_utils + styleCode + code_direct + code_onclick + code_mode}\n})();\n`;
