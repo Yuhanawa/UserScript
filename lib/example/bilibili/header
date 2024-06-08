@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         BILIBILI-Beautify
-// @name:zh      哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
-// @name:zh-CN   哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
-// @name:zh-TW   哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
-// @name:en      BILIBIL Beautify Ienhancement custom background
-// @name:ja      BILIBILI 美化｜強化｜カスタム背景｜レビューフィルタリング
+// @name         TEST-BILIBILI-Beautify
+// @name:zh      TEST-哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
+// @name:zh-CN   TEST-哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
+// @name:zh-TW   TEST-哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
+// @name:en      TEST-BILIBIL Beautify Ienhancement custom background
+// @name:ja      TEST-BILIBILI 美化｜強化｜カスタム背景｜レビューフィルタリング
 // @namespace    http://github.com/yuhanawa/UserScript
 // @version      0.0.1.2
 // @description         Bilibili beautification | enhancement | custom background | comment filtering, etc
@@ -23,4 +23,5 @@
 // @grant        GM_getValue
 // @grant        GM_addStyle
 // @grant        GM_registerMenuCommand
+// @grant        unsafeWindow
 // ==/UserScript==
