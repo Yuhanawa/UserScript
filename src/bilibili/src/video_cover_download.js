@@ -3,6 +3,7 @@
         old_pic = ""
         timeoutAfterLoad(()=>{
             setInterval(() => {
+                if (unsafeWindow.__INITIAL_STATE__===undefined) return
                 pic = unsafeWindow.__INITIAL_STATE__.videoData.pic;
                 if (old_pic === pic) return;
                 old_pic = pic;
