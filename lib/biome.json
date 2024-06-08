@@ -2,9 +2,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "suspicious": {
-        
+      "complexity": {
+        "useLiteralKeys": "off"
       },
+      "suspicious": {},
       "style": {}
     }
   }
