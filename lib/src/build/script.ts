@@ -19,8 +19,8 @@ type BuildInfo = {
 		srcdir: string;
 		styledir: string;
 		htmldir: string;
-	}
-}
+	};
+};
 function build(opt: BuildOptions) {
 	// const loadInfoFn = import(pathJoin(opt.path, "index.js"));
 	// const info = loadInfoFn.default()
@@ -34,7 +34,6 @@ function build(opt: BuildOptions) {
 	const headerfile = pathJoin(opt.path, "header");
 	const configfile = pathJoin(opt.path, "config.json");
 
-
 	const buildInfo: BuildInfo = {
 		buildOptions: opt,
 
@@ -43,22 +42,22 @@ function build(opt: BuildOptions) {
 			configfile,
 			srcdir,
 			styledir,
-			htmldir
-		}
-	}
+			htmldir,
+		},
+	};
 
 	let styleCode = "";
 	for (const file of fs
 		.readdirSync(styledir)
 		.filter((file) => file.endsWith(".condition.sass"))) {
-		let sassStyle = fs.readFileSync(stylefile(file), "utf8");
+		const sassStyle = fs.readFileSync(stylefile(file), "utf8");
 
 		const cssStyle = `'${csso.minify(sass.compile(stylefile(file)).css).css}'`;
 		/{{([a-zA-Z0-9_]+):([a-zA-Z0-9_]+)}}/.exec(sassStyle)?.map((x) => {
 			const key = x[1];
 			const value = x[2];
 			const code = `if (cfg("${key}")=="${value}") style(${cssStyle},"${key}-${value}-style")`;
-			styleCode += code + "\n";
+			styleCode += `${code}\n`;
 		});
 	}
 
@@ -76,27 +75,34 @@ function build(opt: BuildOptions) {
 	// debugger;
 }
 
-function processSingleJs(filename: string, path: string, buildInfo: BuildInfo): string {
+function processSingleJs(
+	filename: string,
+	path: string,
+	buildInfo: BuildInfo,
+): string {
 	let code = fs.readFileSync(path, "utf8").trim();
 	if (code === "") return "\n";
 
-
 	const regex_STYLE = /\$STYLE\((.+?)\)/g;
 	code = code.replace(regex_STYLE, (_match, sassFileName) => {
-		sassFileName = sassFileName.replaceAll(' ', '').replaceAll('"', '').replaceAll("'", '');
-		if (!sassFileName.endsWith('.sass')) sassFileName += '.sass';
-		let sassFilePath = pathJoin(buildInfo.paths.styledir, sassFileName);
-		const result = `'${csso.minify(sass.compile(sassFilePath).css).css}'`
+		let fixedSassFileName = sassFileName
+			.replaceAll(" ", "")
+			.replaceAll('"', "")
+			.replaceAll("'", "");
+		if (!fixedSassFileName.endsWith(".sass")) fixedSassFileName += ".sass";
+		const sassFilePath = pathJoin(buildInfo.paths.styledir, fixedSassFileName);
+		const result = `'${csso.minify(sass.compile(sassFilePath).css).css}'`;
 		return result;
 	});
 
 	const key = filename.substring(0, filename.indexOf("."));
-	let result = "\n// " + filename + "\n";
+	let result = `\n// ${filename}\n`;
 	try {
+		// biome-ignore lint/security/noGlobalEval: <explanation>
 		const evalCode = eval(code);
 		if (!evalCode.key) {
 			// 在第一个{后添加key:filename.substring(0, filename.firstIndexOf("."))
-			code = code.substring(0, code.indexOf("{") + 1) + `\nkey: "${key}", ` + code.substring(code.indexOf("{") + 1);
+			code = `${code.substring(0, code.indexOf("{") + 1)}\nkey: "${key}", ${code.substring(code.indexOf("{") + 1)}`;
 		}
 		// if (evalCode.showInMenu) {
 		// 	result += `addOptionOnMenu("${key}")\n`
@@ -106,20 +112,20 @@ function processSingleJs(filename: string, path: string, buildInfo: BuildInfo): 
 		logger.err(`processSingleJs: ${path}`, error as Error);
 	}
 
-	result += `addModule${code}\n`
+	result += `addModule${code}\n`;
 
 	if (filename.endsWith(".onclick.js")) {
-
 	} else if (filename.endsWith(".mode.js")) {
-
-	} else /* if (filename.endsWith(".direct.js")) */ {
-
+	} /* if (filename.endsWith(".direct.js")) */ else {
 	}
 
 	return result;
 }
-function getFullCode(codemap: Map<string, string>, styleCode: string, buildInfo: BuildInfo) {
-
+function getFullCode(
+	codemap: Map<string, string>,
+	styleCode: string,
+	buildInfo: BuildInfo,
+) {
 	let code_direct = "";
 	let code_onclick = "";
 	let code_mode = "";
@@ -128,19 +134,18 @@ function getFullCode(codemap: Map<string, string>, styleCode: string, buildInfo:
 			code_onclick += code;
 		} else if (file.endsWith(".mode.js")) {
 			code_mode += code;
-		} else /* if (file.endsWith(".direct.js")) */ {
+		} /* if (file.endsWith(".direct.js")) */ else {
 			code_direct += code;
 		}
 	}
 
-	const code_utils = res.get_core_utils()
+	const code_utils = res.get_core_utils();
 
-	const headerStr = fs.readFileSync(buildInfo.paths.headerfile, "utf8") + "\n"
+	const headerStr = `${fs.readFileSync(buildInfo.paths.headerfile, "utf8")}\n`;
 	const config = fs.readJsonSync(buildInfo.paths.configfile, "utf8");
-	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`
+	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`;
 
-	const fullCode = headerStr
-		+ `(function() {\n${configVarStr + code_utils + styleCode + code_direct + code_onclick + code_mode}\n})();\n`;
+	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + styleCode + code_direct + code_onclick + code_mode}\n})();\n`;
 	return fullCode;
 }
 
