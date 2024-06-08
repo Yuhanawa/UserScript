@@ -1,6 +1,10 @@
 {
   "version": "0.1.36",
   "name": "bilibili-test",
+  "pages": {
+    "home": ["www.bilibili.com"],
+    "video": ["www.bilibili.com/video"]
+  },
   "category": [
     {
       "key": "beautify",
