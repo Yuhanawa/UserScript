@@ -1,4 +1,4 @@
-# Yuhan的脚本集
+# Yuhan 的脚本集
 
 > CSDN 极简化\沉浸式阅读\免登录复制\自定义等等
 > 哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字等等
@@ -7,10 +7,8 @@
 
 #### [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865) - [[Greasyfork-博客园]](https://greasyfork.org/zh-CN/scripts/487754)
 
-
-> 因为开始一轮复习了，可能没有时间
-> 有些地方也因此写的很烂
-> 高考后见QAQ ＞︿＜
+> !在学校坐牢中...
+> !所有bug和反馈将在暑假进行处理
 
 ## 脚本
 
@@ -138,3 +136,21 @@ pnpm build
 ```sh
 pnpm run dev
 ```
+
+
+#### CommitLint
+
+| 类型   | 描述   |
+| ------ | ------ |
+| build | 对项目构建系统或外部依赖项的更改 |  例如，修改构建脚本、配置文件等 |  
+| chore | 非业务性的任务和更改 |  通常用于修改构建过程、辅助工具的代码，或者进行一些不涉及用户功能的工作 |  
+| ci | 对持续集成 (Continuous Integration) 配置文件和脚本的更改 |  
+| docs | 文档变更，包括但不限于 README 文件、文档生成器或注释的变更 |  
+| feat | 新功能的添加 |  通常伴随着用户功能或其他明显的变更 |  
+| fix | 修复 bug |  
+| perf | 改进性能的代码更改 |  
+| refactor | 代码重构，不是修复 bug 也不是添加新功能的代码更改 |  
+| revert | 撤销先前的提交 |  
+| style | 与代码风格相关的更改，例如空格、格式化等，而不涉及功能性代码更改 |  
+| test | 添加或修改测试 |  
+

@@ -6,9 +6,9 @@ Twitter 推特推文(X 帖子) 屏蔽器&过滤器
 
 [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/473865)
 
-> 因为开始一轮复习了，可能没有时间
-> 有些地方也因此写的很烂
-> 高考后见QAQ ＞︿＜
+> !在学校坐牢中...
+> !所有bug和反馈将在暑假进行处理
+
 
 自定义屏蔽或过滤你不想看到推文(黄推,建政或某特定群体等)
 

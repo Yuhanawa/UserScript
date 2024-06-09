@@ -3,10 +3,8 @@
 [[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
 [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069
 
-
-## 很抱歉，最近在准备期末考试，没有时间进行更新 ＞︿＜
-因此，所有的bug和功能需要等到春节才能进行修复
-
+> !在学校坐牢中...
+> !所有bug和反馈将在暑假进行处理
 
 
 部分功能默认关闭, 需手动开启
