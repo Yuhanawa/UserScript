@@ -1,0 +1,75 @@
+{
+    "version": "0.1.36",
+    "name": "bilibili-test",
+    "pages": {
+      "home": ["www.bilibili.com"],
+      "video": ["www.bilibili.com/video"]
+    },
+    "category": [
+      {
+        "key": "beautify",
+        "display": "beautify-display",
+        "icon": "beautify-icon"
+      },
+      {
+        "key": "quick",
+        "display": "quick-display",
+        "icon": "quick-icon"
+      }
+    ],
+    "props": {
+      "beautify": {
+        "display": "beautify",
+        "type": "bool",
+        "category": "beautify",
+        "defaultValue": true
+      },
+      "quickly_copy": {
+        "display": "quickly_copy",
+        "type": "option",
+        "category": "quick",
+        "defaultValue": "all",
+        "options": [
+          {
+            "key": "all",
+            "display": "[标题]链接"
+          },
+          {
+            "key": "BV",
+            "display": "BV"
+          },
+          {
+            "key": "url",
+            "display": "链接"
+          },
+          {
+            "key": "title",
+            "display": "标题"
+          },
+          {
+            "key": "off",
+            "display": "已关闭"
+          }
+        ]
+      },
+      "remove_carousel": {
+        "display": "remove_carousel",
+        "type": "bool",
+        "category": "beautify",
+        "defaultValue": false
+      },
+      "video_beautify": {
+        "display": "video_beautify",
+        "type": "bool",
+        "category": "beautify",
+        "defaultValue": true
+      },
+      "video_cover_download": {
+        "display": "video_cover_download",
+        "type": "bool",
+        "category": "quick",
+        "defaultValue": true
+      }
+    }
+  }
+  
