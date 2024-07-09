@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "gmu dev",
     "build": "gmu build",
+    "new_build":"node index.js",
     "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",
