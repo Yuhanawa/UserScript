@@ -1,6 +1,6 @@
 {
   "version": "0.1.36",
-  "name": "bilibili-test",
+  "name": "B站脚本测试",
   "pages": {
     "home": ["www.bilibili.com"],
     "video": ["www.bilibili.com/video"]
@@ -8,24 +8,24 @@
   "category": [
     {
       "key": "beautify",
-      "display": "beautify-display",
+      "display": "美化",
       "icon": "beautify-icon"
     },
     {
       "key": "quick",
-      "display": "quick-display",
+      "display": "便捷",
       "icon": "quick-icon"
     }
   ],
   "props": {
     "beautify": {
-      "display": "beautify",
+      "display": "美化",
       "type": "bool",
       "category": "beautify",
       "defaultValue": true
     },
     "quickly_copy": {
-      "display": "quickly_copy",
+      "display": "快速复制",
       "type": "option",
       "category": "quick",
       "defaultValue": "all",
@@ -53,19 +53,19 @@
       ]
     },
     "remove_carousel": {
-      "display": "remove_carousel",
+      "display": "移除轮播图",
       "type": "bool",
       "category": "beautify",
       "defaultValue": false
     },
     "video_beautify": {
-      "display": "video_beautify",
+      "display": "视频页美化",
       "type": "bool",
       "category": "beautify",
       "defaultValue": true
     },
     "video_cover_download": {
-      "display": "video_cover_download",
+      "display": "视频封面获取",
       "type": "bool",
       "category": "quick",
       "defaultValue": true
