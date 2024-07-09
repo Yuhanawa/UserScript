@@ -1,5 +1,13 @@
 <meta charset="utf-8">
 <script type="module" src="/src/main.js"></script>
+<script type="text/javascript">
+  if (typeof unsafeWindow === "undefined") {
+    win = window
+  } else {
+    win = unsafeWindow
+  }
+</script>
+<!-- - split - -->
 <div>
 
   <div class="topmost">
@@ -24,9 +32,7 @@
 
 
 
-
-
-
 </div>
 </div>
-<script type="module" src="/src/runInUserScript.js"></script>
+<!-- - split - -->
+<script type="module" src="/src/script.js"></script>
