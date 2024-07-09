@@ -46,6 +46,7 @@ function build(opt: BuildOptions) {
 		},
 	};
 
+	// 处理name.condition.sass
 	let styleCode = "";
 	for (const file of fs
 		.readdirSync(styledir)
@@ -114,11 +115,6 @@ function processSingleJs(
 
 	result += `addModule${code}\n`;
 
-	if (filename.endsWith(".onclick.js")) {
-	} else if (filename.endsWith(".mode.js")) {
-	} /* if (filename.endsWith(".direct.js")) */ else {
-	}
-
 	return result;
 }
 function getFullCode(
@@ -126,17 +122,9 @@ function getFullCode(
 	styleCode: string,
 	buildInfo: BuildInfo,
 ) {
-	let code_direct = "";
-	let code_onclick = "";
-	let code_mode = "";
+	let codes = "";
 	for (const [file, code] of codemap) {
-		if (file.endsWith(".onclick.js")) {
-			code_onclick += code;
-		} else if (file.endsWith(".mode.js")) {
-			code_mode += code;
-		} /* if (file.endsWith(".direct.js")) */ else {
-			code_direct += code;
-		}
+		codes += code;
 	}
 
 	const code_utils = res.get_core_utils();
@@ -145,12 +133,12 @@ function getFullCode(
 	const config = fs.readJsonSync(buildInfo.paths.configfile, "utf8");
 	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`;
 
-	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + styleCode + code_direct + code_onclick + code_mode}\n})();\n`;
+	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + styleCode + codes}\n})();\n`;
 	return fullCode;
 }
 
 function writeScrpt(opt: BuildOptions, code: string) {
-	fs.ensureDirSync("dist");
+	fs.ensureFileSync(pathJoin("dist", `${opt.name}.js`));
 	fs.writeFileSync(pathJoin("dist", `${opt.name}.js`), code);
 }
 
