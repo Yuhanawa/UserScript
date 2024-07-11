@@ -10,6 +10,7 @@
 	"scripts": {
 		"run:example": "pnpm build && cd example && node index.js",
 		"build": "run-p build:*",
+		"build:config.js": "cd ..\\setting_page\\ && pnpm run build",
 		"build:main": "tsc -p tsconfig.json",
 		"build:module": "tsc -p tsconfig.module.json",
 		"lint": "biome lint ./src",

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "gmu dev",
     "build": "gmu build",
+    "build:lib": "cd lib && pnpm run build",
+    "watch:build:lib": "cd lib && pnpm run build && pnpm run watch:build",
     "new_build":"node index.js",
     "update-versions": "node ./update-versions.js"
   },
