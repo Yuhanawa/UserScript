@@ -128,12 +128,14 @@ function getFullCode(
 	}
 
 	const code_utils = res.get_core_utils();
+	const config_js = res.get_config_js();
+	const debug_js = res.get_debug_js();
 
 	const headerStr = `${fs.readFileSync(buildInfo.paths.headerfile, "utf8")}\n`;
 	const config = fs.readJsonSync(buildInfo.paths.configfile, "utf8");
 	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`;
 
-	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + styleCode + codes}\n})();\n`;
+	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + config_js + styleCode + codes + debug_js}\n})();\n`;
 	return fullCode;
 }
 
