@@ -8,29 +8,29 @@
   }
 </script>
 <!-- - split - -->
-<div>
-  <div class="topmost">
+<div class="topmost">
+  <div class="floating-ball" style="width: 20px; height: 20px; left: 20px; bottom: 20px;">⚙️</div>
 
-    <div class="floating-ball" title="描述">
-      <div class="floating-ball-icon">⚙️</div>
-    </div>
+  <div class="main-container">
 
-    <div class="ball-to-panel hidden">
-      <div class="floating-ball-icon"></div>
-      
-      <div class="panel hidden  indicator">
-        <div class="panel-main less-visible hidden">
-          <span class="closeBtn indicator-item badge badge-error">X</span>
-          <div class="category-container h-full">
-            <div role="tablist" class="category-list tabs tabs-lifted"></div>
-          </div>
-        </div>
+    <div class="panel hidden">
+      <div class="toolbar">
+        <span> ⚙️ </span>
+        <button class="closeBtn">X</button>
       </div>
 
-    </div>
-  </div>
 
+      <div class="panel-main h-full  ">
+
+        <ul
+          class="category-container flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
+        </ul>
+        <div class="content-container"></div>
+      </div>
+    </div>
+
+  </div>
 </div>
-</div>
+
 <!-- - split - -->
 <script type="module" src="/src/script.js"></script>

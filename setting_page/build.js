@@ -25,3 +25,4 @@ const openConfigPanel = () => {
 `
 
 writeFileSync('./dist/output.js', output)
+writeFileSync('./../lib/res/config.js', output)

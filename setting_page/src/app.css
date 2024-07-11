@@ -10,6 +10,10 @@
   height: 100% !important;
 }
 
+.main-container {
+  position: fixed;
+}
+
 .floating-ball {
   display: flex;
   position: fixed;
@@ -53,42 +57,21 @@
   font-size: x-large;
 }
 
-.ball-to-panel {
-  position: fixed;
-  z-index: 5201314;
-  top: calc(72vh);
-  left: 0;
-  width: 32px;
-  height: 32px;
-  padding: 6px;
-
-  align-items: center;
-  justify-content: center;
-  box-sizing: content-box;
-
-  transition: 0.2s;
-  transform-origin: center;
-
-  box-shadow: 1px 0px 4px 0px #42275a, -1px 0px 1px 0px #b682ae22;
-  color: #bfe2d1;
-
-  opacity: 0.65;
-  background: #ffd5f7;
-  transform: translateX(6px);
-  border-radius: 40%;
-  animation: all 0.3s ease-out;
-  font-size: x-large;
-  filter: none;
-
-
-  animation: ballToPanel 1.5s ease-out 0.25s 1 forwards;
+.toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: move;
 }
 
 .panel {
   animation-fill-mode: forwards;
 
-  width: 100%;
-  /* height: 100%; */
+  min-height: 300px;
+  max-height: 65vh;
+
+  width: fit-content;
   height: fit-content;
   position: static;
   padding: 4px;
@@ -100,7 +83,7 @@
   gap: 20px;
   border-radius: 10px;
   backdrop-filter: blur(10px);
-  background-color: rgba(249, 163, 255, 0.085);
+  background-color: rgba(23, 23, 23, 0.85);
   box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
   border: 1px rgba(255, 255, 255, 0.4) solid;
   border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
@@ -109,126 +92,33 @@
 }
 
 .panel-main {
-    transition: 0.25s;
-    animation-fill-mode: forwards;
-    padding: 4px;
-    width: 100%;
-    height: 100%;
-    filter: none;
+  transition: 0.25s;
+  animation-fill-mode: forwards;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  filter: none;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 .less-visible {
-    opacity: 0.25;
-    filter: blur(2px);
-    backdrop-filter: blur(4px);
+  opacity: 0.25;
+  filter: blur(1px);
+  backdrop-filter: blur(4px);
 }
 
-@keyframes ballToPanel {
-  0% {
-    top: calc(72vh);
-    left: 0;
-    width: 32px;
-    height: 32px;
-    padding: 6px;
-    transform: translateX(6px);
-    opacity: 0.6;
-  }
-  20% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    padding: 4px;
-    opacity: 0.8;
-    filter: blur(2px);
-  }
-  25% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 64px;
-    height: 64px;
-
-    box-shadow: unset;
-    color: unset;
-    background: transparent;
-    border-radius: unset;
-    font-size: unset;
-    opacity: 1;
-  }
-  /* 15% {
-    width: 64px;
-    height: 64px;
-  }
-  20% {
-    width: 60px;
-    height: 60px;
-    border-radius: 6px;
-  } */
-  /* 50% {
-    height: 90%;
-    width: 64px;
-  }
-  80% {
-    width: 95%;
-    height: 95%;
-  } */
-  90% {
-    filter: blur(1px);
-  }
-  95% {
-  }
-  100% {
-    width: 50vw;
-    height: 50vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    box-shadow: unset;
-    color: unset;
-    background: transparent;
-    border-radius: unset;
-    font-size: unset;
-    opacity: 1;
-    filter: none;
-  }
+.category-container {
+  max-width: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
-@keyframes collapsePanel {
-  0% {
-    width: 50vw;
-    height: 50vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    box-shadow: unset;
-    color: unset;
-    background: transparent;
-    border-radius: unset;
-    font-size: unset;
-    opacity: 1;
-    filter: blur(0);
-  }
-  70% {
-    width: 64px;
-    height: 64px;
-    opacity: 0.8;
-    filter: blur(2px);
-    background: transparent;
-  }
-  85% {
-    width: 48px;
-    height: 48px;
-    opacity: 0.5;
-    filter: blur(1px);
-    background: #e3fdf5d7;
-  }
-  100% {
-    width: 0;
-    height: 0;
-    opacity: 0;
-    filter: none;
-  }
+.content-container {
+  overflow-y: auto;
+  min-width: 480px;
+  padding: 0px 4px;
+  border-radius: 4px;
 }
