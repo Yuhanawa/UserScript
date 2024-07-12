@@ -3,7 +3,8 @@ const root = typeof _root !== 'undefined' ? _root : document;
 const scriptKey = Object.keys(win.scriptsdata)[0];
 const { props, category } = win.scriptsdata[scriptKey].config;
 const cfg = (k, v) => {
-    console.log(`${k}: Set to ${v}`);
+    if (v !== undefined) console.log(`${k}: Set to ${v}`);
+
     return win.scriptsdata[scriptKey].cfg(k, v);
 };
 
@@ -16,8 +17,8 @@ const elements = {
     toolbar: root.querySelector('.toolbar'),
     closeBtn: root.querySelector('.closeBtn'),
 
-    categoryContainer: root.querySelector('.category-Container'),
-    contentContainer: root.querySelector('.content-Container'),
+    categoryContainer: root.querySelector('.category-container'),
+    contentContainer: root.querySelector('.content-container'),
 };
 let contentDivs = new Map();
 
@@ -33,7 +34,7 @@ async function animatePanel(isOpening) {
     panelIsOpening = isOpening;
     if (isOpening) {
         panel.classList.remove('hidden');
-    } else {        
+    } else {
         panel.classList.add('hidden');
     }
 }
@@ -54,7 +55,7 @@ elements.toolbar.addEventListener('mousedown', (e) => {
     startY = e.clientY;
     initialLeft = elements.mainContainer.offsetLeft;
     initialTop = elements.mainContainer.offsetTop;
-    
+
     // 防止文本选中
     e.preventDefault();
 });
