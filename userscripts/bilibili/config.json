@@ -14,14 +14,14 @@
       "icon": "note-icon"
     },
     {
-      "key": "undefined",
-      "display": "undefined",
-      "icon": "undefined-icon"
-    },
-    {
       "key": "beautify",
       "display": "美化",
       "icon": "beautify-icon"
+    },
+    {
+      "key": "optimize",
+      "display": "优化",
+      "icon": "optimize-icon"
     },
     {
       "key": "useful",
@@ -32,11 +32,6 @@
       "key": "filter",
       "display": "过滤",
       "icon": "filter-icon"
-    },
-    {
-      "key": "quick",
-      "display": "便捷",
-      "icon": "quick-icon"
     }
   ],
   "props": {
@@ -45,102 +40,71 @@
       "category": "tips",
       "display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
     },
-
+    "tips-refresh": {
+      "type": "note",
+      "category": "tips",
+      "display": "修改完成后请刷新页面"
+    },
     "tips-beautify": {
       "type": "note",
       "category": "beautify",
       "display": "-- 美化 --"
     },
     "beautify": {
-      "display": "美化",
+      "display": "样式美化",
       "type": "bool",
       "category": "beautify",
-      "defaultValue": true
+      "defaultValue": true,
+      "description": "此功能是部分功能的前置功能"
     },
-    "remove_carousel": {
-      "display": "移除轮播图",
-      "type": "bool",
-      "category": "beautify",
-      "defaultValue": false
-    },
-    "video_beautify": {
-      "display": "视频页美化",
-      "type": "bool",
-      "category": "beautify",
-      "defaultValue": true
-    },
-
     "beautify_work_on_index": {
-      "display": "是否美化首页",
-      "defaultValue": "on",
-      "type": "option",
+      "display": "是否在首页启用样式美化",
       "category": "beautify",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ],
+      "type": "bool",
+      "defaultValue": true,
+      "description": "前置功能:样式美化",
       "hidden": "{{ formData.beautify === 'off' }}"
     },
     "background": {
       "display": "自定义背景开关",
-      "defaultValue": "on",
       "category": "beautify",
-      "type": "option",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ],
+      "type": "bool",
+      "defaultValue": true,
+      "description": "前置功能:样式美化",
       "hidden": "{{ formData.beautify === 'off' }}"
     },
     "background_value": {
-      "display": "自定义背景 填url(图片链接)(前置功能:样式美化)",
+      "display": "自定义背景",
       "defaultValue": "https://s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png",
+      "category": "beautify",
       "hidden": "{{ formData.beautify === 'off' }}",
+      "description": "前置功能:自定义背景开关",
+      "tooltip": "填图片链接或者上传图片",
       "type": "image"
     },
     "video_radius": {
       "display": "视频小圆角",
-      "defaultValue": "on",
-      "type": "option",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ],
+      "category": "beautify",
+      "type": "bool",
+      "defaultValue": true,
       "hidden": "{{ formData.beautify === 'off' }}"
+    },
+    "tips-video-beautify": {
+      "type": "note",
+      "category": "beautify",
+      "display": "-- 视频页美化 --"
+    },
+    "video_beautify": {
+      "display": "视频页美化",
+      "category": "beautify",
+      "type": "bool",
+      "defaultValue": true
     },
     "widescreen": {
       "display": "宽屏功能",
-      "defaultValue": "on",
-      "type": "option",
       "category": "beautify",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ]
+      "type": "bool",
+      "defaultValue": true
     },
     "widescreen-width-times": {
       "display": "宽屏倍数",
@@ -149,48 +113,58 @@
       "required": true,
       "hidden": "{{ formData.widescreen === 'off' }}",
       "category": "beautify",
-      "props": {
-        "addonAfter": "倍"
-      },
-      "description": "推荐范围1.00~1.30倍"
+      "tooltip": "单位: 倍",
+      "description": "前置功能:宽屏功能|推荐范围1.00~1.30倍"
     },
-    "widescreen_hide_title_onWide": {
-      "display": "剧场模式下隐藏视频标题",
+    "widescreen_hide_header_onWide": {
+      "display": "剧场模式下隐藏网页顶部菜单",
       "type": "bool",
       "category": "beautify",
       "defaultValue": false,
+      "description": "前置功能:宽屏功能",
       "hidden": "{{ formData.widescreen === 'off' }}"
     },
-    "eye_protection_cover": {
-      "display": "护眼蒙版(前置功能:样式美化)",
-      "defaultValue": "on",
-      "category": "beautify",
+
+    "tips-optimize": {
+      "type": "note",
+      "category": "optimize",
+      "display": "-- 优化 --"
+    },
+    "ad": {
+      "display": "移除广告",
+      "category": "optimize",
+      "type": "bool",
+      "defaultValue": true
+    },
+    "remove_keyword_search": {
+      "display": "移除关键词搜索标志(失效)",
+      "category": "optimize",
       "type": "option",
       "options": [
         {
-          "label": "开启",
-          "value": "on"
+          "key": "icon",
+          "display": "隐藏🔍图标"
         },
         {
-          "label": "关闭",
-          "value": "off"
+          "key": "color",
+          "display": "隐藏图标和恢复颜色"
+        },
+        {
+          "key": "link",
+          "display": "彻底移除"
+        },
+        {
+          "key": "off",
+          "display": "已关闭"
         }
       ],
-      "hidden": "{{ formData.beautify === 'off' }}"
+      "defaultValue": "icon"
     },
-    "eye_protection_cover_dark": {
-      "display": "暗色模式护眼蒙版(前置功能:护眼蒙版)",
-      "category": "beautify",
-      "defaultValue": "#0000003B",
-      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
-      "type": "color"
-    },
-    "eye_protection_cover_light": {
-      "display": "亮色模式护眼蒙版(前置功能:护眼蒙版)",
-      "category": "beautify",
-      "defaultValue": "#66ccff3B",
-      "hidden": "{{ formData.eye_protection_cover === 'off' }}",
-      "type": "color"
+    "video_live_recommand": {
+      "display": "去除视频页直播推荐",
+      "category": "optimize",
+      "type": "bool",
+      "defaultValue": true
     },
 
     "tips-useful": {
@@ -199,7 +173,7 @@
       "display": "-- 实用 --"
     },
     "quickly_copy": {
-      "display": "快速复制",
+      "display": "标题快捷复制",
       "type": "option",
       "category": "useful",
       "defaultValue": "all",
@@ -226,36 +200,19 @@
         }
       ]
     },
-    "quickly_copy_hotkey": {
-      "display": "Ctrl+Shirt+C快速复制标题(前置功能:标题快速复制)",
-      "defaultValue": "off",
-      "category": "useful",
-      "type": "option",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ]
-    },
-
     "video_cover_download": {
       "display": "视频封面获取",
       "type": "bool",
-      "category": "quick",
+      "category": "useful",
       "defaultValue": true
     },
     "hotkey": {
       "display": "按ESC关闭评论区图片",
+      "category": "useful",
       "defaultValue": true,
       "description": "",
       "type": "bool"
     },
-
     "tips-filter": {
       "type": "note",
       "category": "filter",
@@ -263,36 +220,24 @@
     },
     "filter": {
       "display": "评论过滤",
-      "defaultValue": "off",
       "category": "filter",
-      "type": "option",
-      "options": [
-        {
-          "display": "开启",
-          "key": "on"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ]
+      "type": "bool",
+      "description": "此功能为经测试,可能存在bug",
+      "defaultValue": false
     },
-
     "filter_rules": {
       "display": "正则过滤规则",
-      "category": "filter",
-      "type": "richText",
+      "type": "richtext",
       "defaultValue": "/^.?6{1,12}.?$/ \n/^(@.{1,12}\\s?.{0,12}){1,24}$/ \n/压缩毛巾/ \n/答辩/ \n/爷/ \n/谁问你了/ \n/亡灵军团/ \n/死灵法师/ \n",
+      "category": "filter",
       "props": {
         "placeholder": "",
         "autoSize": true
       },
-      "description": "",
+      "description": "此功能为经测试,可能存在bug",
       "tooltip": {
         "title": "使用正则表达式,一行一个"
       },
-      "extra": "这是一个搁置很久的功能, 可能存在bug",
-      "widget": "textArea",
       "hidden": "{{ formData.filter === 'off' }}"
     }
   }
