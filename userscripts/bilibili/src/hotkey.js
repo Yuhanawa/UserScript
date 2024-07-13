@@ -1,7 +1,7 @@
 ({
     name: '快捷键增强',
     pages: ["video"],
-    showInMenu: true,
+    showInMenu: false,
     value: () => {
         // TODO 烂代码 需重构
         delay(() => {
