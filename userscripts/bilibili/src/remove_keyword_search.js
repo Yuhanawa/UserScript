@@ -1,5 +1,5 @@
 ({  // TODO 失效
-    name: '移除评论关键字搜索跳转',
+    name: '移除评论关键字搜索跳转(失效)',
     pages: ["video", "read"],
     showInMenu: true,
     value: {
