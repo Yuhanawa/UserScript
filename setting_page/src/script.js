@@ -1,12 +1,25 @@
 // Configuration and initialization
-const root = typeof _root !== 'undefined' ? _root : document;
-const scriptKey = Object.keys(win.scriptsdata)[0];
-const { props, category } = win.scriptsdata[scriptKey].config;
-const cfg = (k, v) => {
-    if (v !== undefined) console.log(`${k}: Set to ${v}`);
+let root, config, cfg;
 
-    return win.scriptsdata[scriptKey].cfg(k, v);
-};
+
+if (location.href.startsWith("http://localhost")) {
+    root = document;
+
+    const scriptKey = Object.keys(win.scriptsdata)[0];
+    config = win.scriptsdata[scriptKey].config;
+
+    cfg = (k, v) => {
+        if (v !== undefined) console.log(`${k}: Set to ${v}`);
+
+        return win.scriptsdata[scriptKey].cfg(k, v);
+    };
+} else {
+    root = _root;
+    config = _config;
+    cfg = _cfg;
+
+}
+const { props, category } = config;
 
 // UI elements
 const elements = {
@@ -107,40 +120,117 @@ function generateCategoryTabs() {
 
 }
 
+// Create tooltip element
+function createTooltip(text) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip opacity-0 invisible absolute bg-gray-800 text-white text-xs rounded py-2 px-3 left-1/2 transform -translate-x-1/2 transition-opacity duration-300 z-10 whitespace-nowrap';
+    tooltip.style.bottom = 'calc(100% + 10px)';
+    tooltip.textContent = text;
+
+    // Add arrow
+    const arrow = document.createElement('div');
+    arrow.className = 'absolute left-1/2 transform -translate-x-1/2 -bottom-1';
+    arrow.style.borderLeft = '6px solid transparent';
+    arrow.style.borderRight = '6px solid transparent';
+    arrow.style.borderTop = '6px solid #1f2937'; // Match bg-gray-800
+    tooltip.appendChild(arrow);
+
+    return tooltip;
+}
+// Create description element
+function createDescription(text) {
+    const description = document.createElement('p');
+    description.className = 'text-sm text-gray-600 mt-2 leading-relaxed';
+    description.textContent = text;
+    return description;
+}
+
 // Create base element
 function createBaseElement(content, cfg, key, item, inputElement) {
-    const { display } = item;
+    const { display, description, tooltip } = item;
     const outerDiv = document.createElement('div');
-    outerDiv.className = 'bg-gray-100 p-4 rounded-lg';
+    outerDiv.className = 'bg-white p-4 rounded-lg shadow-md relative mb-6';
+
+    const labelContainer = document.createElement('div');
+    labelContainer.className = 'flex items-center justify-between mb-2';
 
     const label = document.createElement('label');
-    label.className = 'flex items-center justify-between cursor-pointer';
+    label.className = 'text-sm font-medium text-gray-700 flex items-center';
 
     const span = document.createElement('span');
-    span.className = 'text-sm font-medium text-gray-700';
     span.textContent = display;
 
-    label.append(span, inputElement);
-    outerDiv.appendChild(label);
-    content.append(outerDiv, document.createElement('br'));
+    label.appendChild(span);
+
+    if (tooltip) {
+        const infoIcon = document.createElement('span');
+        infoIcon.className = 'ml-2 text-gray-400 hover:text-gray-600 cursor-help';
+        infoIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+
+        const tooltipElement = createTooltip(tooltip);
+        infoIcon.appendChild(tooltipElement);
+
+        infoIcon.onmouseenter = () => {
+            tooltipElement.classList.remove('opacity-0', 'invisible');
+            tooltipElement.classList.add('opacity-100', 'visible');
+        };
+        infoIcon.onmouseleave = () => {
+            tooltipElement.classList.add('opacity-0', 'invisible');
+            tooltipElement.classList.remove('opacity-100', 'visible');
+        };
+
+        label.appendChild(infoIcon);
+    }
+
+    labelContainer.appendChild(label);
+    labelContainer.appendChild(inputElement);
+    outerDiv.appendChild(labelContainer);
+
+    if (description) {
+        outerDiv.appendChild(createDescription(description));
+    }
+
+    content.appendChild(outerDiv);
 }
 
 // Setting widget creators
 let settingWidgetCreators = {
     note: (content, cfg, key, item) => {
         const note = document.createElement('div');
-        note.className = 'bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded';
-        note.textContent = item.display || '';
-        content.append(note, document.createElement('br'));
+        note.className = 'bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md mb-6';
+
+        const noteContent = document.createElement('div');
+        noteContent.className = 'flex items-start';
+
+
+        const textContainer = document.createElement('div');
+        const text = document.createElement('p');
+        text.className = 'font-medium';
+        text.textContent = item.display || '';
+        textContainer.appendChild(text);
+
+        if (item.description) {
+            const description = document.createElement('p');
+            description.className = 'text-sm mt-1';
+            description.textContent = item.description;
+            textContainer.appendChild(description);
+        }
+
+        noteContent.appendChild(textContainer);
+        note.appendChild(noteContent);
+
+        content.appendChild(note);
     },
+
     bool: (content, cfg, key, item) => {
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.className = 'w-6 h-6 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500';
+        input.className = 'w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500';
         input.checked = cfg(key);
         input.onchange = (e) => cfg(key, e.target.checked);
         createBaseElement(content, cfg, key, item, input);
     },
+
     option: (content, cfg, key, item) => {
         const select = document.createElement('select');
         select.className = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
@@ -151,7 +241,16 @@ let settingWidgetCreators = {
         select.onchange = (e) => cfg(key, e.target.value);
         createBaseElement(content, cfg, key, item, select);
     },
-    text: createInputElement('text'),
+
+    text: (content, cfg, key, item) => {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.value = cfg(key);
+        input.onchange = (e) => cfg(key, e.target.value);
+        createBaseElement(content, cfg, key, item, input);
+    },
+
     richtext: (content, cfg, key, item) => {
         const textarea = document.createElement('textarea');
         textarea.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-24';
@@ -159,6 +258,7 @@ let settingWidgetCreators = {
         textarea.onchange = (e) => cfg(key, e.target.value);
         createBaseElement(content, cfg, key, item, textarea);
     },
+
     image: (content, cfg, key, item) => {
         const container = document.createElement('div');
         container.className = 'flex flex-col space-y-2';
@@ -201,6 +301,7 @@ let settingWidgetCreators = {
         container.append(input, fileInput, preview);
         createBaseElement(content, cfg, key, item, container);
     },
+
     color: (content, cfg, key, item) => {
         const container = document.createElement('div');
         container.className = 'flex space-x-2';
@@ -234,8 +335,17 @@ let settingWidgetCreators = {
         container.append(input, colorPicker);
         createBaseElement(content, cfg, key, item, container);
     },
-    number: createInputElement('number')
+
+    number: (content, cfg, key, item) => {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.value = cfg(key);
+        input.onchange = (e) => cfg(key, parseFloat(e.target.value));
+        createBaseElement(content, cfg, key, item, input);
+    }
 };
+
 
 function createInputElement(type) {
     return (content, cfg, key, item) => {
