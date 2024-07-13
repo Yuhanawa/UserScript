@@ -21,11 +21,12 @@
             // 是否宽屏
             var isWide = unsafeWindow.isWide;
 
-            if (get('bilibili_widescreen_hide_title_onWide', false)) {
+            if (get('widescreen_hide_header_onWide')) {
                 setTimeout(() => {
                     try {
                         document.querySelector('#biliMainHeader .bili-header.fixed-header').style.display = isWide ? 'none' : 'block'
                     } catch (error) {
+                        console.error(error);
                     }
                 }, 50)
             }
@@ -44,7 +45,7 @@
             var mainWidth = innerWidth - 112 - rightWidth;
             var width = mainWidth < maxWidth ? mainWidth : maxWidth;
 
-            width = Math.round(width * get('bilibili_widescreen-width-times', 1.2))
+            width = Math.round(width * get('widescreen-width-times', 1.2))
 
             // 设置最小和最大宽度
             if (width < 668) {

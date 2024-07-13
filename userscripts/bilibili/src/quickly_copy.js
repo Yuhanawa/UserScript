@@ -1,5 +1,5 @@
 ({
-    name: "视频快捷分享复制",
+    name: "标题快捷复制",
     pages: ["video"],
     showInMenu: true,
     value: {
@@ -15,12 +15,11 @@
     },
     fn: (title, getText) => {
         delay(() => {
-            // TODO: 重构
             const h1 = document.querySelector('h1.video-title');
             if (!h1) return;
+            if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️') !== -1) return
 
             const text = getText();
-            if (document.querySelector('h1.video-title').innerHTML.indexOf('🏷️') !== -1) return
             const copy_btn = document.createElement('span')
             copy_btn.title = `复制当前视频的${title}:${text}`
             copy_btn.style.cursor = 'pointer'
@@ -29,15 +28,6 @@
             copy_btn.addEventListener('click', () => navigator.clipboard.writeText(text))
 
             document.querySelector('h1.video-title').append(copy_btn);
-
-            if (get("quickly_copy_hotkey", 'off') === 'on') {
-                document.addEventListener('keydown', (e) => {
-                    if (e.ctrlKey && e.shiftKey && e.key === 'c') {
-                        navigator.clipboard.writeText(text)
-                    }
-                })
-            }
-
         }, 2500, { loop: true });
     }
 })
