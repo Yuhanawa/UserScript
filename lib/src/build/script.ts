@@ -90,9 +90,9 @@ function processSingleJs(
 			.replaceAll(" ", "")
 			.replaceAll('"', "")
 			.replaceAll("'", "");
-		if (!fixedSassFileName.endsWith(".sass")) fixedSassFileName += ".sass";
+		if (!fixedSassFileName.toLowerCase().endsWith(".sass")) fixedSassFileName += ".sass";
 		const sassFilePath = pathJoin(buildInfo.paths.styledir, fixedSassFileName);
-		const result = `'${csso.minify(sass.compile(sassFilePath).css).css}'`;
+		const result = `\`${csso.minify(sass.compile(sassFilePath).css).css}\``;
 		return result;
 	});
 
