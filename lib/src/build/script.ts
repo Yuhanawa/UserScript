@@ -46,22 +46,6 @@ function build(opt: BuildOptions) {
 		},
 	};
 
-	// 处理name.condition.sass
-	let styleCode = "";
-	for (const file of fs
-		.readdirSync(styledir)
-		.filter((file) => file.endsWith(".condition.sass"))) {
-		const sassStyle = fs.readFileSync(stylefile(file), "utf8");
-
-		const cssStyle = `'${csso.minify(sass.compile(stylefile(file)).css).css}'`;
-		/{{([a-zA-Z0-9_]+):([a-zA-Z0-9_]+)}}/.exec(sassStyle)?.map((x) => {
-			const key = x[1];
-			const value = x[2];
-			const code = `if (cfg("${key}")=="${value}") style(${cssStyle},"${key}-${value}-style")`;
-			styleCode += `${code}\n`;
-		});
-	}
-
 	const jsCodemap = new Map<string, string>();
 	for (const file of fs
 		.readdirSync(srcdir)
@@ -70,7 +54,7 @@ function build(opt: BuildOptions) {
 		jsCodemap.set(file, code);
 	}
 
-	const fullCode = getFullCode(jsCodemap, styleCode, buildInfo);
+	const fullCode = getFullCode(jsCodemap, buildInfo);
 
 	writeScrpt(opt, fullCode);
 	// debugger;
@@ -119,7 +103,6 @@ function processSingleJs(
 }
 function getFullCode(
 	codemap: Map<string, string>,
-	styleCode: string,
 	buildInfo: BuildInfo,
 ) {
 	let codes = "";
@@ -135,7 +118,7 @@ function getFullCode(
 	const config = fs.readJsonSync(buildInfo.paths.configfile, "utf8");
 	const configVarStr = `var config = ${JSON.stringify(config, null, 4)};\n`;
 
-	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + config_js + styleCode + codes + debug_js}\n})();\n`;
+	const fullCode = `${headerStr}(function() {\n${configVarStr + code_utils + config_js + codes + debug_js}\n})();\n`;
 	return fullCode;
 }
 
