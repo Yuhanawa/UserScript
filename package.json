@@ -2,13 +2,10 @@
   "name": "userscripts",
   "version": "1.0.0",
   "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
-  "main": "gmu dev",
+  "main": "gmu",
   "scripts": {
-    "dev": "gmu dev",
+    "dev": "gmu",
     "build": "gmu build",
-    "build:lib": "cd lib && pnpm run build",
-    "watch:build:lib": "cd lib && pnpm run build && pnpm run watch:build",
-    "new_build":"node index.js",
     "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",

@@ -1,7 +1,0 @@
-/* 
-    {{@Name}} v.{{@Config.version}} by {{Config.author}}{{if Config.homepage}}
-    HomePage: {{Config.homepage}}{{/if}}{{if Config.source}}
-    Source: {{Config.source}}{{/if}}{{if Config.license}}
-    License: {{Config.license}}{{/if}}{{if Config.support}}
-    Support: {{Config.support}}{{/if}}
-*/
