@@ -2,13 +2,16 @@
 	"name": "gm_utils",
 	"version": "0.2.0",
 	"description": "1",
-	"main": "dist/main/index.js",
-	"typings": "dist/main/index.d.ts",
-	"module": "dist/module/index.js",
+	"main": "dist/main/main.js",
+	"bin": {
+		"gmu": "dist/main/cli.js"
+	},
+	"typings": "dist/main/main.d.ts",
+	"module": "dist/module/main.js",
 	"license": "MIT",
 	"keywords": [],
 	"scripts": {
-		"run:example": "pnpm build && cd example && node index.js",
+		"run:example": "pnpm build && cd example && gmu",
 		"build": "run-p build:*",
 		"build:config.js": "cd ..\\setting_page\\ && pnpm run build",
 		"build:main": "tsc -p tsconfig.json",
@@ -29,8 +32,8 @@
 		"npm-run-all": "^4.1.5",
 		"open-cli": "^6.0.1",
 		"sass": "^1.77.4",
-		"ts-node": "^9.0.0",
-		"typescript": "^4.0.2"
+		"ts-node": "^9.1.1",
+		"typescript": "^4.9.5"
 	},
 	"files": [
 		"dist/main",
@@ -40,5 +43,9 @@
 		"CHANGELOG.md",
 		"LICENSE",
 		"README.md"
-	]
+	],
+	"dependencies": {
+		"@types/chokidar": "^2.1.3",
+		"commander": "^12.1.0"
+	}
 }
