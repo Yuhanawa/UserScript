@@ -1,17 +1,16 @@
-import { join as pathJoin } from "node:path";
+import path from "node:path";
 import fs from "fs-extra";
 import logger from "../utils/logger";
 import res from "../utils/res";
 import sass from "sass";
 import csso from "csso";
+import { ConfigOptions, DevConfigOptions } from "../main";
 
-type BuildOptions = {
-	name: string;
-	path: string;
-};
 
 type BuildInfo = {
-	buildOptions: BuildOptions;
+	root: string;
+	config: ConfigOptions;
+	config_dev: DevConfigOptions;
 
 	paths: {
 		headerfile: string;
@@ -21,21 +20,23 @@ type BuildInfo = {
 		htmldir: string;
 	};
 };
-function build(opt: BuildOptions) {
-	// const loadInfoFn = import(pathJoin(opt.path, "index.js"));
+function build(config: ConfigOptions,config_dev:DevConfigOptions, root: string) {
+	// const loadInfoFn = import(path.join(opt.path, "index.js"));
 	// const info = loadInfoFn.default()
 
-	const srcdir = pathJoin(opt.path, "src");
-	const jsfile = (name: string) => pathJoin(srcdir, name);
-	const styledir = pathJoin(opt.path, "style");
-	const stylefile = (name: string) => pathJoin(styledir, name);
-	const htmldir = pathJoin(opt.path, "html");
-	const htmlfile = (name: string) => pathJoin(htmldir, name);
-	const headerfile = pathJoin(opt.path, "header");
-	const configfile = pathJoin(opt.path, "config.json");
+	const srcdir = path.join(root, "src");
+	const jsfile = (name: string) => path.join(srcdir, name);
+	const styledir = path.join(root, "style");
+	const stylefile = (name: string) => path.join(styledir, name);
+	const htmldir = path.join(root, "html");
+	const htmlfile = (name: string) => path.join(htmldir, name);
+	const headerfile = path.join(root, "header");
+	const configfile = path.join(root, "config.json");
 
 	const buildInfo: BuildInfo = {
-		buildOptions: opt,
+		root,
+		config,
+		config_dev,
 
 		paths: {
 			headerfile,
@@ -56,16 +57,16 @@ function build(opt: BuildOptions) {
 
 	const fullCode = getFullCode(jsCodemap, buildInfo);
 
-	writeScrpt(opt, fullCode);
+	writeScrpt(buildInfo, fullCode);
 	// debugger;
 }
 
 function processSingleJs(
 	filename: string,
-	path: string,
+	filepath: string,
 	buildInfo: BuildInfo,
 ): string {
-	let code = fs.readFileSync(path, "utf8").trim();
+	let code = fs.readFileSync(filepath, "utf8").trim();
 	if (code === "") return "\n";
 
 	const regex_STYLE = /\$STYLE\((.+?)\)/g;
@@ -75,7 +76,7 @@ function processSingleJs(
 			.replaceAll('"', "")
 			.replaceAll("'", "");
 		if (!fixedSassFileName.toLowerCase().endsWith(".sass")) fixedSassFileName += ".sass";
-		const sassFilePath = pathJoin(buildInfo.paths.styledir, fixedSassFileName);
+		const sassFilePath = path.join(buildInfo.paths.styledir, fixedSassFileName);
 		const result = `\`${csso.minify(sass.compile(sassFilePath).css).css}\``;
 		return result;
 	});
@@ -92,9 +93,9 @@ function processSingleJs(
 		// if (evalCode.showInMenu) {
 		// 	result += `addOptionOnMenu("${key}")\n`
 		// }
-		logger.log(`processSingleJs: ${path}, evalCode: ${evalCode}`);
+		logger.log(`processSingleJs: ${filepath}, evalCode: ${evalCode}`);
 	} catch (error) {
-		logger.err(`processSingleJs: ${path}`, error as Error);
+		logger.err(`processSingleJs: ${filepath}`, error as Error);
 	}
 
 	result += `addModule${code}\n`;
@@ -122,9 +123,9 @@ function getFullCode(
 	return fullCode;
 }
 
-function writeScrpt(opt: BuildOptions, code: string) {
-	fs.ensureFileSync(pathJoin("dist", `${opt.name}.js`));
-	fs.writeFileSync(pathJoin("dist", `${opt.name}.js`), code);
+function writeScrpt(buildInfo: BuildInfo, code: string) {
+	fs.ensureFileSync(path.join("dist", `${buildInfo.root}.js`));
+	fs.writeFileSync(path.join("dist", `${buildInfo.root}.js`), code);
 }
 
 export default {
