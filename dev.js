@@ -5,9 +5,8 @@
 // @version      dev
 // @author       Yuhanawa
 // @match        *://*/*
-// @require      file:///{PATH}/out/all.js
-// !!! 通过修改{PATH} 为当前目录的绝对路径, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
-// !例如@require  file:///E://UserScript/out/all.js
+// @require      file:///{PATH}
+// !例如@require  file:///E://UserScript/example.js
 // @run-at       document-start
 // @connect      *
 // @grant        unsafeWindow
@@ -34,8 +33,39 @@
 // ==/UserScript==
 
 (function() {
-    // !!! 通过修改{PATH} 为当前目录的绝对路径, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
-    // !!! 通过修改{PATH} 为当前目录的绝对路径, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
-    // !!! 通过修改{PATH} 为当前目录的绝对路径, 将此脚本添加到脚本管理器(Tampermonkey)中, 并打开脚本管理器[允许访问文件网址]权限 !!!
-    // 例如: 在 chrome 中, 你可以访问`chrome://extensions/`找到你的脚本管理器插件(Tampermonkey),点击`详情`, 打开`允许访问文件网址`选项
+    // !!! 实现热更新的两种方法
+    // !1.
+    // 通过修改@require中 {PATH} 为脚本文件的绝对路径, 将此脚本添加到脚本管理器(如:Tampermonkey)中
+    // 访问`chrome://extensions/`找到你的脚本管理器插件(Tampermonkey),点击`详情`, 打开`允许访问文件网址`选项  !!!
+    // firefox 无法使用此方法
+    // !2.
+    // 删除此文件中的@require, 取消下面代码注释, 修改YOUR_SCRIPT_URL, 将此脚本添加到脚本管理器(如:Tampermonkey)中
+    /*
+    const YOUR_SCRIPT_URL = 'https://127.0.0.1:8080/script.js';
+
+    function loadAndExecuteScript(url) {
+        return new Promise((resolve, reject) => {
+          GM_xmlhttpRequest({
+            method: 'GET',
+            url: url,
+            onload: function(response) {
+              eval(response.responseText);
+              resolve();
+            },
+            onerror: function(error) {
+              reject(error);
+            },
+          });
+        });
+      }
+      
+      // 使用示例
+      loadAndExecuteScript(YOUR_SCRIPT_URL)
+        .then(() => {
+          console.log('Script executed successfully');
+        })
+        .catch((error) => {
+          console.error('Failed to load or execute script:', error);
+        });
+        */
 })();
