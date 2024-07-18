@@ -1,3 +1,6 @@
 {
-    
+    "server": {
+        "alwaysStartOnDev": false,
+        "port": 8080
+    }
 }
