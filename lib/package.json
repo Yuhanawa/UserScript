@@ -10,7 +10,6 @@
   "license": "MIT",
   "keywords": [],
   "scripts": {
-    "run:example": "pnpm build && cd example && gmu",
     "build:config.js": "cd ..\\setting_page\\ && pnpm run build",
     "lint": "biome lint ./src",
     "format": "biome format ./src --write"
