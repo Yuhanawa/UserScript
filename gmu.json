@@ -1,4 +1,4 @@
 {
-    "name": "gmu",
-    "root_path":"userscripts"
+    "root_path":"userscripts",
+    "source":"https://github.com/Yuhanawa/UserScript/"
 }
