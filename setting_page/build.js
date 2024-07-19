@@ -17,13 +17,8 @@ const openConfigPanel = () => {
     shadowRoot.appendChild(root);
     document.body.appendChild(container);
 
-    ((_root,_config,_cfg)=>{
-        try{${jsContent}} catch(e){console.error(e)}
-        })(root,config,cfg);
+    ((_root,_config,_cfg)=>{ try{${jsContent}} catch(e){ console.error(e) }})(root,config,cfg);
 }
-
-// window.openConfigPanel = openConfigPanel;
-
 `
 
 writeFileSync('./dist/output.js', output)
