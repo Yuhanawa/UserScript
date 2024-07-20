@@ -7,8 +7,12 @@ const htmlContent = readFileSync('./dist/index.html', 'utf8').split('<!-- - spli
 const result = `<style>${cssContent}</style> \n ${htmlContent}`
 
 const output = `
+let _openConfigPanel = null;
 const openConfigPanel = () => {
+    if (_openConfigPanel) { _openConfigPanel(); return; }
+
     const container = document.createElement('div');
+    container.id = "userscript-setting-shadow-container";
     const shadowRoot = container.attachShadow({ mode: 'open' });
     const root = document.createElement('div');
 
@@ -17,7 +21,7 @@ const openConfigPanel = () => {
     shadowRoot.appendChild(root);
     document.body.appendChild(container);
 
-    ((_root,_config,_cfg)=>{ try{${jsContent}} catch(e){ console.error(e) }})(root,config,cfg);
+    ((_root,_config,_cfg)=>{ try{${jsContent} } catch(e){ console.error(e) }})(root,config,cfg);
 }
 `
 

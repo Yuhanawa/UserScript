@@ -374,3 +374,5 @@ function generateSettingsUI(root, props, cfg) {
 generateCategoryTabs();
 generateSettingsUI(root, props, cfg);
 elements.floatingBall.click();
+
+_openConfigPanel = () => elements.floatingBall.click();
