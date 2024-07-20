@@ -35,7 +35,7 @@
 
   padding: 6px;
 
-  opacity: 0.3;
+  opacity: 0.5;
   transition: 0.2s;
 
   cursor: pointer;
@@ -51,20 +51,24 @@
 
   transition: transform 0.3s ease;
 
-  background: #e3fdf5d7;
-  box-shadow: 1px 0px 4px 0px #42275a, -1px 0px 1px 0px #b682ae22;
+  background: #e3fdf5aa;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(66, 39, 90, 0.1),
+    0 1px 3px rgba(182, 130, 174, 0.08);
   border-radius: 0 45% 45% 0;
 
   color: #bfe2d1;
   font-size: large;
 }
 .floating-ball:hover {
-  opacity: 0.7;
+  opacity: 0.8;
   background: #ffd5f7;
   border-radius: 40%;
   transition: all 0.3s ease-out;
   font-size: x-large;
-  transform: translateX(8px)  scale(1.1);
+  box-shadow: 0 7px 14px rgba(66, 39, 90, 0.15),
+    0 3px 6px rgba(182, 130, 174, 0.1);
+  transform: translateX(8px) scale(1.1);
 }
 
 .toolbar {
@@ -91,7 +95,7 @@
   gap: 20px;
   border-radius: 10px;
   backdrop-filter: blur(10px);
-  background-color: rgba(23, 23, 23, 0.85);
+  background-color: rgba(23, 23, 23, 0.75);
   box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
   border: 1px rgba(255, 255, 255, 0.4) solid;
   border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
@@ -104,19 +108,37 @@
 }
 
 .panel:not(.hidden) {
-  animation: slideIn 0.3s ease forwards;
+  /* animation: slideIn 0.3s ease forwards; */
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 @keyframes slideIn {
   from {
-    transform: translateX(-100%);
+    transform: translateX(-100%) scale(0.85);
+    opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+.panel.hidden {
+  animation: slideOut 0.25s cubic-bezier(0.25, 0.45, 0.75, 0.25) forwards;
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(0) scale(1);
+    display: block;
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-150%) scale(0.8);
+    display: none;
+    opacity: 0;
   }
 }
 
 .panel-main {
-  transition: 0.25s;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   animation-fill-mode: forwards;
   padding: 4px;
   width: 100%;
@@ -147,15 +169,16 @@
 }
 
 .category-container li {
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 .category-container li:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Custom scrollbar for WebKit browsers */
 .content-container::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 .content-container::-webkit-scrollbar-track {
@@ -181,5 +204,5 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
 }
 .tooltip {
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
 }
