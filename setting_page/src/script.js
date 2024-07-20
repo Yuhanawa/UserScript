@@ -197,11 +197,14 @@ function createBaseElement(content, cfg, key, item, inputElement) {
 let settingWidgetCreators = {
     note: (content, cfg, key, item) => {
         const note = document.createElement('div');
-        note.className = 'bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md mb-6';
+        note.className = 'bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md mb-6 transition-all duration-300 hover:shadow-lg';
 
         const noteContent = document.createElement('div');
         noteContent.className = 'flex items-start';
 
+        const icon = document.createElement('div');
+        icon.className = 'flex-shrink-0 mr-3';
+        icon.innerHTML = '<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>';
 
         const textContainer = document.createElement('div');
         const text = document.createElement('p');
@@ -216,6 +219,7 @@ let settingWidgetCreators = {
             textContainer.appendChild(description);
         }
 
+        noteContent.appendChild(icon);
         noteContent.appendChild(textContainer);
         note.appendChild(noteContent);
 
@@ -223,17 +227,45 @@ let settingWidgetCreators = {
     },
 
     bool: (content, cfg, key, item) => {
+        const container = document.createElement('div');
+        container.className = 'flex items-center justify-between';
+        
+        const label = document.createElement('label');
+        label.className = 'flex items-center cursor-pointer';
+        
+        const toggle = document.createElement('div');
+        toggle.className = 'relative';
+        
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.className = 'w-5 h-5 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500';
+        input.className = 'sr-only';
         input.checked = cfg(key);
-        input.onchange = (e) => cfg(key, e.target.checked);
-        createBaseElement(content, cfg, key, item, input);
+        
+        const background = document.createElement('div');
+        background.className = `block w-14 h-8 rounded-full transition-colors duration-300 ease-in-out ${input.checked ? 'bg-blue-600' : 'bg-gray-600'}`;
+        
+        const dot = document.createElement('div');
+        dot.className = `absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 ease-in-out ${input.checked ? 'translate-x-6' : ''}`;
+        
+        toggle.appendChild(input);
+        toggle.appendChild(background);
+        toggle.appendChild(dot);
+        label.appendChild(toggle);
+        
+        input.onchange = (e) => {
+            const newValue = e.target.checked;
+            cfg(key, newValue);
+            background.className = `block w-14 h-8 rounded-full transition-colors duration-300 ease-in-out ${newValue ? 'bg-blue-600' : 'bg-gray-600'}`;
+            dot.className = `absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 ease-in-out ${newValue ? 'translate-x-6' : ''}`;
+        };
+        
+        container.appendChild(label);
+        createBaseElement(content, cfg, key, item, container);
     },
 
     option: (content, cfg, key, item) => {
         const select = document.createElement('select');
-        select.className = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        select.className = 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         select.innerHTML = item.options.map(option =>
             `<option value="${option.key}">${option.display}</option>`
         ).join('');
@@ -245,7 +277,7 @@ let settingWidgetCreators = {
     text: (content, cfg, key, item) => {
         const input = document.createElement('input');
         input.type = 'text';
-        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         input.value = cfg(key);
         input.onchange = (e) => cfg(key, e.target.value);
         createBaseElement(content, cfg, key, item, input);
@@ -253,7 +285,7 @@ let settingWidgetCreators = {
 
     richtext: (content, cfg, key, item) => {
         const textarea = document.createElement('textarea');
-        textarea.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-24';
+        textarea.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-24 transition-all duration-300 ease-in-out hover:bg-gray-100';
         textarea.value = cfg(key);
         textarea.onchange = (e) => cfg(key, e.target.value);
         createBaseElement(content, cfg, key, item, textarea);
@@ -265,17 +297,17 @@ let settingWidgetCreators = {
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         input.placeholder = 'Enter image link or choose file';
         input.value = cfg(key) || '';
 
         const fileInput = document.createElement('input');
         fileInput.type = 'file';
         fileInput.accept = 'image/*';
-        fileInput.className = 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none';
+        fileInput.className = 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none transition-all duration-300 ease-in-out hover:bg-gray-100';
 
         const preview = document.createElement('img');
-        preview.className = 'max-w-xs max-h-48 object-contain';
+        preview.className = 'max-w-xs max-h-48 object-contain rounded-lg shadow-md';
         preview.src = cfg(key) || '';
         preview.style.display = cfg(key) ? 'block' : 'none';
 
@@ -308,13 +340,13 @@ let settingWidgetCreators = {
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         input.placeholder = '#000000';
         input.value = cfg(key) || '';
 
         const colorPicker = document.createElement('input');
         colorPicker.type = 'color';
-        colorPicker.className = 'h-10 w-10 border-0 rounded';
+        colorPicker.className = 'h-10 w-10 border-0 rounded cursor-pointer transition-all duration-300 ease-in-out hover:opacity-80';
         colorPicker.value = cfg(key) || '#000000';
 
         const updateColor = (color) => {
@@ -339,12 +371,106 @@ let settingWidgetCreators = {
     number: (content, cfg, key, item) => {
         const input = document.createElement('input');
         input.type = 'number';
-        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         input.value = cfg(key);
         input.onchange = (e) => cfg(key, parseFloat(e.target.value));
         createBaseElement(content, cfg, key, item, input);
+    },
+
+    tree: (content, cfg, key, item) => {
+        const treeContainer = document.createElement('div');
+        treeContainer.className = 'tree-container mt-2 bg-white rounded-lg shadow-sm p-4';
+
+        function createTreeNode(node, level = 0) {
+            const nodeElement = document.createElement('div');
+            nodeElement.className = `tree-node ml-${level * 4} mb-2`;
+
+            const nodeContent = document.createElement('div');
+            nodeContent.className = 'flex items-center space-x-2 py-1';
+
+            const expandButton = document.createElement('button');
+            expandButton.className = 'w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors duration-200';
+            expandButton.innerHTML = node.children ? '▶' : '&nbsp;';
+            expandButton.onclick = () => {
+                if (node.children) {
+                    nodeElement.classList.toggle('expanded');
+                    expandButton.innerHTML = nodeElement.classList.contains('expanded') ? '▼' : '▶';
+                }
+            };
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out';
+            checkbox.checked = node.checked || false;
+            checkbox.onchange = (e) => {
+                node.checked = e.target.checked;
+                cfg(key, item.options); // 更新配置
+            };
+
+            const label = document.createElement('span');
+            label.className = 'text-sm text-gray-700';
+            label.textContent = node.label;
+
+            nodeContent.append(expandButton, checkbox, label);
+            nodeElement.appendChild(nodeContent);
+
+            if (node.children) {
+                const childrenContainer = document.createElement('div');
+                childrenContainer.className = 'children hidden mt-1';
+                node.children.forEach(child => {
+                    childrenContainer.appendChild(createTreeNode(child, level + 1));
+                });
+                nodeElement.appendChild(childrenContainer);
+            }
+
+            return nodeElement;
+        }
+
+        item.options.forEach(node => {
+            treeContainer.appendChild(createTreeNode(node));
+        });
+
+        createBaseElement(content, cfg, key, item, treeContainer);
     }
 };
+/**
+ * 添加自定义组件到 settingWidgetCreators
+ * @param {string} type - 新组件的类型标识符
+ * @param {function} creatorFunction - 创建组件的函数
+ */
+function addCustomWidget(type, creatorFunction) {
+    if (settingWidgetCreators.hasOwnProperty(type)) {
+        console.warn(`Widget type '${type}' already exists. It will be overwritten.`);
+    }
+
+    settingWidgetCreators[type] = creatorFunction;
+}
+
+// 使用示例
+// addCustomWidget('customSlider', (content, cfg, key, item) => {
+//     const slider = document.createElement('input');
+//     slider.type = 'range';
+//     slider.min = item.min || 0;
+//     slider.max = item.max || 100;
+//     slider.value = cfg(key) || slider.min;
+//     slider.className = 'w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer';
+//     slider.oninput = (e) => cfg(key, parseInt(e.target.value));
+//
+//     const valueDisplay = document.createElement('span');
+//     valueDisplay.className = 'ml-2 text-sm text-gray-600';
+//     valueDisplay.textContent = slider.value;
+//
+//     slider.addEventListener('input', () => {
+//         valueDisplay.textContent = slider.value;
+//     });
+//
+//     const container = document.createElement('div');
+//     container.className = 'flex items-center';
+//     container.appendChild(slider);
+//     container.appendChild(valueDisplay);
+//
+//     createBaseElement(content, cfg, key, item, container);
+// });
 
 
 function createInputElement(type) {
