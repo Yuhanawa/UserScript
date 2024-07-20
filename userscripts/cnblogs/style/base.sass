@@ -1,0 +1,190 @@
+*
+    transition: all 0.1s
+:root
+    --text-color-1: #202020
+    --text-color-2: #596172 // old: #555
+    --text-color-3: #555
+    --highlighted-color: #5e72e4
+    --theme-color: #5e72e4
+
+#side_nav
+    position: sticky
+    top: 8px
+
+    .sidenav
+        width: fit-content
+        font-size: larger
+        padding-top: 14px
+        & .sidenav-item
+            margin: 2px !important
+            padding: 14px
+            border-radius: 16px
+            & img
+                width: 24px
+                height: 24px
+
+            &:hover:not(.current-nav)
+                background: #cccccccc
+
+            .dropdown-button>a
+                display: flex
+                align-items: center
+
+        .sidenav-item.current-nav,.sidenav-category-active
+            padding: 14px !important
+            margin: 2px 4px 2px 2px !important
+            font-weight: bold
+            & img
+                width: 26px
+                height: 26px
+                box-shadow: inset 0px 0px 12px 32px #cdffffd9, -6px 3px 12px 6px #00ffff1f
+                border-radius: 18px
+
+#sidenav_more
+    .dropdown-menu
+        left: 6px
+        top: 85%
+        font-size: large
+    &:hover .dropdown-menu
+        box-shadow: 2px 5px 16px 4px #ccc
+
+.post-list
+    border-top: 1px dashed gainsboro
+    margin-top: 20px
+
+    // 使用的以前给bing写的样式，看起来还不错
+    a
+        position: relative
+        text-decoration: none !important
+        color: #2d65b3 !important
+        /* 3476d2   */
+        &:hover
+            text-decoration: none !important
+            &:after
+                left: 0 !important
+                width: 100% !important
+                transition: width 350ms !important
+        &:after
+            content: ""!important
+            position: absolute!important
+            border-bottom: 2px solid #f16d7a !important
+            bottom: -2px!important
+            left: 100%!important
+            width: 0!important
+            transition: width 350ms, left 350ms!important
+        &>em,&>strong
+            color: #f73131 !important
+            text-decoration: none !important
+    // 希望不要出问题
+
+    & .post-item .avatar
+        border-radius: 4px
+        padding: 0px
+        border: 1px solid #22222255
+        margin-top: 4px
+
+    &>.post-item>.post-item-body>.post-item-text
+        &>.post-item-title,&>.post-item-title:link
+            color: var(--title-color-2)
+            text-decoration: none
+            font-weight: 500
+            font-size: 19px
+            &:hover,&:focus
+                color: var(--highlighted-color)
+                text-decoration: underline
+                text-decoration-thickness: 2px
+                text-underline-offset: 2px
+                text-decoration-color: var(--highlighted-color)
+                transition: all 0.15s ease-in-out
+
+        &>.post-item-summary
+            color: var(--text-color-3)
+            margin-top: 8px
+            font-size: 15px
+            font-family: -apple-system,MiSans,Microsoft YaHei,Tahoma,Arial,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif
+
+.card.headline
+    background: #f0f8ffde
+    border-radius: 16px
+    box-shadow: 2px 2px 14px 1px #f0f8ffde
+    &:before
+        // content: "📢头条: "
+    & a
+        font-size: 14px
+        color: #003aae
+        &:hover
+            text-decoration: none
+            #text
+                text-decoration: underline
+    .headline-label
+        font-size: 16px
+        color: #4242fb
+
+#side_right
+    position: sticky
+    top: -2200px
+    height: fit-content
+    #sidebar_bh
+        background: #fff
+        padding: 8px 16px
+        border-radius: 16px
+
+        a
+            display: inline-grid
+            align-content: space-evenly
+            justify-content: start
+            align-items: stretch
+            justify-items: start
+            color: #222222dd
+            font-size: 14px
+            grid-row-gap: 6px
+
+            &:hover
+                color: #222222
+                font-style: italic
+                text-decoration: none
+
+            &:before
+                content: '博客园 VIP 会员'
+                font-size: 18px
+                font-weight: bold
+            &:after
+                content: ' G O ! >>'
+                color: #ffffff
+                font-weight: bolder
+                background: #4378ff
+                border-radius: 14px
+                padding: 6px 8px
+                margin: 0px 0 2px 0px
+                font-style: italic
+                box-shadow: 2px 1px 8px 0px #4378ff
+
+.sidebar
+    .card .card-title
+        margin-bottom: 12px
+        color: #444
+        font-size: 15px
+        font-weight: bold
+
+    .item-list li
+        font-size: 14px
+        margin: 8px 0px
+
+        &:hover
+            font-size: 15px
+            margin: 10px -1px
+            color: #4378ff
+
+#top_nav
+    border-bottom: 1px solid rgba(0,0,0,.05)
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05)
+    font-family: -apple-system, BlinkMacSystemFont, PingFang SC,"Segoe UI",Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,ui-sans-serif
+
+
+#ing_iframe
+    width: 100%
+    min-height: 100%
+    scroll-behavior: hidden
+    border: none
+    overflow: hidden
+    

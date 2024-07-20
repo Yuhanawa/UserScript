@@ -1,0 +1,129 @@
+#header,#footer,#app_bar,#top,#goTop,#right_sidebar
+    display: none !important
+
+:root,html,body,#container_content,#wrapper,#container,#main
+    width: 100%
+    height: fit-content
+    margin: 0
+    padding: 0
+
+.ing-item
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: center
+    flex-wrap: nowrap
+
+    a.ing_reply
+        transition: all 0.3s ease-in-out
+        text-decoration: none
+        font-size: 12px
+        &:hover
+            background: transparent
+            color: #f60
+
+    .feed_avatar
+        margin: 16px
+        img
+            border-radius: 6px
+            padding: 0
+    .feed_body
+        width: auto
+        font-size: 15px
+        .ing_body
+            font-size: 15px
+        .ing-author
+            text-decoration: none
+            font-size: 15px
+        .ing_comments
+            font-size: 14px
+            a
+                font-size: 15px
+                text-decoration: none
+            a.ing_reply,a.ing_comment_time
+                font-size: 12px
+
+#user_ing_block
+    margin: 24px 16px
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-around
+    align-items: stretch
+
+    background: aliceblue
+    padding: 12px 16px
+    margin: 12px 12px
+    border-radius: 12px
+
+    #avatar_block
+        .ar_r_t,.ar_l_t,.ar_r_b,.ar_l_b
+            background: none
+        #ing_current_avatar .img_avatar // 头像
+            border: 1px solid #ccc
+            padding: 0
+            border-radius: 9px
+    #ing_block
+        float: none
+        width: -webkit-fill-available
+        #my_name
+            #ing_current_username
+                #lnk_current_user
+                    text-decoration: none
+            .floatright a // 编辑个人资料
+                text-decoration: none
+        #ing_publish_wrapper
+            #ing_current
+                margin-bottom: 10px
+
+            #ing_publish_content
+                margin: 0
+                textarea
+                    width: -webkit-fill-available
+                    background: #ffffff88
+                    border-color: #ea4c8961
+                    border-style: dotted
+                    border-width: 1px 0
+                    padding: 4px 6px
+                    margin: 4px
+                    font-size: 15px
+
+            .ing_publish_block
+                margin: 6px 0 0 0
+                #btn_ing_publish
+                    color: #fff
+                    font-weight: bolder
+                    background: #4378ff
+                    border-radius: 14px
+                    margin: -8px 4px 0px 0
+                    font-style: normal
+                    box-shadow: 2px 1px 4px 0 #4378ff
+                    width: 64px
+                    height: 36px
+                    font-size: medium
+                    padding: 0
+                    border: 0
+
+                .ing_type
+                    opacity: 0.5
+                    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1)
+                    &:hover,&:focus
+                        opacity: 1
+.topic_nav_block_wrapper
+    display: flex
+
+    .topic_nav_block
+        width: -webkit-fill-available
+        display: inline-flex
+        flex-wrap: nowrap
+        justify-content: space-around
+        li
+            a
+                background-color: transparent
+                border: none
+                font-size: medium
+            a.current_nav
+                border-radius: 10px 10px 0 0
+    .refresh_list
+        margin: 3px 6px
+        width: 40px
