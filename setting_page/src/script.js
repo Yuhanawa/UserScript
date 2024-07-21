@@ -229,36 +229,36 @@ let settingWidgetCreators = {
     bool: (content, cfg, key, item) => {
         const container = document.createElement('div');
         container.className = 'flex items-center justify-between';
-        
+
         const label = document.createElement('label');
         label.className = 'flex items-center cursor-pointer';
-        
+
         const toggle = document.createElement('div');
         toggle.className = 'relative';
-        
+
         const input = document.createElement('input');
         input.type = 'checkbox';
         input.className = 'sr-only';
         input.checked = cfg(key);
-        
+
         const background = document.createElement('div');
         background.className = `block w-14 h-8 rounded-full transition-colors duration-300 ease-in-out ${input.checked ? 'bg-blue-600' : 'bg-gray-600'}`;
-        
+
         const dot = document.createElement('div');
         dot.className = `absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 ease-in-out ${input.checked ? 'translate-x-6' : ''}`;
-        
+
         toggle.appendChild(input);
         toggle.appendChild(background);
         toggle.appendChild(dot);
         label.appendChild(toggle);
-        
+
         input.onchange = (e) => {
             const newValue = e.target.checked;
             cfg(key, newValue);
             background.className = `block w-14 h-8 rounded-full transition-colors duration-300 ease-in-out ${newValue ? 'bg-blue-600' : 'bg-gray-600'}`;
             dot.className = `absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 ease-in-out ${newValue ? 'translate-x-6' : ''}`;
         };
-        
+
         container.appendChild(label);
         createBaseElement(content, cfg, key, item, container);
     },
@@ -433,44 +433,16 @@ let settingWidgetCreators = {
         createBaseElement(content, cfg, key, item, treeContainer);
     }
 };
-/**
- * 添加自定义组件到 settingWidgetCreators
- * @param {string} type - 新组件的类型标识符
- * @param {function} creatorFunction - 创建组件的函数
- */
-function addCustomWidget(type, creatorFunction) {
-    if (settingWidgetCreators.hasOwnProperty(type)) {
-        console.warn(`Widget type '${type}' already exists. It will be overwritten.`);
+
+function initCustomWidget() {
+    if (settingCustomWidgets === undefined) return;
+    for (const { type, creatorFunction } of settingCustomWidgets) {
+        if (settingWidgetCreators.hasOwnProperty(type)) {
+            console.warn(`Widget type '${type}' already exists. It will be overwritten.`);
+        }
+        settingWidgetCreators[type] = (content, cfg, key, item) => { createBaseElement(content, cfg, key, item, creatorFunction(content, cfg, key, item)) };
     }
-
-    settingWidgetCreators[type] = creatorFunction;
 }
-
-// 使用示例
-// addCustomWidget('customSlider', (content, cfg, key, item) => {
-//     const slider = document.createElement('input');
-//     slider.type = 'range';
-//     slider.min = item.min || 0;
-//     slider.max = item.max || 100;
-//     slider.value = cfg(key) || slider.min;
-//     slider.className = 'w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer';
-//     slider.oninput = (e) => cfg(key, parseInt(e.target.value));
-//
-//     const valueDisplay = document.createElement('span');
-//     valueDisplay.className = 'ml-2 text-sm text-gray-600';
-//     valueDisplay.textContent = slider.value;
-//
-//     slider.addEventListener('input', () => {
-//         valueDisplay.textContent = slider.value;
-//     });
-//
-//     const container = document.createElement('div');
-//     container.className = 'flex items-center';
-//     container.appendChild(slider);
-//     container.appendChild(valueDisplay);
-//
-//     createBaseElement(content, cfg, key, item, container);
-// });
 
 
 function createInputElement(type) {
@@ -491,12 +463,13 @@ function generateSettingsUI(root, props, cfg) {
         if (content && settingWidgetCreators[item.type]) {
             settingWidgetCreators[item.type](content, cfg, key, item);
         } else {
-            console.error(`generateSettingsUI: Can't find category ${item.category}`);
+            console.error(`generateSettingsUI: Can't find category ${item.category} or widget type ${item.type}`);
         }
     });
 }
 
 // Initialize
+initCustomWidget();
 generateCategoryTabs();
 generateSettingsUI(root, props, cfg);
 elements.floatingBall.click();
