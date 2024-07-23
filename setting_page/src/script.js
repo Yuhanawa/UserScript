@@ -461,7 +461,11 @@ function generateSettingsUI(root, props, cfg) {
     Object.entries(props).forEach(([key, item]) => {
         const content = root.querySelector(`#content-${item.category}-container`);
         if (content && settingWidgetCreators[item.type]) {
-            settingWidgetCreators[item.type](content, cfg, key, item);
+            try {
+                settingWidgetCreators[item.type](content, cfg, key, item);
+            } catch (error) {
+                console.error(`generateSettingsUI: ${key}:${item}`, error);
+            }
         } else {
             console.error(`generateSettingsUI: Can't find category ${item.category} or widget type ${item.type}`);
         }
