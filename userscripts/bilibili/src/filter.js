@@ -28,10 +28,10 @@
       }
     }
 
-    intervalAfterLoad(() => {
+    delay(() => {
       for (const x of document.getElementsByClassName("reply-item")) check(x);
       for (const x of document.getElementsByClassName("sub-reply-item")) check(x);
-    }, 2000)
+    }, 2000, { loop: true })
 
     return `.🎇filtered{display:none;}`;
   }, rules: () => {
