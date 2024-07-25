@@ -376,71 +376,182 @@ let settingWidgetCreators = {
         input.onchange = (e) => cfg(key, parseFloat(e.target.value));
         createBaseElement(content, cfg, key, item, input);
     },
-
     tree: (content, cfg, key, item) => {
-        const treeContainer = document.createElement('div');
-        treeContainer.className = 'tree-container mt-2 bg-white rounded-lg shadow-sm p-4';
+        const container = document.createElement('div');
+        container.className = 'flex flex-col space-y-2 p-2.5 w-full';
 
-        function createTreeNode(node, level = 0) {
-            const nodeElement = document.createElement('div');
-            nodeElement.className = `tree-node ml-${level * 4} mb-2`;
-
-            const nodeContent = document.createElement('div');
-            nodeContent.className = 'flex items-center space-x-2 py-1';
-
-            const expandButton = document.createElement('button');
-            expandButton.className = 'w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors duration-200';
-            expandButton.innerHTML = node.children ? '▶' : '&nbsp;';
-            expandButton.onclick = () => {
-                if (node.children) {
-                    nodeElement.classList.toggle('expanded');
-                    expandButton.innerHTML = nodeElement.classList.contains('expanded') ? '▼' : '▶';
+        const treeNodeMap = new Map();
+        const value = {
+            content: cfg(key) || [],
+            get: (nodeKey) => value.content.includes(nodeKey),
+            add: (nodeKey) => {
+                if (!value.content.includes(nodeKey)) {
+                    value.content.push(nodeKey);
+                    cfg(key, value.content);
                 }
-            };
+            },
+            remove: (nodeKey) => {
+                const index = value.content.indexOf(nodeKey);
+                if (index !== -1) {
+                    value.content.splice(index, 1);
+                    cfg(key, value.content);
+                }
+            },
+        };
+
+
+        const createTreeNode = (node, path = [], level = 0) => {
+            const nodeContainer = document.createElement('div');
+            const isOdd = level % 2 === 1;
+            nodeContainer.className = `tree-node-container tree-node-${level}-container text-gray-900  ${isOdd ? 'bg-gray-50' : 'bg-gray-200'}`;
+
+            const lineSpan = document.createElement('span');
+            let lineSpanTextContent = '| ';
+            for (let i = 0; i < level; i++) {
+                lineSpanTextContent += ' --- ';
+            }
+            lineSpan.textContent = lineSpanTextContent;
+            nodeContainer.appendChild(lineSpan);
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
-            checkbox.className = 'form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out';
-            checkbox.checked = node.checked || false;
-            checkbox.onchange = (e) => {
-                node.checked = e.target.checked;
-                cfg(key, item.options); // 更新配置
-            };
+            checkbox.id = `tree-checkbox-${level}-${node.key}`;
 
-            const label = document.createElement('span');
-            label.className = 'text-sm text-gray-700';
-            label.textContent = node.label;
+            const label = document.createElement('label');
+            label.htmlFor = checkbox.id;
+            label.textContent = node.title;
 
-            nodeContent.append(expandButton, checkbox, label);
-            nodeElement.appendChild(nodeContent);
+            const toggleIcon = document.createElement('span');
+            toggleIcon.className = 'tree-toggle-icon cursor-pointer inline-flex items-center ml-2 w-4 h-4';
+            toggleIcon.textContent = node.children ? 'v' : '⁕';
 
-            if (node.children) {
+            toggleIcon.addEventListener('click', () => {
+                const childrenContainer = nodeContainer.querySelector('.tree-children');
+                if (childrenContainer) {
+                    childrenContainer.classList.toggle('hidden');
+                    const isHidden = childrenContainer.classList.contains('hidden');
+                    toggleIcon.textContent = isHidden ? 'v' : '>';
+                }
+            });
+
+            nodeContainer.appendChild(toggleIcon);
+            nodeContainer.appendChild(lineSpan);
+            nodeContainer.appendChild(checkbox);
+            nodeContainer.appendChild(label);
+
+            const currentPath = [...path, node.key];
+            const nodeKey = currentPath.join(' > ');
+            treeNodeMap.set(nodeKey, {
+                nodeContainer,
+                checkbox,
+            });
+
+            checkbox.checked = value.get(nodeKey);
+
+            checkbox.addEventListener('change', (e) => {
+                const isChecked = e.target.checked;
+                value[isChecked ? 'add' : 'remove'](nodeKey);
+
+                if (node.children) {
+                    updateChildNodes(node.children, currentPath, isChecked);
+                }
+
+                updateParentNodes(path);
+            });
+
+            if (node.children && !value.get(nodeKey)) {
                 const childrenContainer = document.createElement('div');
-                childrenContainer.className = 'children hidden mt-1';
-                node.children.forEach(child => {
-                    childrenContainer.appendChild(createTreeNode(child, level + 1));
+                childrenContainer.classList.add('tree-children', 'hidden');
+                node.children.forEach(childNode => {
+                    childrenContainer.appendChild(createTreeNode(childNode, currentPath, level + 1));
                 });
-                nodeElement.appendChild(childrenContainer);
+                nodeContainer.appendChild(childrenContainer);
+            } else if (node.children) {
+                const childrenContainer = document.createElement('div');
+                childrenContainer.classList.add('tree-children');
+                node.children.forEach(childNode => {
+                    childrenContainer.appendChild(createTreeNode(childNode, currentPath, level + 1));
+                });
+                nodeContainer.appendChild(childrenContainer);
             }
 
-            return nodeElement;
-        }
+            return nodeContainer;
+        };
 
-        item.options.forEach(node => {
-            treeContainer.appendChild(createTreeNode(node));
+        const updateChildNodes = (children, parentPath, isChecked) => {
+            children.forEach(child => {
+                const childPath = [...parentPath, child.key];
+                const cfgKey = childPath.join(' > ');
+
+                const childCheckbox = treeNodeMap.get(cfgKey)?.checkbox;
+                if (childCheckbox) {
+                    childCheckbox.checked = isChecked;
+                    value[isChecked ? 'add' : 'remove'](cfgKey);
+                }
+
+                if (child.children) {
+                    updateChildNodes(child.children, childPath, isChecked);
+                }
+            });
+        };
+
+        const updateParentNodes = (path) => {
+            for (let i = path.length - 1; i >= 0; i--) {
+                const parentPath = path.slice(0, i + 1);
+                const parentNodeKey = parentPath.join(' > ');
+                const parentNode = treeNodeMap.get(parentNodeKey);
+
+                if (parentNode && parentNode.checkbox) {
+                    const parentNodeObj = findNodeByPath(item.children, parentPath);
+                    if (parentNodeObj && parentNodeObj.children) {
+                        const allChildrenChecked = parentNodeObj.children.every(child => {
+                            const childPath = [...parentPath, child.key];
+                            return value.get(childPath.join(' > '));
+                        });
+
+                        const someChildrenChecked = parentNodeObj.children.some(child => {
+                            const childPath = [...parentPath, child.key];
+                            return value.get(childPath.join(' > '));
+                        });
+
+                        parentNode.checkbox.checked = allChildrenChecked;
+                        parentNode.checkbox.indeterminate = someChildrenChecked && !allChildrenChecked;
+
+                        value[allChildrenChecked ? 'add' : 'remove'](parentNodeKey);
+                    }
+                }
+            }
+        };
+
+        const findNodeByPath = (nodes, path) => {
+            let currentNode = { children: nodes };
+            for (const key of path) {
+                currentNode = currentNode.children.find(node => node.key === key);
+                if (!currentNode) return null;
+            }
+            return currentNode;
+        };
+
+        item.children.forEach(node => {
+            container.appendChild(createTreeNode(node));
         });
 
-        createBaseElement(content, cfg, key, item, treeContainer);
+        createBaseElement(content, cfg, key, item, container);
     }
 };
 
 function initCustomWidget() {
-    if (settingCustomWidgets === undefined) return;
-    for (const { type, creatorFunction } of settingCustomWidgets) {
-        if (settingWidgetCreators.hasOwnProperty(type)) {
-            console.warn(`Widget type '${type}' already exists. It will be overwritten.`);
+    try {
+        if (settingCustomWidgets === undefined) return;
+        for (const { type, creatorFunction } of settingCustomWidgets) {
+            if (settingWidgetCreators.hasOwnProperty(type)) {
+                console.warn(`Widget type '${type}' already exists. It will be overwritten.`);
+            }
+            settingWidgetCreators[type] = (content, cfg, key, item) => { createBaseElement(content, cfg, key, item, creatorFunction(content, cfg, key, item)) };
         }
-        settingWidgetCreators[type] = (content, cfg, key, item) => { createBaseElement(content, cfg, key, item, creatorFunction(content, cfg, key, item)) };
+    } catch (error) {
+        console.error(`initCustomWidget: ${error}`);
+        console.error(`NOTE: CustomWidget only be applied in userscript.`);
     }
 }
 
