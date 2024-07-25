@@ -1,0 +1,26 @@
+// ==UserScript==
+// @name         CSDN-Optimize-Beautify-Simplify
+// @name:zh      CSDN-美化增强-免登录复制-沉浸式阅读-去广告等[茧绡]
+// @name:zh-CN   CSDN-美化增强-免登录复制-沉浸式阅读-去广告等[茧绡]
+// @name:zh-TW   CSDN-美化增强-免登入複製-沉浸式閱讀-去廣告等[茧绡]
+// @name:en      Streamline and Beautify CSDN Browsing Experience[Cocoon Silk]
+// @name:ja      CSDNブラウジング体験の合理化と美化 - 沈浸的読書、広告なしなど[茧絲(けむりし)]
+// @description         剥茧化绸,使 CSDN 重现柔曼如丝的新颜; 优化美化CSDN体验-个性化-免登录复制-沉浸式阅读-去广告等 
+// @description:zh      剥茧化绸,使 CSDN 重现柔曼如丝的新颜; 优化美化CSDN体验-个性化-免登录复制-沉浸式阅读-去广告等 
+// @description:zh-CN   剥茧化绸,使 CSDN 重现柔曼如丝的新颜; 优化美化CSDN体验-个性化-免登录复制-沉浸式阅读-去广告等 
+// @description:zh-TW   剥茧化绸,使 CSDN 重现柔曼如丝的新颜; 優化和美化CSDN瀏覽體驗 - 沉浸式閱讀、免登录复制、去廣告等
+// @description:en      Shedding the cocoon, CSDN emerges with a soft, silken radiance anew - Streamline and Beautify CSDN Browsing Experience -  Immersive Reading,Ad-free,etc.  
+// @description:ja      茧を脱ぎ捨て、CSDNは新たに絹のように柔らかな輝きを放-CSDNブラウジング体験の合理化と美化 - 沈浸的読書、広告なしなど.
+// @namespace    http://github.com/yuhanawa/UserScript
+// @version      0.0.1.2
+// @author       Yuhanawa
+// @supportURL   https://greasyfork.org/zh-CN/scripts/471071/feedback
+// @license      GPL-3.0
+// @match        *://*.csdn.net/*
+// @icon         none
+// @run-at       document-start
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_addStyle
+// @grant        GM_registerMenuCommand
+// ==/UserScript==
