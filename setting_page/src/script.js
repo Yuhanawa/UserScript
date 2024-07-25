@@ -277,7 +277,7 @@ let settingWidgetCreators = {
     text: (content, cfg, key, item) => {
         const input = document.createElement('input');
         input.type = 'text';
-        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
+        input.className = 'bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 transition-all duration-300 ease-in-out hover:bg-gray-100';
         input.value = cfg(key);
         input.onchange = (e) => cfg(key, e.target.value);
         createBaseElement(content, cfg, key, item, input);
