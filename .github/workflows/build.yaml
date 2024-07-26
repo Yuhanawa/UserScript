@@ -56,7 +56,6 @@ jobs:
             echo "Error: dist/userscripts directory not found" >&2
             exit 1
           fi
-          mv dist/userscripts/* .
-          git add .
+          git add dist
           git commit -m "ci: Update release files"
           git push origin releases --force
