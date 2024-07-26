@@ -1,11 +1,13 @@
 {
   "name": "userscripts",
   "version": "1.0.0",
-  "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
+  "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/scripts?set=587291)",
   "main": "gmu",
   "scripts": {
     "dev": "gmu",
     "build": "gmu build",
+    "lint": "biome lint ./src",
+    "format": "biome format ./userscripts --write",
     "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",
