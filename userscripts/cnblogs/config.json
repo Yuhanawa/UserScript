@@ -1,105 +1,109 @@
 {
-	"name": "cnblogs_garden",
-	"version": "0.2.0",
-	"pages": {
-		"home": [
-			"/www.cnblogs.com/[^/]*$/",
-			"/www.cnblogs.com/(sitehome|pick|candidate|subscription|following|aggsite|cate|comment)//"
-		],
-		"www_ing": ["/www.cnblogs.com/#ing*$/"],
-		"ing": ["ing.cnblogs.com"]
-	},
-	"category": [
-		{
-			"key": "tips",
-			"display": "tips",
-			"icon": "note-icon"
-		},
-		{
-			"key": "beautify",
-			"display": "美化",
-			"icon": "beautify-icon"
-		},
-		{
-			"key": "optimize",
-			"display": "优化",
-			"icon": "optimize-icon"
-		},
-		{
-			"key": "useful",
-			"display": "实用",
-			"icon": "useful-icon"
-		}
-	],
-	"props": {
-		"tips": {
-			"type": "note",
-			"category": "tips",
-			"display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
-		},
-		"tips-refresh": {
-			"type": "note",
-			"category": "tips",
-			"display": "修改完成后请刷新页面"
-		},
-		"tips-beautify": {
-			"type": "note",
-			"category": "beautify",
-			"display": "-- 美化 --"
-		},
-		"base": {
-			"display": "美化",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"better_skin": {
-			"display": "文章页美化",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"logo": {
-			"display": "LOGO替换",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"auto_pager_home": {
-			"display": "首页自动无缝翻页",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"auto_pager_ing": {
-			"display": "闪存自动无缝翻页",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"ing": {
-			"display": "ing",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"ing_in_iframe": {
-			"display": "ing_in_iframe(hidden)",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"menu": {
-			"display": "菜单栏增强",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		},
-		"side_right": {
-			"display": "右侧吸底",
-			"type": "bool",
-			"category": "beautify",
-			"defaultValue": true
-		}
-	}
+  "name": "cnblogs_garden",
+  "version": "0.2.1",
+  "pages": {
+    "home": [
+      "/www.cnblogs.com/[^/]*$/",
+      "/www.cnblogs.com/(sitehome|pick|candidate|subscription|following|aggsite|cate|comment)//"
+    ],
+    "www_ing": [
+      "/www.cnblogs.com/#ing*$/"
+    ],
+    "ing": [
+      "ing.cnblogs.com"
+    ]
+  },
+  "category": [
+    {
+      "key": "tips",
+      "display": "tips",
+      "icon": "note-icon"
+    },
+    {
+      "key": "beautify",
+      "display": "美化",
+      "icon": "beautify-icon"
+    },
+    {
+      "key": "optimize",
+      "display": "优化",
+      "icon": "optimize-icon"
+    },
+    {
+      "key": "useful",
+      "display": "实用",
+      "icon": "useful-icon"
+    }
+  ],
+  "props": {
+    "tips": {
+      "type": "note",
+      "category": "tips",
+      "display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+    },
+    "tips-refresh": {
+      "type": "note",
+      "category": "tips",
+      "display": "修改完成后请刷新页面"
+    },
+    "tips-beautify": {
+      "type": "note",
+      "category": "beautify",
+      "display": "-- 美化 --"
+    },
+    "base": {
+      "display": "美化",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "better_skin": {
+      "display": "文章页美化",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "logo": {
+      "display": "LOGO替换",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "auto_pager_home": {
+      "display": "首页自动无缝翻页",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "auto_pager_ing": {
+      "display": "闪存自动无缝翻页",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "ing": {
+      "display": "ing",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "ing_in_iframe": {
+      "display": "ing_in_iframe(hidden)",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "menu": {
+      "display": "菜单栏增强",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    },
+    "side_right": {
+      "display": "右侧吸底",
+      "type": "bool",
+      "category": "beautify",
+      "defaultValue": true
+    }
+  }
 }
