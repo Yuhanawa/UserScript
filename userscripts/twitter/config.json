@@ -1,0 +1,96 @@
+{
+  "version": "0.2.0",
+  "category": [
+    {
+      "key": "tips",
+      "display": "tips",
+      "icon": "note-icon"
+    },
+    {
+      "key": "core",
+      "display": "核心",
+      "icon": "core-icon"
+    },
+    {
+      "key": "useful",
+      "display": "实用",
+      "icon": "useful-icon"
+    }
+  ],
+  "props": {
+    "tips": {
+      "type": "note",
+      "category": "tips",
+      "display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+    },
+    "tips-refresh": {
+      "type": "note",
+      "category": "tips",
+      "display": "修改完成后请刷新页面"
+    },
+    "icon": {
+      "display": "自定义图标开关",
+      "category": "useful",
+      "defaultValue": true,
+      "type": "bool"
+    },
+    "icon_value": {
+      "display": "自定义图标",
+      "category": "useful",
+      "defaultValue": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 335 276' fill='%233ba9ee'%3E%3Cpath d='m302 70a195 195 0 0 1 -299 175 142 142 0 0 0 97 -30 70 70 0 0 1 -58 -47 70 70 0 0 0 31 -2 70 70 0 0 1 -57 -66 70 70 0 0 0 28 5 70 70 0 0 1 -18 -90 195 195 0 0 0 141 72 67 67 0 0 1 116 -62 117 117 0 0 0 43 -17 65 65 0 0 1 -31 38 117 117 0 0 0 39 -11 65 65 0 0 1 -32 35'/%3E%3C/svg%3E",
+      "description": "默认是小蓝鸟",
+      "hidden": "{{ formData.icon === 'off' }}"
+    },
+    "internal_blocker": {
+      "display": "是否启用内置屏蔽规则(推荐)",
+      "category": "core",
+      "defaultValue": true,
+      "type": "bool"
+    },
+    "show_note": {
+      "display": "是否显示屏蔽提示",
+      "category": "core",
+      "defaultValue": true,
+      "type": "bool"
+    },
+    "block_on_home": {
+      "display": "是否在home页启用脚本",
+      "category": "core",
+      "defaultValue": true,
+      "type": "bool"
+    },
+    "auto_block": {
+      "display": "自动屏蔽被精准匹配的用户",
+      "category": "core",
+      "defaultValue": true,
+      "type": "bool"
+    },
+    "auto_block_by_more": {
+      "display": "自动屏蔽被用户名及BIO匹配的用户",
+      "category": "core",
+      "defaultValue": true,
+      "type": "bool",
+      "hidden": "{{ formData.auto_block === 'off' }}"
+    },
+    "feed_rule": {
+      "display": "规则订阅",
+      "category": "core",
+      "defaultValue": "",
+      "extra": "一行一条",
+      "type": "richText"
+    },
+    "feed_rule_cache": {
+      "display": "规则查看",
+      "category": "core",
+      "defaultValue": "",
+      "extra": "目前支持预览功能,未来将支持快速添加与删除",
+      "type": "rules_viewer"
+    },
+    "user_rule": {
+      "display": "自定义规则",
+      "category": "core",
+      "defaultValue": "// /支持正则/ \n\n#name\n// 用户名关键词\n\n#bio\n// 用户介绍关键词\n\n#text\n// 推文关键词 作用于正文",
+      "type": "user_rule_editor"
+    }
+  }
+}

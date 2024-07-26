@@ -1,0 +1,20 @@
+header
+    h1
+        a[href='/home']
+            margin: 6px 4px 2px
+
+            div
+                background-image: var(--twitter-icon-value)
+                background-size: contain
+                background-size: contain
+                background-position: center
+                background-repeat: no-repeat
+                margin: 4px
+                svg
+                    display: none
+
+            :hover :after
+                content: "图标已被修改为自定义图标"
+                font: message-box
+                position: absolute
+                left: 48px
