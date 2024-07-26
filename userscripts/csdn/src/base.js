@@ -1,4 +1,5 @@
 ({
+    runAlways: true,
     value: () => {
         onload(() => {
             console.log("test");
