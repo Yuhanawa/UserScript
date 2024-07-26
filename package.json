@@ -1,20 +1,25 @@
 {
   "name": "userscripts",
   "version": "1.0.0",
-  "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/449705)",
-  "main": "gmu dev",
+  "description": "[[Github]](https://github.com/yuhanawa/UserScript) [[Greasyfork]](https://greasyfork.org/scripts?set=587291)",
+  "main": "gmu",
   "scripts": {
-    "dev": "gmu dev",
+    "dev": "gmu",
     "build": "gmu build",
+    "lint": "biome lint ./userscripts",
+    "format": "biome format ./userscripts --write",
     "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "csso": "^5.0.5",
     "glob": "^10.3.3",
     "gm_utils": "link:lib",
+    "lefthook": "^1.6.15",
     "sass": "^1.63.6",
     "uglify-js": "^3.17.4"
   }

@@ -7,8 +7,6 @@
 
 #### [[Github]](https://github.com/yuhanawa/UserScript) - [[Greasyfork-BILIBILI]](https://greasyfork.org/zh-CN/scripts/471069) - [[Greasyfork-CSDN]](https://greasyfork.org/zh-CN/scripts/471071) - [[Greasyfork-Twitter]](https://greasyfork.org/zh-CN/scripts/473865) - [[Greasyfork-博客园]](https://greasyfork.org/zh-CN/scripts/487754)
 
-> !在学校坐牢中...
-> !所有bug和反馈将在暑假进行处理
 
 ## 脚本
 

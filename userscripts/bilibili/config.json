@@ -1,0 +1,243 @@
+{
+	"version": "0.1.38",
+	"name": "bilibili",
+	"pages": {
+		"home": ["www.bilibili.com"],
+		"video": ["www.bilibili.com/video"],
+		"read": ["www.bilibili.com/read"]
+	},
+	"category": [
+		{
+			"key": "tips",
+			"display": "tips",
+			"icon": "note-icon"
+		},
+		{
+			"key": "beautify",
+			"display": "美化",
+			"icon": "beautify-icon"
+		},
+		{
+			"key": "optimize",
+			"display": "优化",
+			"icon": "optimize-icon"
+		},
+		{
+			"key": "useful",
+			"display": "实用",
+			"icon": "useful-icon"
+		},
+		{
+			"key": "filter",
+			"display": "过滤",
+			"icon": "filter-icon"
+		}
+	],
+	"props": {
+		"tips": {
+			"type": "note",
+			"category": "tips",
+			"display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+		},
+		"tips-refresh": {
+			"type": "note",
+			"category": "tips",
+			"display": "修改完成后请刷新页面"
+		},
+		"tips-beautify": {
+			"type": "note",
+			"category": "beautify",
+			"display": "-- 美化 --"
+		},
+		"beautify": {
+			"display": "样式美化",
+			"type": "bool",
+			"category": "beautify",
+			"defaultValue": true,
+			"description": "此功能是部分功能的前置功能"
+		},
+		"beautify_work_on_index": {
+			"display": "是否在首页启用样式美化",
+			"category": "beautify",
+			"type": "bool",
+			"defaultValue": true,
+			"description": "前置功能:样式美化",
+			"hidden": "{{ formData.beautify === 'off' }}"
+		},
+		"background": {
+			"display": "自定义背景开关",
+			"category": "beautify",
+			"type": "bool",
+			"defaultValue": true,
+			"description": "前置功能:样式美化",
+			"hidden": "{{ formData.beautify === 'off' }}"
+		},
+		"background_value": {
+			"display": "自定义背景",
+			"defaultValue": "https://s1.hdslb.com/bfs/static/stone-free/dyn-home/assets/bg.png",
+			"category": "beautify",
+			"hidden": "{{ formData.beautify === 'off' }}",
+			"description": "前置功能:自定义背景开关",
+			"tooltip": "填图片链接或者上传图片",
+			"type": "image"
+		},
+		"video_radius": {
+			"display": "视频小圆角",
+			"category": "beautify",
+			"type": "bool",
+			"defaultValue": true,
+			"hidden": "{{ formData.beautify === 'off' }}"
+		},
+		"tips-video-beautify": {
+			"type": "note",
+			"category": "beautify",
+			"display": "-- 视频页美化 --"
+		},
+		"video_beautify": {
+			"display": "视频页美化",
+			"category": "beautify",
+			"type": "bool",
+			"defaultValue": true
+		},
+		"widescreen": {
+			"display": "宽屏功能",
+			"category": "beautify",
+			"type": "bool",
+			"defaultValue": true
+		},
+		"widescreen-width-times": {
+			"display": "宽屏倍数",
+			"type": "number",
+			"defaultValue": 1.2,
+			"required": true,
+			"hidden": "{{ formData.widescreen === 'off' }}",
+			"category": "beautify",
+			"tooltip": "单位: 倍",
+			"description": "前置功能:宽屏功能|推荐范围1.00~1.30倍"
+		},
+		"widescreen_hide_header_onWide": {
+			"display": "剧场模式下隐藏网页顶部菜单",
+			"type": "bool",
+			"category": "beautify",
+			"defaultValue": false,
+			"description": "前置功能:宽屏功能",
+			"hidden": "{{ formData.widescreen === 'off' }}"
+		},
+
+		"tips-optimize": {
+			"type": "note",
+			"category": "optimize",
+			"display": "-- 优化 --"
+		},
+		"ad": {
+			"display": "移除广告",
+			"category": "optimize",
+			"type": "bool",
+			"defaultValue": true
+		},
+		"remove_keyword_search": {
+			"display": "移除关键词搜索标志(失效)",
+			"category": "optimize",
+			"type": "option",
+			"options": [
+				{
+					"key": "icon",
+					"display": "隐藏🔍图标"
+				},
+				{
+					"key": "color",
+					"display": "隐藏图标和恢复颜色"
+				},
+				{
+					"key": "link",
+					"display": "彻底移除"
+				},
+				{
+					"key": "off",
+					"display": "已关闭"
+				}
+			],
+			"defaultValue": "icon"
+		},
+		"video_live_recommand": {
+			"display": "去除视频页直播推荐",
+			"category": "optimize",
+			"type": "bool",
+			"defaultValue": true
+		},
+
+		"tips-useful": {
+			"type": "note",
+			"category": "useful",
+			"display": "-- 实用 --"
+		},
+		"quickly_copy": {
+			"display": "标题快捷复制",
+			"type": "option",
+			"category": "useful",
+			"defaultValue": "all",
+			"options": [
+				{
+					"key": "all",
+					"display": "[标题]链接"
+				},
+				{
+					"key": "BV",
+					"display": "BV"
+				},
+				{
+					"key": "url",
+					"display": "链接"
+				},
+				{
+					"key": "title",
+					"display": "标题"
+				},
+				{
+					"key": "off",
+					"display": "已关闭"
+				}
+			]
+		},
+		"video_cover_download": {
+			"display": "视频封面获取",
+			"type": "bool",
+			"category": "useful",
+			"defaultValue": true
+		},
+		"hotkey": {
+			"display": "按ESC关闭评论区图片",
+			"category": "useful",
+			"defaultValue": true,
+			"description": "",
+			"type": "bool"
+		},
+		"tips-filter": {
+			"type": "note",
+			"category": "filter",
+			"display": "-- 过滤 --"
+		},
+		"filter": {
+			"display": "评论过滤",
+			"category": "filter",
+			"type": "bool",
+			"description": "此功能为经测试,可能存在bug",
+			"defaultValue": false
+		},
+		"filter_rules": {
+			"display": "正则过滤规则",
+			"type": "richtext",
+			"defaultValue": "/^.?6{1,12}.?$/ \n/^(@.{1,12}\\s?.{0,12}){1,24}$/ \n/压缩毛巾/ \n/答辩/ \n/爷/ \n/谁问你了/ \n/亡灵军团/ \n/死灵法师/ \n",
+			"category": "filter",
+			"props": {
+				"placeholder": "",
+				"autoSize": true
+			},
+			"description": "此功能为经测试,可能存在bug",
+			"tooltip": {
+				"title": "使用正则表达式,一行一个"
+			},
+			"hidden": "{{ formData.filter === 'off' }}"
+		}
+	}
+}

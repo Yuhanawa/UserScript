@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.topmost {
+  display: flex !important;
+  position: fixed !important;
+  z-index: 5201314 !important;
+  width: 100% !important;
+  height: 100% !important;
+
+  /* Improve text clarity */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.main-container {
+  position: fixed;
+
+  top: calc(50%);
+  left: calc(50%);
+  transform: translate(-50%, -50%);
+}
+
+.floating-ball {
+  display: flex;
+  position: fixed;
+  z-index: 5201314;
+  top: calc(72vh);
+  left: 0;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 6px;
+
+  opacity: 0.5;
+  transition: 0.2s;
+
+  cursor: pointer;
+  user-select: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  -webkit-tap-highlight-color: transparent;
+
+  transform-origin: center;
+  transform: translateX(-8px);
+
+  transition: transform 0.3s ease;
+
+  background: #e3fdf5aa;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(66, 39, 90, 0.1),
+    0 1px 3px rgba(182, 130, 174, 0.08);
+  border-radius: 0 45% 45% 0;
+
+  color: #bfe2d1;
+  font-size: large;
+}
+.floating-ball:hover {
+  opacity: 0.8;
+  background: #ffd5f7;
+  border-radius: 40%;
+  transition: all 0.3s ease-out;
+  font-size: x-large;
+  box-shadow: 0 7px 14px rgba(66, 39, 90, 0.15),
+    0 3px 6px rgba(182, 130, 174, 0.1);
+  transform: translateX(8px) scale(1.1);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: move;
+}
+
+.panel {
+  animation-fill-mode: forwards;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  height: 65vh;
+  width: fit-content;
+  position: static;
+  padding: 4px;
+  overflow: hidden;
+
+  color: white;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(23, 23, 23, 0.75);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 1px rgba(255, 255, 255, 0.4) solid;
+  border-bottom: 1px rgba(40, 40, 40, 0.35) solid;
+  border-right: 1px rgba(40, 40, 40, 0.35) solid;
+}
+/* Ensure crisp text in the panel */
+.panel,
+.panel * {
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.panel:not(.hidden) {
+  /* animation: slideIn 0.3s ease forwards; */
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%) scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+.panel.hidden {
+  animation: slideOut 0.25s cubic-bezier(0.25, 0.45, 0.75, 0.25) forwards;
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(0) scale(1);
+    display: block;
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-150%) scale(0.8);
+    display: none;
+    opacity: 0;
+  }
+}
+
+.panel-main {
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation-fill-mode: forwards;
+  padding: 4px;
+  width: 100%;
+  height: calc(100% - 30px); /* Adjust for toolbar height */
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.category-container {
+  max-width: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.content-container {
+  overflow-y: auto;
+  width: 640px;
+  height: 100%; /* Set to full height of parent */
+  padding: 0px 4px;
+  border-radius: 4px;
+  /* Add these properties for custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+
+.category-container li {
+  transition: all 0.2s ease;
+}
+.category-container li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom scrollbar for WebKit browsers */
+.content-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 4px;
+  border: 2px solid transparent;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  transition: all 0.2s ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+.tooltip {
+  transition: all 0.3s ease;
+}

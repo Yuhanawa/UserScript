@@ -3,8 +3,7 @@
         "enabled": true,
         "rules": {
             "suspicious": {
-                "noConfusingLabels": "off",
-                "noCommaOperator": "off"
+                "noConfusingLabels": "off"
             },
             "style": {}
         }

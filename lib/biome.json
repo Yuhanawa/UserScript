@@ -1,0 +1,12 @@
+{
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "complexity": {
+        "useLiteralKeys": "off"
+      },
+      "suspicious": {},
+      "style": {}
+    }
+  }
+}
