@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "gmu",
     "build": "gmu build",
-    "lint": "biome lint ./src",
+    "lint": "biome lint ./userscripts",
     "format": "biome format ./userscripts --write",
     "update-versions": "node ./update-versions.js"
   },
