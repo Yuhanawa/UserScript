@@ -1,6 +1,6 @@
 ({
-    name: '美化',
-    pages: ['home'],
-    showInMenu: true,
-    value: $STYLE(base)
-})
+	// 美化
+	pages: ["home"],
+	showInMenu: true,
+	value: $STYLE("base"),
+});

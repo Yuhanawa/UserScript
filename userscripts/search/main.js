@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         [废弃]! 搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 
+// @name         [废弃]! 搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google
 // @name:zh      [废弃]! 搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 搜索引擎快速切换
 // @version      0.5.6.6
 // @description  [废弃]! 搜索引擎 优化/美化/净化/增强 搜索引擎快速切换 百度必应谷歌/Baidu/Bing/Google 搜索引擎快速切换
@@ -20,7 +20,7 @@ let css = "";
 let isRunning = false;
 let isLoaded = false;
 
-let searchURLMatchList = `
+const searchURLMatchList = `
     # 一行一个 井号开头的行将被忽略
     bing.com/search
     woc.cool/search
@@ -43,8 +43,8 @@ let searchURLMatchList = `
     you.com/
     www.qwant.com
     www.startpage.com
-    `
-let defaultSearchList = `
+    `;
+const defaultSearchList = `
     # 格式: “名称,链接”, 一行一个 井号开头的行将被忽略
     谷歌搜索,https://www.google.com/search?q=$
     百度搜索,https://www.baidu.com/s?wd=$
@@ -60,7 +60,7 @@ let defaultSearchList = `
     #startpage,https://www.startpage.com/sp/search
     #qwant,https://www.qwant.com/?q=$
     `;
-let translateURLMatchList = `
+const translateURLMatchList = `
     https://fanyi.baidu.com/
     https://translate.google.com/
     https://dict.youdao.com/
@@ -68,143 +68,158 @@ let translateURLMatchList = `
     https://www.vocabulary.com/dictionary/
     https://dictionary.cambridge.org/zhs
     https://www.learnersdictionary.com/definition/
-    `
+    `;
 const DefaultFontFamily = `MiSans,-apple-system,Microsoft YaHei,Tahoma,Arial,"Helvetica Neue",Helvetica,"Nimbus Sans L",Arial,"Liberation Sans","PingFang SC","Hiragino Sans GB","Source Han Sans CN","Source Han Sans SC","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei","ST Heiti",SimHei,"WenQuanYi Zen Hei Sharp",sans-serif `;
 const get_search_font_family = () =>
-    get("search-font-family", DefaultFontFamily).trim() === "" ? DefaultFontFamily : get("search-font-family", defaultSearchList).trim();
-
+	get("search-font-family", DefaultFontFamily).trim() === ""
+		? DefaultFontFamily
+		: get("search-font-family", defaultSearchList).trim();
 
 // noinspection JSUnresolvedFunction
-const get = (key, d) => GM_getValue(key, d)
+const get = (key, d) => GM_getValue(key, d);
 // noinspection JSUnresolvedFunction
-const set = (key, v) => GM_setValue(key, v)
-
-
+const set = (key, v) => GM_setValue(key, v);
 
 // ---------------------------------------------------------------------------- //
 
-
 const menu = (name, key, defaultValue) => {
-    const value = get(key, defaultValue)
-    name += value ? ':开启' : ':关闭';
-    // noinspection JSUnresolvedFunction
-    GM_registerMenuCommand(name, () => {
-        set(key, !value);
-        location.reload()
-    });
-    return value;
-}
+	const value = get(key, defaultValue);
+	// biome-ignore lint: <explanation>
+	name += value ? ":开启" : ":关闭";
+	// noinspection JSUnresolvedFunction
+	GM_registerMenuCommand(name, () => {
+		set(key, !value);
+		location.reload();
+	});
+	return value;
+};
 const options = (name, key, ValueList) => {
-    const index = get(key, 0)
-    name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
-    // noinspection JSUnresolvedFunction
-    GM_registerMenuCommand(name, () => {
-        if (index + 1 >= ValueList.length) set(key, 0); else set(key, index + 1);
-        location.reload()
-    });
-    return index;
-}
+	const index = get(key, 0);
+	// biome-ignore lint: <explanation>
+	name += `:${ValueList[index]}[${index + 1}/${ValueList.length}]<点击切换模式`;
+	// noinspection JSUnresolvedFunction
+	GM_registerMenuCommand(name, () => {
+		if (index + 1 >= ValueList.length) set(key, 0);
+		else set(key, index + 1);
+		location.reload();
+	});
+	return index;
+};
 const match = (x) => {
-    if (typeof x == "undefined") return false;
-    if (typeof x == "string") {
-        if (document.URL.indexOf(x) !== -1) {
-            if (!isRunning) {
-                isRunning = true;
-                console.info("> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
-            }
-            return true;
-        }
-    } else if (typeof x == "object") {
-        if (x.test(document.URL)) {
-            if (!isRunning) {
-                isRunning = true;
-                console.info("> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript")
-            }
-            return true;
-        }
-    } else console.error(`? 意料之外的错误: x:${x} URL:${URL}`)
+	if (typeof x === "undefined") return false;
+	if (typeof x === "string") {
+		if (document.URL.indexOf(x) !== -1) {
+			if (!isRunning) {
+				isRunning = true;
+				console.info(
+					"> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript",
+				);
+			}
+			return true;
+		}
+	} else if (typeof x === "object") {
+		if (x.test(document.URL)) {
+			if (!isRunning) {
+				isRunning = true;
+				console.info(
+					"> 优化美化净化增强脚本 运行中... 求star https://github.com/yuhanawa/UserScript",
+				);
+			}
+			return true;
+		}
+	} else console.error(`? 意料之外的错误: x:${x} URL:${URL}`);
 
-
-    return false;
-}
+	return false;
+};
 const str2list = (s) =>
-    s.split('\n').map((x) => {
-        if (!x.trim().startsWith('#') && x.trim().length > 3) {
-            return x.trim();
-        }
-    })
+	s.split("\n").map((x) => {
+		if (!x.trim().startsWith("#") && x.trim().length > 3) {
+			return x.trim();
+		}
+	});
 
 const matchList = (l) => {
-    for (let i = 0; i < l.length; i++) {
-        if (match(l[i])) return true;
-    }
-    return false;
-}
+	for (let i = 0; i < l.length; i++) {
+		if (match(l[i])) return true;
+	}
+	return false;
+};
 const style = (css) => {
-    css = css.replaceAll(/\s{2,}/g, " ")
-    if (typeof GM_addStyle != "undefined") {
-        GM_addStyle(css);
-    } else if (typeof PRO_addStyle != "undefined") {
-        PRO_addStyle(css);
-    } else if (typeof addStyle != "undefined") {
-        addStyle(css);
-    } else {
-        const node = document.createElement("style");
-        node.appendChild(document.createTextNode(css));
-        document.body.appendChild(node);
-    }
-}
+	// biome-ignore lint: <explanation>
+	css = css.replaceAll(/\s{2,}/g, " ");
+	if (typeof GM_addStyle !== "undefined") {
+		GM_addStyle(css);
+	} else if (typeof PRO_addStyle !== "undefined") {
+		PRO_addStyle(css);
+	} else if (typeof addStyle !== "undefined") {
+		addStyle(css);
+	} else {
+		const node = document.createElement("style");
+		node.appendChild(document.createTextNode(css));
+		document.body.appendChild(node);
+	}
+};
 const onload = (f) => {
-    if (isLoaded) f(); else document.addEventListener("DOMContentLoaded", () => f())
+	if (isLoaded) f();
+	else document.addEventListener("DOMContentLoaded", () => f());
 };
 const setTimeoutBeforeLoad = (f, t) => onload(() => setTimeout(() => f(), t));
 
-const setIntervalBeforeLoad = (f, timeout) => onload(() => {
-    f();
-    setInterval(f, timeout);
-})
+const setIntervalBeforeLoad = (f, timeout) =>
+	onload(() => {
+		f();
+		setInterval(f, timeout);
+	});
 
-onload(() => isLoaded = true);
-
+// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+onload(() => (isLoaded = true));
 
 /* search */
 if (matchList(str2list(searchURLMatchList))) {
-    menu("搜索引擎优化美化净化", 'search', true);
-    menu("搜索引擎快速切换工具", 'search_engine_switch_tool', true);
+	menu("搜索引擎优化美化净化", "search", true);
+	menu("搜索引擎快速切换工具", "search_engine_switch_tool", true);
 
-    onload(() => {
-        /*添加背景*/
-        document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>")
-        /* 匹配搜索框 */
-        if (match("sogou.com/web?query")) document.getElementById("bottom_form_querytext").className += " search-input-awa "; else if (match("bing.com")) {
-            document.getElementById("sb_form_q").className += " search-input-awa ";
-        } else if (match("duckduckgo.com/")) {
-            document.getElementById("search_form_input").className += " search-input-awa ";
-        } else {
-            document.querySelectorAll("input").forEach(i => {
-                if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
-            });
-            if (document.querySelectorAll(".search-input-awa").length === 0) {
-                setTimeout(() => {
-                    document.querySelectorAll("input").forEach(i => {
-                        if (i.type === 'text' || i.type === 'search') i.className += " search-input-awa ";
-                    });
-                }, 2000)
-            }
-        }
-    })
-    if (menu("搜索界面默认使用MiSans字体", 'search_misans', true)) {
-        /* 添加字体 */
-        style(`
+	onload(() => {
+		/*添加背景*/
+		document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>");
+		/* 匹配搜索框 */
+		if (match("sogou.com/web?query"))
+			document.getElementById("bottom_form_querytext").className +=
+				" search-input-awa ";
+		else if (match("bing.com")) {
+			document.getElementById("sb_form_q").className += " search-input-awa ";
+		} else if (match("duckduckgo.com/")) {
+			document.getElementById("search_form_input").className +=
+				" search-input-awa ";
+		} else {
+			// biome-ignore lint/complexity/noForEach: <explanation>
+			document.querySelectorAll("input").forEach((i) => {
+				if (i.type === "text" || i.type === "search")
+					i.className += " search-input-awa ";
+			});
+			if (document.querySelectorAll(".search-input-awa").length === 0) {
+				setTimeout(() => {
+					// biome-ignore lint/complexity/noForEach: <explanation>
+					document.querySelectorAll("input").forEach((i) => {
+						if (i.type === "text" || i.type === "search")
+							i.className += " search-input-awa ";
+					});
+				}, 2000);
+			}
+		}
+	});
+	if (menu("搜索界面默认使用MiSans字体", "search_misans", true)) {
+		/* 添加字体 */
+		style(`
                 @import url('https://unpkg.com/misans@3.1.1/lib/misans-400-regular.min.css');
                 @import url('https://unpkg.com/misans@3.1.1/lib/misans-500-medium.min.css');
                 `);
-    }
-    style(`* {font-family: ${get_search_font_family()}  !important;}`)
+	}
+	style(`* {font-family: ${get_search_font_family()}  !important;}`);
 
-    /* search */
-    if (get("search", true)) {
-        css += `
+	/* search */
+	if (get("search", true)) {
+		css += `
             
         a > em, a > strong{
             color: #f73131 !important;
@@ -321,13 +336,18 @@ if (matchList(str2list(searchURLMatchList))) {
             margin:auto !important;
             padding:auto !important;
         }
-        `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-        if (get("search-background-img", "").trim() !== "") css += `
+        `
+			.replaceAll(/\s*,/g, ",")
+			.replaceAll(/\s*{/g, "{");
+		if (get("search-background-img", "").trim() !== "")
+			css += `
                     .results > div, .results > li, .result, .item-awa{
                         background-color: rgba(255, 255, 255,.65);
-                    }`.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-        /* engine_switch_tool */
-        css += `
+                    }`
+				.replaceAll(/\s*,/g, ",")
+				.replaceAll(/\s*{/g, "{");
+		/* engine_switch_tool */
+		css += `
         #engine_switch_tool{
             all: initial;
             
@@ -421,11 +441,17 @@ if (matchList(str2list(searchURLMatchList))) {
             opacity:1 !important;
         }           
         
-        `.replaceAll(/\s*,/g, ",").replaceAll(/\s*{/g, "{");
-        const addClass = (y, add) => css = css.replaceAll(`${y},`, `${add},${y},`).replaceAll(`${y}{`, `${add},${y}{`);
+        `
+			.replaceAll(/\s*,/g, ",")
+			.replaceAll(/\s*{/g, "{");
+		const addClass = (y, add) =>
+			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+			(css = css
+				.replaceAll(`${y},`, `${add},${y},`)
+				.replaceAll(`${y}{`, `${add},${y}{`));
 
-        if (match("bing.com/search")) {
-            css += `
+		if (match("bing.com/search")) {
+			css += `
                 .sh_favicon{
                     margin-left: 16px;
                 }
@@ -513,47 +539,50 @@ if (matchList(str2list(searchURLMatchList))) {
                     content:": 此处样式(配色,动画等)待适配:快懒死了,一点都不想干活"
                 }                         
                 `;
-            addClass(".item-awa", "#b_results > li")
+			addClass(".item-awa", "#b_results > li");
 
-            onload(() => {
-                /* 移动 切换按钮 位置 */
-                const est_switch_html = `>${document.getElementById("est_switch").outerHTML}<a id="id_l"`;
-                document.getElementById("est_switch").remove();
-                document.getElementById("id_h").outerHTML = document.getElementById("id_h").outerHTML
-                    .replace(`><a id="id_l"`, est_switch_html)
-                document.getElementById("est_switch").style.display = "block";
+			onload(() => {
+				/* 移动 切换按钮 位置 */
+				const est_switch_html = `>${
+					document.getElementById("est_switch").outerHTML
+				}<a id="id_l"`;
+				document.getElementById("est_switch").remove();
+				document.getElementById("id_h").outerHTML = document
+					.getElementById("id_h")
+					.outerHTML.replace(`><a id="id_l"`, est_switch_html);
+				document.getElementById("est_switch").style.display = "block";
 
-                /* 移除空白的div */
-                const bc = document.getElementById("b_context");
-                if (bc.outerText.length < 20) {
-                    bc.remove();
-                }
-                const ba = document.getElementsByClassName("b_ans");
-                for (let i = 0; i < ba.length; i++) {
-                    const b = ba[i];
-                    if (b.innerHTML.length < 3) {
-                        b.remove();
-                    }
-                }
-            })
+				/* 移除空白的div */
+				const bc = document.getElementById("b_context");
+				if (bc.outerText.length < 20) {
+					bc.remove();
+				}
+				const ba = document.getElementsByClassName("b_ans");
+				for (let i = 0; i < ba.length; i++) {
+					const b = ba[i];
+					if (b.innerHTML.length < 3) {
+						b.remove();
+					}
+				}
+			});
 
-            if (get("search-background-img", "").trim() !== "") {
-                css += `
+			if (get("search-background-img", "").trim() !== "") {
+				css += `
                         #b_header {
                             border-bottom: 0px !important;
                         }
-                    `
-            }
+                    `;
+			}
 
-            if (get("remove_favicon_icon", true)) {
-                css += `.sh_favicon{ display:none !important; }`
-            }
-        }
-        // --------------------------------------- //
-        else if (match("baidu.com/s")) {
-            addClass(".item-awa", ".result-op, .result-op")
+			if (get("remove_favicon_icon", true)) {
+				css += ".sh_favicon{ display:none !important; }";
+			}
+		}
+		// --------------------------------------- //
+		else if (match("baidu.com/s")) {
+			addClass(".item-awa", ".result-op, .result-op");
 
-            css += `
+			css += `
                 #s_tab{
                     padding-top: 0px !important;
                 }
@@ -644,21 +673,21 @@ if (matchList(str2list(searchURLMatchList))) {
                 }
                 `;
 
-            onload(() => {
-                document.body.insertAdjacentHTML("afterend", `<style>${css}</style>`);
-            })
-        }
-        // --------------------------------------- //
-        else if (match("fsoufsou.com/search") || match("woc.cool/search")) {
-            addClass(".header-awa", "._search-sticky-bar")
-            addClass(".inputbox-awa", ".input-group-container")
-            addClass(".item-awa", ".organic-results div")
-            addClass(".item-awa div", ".organic-results div div")
-            addClass(".item-title-awa", ".organic-results div a")
-            addClass(".item-text-awa", ".organic-results div span")
-            addClass(".auto", ".mobile-wiki-container")
+			onload(() => {
+				document.body.insertAdjacentHTML("afterend", `<style>${css}</style>`);
+			});
+		}
+		// --------------------------------------- //
+		else if (match("fsoufsou.com/search") || match("woc.cool/search")) {
+			addClass(".header-awa", "._search-sticky-bar");
+			addClass(".inputbox-awa", ".input-group-container");
+			addClass(".item-awa", ".organic-results div");
+			addClass(".item-awa div", ".organic-results div div");
+			addClass(".item-title-awa", ".organic-results div a");
+			addClass(".item-text-awa", ".organic-results div span");
+			addClass(".auto", ".mobile-wiki-container");
 
-            css += `
+			css += `
                     #app div .false {
                         padding-top: 0px !important;
                     } 
@@ -679,13 +708,13 @@ if (matchList(str2list(searchURLMatchList))) {
                     #code-block-container{
                         max-width: 480px;
                     }
-                `
-        }
-        // -小众中国网站---------------------------- //
-        else if (match("sogou.com") || match("so.com")) {
-            addClass(".item-awa", ".result > li")
+                `;
+		}
+		// -小众中国网站---------------------------- //
+		else if (match("sogou.com") || match("so.com")) {
+			addClass(".item-awa", ".result > li");
 
-            css += `
+			css += `
                 /* 矫正搜索栏下方tag */
                 .searchnav {
                     position: absolute;
@@ -716,11 +745,11 @@ if (matchList(str2list(searchURLMatchList))) {
                 .wrapper, #wrapper, #container{
                     padding-left: 160px !important;
                 }
-                `
-        }
-        // -小众外国网站---------------------------- //
-        else if (match("ecosia.org/search")) {
-            css += `
+                `;
+		}
+		// -小众外国网站---------------------------- //
+		else if (match("ecosia.org/search")) {
+			css += `
                     #search-filters{
                         margin-left: 24px;
                     }
@@ -728,17 +757,17 @@ if (matchList(str2list(searchURLMatchList))) {
                         padding-left: 36px;
                         margin-top: -12px;
                     }
-                `
-        }
-        // --------------------------------------- //
-        else {
-            addClass(".header-awa", ".CvDJxb")
-            addClass(".item-awa", ".MjjYud")
-            addClass(".item-awa div", ".MjjYud div")
-            addClass(".item-title-awa", "h3.LC20lb")
-            addClass(".item-text-awa", ".MjjYud span")
+                `;
+		}
+		// --------------------------------------- //
+		else {
+			addClass(".header-awa", ".CvDJxb");
+			addClass(".item-awa", ".MjjYud");
+			addClass(".item-awa div", ".MjjYud div");
+			addClass(".item-title-awa", "h3.LC20lb");
+			addClass(".item-text-awa", ".MjjYud span");
 
-            css += `
+			css += `
                 .yg51vc, /*头部白色区域*/
                 .appbar /*获得约 * 条结果，以下是第 * 页*/
                 {
@@ -768,48 +797,63 @@ if (matchList(str2list(searchURLMatchList))) {
                 .u7yw9 {
                     background: #ffffff !important;
                 }
-                `
-        }
-    }
+                `;
+		}
+	}
 
-    /* search tools */
-    if (get("search_engine_switch_tool", true)) {
-        if (get("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
-            set("engine_switch_tool_version", engine_switch_tool_version);
-            if (get("engine_switch_tool_version", -1) !== -1) {
-                setTimeoutBeforeLoad(() => {
-                    document.body.insertAdjacentHTML("afterend", `
+	/* search tools */
+	if (get("search_engine_switch_tool", true)) {
+		if (
+			get("engine_switch_tool_version", -1) + 3 <
+			engine_switch_tool_version
+		) {
+			set("engine_switch_tool_version", engine_switch_tool_version);
+			if (get("engine_switch_tool_version", -1) !== -1) {
+				setTimeoutBeforeLoad(() => {
+					document.body.insertAdjacentHTML(
+						"afterend",
+						`
                         <div id="removeafter3s" style="font-size: xx-large;position: fixed;margin: auto;top: 20vh;left: 0;right: 0;width: max-content;height:min-content;padding: 40px;background: lightgreen;opacity: 0.8;">
                             <h1 style="font-size: xx-large"> 此信息将会在3秒后自动消失 </h1>
                             <h1 style="font-size: xx-large"> !!! 您的搜索引擎快速切换工具列表配置文件因为过于老旧而被重置 !!! </h1>
                         </div>
-                    `)
-                    setTimeout(() => {
-                        document.getElementById("removeafter3s").remove();
-                    }, 3500)
-                }, 600)
-            }
-        }
-        if (get("engine_switch_tool_list", "").trim() === "") set("engine_switch_tool_list", defaultSearchList);
-        let list = get("engine_switch_tool_list").trim();
+                    `,
+					);
+					setTimeout(() => {
+						document.getElementById("removeafter3s").remove();
+					}, 3500);
+				}, 600);
+			}
+		}
+		if (get("engine_switch_tool_list", "").trim() === "")
+			set("engine_switch_tool_list", defaultSearchList);
+		const list = get("engine_switch_tool_list").trim();
 
-        onload(() => {
-            try {
-                document.getElementById("engine_switch_tool").remove()
-            } catch {
-            }
+		onload(() => {
+			try {
+				document.getElementById("engine_switch_tool").remove();
+			} catch {}
 
-            let html = "";
-            list.split("\n").forEach((s) => {
-                s = s.replaceAll(/\s/g, "");
-                if (s === "" || s.startsWith('#') || s.startsWith('-')) return;
-                html += ` <!--suppress HtmlUnknownAttribute -->
-<a class="${get("switch_tool_style", "switch_tool switch_tool_button switch_tool_auto")}" href = "${s.split(',')[1]}" key = "${s.split(',')[1]}"
-                         onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${s.split(',')[0]}</a>
-                   `
-            });
+			let html = "";
+			// biome-ignore lint/complexity/noForEach: <explanation>
+			list.split("\n").forEach((s) => {
+				// biome-ignore lint: <explanation>
+				s = s.replaceAll(/\s/g, "");
+				if (s === "" || s.startsWith("#") || s.startsWith("-")) return;
+				html += ` <!--suppress HtmlUnknownAttribute -->
+<a class="${get(
+					"switch_tool_style",
+					"switch_tool switch_tool_button switch_tool_auto",
+				)}" href = "${s.split(",")[1]}" key = "${s.split(",")[1]}"
+                         onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${
+														s.split(",")[0]
+													}</a>
+                   `;
+			});
 
-            document.body.insertAdjacentHTML("afterend", `<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
+			document.body.insertAdjacentHTML(
+				"afterend",
+				`<div id="engine_switch_tool" title="如何关闭该区域:  点击你的油猴插件，找的此脚本(Yuhan User Script), 在菜单中即可找到关闭按钮"> 
                 <div id ="switch_tool_style" style="margin: auto;">
                     <div>
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_auto','switch_tool_invisible').replace('switch_tool_show','switch_tool_invisible')}); ">隐形</a> /
@@ -821,48 +865,81 @@ if (matchList(str2list(searchURLMatchList))) {
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_button','switch_tool_compact').replace('switch_tool_link','switch_tool_compact')}); ">紧凑</a> /
                         <a onclick=" Array.from(document.getElementsByClassName('switch_tool')).forEach((x)=>{x.className=x.className.replace('switch_tool_compact','switch_tool_button').replace('switch_tool_link','switch_tool_button')}); ">按钮</a>
                     </div>
-                </div>${html}</div>`);
-        })
-        setTimeoutBeforeLoad(() => {
-            const tool = document.getElementById("engine_switch_tool");
+                </div>${html}</div>`,
+			);
+		});
+		setTimeoutBeforeLoad(() => {
+			const tool = document.getElementById("engine_switch_tool");
 
-            document.getElementById("switch_tool_style").addEventListener("click", () => {
-                set("switch_tool_style", document.getElementsByClassName('switch_tool')[0].className);
-            });
+			document
+				.getElementById("switch_tool_style")
+				.addEventListener("click", () => {
+					set(
+						"switch_tool_style",
+						document.getElementsByClassName("switch_tool")[0].className,
+					);
+				});
 
-            try {
-                if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
-                    tool.addEventListener("click", () => {
-                        Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
-                            i.href = i.getAttribute('key').replace('$', document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))
-                        })
-                    });
-                }
-            } catch {
-            }
+			try {
+				if (
+					document.getElementsByClassName("switch_tool")[0].onclick === null
+				) {
+					tool.addEventListener("click", () => {
+						// biome-ignore lint/complexity/noForEach: <explanation>
+						Array.from(document.getElementsByClassName("switch_tool")).forEach(
+							(i) => {
+								i.href = i
+									.getAttribute("key")
+									.replace(
+										"$",
+										document
+											.getElementsByClassName("search-input-awa")[0]
+											.getAttribute("value")
+											.replaceAll("%", "%25")
+											.replaceAll("#", "%23")
+											.replaceAll("&", "%26")
+											.replaceAll("+", "%2B")
+											.replaceAll(" ", "%20")
+											.replaceAll("?", "%3F")
+											.replaceAll("=", "%3D"),
+									);
+							},
+						);
+					});
+				}
+			} catch {}
 
-            window.onscroll = () => {
-                tool.style.top = (window.scrollY > 96 ? 0 : 96 - window.scrollY).toString() + "px";
-            }
+			window.onscroll = () => {
+				tool.style.top = `${(window.scrollY > 96
+					? 0
+					: 96 - window.scrollY
+				).toString()}px`;
+			};
+		}, 800);
+	}
 
-        }, 800)
+	const index = options(
+		"搜索引擎快速聚焦模式(Ctrl+[K|Q|S])",
+		"search_engine_quick_focus",
+		["清空", "关闭", "选中", "聚焦"],
+	);
+	if (index !== 1) {
+		document.onkeydown = (e) => {
+			if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
+				if (index === 0)
+					document.getElementsByClassName("search-input-awa")[0].value = "";
+				else if (index === 2) document.querySelector("input").select();
+				document.getElementsByClassName("search-input-awa")[0].focus();
+				e.preventDefault();
+			}
+		};
+	}
 
-    }
-
-    const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", 'search_engine_quick_focus', ["清空", "关闭", "选中", "聚焦",])
-    if (index !== 1) {
-        document.onkeydown = (e) => {
-            if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
-                if (index === 0) document.getElementsByClassName("search-input-awa")[0].value = ""; else if (index === 2) document.querySelector("input").select();
-                document.getElementsByClassName("search-input-awa")[0].focus();
-                e.preventDefault();
-            }
-        }
-    }
-
-    onload(() => {
-        /* search setting */
-        document.body.insertAdjacentHTML("afterend", `
+	onload(() => {
+		/* search setting */
+		document.body.insertAdjacentHTML(
+			"afterend",
+			`
     <style>
         #search-setting-btn-awa{
             z-index: 114514;
@@ -941,39 +1018,53 @@ if (matchList(str2list(searchURLMatchList))) {
             </li>
             
             <li title="请输入指向图片一个链接"> 
-            background-img: <input id="search-background-img" value="${get("search-background-img", "")}"/>
+            background-img: <input id="search-background-img" value="${get(
+							"search-background-img",
+							"",
+						)}"/>
             </li>
             
             <li title="#开头表示忽略"> 
             屏蔽网站(暂不支持 因需要手动适配各个网站 工作量巨大):<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="search-block-website" contenteditable="true">${get("search-block-website", "")}</pre>
+               <pre id="search-block-website" contenteditable="true">${get(
+									"search-block-website",
+									"",
+								)}</pre>
             </li>
                
             <li title="留空使用默认，#开头表示忽略"> 
             搜索引擎:<button contenteditable="false" onclick="this.nextElementSibling.style.height=this.nextElementSibling.style.height==='auto'?'60px':'auto'">展开/关闭</button>
-               <pre id="engine_switch_tool_list" contenteditable="true">${get("engine_switch_tool_list", "")}</pre>
+               <pre id="engine_switch_tool_list" contenteditable="true">${get(
+									"engine_switch_tool_list",
+									"",
+								)}</pre>
             </li>
        </div>
     </div>
-        `);
+        `,
+		);
 
-        const addListener = (key) => {
-            const e = document.getElementById(key);
-            if (e.tagName === "INPUT") {
-                e.addEventListener("change", () => {
-                    set(key, document.getElementById(key).value)
-                })
-            } else if (e.tagName === "PRE") {
-                document.getElementById("search-setting-awa").addEventListener("keyup", () => {
-                    set(key, document.getElementById(key).innerText)
-                }, true)
-            }
-        }
-        addListener("search-font-family");
-        addListener("search-background-img");
-        addListener("search-block-website");
-        addListener("engine_switch_tool_list");
-    });
+		const addListener = (key) => {
+			const e = document.getElementById(key);
+			if (e.tagName === "INPUT") {
+				e.addEventListener("change", () => {
+					set(key, document.getElementById(key).value);
+				});
+			} else if (e.tagName === "PRE") {
+				document.getElementById("search-setting-awa").addEventListener(
+					"keyup",
+					() => {
+						set(key, document.getElementById(key).innerText);
+					},
+					true,
+				);
+			}
+		};
+		addListener("search-font-family");
+		addListener("search-background-img");
+		addListener("search-block-website");
+		addListener("engine_switch_tool_list");
+	});
 }
 
 style(css);

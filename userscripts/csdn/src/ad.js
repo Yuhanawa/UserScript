@@ -1,3 +1,3 @@
 ({
-    value: $STYLE(ad)
-})
+	value: $STYLE("ad"),
+});
