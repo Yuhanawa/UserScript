@@ -8,7 +8,7 @@ const result = `<style>${cssContent}</style> \n ${htmlContent}`
 
 const output = `
 let _openConfigPanel = null;
-const openConfigPanel = () => {
+function openConfigPanel() {
     if (_openConfigPanel) { _openConfigPanel(); return; }
 
     const container = document.createElement('div');
