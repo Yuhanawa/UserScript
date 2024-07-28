@@ -12,7 +12,7 @@
 // @description:zh-TW  以皎洁高雅的月光洗礼信息溪流: 自定义屏蔽不想看到推文(黄推等),支持自定义;自定义推特图标等
 // @description:ja  月光が情報の流れに洗礼を与え、浄化する: 迷惑なツイート(アダルト)をブロックまたは非表示にするために、フィルターをカスタマイズ可能
 // @namespace    http://github.com/yuhanawa/UserScript
-// @version      0.2.1
+// @version      ${version}
 // @author       Yuhanawa
 // @license      GPL-3.0
 // @icon         none
