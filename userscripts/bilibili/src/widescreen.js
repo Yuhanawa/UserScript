@@ -1,26 +1,12 @@
 ({
 	// 视频页宽屏
+	// 大部分代码来自B站网页, 使用AI反混淆
 	pages: ["video"],
 	showInMenu: true,
 	value: () => {
 		function setSize() {
-			// if (unsafeWindow.__INITIAL_STATE__) {
-			//     var i = unsafeWindow.__INITIAL_STATE__.pageVersion,
-			//         e = unsafeWindow.__INITIAL_STATE__.isPrVideo;
-			//     "new_video" === i ? part1SetSize() : e && unsafeWindow.__INITIAL_STATE__.premiereInfo ? part1SetSize() : originSetSize()
-			// } else originSetSize(),
-			// 我也不知道上面的代码干什么用的，反正注释掉就正常了
-			part1SetSize();
-		}
-		function constructStyleString(i, e) {
-			for (let t = `${i} {`, n = Object.keys(e), o = 0; o < n.length; o++)
-				t += `${n[o]}: ${e[n[o]]};`;
-			return `${t}}\n`;
-		}
-		function part1SetSize() {
 			// 是否宽屏
-			const isWide = unsafeWindow.isWide;
-
+			const isWide = win.isWide;
 			if (get("widescreen_hide_header_onWide")) {
 				setTimeout(() => {
 					try {
@@ -33,121 +19,99 @@
 				}, 50);
 			}
 
-			// 浏览器窗口高度
-			const innerHeight = unsafeWindow.innerHeight;
-
-			// 浏览器窗口宽度
-			const innerWidth = Math.max(
-				document.body?.clientWidth || unsafeWindow.innerWidth,
+			// 获取窗口宽度和高度
+			const windowHeight = win.innerHeight;
+			const windowWidth = Math.max(
+				document.body?.clientWidth || win.innerWidth,
 				1100,
 			);
 
-			// 右侧栏宽度
-			const rightWidth = innerWidth > 1680 ? 411 : 350;
+			// 设置侧边栏宽度
+			const sidebarWidth = 1680 < innerWidth ? 411 : 350;
 
-			// 计算主区域宽度
-			const maxWidth = parseInt(
-				(16 * (innerHeight - (innerWidth > 1690 ? 318 : 308))) / 9,
+			// 计算主内容区域的高度和宽度
+			const contentHeight = parseInt(
+				(16 * (windowHeight - (1690 < innerWidth ? 318 : 308))) / 9,
 			);
-			const mainWidth = innerWidth - 112 - rightWidth;
-			let width = mainWidth < maxWidth ? mainWidth : maxWidth;
+			const contentWidth = windowWidth - 112 - sidebarWidth;
+			let finalContentWidth =
+				contentWidth < contentHeight ? contentWidth : contentHeight;
 
-			width = Math.round(width * get("widescreen-width-times", 1.2));
+			// 页面宽屏功能
+			finalContentWidth = Math.round(finalContentWidth * get("widescreen-width-times"));
 
-			// 设置最小和最大宽度
-			if (width < 668) {
-				width = 668;
-			}
-			if (width > 1694) {
-				width = 1694;
-			}
+			// 限制内容宽度的最小和最大值
+			if (finalContentWidth < 668) finalContentWidth = 668;
+			if (finalContentWidth > 1694) finalContentWidth = 1694;
 
-			// 总宽度
-			let totalWidth = width + rightWidth;
+			// 计算总宽度
+			let totalWidth = finalContentWidth + sidebarWidth;
 
-			// 计算高度
-			let height;
+			// 根据宽屏模式调整宽度
 			if (isWide) {
 				totalWidth -= 125;
-				width -= 100;
-			}
-			if (unsafeWindow.hasBlackSide && !isWide) {
-				height =
-					Math.round(
-						(width - 14 + (isWide ? rightWidth : 0)) * (9 / 16) +
-							(innerWidth > 1680 ? 56 : 46),
-					) + 96;
-			} else {
-				height =
-					Math.round((width + (isWide ? rightWidth : 0)) * (9 / 16)) +
-					(innerWidth > 1680 ? 56 : 46);
+				finalContentWidth -= 100;
 			}
 
-			// 主区域宽度
-			const mainBoxWidth = totalWidth - rightWidth;
+			// 计算播放器高度
+			let playerHeight;
+			const hasBlackSide = win.hasBlackSide;
+			// biome-ignore format: 不要格式化这一坨
+			if (hasBlackSide && !isWide) playerHeight =Math.round((finalContentWidth - 14 + (isWide ? sidebarWidth : 0)) * (9 / 16) +(1680 < innerWidth ? 56 : 46),) + 96; else playerHeight =Math.round((finalContentWidth + (isWide ? sidebarWidth : 0)) * (9 / 16)) + (1680 < innerWidth ? 56 : 46);
 
-			// 生成设置样式的CSS
-			const css =
-				constructStyleString(".video-container-v1", {
-					width: "auto",
-					padding: "0 10px",
-				}) +
-				constructStyleString(".left-container", {
-					width: `${mainBoxWidth}px`,
-				}) +
-				constructStyleString("#bilibili-player", {
-					width: `${totalWidth - (isWide ? -30 : rightWidth)}px`,
-					height: `${height}px`,
-					position: isWide ? "relative" : "static",
-				}) +
-				constructStyleString("#oldfanfollowEntry", {
-					position: "relative",
-					top: isWide ? `${height + 28 - 18}px` : "0",
-				}) +
-				constructStyleString("#danmukuBox", {
-					"margin-top": isWide ? `${height + 28}px` : "0",
-				}) +
-				constructStyleString("#playerWrap", {
-					height: `${height}px`,
-				}) +
-				constructStyleString(".video-discover", {
-					"margin-left": `${(totalWidth - rightWidth) / 2}px`,
-				});
-			setSizeStyle.innerHTML = css;
+			// 计算左侧容器宽度
+			const leftContainerWidth = totalWidth - sidebarWidth;
+
+			// 构造 CSS 样式字符串
+			// biome-ignore format: 不要格式化这一坨
+			const styleString = constructStyleString(".video-container-v1", {width: "auto",padding: "0 10px"}) 
+			+ constructStyleString(".left-container", {width: `${leftContainerWidth}px`}) 
+			+ constructStyleString("#bilibili-player", {width: `${totalWidth - (isWide ? -30 : sidebarWidth)}px`,height: `${playerHeight}px`,position: isWide ? "relative" : "static"}) 
+			+ constructStyleString("#oldfanfollowEntry", {position: "relative",top: isWide ? `${playerHeight + 28 - 18}px` : "0"}) 
+			+ constructStyleString("#danmukuBox", {"margin-top": isWide ? `${playerHeight + 28}px` : "0"}) 
+			+ constructStyleString("#playerWrap", {height: `${playerHeight}px`}) 
+			+ constructStyleString(".video-discover", {"margin-left": `${(leftContainerWidth) / 2}px`});
+
+			// 应用样式
+			setSizeStyle.innerHTML = styleString;
+		}
+		function constructStyleString(e, i) {
+			// biome-ignore lint: 没人想知道他是个什么东西
+			for (var t = e + " {", n = Object.keys(i), o = 0; o < n.length; o++)
+				t += `${n[o]}: ${i[n[o]]};`;
+			return `${t}}\n`;
 		}
 
-		const set = () => {
-			if (!unsafeWindow.setSizeStyle) {
-				setTimeout(() => set(), 120);
+		const change = () => {
+			if (!win.setSizeStyle) {
+				setTimeout(change, 120);
 				return;
 			}
 
-			unsafeWindow.setSize = setSize;
+			win.setSize = setSize;
 
 			setSize();
 			setTimeout(setSize, 250);
-			unsafeWindow.addEventListener("resize", () => {
-				setSize();
-			});
-			unsafeWindow.PlayerAgent = {
+			win.addEventListener("resize", setSize);
+			win.PlayerAgent = {
 				changed: true,
 				player_widewin: () => {
-					"new_video" === unsafeWindow.__INITIAL_STATE__.pageVersion &&
-						unsafeWindow.scrollTo(0, 60);
-					unsafeWindow.isWide = true;
+					"new_video" === win.__INITIAL_STATE__.pageVersion &&
+						win.scrollTo(0, 60);
+					win.isWide = true;
 					setSize();
 				},
 				player_fullwin: (i) => {
-					unsafeWindow.scrollTo(0, 0);
-					unsafeWindow.isWide = false;
+					win.scrollTo(0, 0);
+					win.isWide = false;
 					setSize();
 				},
 				toggleBlackSide: (i) => {
-					unsafeWindow.hasBlackSide = i;
+					win.hasBlackSide = i;
 					setSize();
 				},
 			};
 		};
-		set();
+		change();
 	},
 });
