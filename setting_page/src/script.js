@@ -16,23 +16,25 @@ if (location.href.startsWith("http://localhost")) {
 
 	cfg = (k, v) => {
 		if (v !== undefined) console.log(`${k}: Set to ${v}`);
-		win.scriptsdata[scriptKey].cfg(k, v);
+		const result = win.scriptsdata[scriptKey].cfg(k, v);
 		if (v !== undefined && BindMap.has(k))
 			for (const { hiddenCondition, element } of BindMap.get(k))
 				root.querySelector(element).style.display = tryEval(hiddenCondition)
 					? "none"
 					: "block";
+		return result;
 	};
 } else {
 	root = _root;
 	config = _config;
 	cfg = (k, v) => {
-		_cfg(k, v);
+		const result = _cfg(k, v);
 		if (v !== undefined && BindMap.has(k))
 			for (const { hiddenCondition, element } of BindMap.get(k))
 				root.querySelector(element).style.display = tryEval(hiddenCondition)
 					? "none"
 					: "block";
+		return result;
 	};
 }
 const { props, category } = config;
