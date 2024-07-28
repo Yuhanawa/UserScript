@@ -1,6 +1,6 @@
 {
   "name": "csdn",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "pages": {
     "article": [
       "/blog\\.csdn\\.net(/.*)?/article/details./"
