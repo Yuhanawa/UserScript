@@ -1,11 +1,16 @@
 {
-    "linter": {
-        "enabled": true,
-        "rules": {
-            "suspicious": {
-                "noConfusingLabels": "off"
-            },
-            "style": {}
-        }
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "suspicious": {
+        "noAssignInExpressions": "off"
+      },
+      "complexity":{
+        "noForEach": "off"
+      },
+      "style": {
+        "useSingleVarDeclarator": "off"
+      }
     }
+  }
 }

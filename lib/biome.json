@@ -2,11 +2,15 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "complexity": {
-        "useLiteralKeys": "off"
+      "suspicious": {
+        "noAssignInExpressions": "off"
       },
-      "suspicious": {},
-      "style": {}
+      "complexity":{
+        "noForEach": "off"
+      },
+      "style": {
+        "useSingleVarDeclarator": "off"
+      }
     }
   }
 }
