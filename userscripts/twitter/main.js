@@ -396,7 +396,6 @@ function UrlListener(callback) {
 let old_url = "";
 setInterval(() => {
 	if (old_url !== window.location.href) {
-		// biome-ignore lint/complexity/noForEach: TODO
 		urlListenCallbacks.forEach((callback) =>
 			callback({
 				old_url: old_url,

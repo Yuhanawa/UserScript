@@ -21,7 +21,6 @@
 						return;
 					}
 
-					// biome-ignore lint/complexity/noForEach: <explanation>
 					toolbar
 						.querySelectorAll(".video-tool-getpic")
 						.forEach((e) => e.remove());

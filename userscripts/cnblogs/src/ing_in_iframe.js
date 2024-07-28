@@ -20,7 +20,6 @@
 			);
 		};
 		const observer = new MutationObserver((mutations) => {
-			// biome-ignore lint/complexity/noForEach: TODO
 			mutations.forEach((mutation) => {
 				// 遍历所有变化
 				if (mutation.type === "childList") {
@@ -49,7 +48,6 @@
 				if (timeout > 0) timeout--;
 			}, 1000);
 			unsafeWindow.nextPage = nextPage;
-			// biome-ignore lint/complexity/noForEach: 代码更简洁
 			document.querySelectorAll(".pager").forEach((e) => e.remove());
 
 			function receiveMessage(event) {
@@ -83,7 +81,6 @@
 									.querySelector("#feed_list")
 									.insertAdjacentHTML("beforeend", doc);
 
-								// biome-ignore lint/complexity/noForEach: 代码更简洁
 								document
 									.querySelectorAll(".feed_loading")
 									.forEach((e) => e.remove());

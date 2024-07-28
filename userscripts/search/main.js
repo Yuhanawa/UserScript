@@ -171,7 +171,6 @@ const setIntervalBeforeLoad = (f, timeout) =>
 		setInterval(f, timeout);
 	});
 
-// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 onload(() => (isLoaded = true));
 
 /* search */
@@ -192,14 +191,12 @@ if (matchList(str2list(searchURLMatchList))) {
 			document.getElementById("search_form_input").className +=
 				" search-input-awa ";
 		} else {
-			// biome-ignore lint/complexity/noForEach: <explanation>
 			document.querySelectorAll("input").forEach((i) => {
 				if (i.type === "text" || i.type === "search")
 					i.className += " search-input-awa ";
 			});
 			if (document.querySelectorAll(".search-input-awa").length === 0) {
 				setTimeout(() => {
-					// biome-ignore lint/complexity/noForEach: <explanation>
 					document.querySelectorAll("input").forEach((i) => {
 						if (i.type === "text" || i.type === "search")
 							i.className += " search-input-awa ";
@@ -445,7 +442,6 @@ if (matchList(str2list(searchURLMatchList))) {
 			.replaceAll(/\s*,/g, ",")
 			.replaceAll(/\s*{/g, "{");
 		const addClass = (y, add) =>
-			// biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
 			(css = css
 				.replaceAll(`${y},`, `${add},${y},`)
 				.replaceAll(`${y}{`, `${add},${y}{`));
@@ -835,7 +831,6 @@ if (matchList(str2list(searchURLMatchList))) {
 			} catch {}
 
 			let html = "";
-			// biome-ignore lint/complexity/noForEach: <explanation>
 			list.split("\n").forEach((s) => {
 				// biome-ignore lint: <explanation>
 				s = s.replaceAll(/\s/g, "");
@@ -885,7 +880,6 @@ if (matchList(str2list(searchURLMatchList))) {
 					document.getElementsByClassName("switch_tool")[0].onclick === null
 				) {
 					tool.addEventListener("click", () => {
-						// biome-ignore lint/complexity/noForEach: <explanation>
 						Array.from(document.getElementsByClassName("switch_tool")).forEach(
 							(i) => {
 								i.href = i

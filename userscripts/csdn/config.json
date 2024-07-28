@@ -1,601 +1,597 @@
 {
-  "name": "csdn",
-  "version": "0.2.4",
-  "pages": {
-    "article": [
-      "/blog\\.csdn\\.net(/.*)?/article/details./"
-    ],
-    "link": [
-      "link.csdn.net/"
-    ]
-  },
-  "category": [
-    {
-      "key": "tips",
-      "display": "tips",
-      "icon": "note-icon"
-    },
-    {
-      "key": "beautify",
-      "display": "美化",
-      "icon": "beautify-icon"
-    },
-    {
-      "key": "optimize",
-      "display": "优化",
-      "icon": "optimize-icon"
-    },
-    {
-      "key": "useful",
-      "display": "实用",
-      "icon": "useful-icon"
-    }
-  ],
-  "props": {
-    "tips": {
-      "type": "note",
-      "category": "tips",
-      "display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
-    },
-    "tips-refresh": {
-      "type": "note",
-      "category": "tips",
-      "display": "修改完成后请刷新页面"
-    },
-    "tips-beautify": {
-      "type": "note",
-      "category": "beautify",
-      "display": "-- 美化 --"
-    },
-    "copy": {
-      "display": "免登录复制",
-      "type": "bool",
-      "category": "useful",
-      "defaultValue": true,
-      "description": ""
-    },
-    "content_fullscreen": {
-      "display": "专注模式快捷键",
-      "type": "bool",
-      "category": "useful",
-      "defaultValue": false,
-      "description": ""
-    },
-    "setting_btn": {
-      "display": "设置按钮",
-      "type": "bool",
-      "category": "useful",
-      "defaultValue": true,
-      "description": ""
-    },
-    "ad": {
-      "display": "移除广告",
-      "type": "bool",
-      "category": "beautify",
-      "defaultValue": true,
-      "description": ""
-    },
-    "beautify": {
-      "display": "细节优化",
-      "type": "bool",
-      "category": "beautify",
-      "defaultValue": true,
-      "description": ""
-    },
-    "width": {
-      "display": "调整文章宽度",
-      "type": "bool",
-      "category": "beautify",
-      "defaultValue": true,
-      "description": "该功能仅当左侧边栏隐藏时生效"
-    },
-    "width_value": {
-      "display": "文章宽度",
-      "type": "number",
-      "category": "beautify",
-      "defaultValue": 82,
-      "description": "(单位:%|百分比) 该功能仅当左侧边栏隐藏时生效"
-    },
-    "header": {
-      "display": "顶部菜单栏",
-      "category": "beautify",
-      "defaultValue": "remove",
-      "type": "option",
-      "options": [
-        {
-          "display": "移除",
-          "key": "remove"
-        },
-        {
-          "display": "半透明",
-          "key": "opacity"
-        },
-        {
-          "display": "淡化不跟随",
-          "key": "opacity_static"
-        },
-        {
-          "display": "不跟随",
-          "key": "static"
-        },
-        {
-          "display": "显示",
-          "key": "off"
-        }
-      ]
-    },
-    "toolbox": {
-      "display": "低部菜单工具栏",
-      "category": "beautify",
-      "defaultValue": "remove",
-      "type": "option",
-      "options": [
-        {
-          "display": "移除",
-          "key": "remove"
-        },
-        {
-          "display": "不跟随",
-          "key": "relative"
-        },
-        {
-          "display": "半透明",
-          "key": "opacity"
-        },
-        {
-          "display": "淡化不跟随",
-          "key": "opacity_relative"
-        },
-        {
-          "display": "显示",
-          "key": "off"
-        }
-      ]
-    },
-    "trips-font": {
-      "defaultValue": "调整字体大小",
-      "type": "note",
-      "category": "beautify"
-    },
-    "fontsize": {
-      "display": "调整字体大小",
-      "category": "beautify",
-      "defaultValue": true,
-      "type": "bool"
-    },
-    "font_size_display": {
-      "display": "标题",
-      "category": "beautify",
-      "type": "text",
-      "defaultValue": "32px",
-      "hidden": "{{ formData.fontsize === 'off' }}"
-    },
-    "font-size-p": {
-      "display": "正文",
-      "type": "text",
-      "category": "beautify",
-      "defaultValue": "18px",
-      "hidden": "{{ formData.fontsize === 'off' }}"
-    },
-    "font-size-h2": {
-      "display": "子标题",
-      "type": "text",
-      "category": "beautify",
-      "defaultValue": "24px",
-      "hidden": "{{ formData.fontsize === 'off' }}"
-    },
-    "font_size_code": {
-      "display": "代码块",
-      "type": "text",
-      "category": "beautify",
-      "defaultValue": "15px",
-      "hidden": "{{ formData.fontsize === 'off' }}"
-    },
-    "tips-bg": {
-      "type": "note",
-      "category": "beautify",
-      "display": "自定义背景"
-    },
-    "background": {
-      "display": "自定义背景(开关)",
-      "category": "beautify",
-      "defaultValue": false,
-      "type": "bool"
-    },
-    "background-value": {
-      "display": "页面背景",
-      "category": "beautify",
-      "description": "body的背景",
-      "defaultValue": "https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831",
-      "hidden": "{{ formData.background === 'off' }}",
-      "type": "image"
-    },
-    "blog-content-box-background-value": {
-      "display": "文章背景",
-      "category": "beautify",
-      "description": "用于放置文章的div颜色",
-      "defaultValue": "#f5f6f7E6",
-      "hidden": "{{ formData.background === 'off' }}",
-      "type": "color"
-    },
-    "blog-content-box-opacity-value": {
-      "display": "文章透明度",
-      "category": "beautify",
-      "description": "文章整体透明度,包括文章内容",
-      "hidden": "{{ formData.background === 'off' }}",
-      "type": "number",
-      "defaultValue": 0.98
-    },
-    "header-box-background-value": {
-      "display": "文章标题及部分卡片背景",
-      "category": "beautify",
-      "description": "建议保持透明或使用高透明度颜色",
-      "hidden": "{{ formData.background === 'off' }}",
-      "defaultValue": "#00000000",
-      "type": "color"
-    },
-    "tips-UI": {
-      "type": "note",
-      "category": "beautify",
-      "display": "自定义UI需将‘UI净化预设’设置为自定义模式"
-    },
-    "ui_opt": {
-      "display": "UI净化预设",
-      "category": "beautify",
-      "defaultValue": "lite",
-      "type": "option",
-      "options": [
-        {
-          "display": "极简",
-          "key": "lite"
-        },
-        {
-          "display": "简|作者+目录",
-          "key": "lite1"
-        },
-        {
-          "display": "简|作者+目录+菜单",
-          "key": "lite2"
-        },
-        {
-          "display": "简|以上信息+推荐",
-          "key": "lite3"
-        },
-        {
-          "display": "常规",
-          "key": "normal"
-        },
-        {
-          "display": "自定义",
-          "key": "custom"
-        },
-        {
-          "display": "关闭",
-          "key": "off"
-        }
-      ]
-    },
-    "ui_opt_value": {
-      "display": "自定义UI",
-      "category": "beautify",
-      "description": "需要UI净化预设为自定义模式",
-      "children": [
-        {
-          "key": "#csdn-toolbar",
-          "title": "头部工具栏toolbar",
-          "children": [
-            {
-              "key": "#csdn-toolbar .toolbar-container-left",
-              "title": "左边部分",
-              "children": [
-                {
-                  "key": "#csdn-toolbar .toolbar-logo",
-                  "title": "CSDN LOGO"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-menus",
-                  "title": "菜单"
-                }
-              ]
-            },
-            {
-              "key": "#csdn-toolbar .toolbar-container-middle",
-              "title": "中间部分",
-              "children": [
-                {
-                  "key": "#csdn-toolbar .toolbar-search",
-                  "title": "搜索",
-                  "children": [
-                    {
-                      "key": "#toolbar-search-button",
-                      "title": "搜索按钮"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "key": "#csdn-toolbar .toolbar-container-right",
-              "title": "右边部分",
-              "children": [
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-login",
-                  "title": "登录"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-vip",
-                  "title": "会员中心"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-msg",
-                  "title": "消息"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-collect",
-                  "title": "历史"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-mp",
-                  "title": "创作中心"
-                },
-                {
-                  "key": "#csdn-toolbar .toolbar-btn-write",
-                  "title": "发布"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "key": "#mainBox",
-          "title": "主内容",
-          "children": [
-            {
-              "key": "#mainBox .blog_container_aside",
-              "title": "左侧边栏",
-              "children": [
-                {
-                  "key": "#asideProfile",
-                  "title": "用户档案",
-                  "children": [
-                    {
-                      "key": "#asideProfile .profile-intro",
-                      "title": "头像及名称"
-                    },
-                    {
-                      "key": "#asideProfile .data-info",
-                      "title": "数据信息"
-                    },
-                    {
-                      "key": "#asideProfile .item-rank",
-                      "title": "item-rank"
-                    },
-                    {
-                      "key": "#asideProfile .aside-box-footer",
-                      "title": "徽章"
-                    },
-                    {
-                      "key": "#asideProfile .profile-intro-name-boxOpration",
-                      "title": "私信及关注按钮"
-                    }
-                  ]
-                },
-                {
-                  "key": "#footerRightAds",
-                  "title": "广告"
-                },
-                {
-                  "key": "#asideWriteGuide",
-                  "title": "创作推广"
-                },
-                {
-                  "key": "#asideSearchArticle",
-                  "title": "搜索博主文章"
-                },
-                {
-                  "key": "#asideHotArticle",
-                  "title": "热门文章"
-                },
-                {
-                  "key": "#asideCategory",
-                  "title": "分类专栏"
-                },
-                {
-                  "key": "#asideNewComments",
-                  "title": "最新评论"
-                },
-                {
-                  "key": "#asideNewNps",
-                  "title": "您愿意向朋友推荐'博客详情页'吗？"
-                },
-                {
-                  "key": "#asideArchive",
-                  "title": "最新文章"
-                },
-                {
-                  "key": "#asidedirectory",
-                  "title": "目录"
-                }
-              ]
-            },
-            {
-              "key": "main .blog-content-box",
-              "title": "文章主体",
-              "children": [
-                {
-                  "key": "main .article-header-box",
-                  "title": "头部",
-                  "children": [
-                    {
-                      "key": "main .article-title-box",
-                      "title": "标题"
-                    },
-                    {
-                      "key": "main .article-info-box",
-                      "title": "信息",
-                      "children": [
-                        {
-                          "key": "main .article-bar-top",
-                          "title": "bar top",
-                          "children": [
-                            {
-                              "key": "main .article-title-box .article-type-img",
-                              "title": "图标"
-                            }
-                          ]
-                        },
-                        {
-                          "key": "main .blog-tags-box",
-                          "title": "标签"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "key": "main .baidu_pl",
-                  "title": "文章",
-                  "children": [
-                    {
-                      "key": "#blogColumnPayAdvert",
-                      "title": "专栏收录",
-                      "children": [
-                        {
-                          "key": "#blogColumnPayAdvert .column-group0",
-                          "title": "第一项专栏"
-                        },
-                        {
-                          "key": "#blogColumnPayAdvert .column-group1",
-                          "title": "第二项专栏(仅适用于多专栏收录的情况)"
-                        },
-                        {
-                          "key": "#blogColumnPayAdvert .column-group2",
-                          "title": "第三项专栏(仅适用于多专栏收录的情况)"
-                        }
-                      ]
-                    },
-                    {
-                      "key": "#article_content",
-                      "title": "文章内容"
-                    },
-                    {
-                      "key": "#treeSkill",
-                      "title": "文章知识点与官方知识档案匹配，可进一步学习相关知识"
-                    },
-                    {
-                      "key": "#blogVoteBox",
-                      "title": "投票"
-                    },
-                    {
-                      "key": "#blogExtensionBox",
-                      "title": "blogExtensionBox",
-                      "children": [
-                        {
-                          "key": "#blogExtensionBox .extension_official",
-                          "title": "微信名片"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "key": ".recommend-box",
-                  "title": "推荐",
-                  "children": [
-                    {
-                      "key": ".first-recommend-box",
-                      "title": "第一条推荐"
-                    },
-                    {
-                      "key": ".second-recommend-box",
-                      "title": "第二条推荐"
-                    },
-                    {
-                      "key": ".insert-baidu-box.recommend-box-style",
-                      "title": "其他推荐"
-                    }
-                  ]
-                },
-                {
-                  "key": "#recommendNps",
-                  "title": "'相关推荐'对你有帮助么？"
-                },
-                {
-                  "key": "#commentBox",
-                  "title": "评论Box"
-                },
-                {
-                  "key": "#pcCommentBox",
-                  "title": "pc评论Box"
-                }
-              ]
-            },
-            {
-              "key": "#toolBarBox",
-              "title": "底部工具栏"
-            },
-            {
-              "key": ".blog-footer-bottom",
-              "title": "页脚(版权/备案)"
-            }
-          ]
-        },
-        {
-          "key": "#rightAside",
-          "title": "右侧边栏(登录后才有)",
-          "children": [
-            {
-              "key": "#groupfile",
-              "title": "目录"
-            },
-            {
-              "key": "#rightAside .kind_person",
-              "title": "分类"
-            }
-          ]
-        },
-        {
-          "key": ".csdn-side-toolbar",
-          "title": "侧边工具栏",
-          "children": [
-            {
-              "key": ".sidetool-writeguide-box",
-              "title": "创作话题"
-            },
-            {
-              "key": ".option-box[data-type=guide]",
-              "title": "新手引导"
-            },
-            {
-              "key": ".option-box[data-type=cs]",
-              "title": "客服"
-            },
-            {
-              "key": ".option-box[data-type=report]",
-              "title": "举报"
-            },
-            {
-              "key": ".option-box[data-type=gotop]",
-              "title": "返回顶部"
-            },
-            {
-              "key": ".btn-side-chatdoc-contentbox",
-              "title": "C知道AI机器人"
-            }
-          ]
-        },
-        {
-          "key": ".passport-container-mini-tip",
-          "title": "右下角登录提示"
-        },
-        {
-          "key": ".passport-login-container",
-          "title": "登录弹窗"
-        }
-      ],
-      "defaultValue": [],
-      "type": "tree",
-      "disabled": "{{ formData.ui_opt !== 'custom' }}"
-    }
-  }
+	"name": "csdn",
+	"version": "0.2.4",
+	"pages": {
+		"article": ["/blog\\.csdn\\.net(/.*)?/article/details./"],
+		"link": ["link.csdn.net/"]
+	},
+	"category": [
+		{
+			"key": "tips",
+			"display": "tips",
+			"icon": "note-icon"
+		},
+		{
+			"key": "beautify",
+			"display": "美化",
+			"icon": "beautify-icon"
+		},
+		{
+			"key": "optimize",
+			"display": "优化",
+			"icon": "optimize-icon"
+		},
+		{
+			"key": "useful",
+			"display": "实用",
+			"icon": "useful-icon"
+		}
+	],
+	"props": {
+		"tips": {
+			"type": "note",
+			"category": "tips",
+			"display": "如果发现某条设置存在问题请反馈: https://greasyfork.org/zh-CN/scripts/471069/feedback/"
+		},
+		"tips-refresh": {
+			"type": "note",
+			"category": "tips",
+			"display": "修改完成后请刷新页面"
+		},
+		"tips-beautify": {
+			"type": "note",
+			"category": "beautify",
+			"display": "-- 美化 --"
+		},
+		"copy": {
+			"display": "免登录复制",
+			"type": "bool",
+			"category": "useful",
+			"defaultValue": true,
+			"description": ""
+		},
+		"content_fullscreen": {
+			"display": "专注模式快捷键",
+			"type": "bool",
+			"category": "useful",
+			"defaultValue": false,
+			"description": ""
+		},
+		"setting_btn": {
+			"display": "设置按钮",
+			"type": "bool",
+			"category": "useful",
+			"defaultValue": true,
+			"description": ""
+		},
+		"ad": {
+			"display": "移除广告",
+			"type": "bool",
+			"category": "beautify",
+			"defaultValue": true,
+			"description": ""
+		},
+		"beautify": {
+			"display": "细节优化",
+			"type": "bool",
+			"category": "beautify",
+			"defaultValue": true,
+			"description": ""
+		},
+		"width": {
+			"display": "调整文章宽度",
+			"type": "bool",
+			"category": "beautify",
+			"defaultValue": true,
+			"description": "该功能仅当左侧边栏隐藏时生效"
+		},
+		"width_value": {
+			"display": "文章宽度",
+			"type": "number",
+			"category": "beautify",
+			"defaultValue": 82,
+			"description": "(单位:%|百分比) 该功能仅当左侧边栏隐藏时生效"
+		},
+		"header": {
+			"display": "顶部菜单栏",
+			"category": "beautify",
+			"defaultValue": "remove",
+			"type": "option",
+			"options": [
+				{
+					"display": "移除",
+					"key": "remove"
+				},
+				{
+					"display": "半透明",
+					"key": "opacity"
+				},
+				{
+					"display": "淡化不跟随",
+					"key": "opacity_static"
+				},
+				{
+					"display": "不跟随",
+					"key": "static"
+				},
+				{
+					"display": "显示",
+					"key": "off"
+				}
+			]
+		},
+		"toolbox": {
+			"display": "低部菜单工具栏",
+			"category": "beautify",
+			"defaultValue": "remove",
+			"type": "option",
+			"options": [
+				{
+					"display": "移除",
+					"key": "remove"
+				},
+				{
+					"display": "不跟随",
+					"key": "relative"
+				},
+				{
+					"display": "半透明",
+					"key": "opacity"
+				},
+				{
+					"display": "淡化不跟随",
+					"key": "opacity_relative"
+				},
+				{
+					"display": "显示",
+					"key": "off"
+				}
+			]
+		},
+		"trips-font": {
+			"defaultValue": "调整字体大小",
+			"type": "note",
+			"category": "beautify"
+		},
+		"fontsize": {
+			"display": "调整字体大小",
+			"category": "beautify",
+			"defaultValue": true,
+			"type": "bool"
+		},
+		"font_size_display": {
+			"display": "标题",
+			"category": "beautify",
+			"type": "text",
+			"defaultValue": "32px",
+			"hidden": "{{ formData.fontsize === 'off' }}"
+		},
+		"font-size-p": {
+			"display": "正文",
+			"type": "text",
+			"category": "beautify",
+			"defaultValue": "18px",
+			"hidden": "{{ formData.fontsize === 'off' }}"
+		},
+		"font-size-h2": {
+			"display": "子标题",
+			"type": "text",
+			"category": "beautify",
+			"defaultValue": "24px",
+			"hidden": "{{ formData.fontsize === 'off' }}"
+		},
+		"font_size_code": {
+			"display": "代码块",
+			"type": "text",
+			"category": "beautify",
+			"defaultValue": "15px",
+			"hidden": "{{ formData.fontsize === 'off' }}"
+		},
+		"tips-bg": {
+			"type": "note",
+			"category": "beautify",
+			"display": "自定义背景"
+		},
+		"background": {
+			"display": "自定义背景(开关)",
+			"category": "beautify",
+			"defaultValue": false,
+			"type": "bool"
+		},
+		"background-value": {
+			"display": "页面背景",
+			"category": "beautify",
+			"description": "body的背景",
+			"defaultValue": "https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-code/images/bg.png?v20200831",
+			"hidden": "{{ formData.background === 'off' }}",
+			"type": "image"
+		},
+		"blog-content-box-background-value": {
+			"display": "文章背景",
+			"category": "beautify",
+			"description": "用于放置文章的div颜色",
+			"defaultValue": "#f5f6f7E6",
+			"hidden": "{{ formData.background === 'off' }}",
+			"type": "color"
+		},
+		"blog-content-box-opacity-value": {
+			"display": "文章透明度",
+			"category": "beautify",
+			"description": "文章整体透明度,包括文章内容",
+			"hidden": "{{ formData.background === 'off' }}",
+			"type": "number",
+			"defaultValue": 0.98
+		},
+		"header-box-background-value": {
+			"display": "文章标题及部分卡片背景",
+			"category": "beautify",
+			"description": "建议保持透明或使用高透明度颜色",
+			"hidden": "{{ formData.background === 'off' }}",
+			"defaultValue": "#00000000",
+			"type": "color"
+		},
+		"tips-UI": {
+			"type": "note",
+			"category": "beautify",
+			"display": "自定义UI需将‘UI净化预设’设置为自定义模式"
+		},
+		"ui_opt": {
+			"display": "UI净化预设",
+			"category": "beautify",
+			"defaultValue": "lite",
+			"type": "option",
+			"options": [
+				{
+					"display": "极简",
+					"key": "lite"
+				},
+				{
+					"display": "简|作者+目录",
+					"key": "lite1"
+				},
+				{
+					"display": "简|作者+目录+菜单",
+					"key": "lite2"
+				},
+				{
+					"display": "简|以上信息+推荐",
+					"key": "lite3"
+				},
+				{
+					"display": "常规",
+					"key": "normal"
+				},
+				{
+					"display": "自定义",
+					"key": "custom"
+				},
+				{
+					"display": "关闭",
+					"key": "off"
+				}
+			]
+		},
+		"ui_opt_value": {
+			"display": "自定义UI",
+			"category": "beautify",
+			"description": "需要UI净化预设为自定义模式",
+			"children": [
+				{
+					"key": "#csdn-toolbar",
+					"title": "头部工具栏toolbar",
+					"children": [
+						{
+							"key": "#csdn-toolbar .toolbar-container-left",
+							"title": "左边部分",
+							"children": [
+								{
+									"key": "#csdn-toolbar .toolbar-logo",
+									"title": "CSDN LOGO"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-menus",
+									"title": "菜单"
+								}
+							]
+						},
+						{
+							"key": "#csdn-toolbar .toolbar-container-middle",
+							"title": "中间部分",
+							"children": [
+								{
+									"key": "#csdn-toolbar .toolbar-search",
+									"title": "搜索",
+									"children": [
+										{
+											"key": "#toolbar-search-button",
+											"title": "搜索按钮"
+										}
+									]
+								}
+							]
+						},
+						{
+							"key": "#csdn-toolbar .toolbar-container-right",
+							"title": "右边部分",
+							"children": [
+								{
+									"key": "#csdn-toolbar .toolbar-btn-login",
+									"title": "登录"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-btn-vip",
+									"title": "会员中心"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-btn-msg",
+									"title": "消息"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-btn-collect",
+									"title": "历史"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-btn-mp",
+									"title": "创作中心"
+								},
+								{
+									"key": "#csdn-toolbar .toolbar-btn-write",
+									"title": "发布"
+								}
+							]
+						}
+					]
+				},
+				{
+					"key": "#mainBox",
+					"title": "主内容",
+					"children": [
+						{
+							"key": "#mainBox .blog_container_aside",
+							"title": "左侧边栏",
+							"children": [
+								{
+									"key": "#asideProfile",
+									"title": "用户档案",
+									"children": [
+										{
+											"key": "#asideProfile .profile-intro",
+											"title": "头像及名称"
+										},
+										{
+											"key": "#asideProfile .data-info",
+											"title": "数据信息"
+										},
+										{
+											"key": "#asideProfile .item-rank",
+											"title": "item-rank"
+										},
+										{
+											"key": "#asideProfile .aside-box-footer",
+											"title": "徽章"
+										},
+										{
+											"key": "#asideProfile .profile-intro-name-boxOpration",
+											"title": "私信及关注按钮"
+										}
+									]
+								},
+								{
+									"key": "#footerRightAds",
+									"title": "广告"
+								},
+								{
+									"key": "#asideWriteGuide",
+									"title": "创作推广"
+								},
+								{
+									"key": "#asideSearchArticle",
+									"title": "搜索博主文章"
+								},
+								{
+									"key": "#asideHotArticle",
+									"title": "热门文章"
+								},
+								{
+									"key": "#asideCategory",
+									"title": "分类专栏"
+								},
+								{
+									"key": "#asideNewComments",
+									"title": "最新评论"
+								},
+								{
+									"key": "#asideNewNps",
+									"title": "您愿意向朋友推荐'博客详情页'吗？"
+								},
+								{
+									"key": "#asideArchive",
+									"title": "最新文章"
+								},
+								{
+									"key": "#asidedirectory",
+									"title": "目录"
+								}
+							]
+						},
+						{
+							"key": "main .blog-content-box",
+							"title": "文章主体",
+							"children": [
+								{
+									"key": "main .article-header-box",
+									"title": "头部",
+									"children": [
+										{
+											"key": "main .article-title-box",
+											"title": "标题"
+										},
+										{
+											"key": "main .article-info-box",
+											"title": "信息",
+											"children": [
+												{
+													"key": "main .article-bar-top",
+													"title": "bar top",
+													"children": [
+														{
+															"key": "main .article-title-box .article-type-img",
+															"title": "图标"
+														}
+													]
+												},
+												{
+													"key": "main .blog-tags-box",
+													"title": "标签"
+												}
+											]
+										}
+									]
+								},
+								{
+									"key": "main .baidu_pl",
+									"title": "文章",
+									"children": [
+										{
+											"key": "#blogColumnPayAdvert",
+											"title": "专栏收录",
+											"children": [
+												{
+													"key": "#blogColumnPayAdvert .column-group0",
+													"title": "第一项专栏"
+												},
+												{
+													"key": "#blogColumnPayAdvert .column-group1",
+													"title": "第二项专栏(仅适用于多专栏收录的情况)"
+												},
+												{
+													"key": "#blogColumnPayAdvert .column-group2",
+													"title": "第三项专栏(仅适用于多专栏收录的情况)"
+												}
+											]
+										},
+										{
+											"key": "#article_content",
+											"title": "文章内容"
+										},
+										{
+											"key": "#treeSkill",
+											"title": "文章知识点与官方知识档案匹配，可进一步学习相关知识"
+										},
+										{
+											"key": "#blogVoteBox",
+											"title": "投票"
+										},
+										{
+											"key": "#blogExtensionBox",
+											"title": "blogExtensionBox",
+											"children": [
+												{
+													"key": "#blogExtensionBox .extension_official",
+													"title": "微信名片"
+												}
+											]
+										}
+									]
+								},
+								{
+									"key": ".recommend-box",
+									"title": "推荐",
+									"children": [
+										{
+											"key": ".first-recommend-box",
+											"title": "第一条推荐"
+										},
+										{
+											"key": ".second-recommend-box",
+											"title": "第二条推荐"
+										},
+										{
+											"key": ".insert-baidu-box.recommend-box-style",
+											"title": "其他推荐"
+										}
+									]
+								},
+								{
+									"key": "#recommendNps",
+									"title": "'相关推荐'对你有帮助么？"
+								},
+								{
+									"key": "#commentBox",
+									"title": "评论Box"
+								},
+								{
+									"key": "#pcCommentBox",
+									"title": "pc评论Box"
+								}
+							]
+						},
+						{
+							"key": "#toolBarBox",
+							"title": "底部工具栏"
+						},
+						{
+							"key": ".blog-footer-bottom",
+							"title": "页脚(版权/备案)"
+						}
+					]
+				},
+				{
+					"key": "#rightAside",
+					"title": "右侧边栏(登录后才有)",
+					"children": [
+						{
+							"key": "#groupfile",
+							"title": "目录"
+						},
+						{
+							"key": "#rightAside .kind_person",
+							"title": "分类"
+						}
+					]
+				},
+				{
+					"key": ".csdn-side-toolbar",
+					"title": "侧边工具栏",
+					"children": [
+						{
+							"key": ".sidetool-writeguide-box",
+							"title": "创作话题"
+						},
+						{
+							"key": ".option-box[data-type=guide]",
+							"title": "新手引导"
+						},
+						{
+							"key": ".option-box[data-type=cs]",
+							"title": "客服"
+						},
+						{
+							"key": ".option-box[data-type=report]",
+							"title": "举报"
+						},
+						{
+							"key": ".option-box[data-type=gotop]",
+							"title": "返回顶部"
+						},
+						{
+							"key": ".btn-side-chatdoc-contentbox",
+							"title": "C知道AI机器人"
+						}
+					]
+				},
+				{
+					"key": ".passport-container-mini-tip",
+					"title": "右下角登录提示"
+				},
+				{
+					"key": ".passport-login-container",
+					"title": "登录弹窗"
+				}
+			],
+			"defaultValue": [],
+			"type": "tree",
+			"disabled": "{{ formData.ui_opt !== 'custom' }}"
+		}
+	}
 }

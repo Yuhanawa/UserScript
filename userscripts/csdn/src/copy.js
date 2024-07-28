@@ -3,7 +3,6 @@
 	value: () => {
 		delay(() => {
 			// 修改复制按钮
-			// biome-ignore lint/complexity/noForEach: TODO
 			document.querySelectorAll(".hljs-button").forEach((e) => {
 				e.setAttribute("data-title", "点击复制");
 				e.classList.remove("signin");

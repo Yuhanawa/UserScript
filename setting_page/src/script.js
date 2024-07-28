@@ -33,11 +33,11 @@ const elements = {
     categoryContainer: root.querySelector('.category-container'),
     contentContainer: root.querySelector('.content-container'),
 };
-let contentDivs = new Map();
+const contentDivs = new Map();
 
 // Helper functions
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const toggleElementDisplay = (element, display) => element ? element.style.display = display : null;
+const  toggleElementDisplay = (element, display) => element ? element.style.display = display : null;
 
 // Panel animation functions
 let panelIsOpening = false;
@@ -104,7 +104,7 @@ function generateCategoryTabs() {
         </svg>  <span>${item.display}</span>`
 
         const contentItem = document.createElement('div');
-        contentItem.className = `content-container-item hidden`;
+        contentItem.className = "content-container-item hidden";
         contentItem.id = `content-${item.key}-container`;
         contentDivs.set(item.key, contentItem);
 
@@ -194,7 +194,7 @@ function createBaseElement(content, cfg, key, item, inputElement) {
 }
 
 // Setting widget creators
-let settingWidgetCreators = {
+const settingWidgetCreators = {
     note: (content, cfg, key, item) => {
         const note = document.createElement('div');
         note.className = 'bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md mb-6 transition-all duration-300 hover:shadow-lg';
@@ -551,7 +551,7 @@ function initCustomWidget() {
         }
     } catch (error) {
         console.error(`initCustomWidget: ${error}`);
-        console.error(`NOTE: CustomWidget only be applied in userscript.`);
+        console.error("NOTE: CustomWidget only be applied in userscript.");
     }
 }
 
