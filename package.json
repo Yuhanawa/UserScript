@@ -7,7 +7,7 @@
     "dev": "gmu",
     "build": "gmu build",
     "lint": "biome lint ./userscripts",
-    "format": "biome format ./userscripts --write",
+    "format": "biome format ./userscripts --write --json-formatter-enabled=false",
     "update-versions": "node ./update-versions.js"
   },
   "author": "Yuhanawa",
