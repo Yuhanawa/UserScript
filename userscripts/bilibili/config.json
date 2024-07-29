@@ -133,13 +133,13 @@
 			"category": "home",
 			"display": "-- 首页 --"
 		},
-		"home_remove_carousel_and_feed_card": {
+		"remove_carousel_and_feed_card": {
 			"display": "移除轮播图及周边区域",
 			"category": "home",
 			"type": "bool",
 			"defaultValue": false
 		},
-		"home_remove_special_card": {
+		"remove_special_card": {
 			"display": "移除左上角带有特殊标识的卡片",
 			"category": "home",
 			"type": "bool",
