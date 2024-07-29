@@ -1,6 +1,6 @@
 {
   "name": "cnblogs_garden",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "pages": {
     "home": [
       "/www.cnblogs.com/[^/]*$/",
