@@ -2,7 +2,6 @@
 	runAlways: true,
 	value: () => {
 		onload(() => {
-			console.log("test");
 			const aside = document.getElementsByClassName("blog_container_aside")[0];
 			if (aside === undefined || aside == null) {
 				setTimeout(fn, 150);
