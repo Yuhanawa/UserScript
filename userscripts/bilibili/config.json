@@ -1,5 +1,5 @@
 {
-	"version": "0.2.12",
+	"version": "0.2.13",
 	"name": "bilibili",
 	"pages": {
 		"home": ["www.bilibili.com"],
@@ -16,6 +16,11 @@
 			"key": "beautify",
 			"display": "美化",
 			"icon": "beautify-icon"
+		},
+		{
+			"key": "general",
+			"display": "通用",
+			"icon": "general-icon"
 		},
 		{
 			"key": "home",
@@ -49,6 +54,31 @@
 			"category": "tips",
 			"display": "修改完成后请刷新页面"
 		},
+		"tips-general": {
+			"type": "note",
+			"category": "general",
+			"display": "-- 通用 --"
+		},
+		"header": {
+			"display": "顶部菜单",
+			"type": "option",
+			"category": "general",
+			"defaultValue": "blur",
+			"options":[
+				{
+					"key": "blur",
+					"display": "毛玻璃效果"
+				},
+				{
+					"key": "fixed",
+					"display": "固定(不跟随页面)"
+				},
+				{
+					"key": "default",
+					"display": "默认(不做修改)"
+				}
+			]
+		},		
 		"tips-beautify": {
 			"type": "note",
 			"category": "beautify",
@@ -145,6 +175,26 @@
 			"type": "bool",
 			"defaultValue": false
 		},
+		"header_channel": {
+			"display": "将频道菜单移动到banner",
+			"type": "option",
+			"category": "home",
+			"defaultValue": "default",
+			"options":[
+				{
+					"key": "transparent",
+					"display": "半透明"
+				},
+				{
+					"key": "hidden",
+					"display": "完全隐藏(透明)"
+				},
+				{
+					"key": "default",
+					"display": "默认(不做修改)"
+				}
+			]
+		},		
 		"tips-optimize": {
 			"type": "note",
 			"category": "optimize",
