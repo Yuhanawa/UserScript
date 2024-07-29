@@ -48,14 +48,8 @@ jobs:
           git commit -m "ci: Update versions"
           git push origin master
 
-      - name: Create and push to releases branch
+      - name: push to releases branch
         run: |
-          git checkout --orphan releases
-          git rm -rf .
-          if [ ! -d "dist/userscripts" ]; then
-            echo "Error: dist/userscripts directory not found" >&2
-            exit 1
-          fi
-          git add dist
+          git add -f dist
           git commit -m "ci: Update release files"
-          git push origin releases --force
+          git push -f origin HEAD:releases
