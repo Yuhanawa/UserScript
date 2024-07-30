@@ -17,19 +17,20 @@ html,:root
 
         .bili-video-card__wrap,.bili-live-card__wrap,  // 主页card
         .floor-card-inner   // 主页特殊card
-            background-color: rgb(255 255 255 / 72%) !important
-            box-shadow: 1px 1px 4px 0px whitesmoke
+            background-color: rgba(255, 255, 255, .6) !important
+            box-shadow: 1px 1px 3px 0 rgb(245 245 245 / 50%)
+            backdrop-filter: blur(10px)
+            &:hover
+                background-color: rgba(255, 255, 255, .8) !important
+                box-shadow: 1px 1px 3px 0 rgb(245 245 245 / 70%)
+                backdrop-filter: blur(12px)
+
 
         #i_cecream // 主页
             background-color: rgb(255 255 255 / 24%) !important
 
         .bili-header, .bili-header__channel // 主页header
             background-color: transparent
-
-        .bili-header__bar.mini-header
-            opacity: 0.98
-            backdrop-filter: blur(8px)
-            background: #ffffffcc
 
         .floor-single-card .layer // 主页每栏最右侧视频突出的阴影
             display: none
@@ -70,7 +71,6 @@ html,:root
             padding: 0
             margin: 0
         #comment
-            box-shadow: 0 0 4px whitesmoke
             margin-top: 2px
             padding: 0
             border-radius: 10px
