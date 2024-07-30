@@ -13,17 +13,17 @@
     {
       "key": "tips",
       "display": "tips",
-      "icon": "note-icon"
+      "icon": "📢"
     },
     {
       "key": "beautify",
       "display": "美化",
-      "icon": "beautify-icon"
+      "icon": "🎨"
     },
     {
       "key": "useful",
       "display": "实用",
-      "icon": "useful-icon"
+      "icon": "🔧"
     }
   ],
   "props": {

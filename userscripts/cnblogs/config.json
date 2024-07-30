@@ -17,22 +17,17 @@
     {
       "key": "tips",
       "display": "tips",
-      "icon": "note-icon"
+      "icon": "📢"
     },
     {
       "key": "beautify",
       "display": "美化",
-      "icon": "beautify-icon"
+      "icon": "🎨"
     },
     {
-      "key": "optimize",
-      "display": "优化",
-      "icon": "optimize-icon"
-    },
-    {
-      "key": "useful",
-      "display": "实用",
-      "icon": "useful-icon"
+      "key": "other",
+      "display": "其他",
+      "icon": "🔧"
     }
   ],
   "props": {
@@ -66,43 +61,45 @@
     "logo": {
       "display": "LOGO替换",
       "type": "bool",
-      "category": "beautify",
+      "category": "other",
       "defaultValue": true
     },
     "auto_pager_home": {
       "display": "首页自动无缝翻页",
       "type": "bool",
-      "category": "beautify",
+      "category": "other",
       "defaultValue": true
     },
     "auto_pager_ing": {
       "display": "闪存自动无缝翻页",
       "type": "bool",
-      "category": "beautify",
+      "category": "other",
       "defaultValue": true
     },
     "ing": {
-      "display": "ing",
+      "display": "ing(hidden)",
       "type": "bool",
       "category": "beautify",
-      "defaultValue": true
+      "defaultValue": true,
+      "hidden": true
     },
     "ing_in_iframe": {
       "display": "ing_in_iframe(hidden)",
       "type": "bool",
       "category": "beautify",
-      "defaultValue": true
+      "defaultValue": true,
+      "hidden": true
     },
     "menu": {
       "display": "菜单栏增强",
       "type": "bool",
-      "category": "beautify",
+      "category": "other",
       "defaultValue": true
     },
     "side_right": {
       "display": "右侧吸底",
       "type": "bool",
-      "category": "beautify",
+      "category": "other",
       "defaultValue": true
     }
   }
