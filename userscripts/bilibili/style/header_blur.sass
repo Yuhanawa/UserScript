@@ -1,12 +1,22 @@
-#i_cecream .bili-feed4
-    .bili-header
-        .bili-header__bar.slide-down
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .05) !important
-            background: rgba(255, 255, 255, .75)
-            backdrop-filter: blur(10px)
-    .header-channel
-        background: rgba(255, 255, 255, .55)
-        backdrop-filter: blur(5px)
-    .header-channel:has(.header-channel-fixed-down)
-        background: rgba(255, 255, 255, .7)
-        backdrop-filter: blur(8px)
+html,:root
+    body
+        #i_cecream .bili-feed4,#app
+            .bili-header
+                .bili-header__bar.mini-header
+                    backdrop-filter: blur(8px)
+                    background: rgba(255, 255, 255, .75)
+                    opacity: .85
+                    &:hover
+                        backdrop-filter: blur(10px)
+                        opacity: 1
+                        background: rgba(255, 255, 255, .8)
+                .bili-header__bar.slide-down
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, .05) !important
+                    background: rgba(255, 255, 255, .75)
+                    backdrop-filter: blur(10px)
+            .header-channel
+                background: rgba(255, 255, 255, .55)
+                backdrop-filter: blur(5px)
+            .header-channel:has(.header-channel-fixed-down)
+                background: rgba(255, 255, 255, .7)
+                backdrop-filter: blur(8px)
