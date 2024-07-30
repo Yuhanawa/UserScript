@@ -7,7 +7,7 @@
 		delay(
 			() => {
 				const img_view = document.querySelector(".reply-view-image");
-				if (img_view === undefined) return;
+				if (!img_view) return;
 
 				img_view.addEventListener("keydown", (e) => {
 					if (e.key === "Escape")
