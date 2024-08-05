@@ -1,6 +1,6 @@
 {
 	"name": "csdn",
-	"version": "0.2.17",
+	"version": "0.2.18",
 	"pages": {
 		"article": ["/blog\\.csdn\\.net(/.*)?/article/details./"],
 		"link": ["link.csdn.net/"]
@@ -237,7 +237,7 @@
 			"description": "body的背景",
 			"defaultValue": "https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-ai/images/bg.png?v20200831",
 			"type": "image",
-      "hidden": {
+			"hidden": {
 				"condition": "!get('background')",
 				"bind": ["background"]
 			}
@@ -248,7 +248,7 @@
 			"description": "用于放置文章的div颜色(与暗色模式冲突,暗色模式优先)",
 			"defaultValue": "#f5f6f7E6",
 			"type": "color",
-      "hidden": {
+			"hidden": {
 				"condition": "!get('background')",
 				"bind": ["background"]
 			}
@@ -259,7 +259,7 @@
 			"description": "文章整体透明度,包括文章内容",
 			"type": "number",
 			"defaultValue": 0.98,
-      "hidden": {
+			"hidden": {
 				"condition": "!get('background')",
 				"bind": ["background"]
 			}
@@ -270,7 +270,7 @@
 			"description": "建议保持透明或使用高透明度颜色(与暗色模式冲突,暗色模式优先)",
 			"defaultValue": "#00000000",
 			"type": "color",
-      "hidden": {
+			"hidden": {
 				"condition": "!get('background')",
 				"bind": ["background"]
 			}
@@ -636,7 +636,7 @@
 			],
 			"defaultValue": [],
 			"type": "tree",
-      "hidden": {
+			"hidden": {
 				"condition": "get('ui_opt')!=='custom'",
 				"bind": ["ui_opt"]
 			}
