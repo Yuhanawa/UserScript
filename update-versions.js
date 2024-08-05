@@ -16,13 +16,15 @@ diff.on('close', () => {
             .map(path => path.split('/')[1])
         ).forEach(name => {
             try {
-                const str = fs.readFileSync(`userscripts/${name}/config.json`, 'utf8')
-                let json = JSON.parse(str);
-                let versionSplits = json["version"].split('.');
+                const filename = `userscripts/${name}/config.json`
+                const str = fs.readFileSync(filename, 'utf8')
+                const json = JSON.parse(str);
+                const versionSplits = json.version.split('.');
                 versionSplits[versionSplits.length - 1] = (Number.parseInt(versionSplits[versionSplits.length - 1]) + 1)
-                json["version"] = versionSplits.join('.');
-                fs.writeFileSync(`userscripts/${name}/config.json`, JSON.stringify(json, null, 2));
-                console.log(`(${new Date().toISOString()}) ✅ ${name} update version success, version: ${json["version"]}`);
+                json.version = versionSplits.join('.');
+                fs.writeFileSync(filename, JSON.stringify(json, null, 2));
+                spawn('pnpm', ['biome','format', filename, '--write'].join(' '));
+                console.log(`(${new Date().toISOString()}) ✅ ${name} update version success, version: ${json.version}`);
             } catch (error) {
                 console.error(`(${new Date().toISOString()}) ❗ ${name} update version failed`);
             }
