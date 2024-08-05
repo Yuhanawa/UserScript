@@ -10,9 +10,8 @@
 			if (get("widescreen_hide_header_onWide")) {
 				setTimeout(() => {
 					try {
-						document.querySelector(
-							"#biliMainHeader .bili-header.fixed-header",
-						).style.display = isWide ? "none" : "block";
+						document.querySelector("#biliMainHeader .bili-header.fixed-header").style.display =
+							isWide ? "none" : "block";
 					} catch (error) {
 						console.error(error);
 					}
@@ -21,21 +20,15 @@
 
 			// 获取窗口宽度和高度
 			const windowHeight = win.innerHeight;
-			const windowWidth = Math.max(
-				document.body?.clientWidth || win.innerWidth,
-				1100,
-			);
+			const windowWidth = Math.max(document.body?.clientWidth || win.innerWidth, 1100);
 
 			// 设置侧边栏宽度
 			const sidebarWidth = 1680 < innerWidth ? 411 : 350;
 
 			// 计算主内容区域的高度和宽度
-			const contentHeight = parseInt(
-				(16 * (windowHeight - (1690 < innerWidth ? 318 : 308))) / 9,
-			);
+			const contentHeight = parseInt((16 * (windowHeight - (1690 < innerWidth ? 318 : 308))) / 9);
 			const contentWidth = windowWidth - 112 - sidebarWidth;
-			let finalContentWidth =
-				contentWidth < contentHeight ? contentWidth : contentHeight;
+			let finalContentWidth = contentWidth < contentHeight ? contentWidth : contentHeight;
 
 			// 页面宽屏功能
 			finalContentWidth = Math.round(finalContentWidth * get("widescreen-width-times"));
@@ -96,8 +89,7 @@
 			win.PlayerAgent = {
 				changed: true,
 				player_widewin: () => {
-					"new_video" === win.__INITIAL_STATE__.pageVersion &&
-						win.scrollTo(0, 60);
+					"new_video" === win.__INITIAL_STATE__.pageVersion && win.scrollTo(0, 60);
 					win.isWide = true;
 					setSize();
 				},

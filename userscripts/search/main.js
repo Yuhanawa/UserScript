@@ -183,23 +183,19 @@ if (matchList(str2list(searchURLMatchList))) {
 		document.body.insertAdjacentHTML("afterbegin", "<div id='blur-awa'/>");
 		/* 匹配搜索框 */
 		if (match("sogou.com/web?query"))
-			document.getElementById("bottom_form_querytext").className +=
-				" search-input-awa ";
+			document.getElementById("bottom_form_querytext").className += " search-input-awa ";
 		else if (match("bing.com")) {
 			document.getElementById("sb_form_q").className += " search-input-awa ";
 		} else if (match("duckduckgo.com/")) {
-			document.getElementById("search_form_input").className +=
-				" search-input-awa ";
+			document.getElementById("search_form_input").className += " search-input-awa ";
 		} else {
 			document.querySelectorAll("input").forEach((i) => {
-				if (i.type === "text" || i.type === "search")
-					i.className += " search-input-awa ";
+				if (i.type === "text" || i.type === "search") i.className += " search-input-awa ";
 			});
 			if (document.querySelectorAll(".search-input-awa").length === 0) {
 				setTimeout(() => {
 					document.querySelectorAll("input").forEach((i) => {
-						if (i.type === "text" || i.type === "search")
-							i.className += " search-input-awa ";
+						if (i.type === "text" || i.type === "search") i.className += " search-input-awa ";
 					});
 				}, 2000);
 			}
@@ -442,9 +438,7 @@ if (matchList(str2list(searchURLMatchList))) {
 			.replaceAll(/\s*,/g, ",")
 			.replaceAll(/\s*{/g, "{");
 		const addClass = (y, add) =>
-			(css = css
-				.replaceAll(`${y},`, `${add},${y},`)
-				.replaceAll(`${y}{`, `${add},${y}{`));
+			(css = css.replaceAll(`${y},`, `${add},${y},`).replaceAll(`${y}{`, `${add},${y}{`));
 
 		if (match("bing.com/search")) {
 			css += `
@@ -539,9 +533,7 @@ if (matchList(str2list(searchURLMatchList))) {
 
 			onload(() => {
 				/* 移动 切换按钮 位置 */
-				const est_switch_html = `>${
-					document.getElementById("est_switch").outerHTML
-				}<a id="id_l"`;
+				const est_switch_html = `>${document.getElementById("est_switch").outerHTML}<a id="id_l"`;
 				document.getElementById("est_switch").remove();
 				document.getElementById("id_h").outerHTML = document
 					.getElementById("id_h")
@@ -799,10 +791,7 @@ if (matchList(str2list(searchURLMatchList))) {
 
 	/* search tools */
 	if (get("search_engine_switch_tool", true)) {
-		if (
-			get("engine_switch_tool_version", -1) + 3 <
-			engine_switch_tool_version
-		) {
+		if (get("engine_switch_tool_version", -1) + 3 < engine_switch_tool_version) {
 			set("engine_switch_tool_version", engine_switch_tool_version);
 			if (get("engine_switch_tool_version", -1) !== -1) {
 				setTimeoutBeforeLoad(() => {
@@ -836,10 +825,9 @@ if (matchList(str2list(searchURLMatchList))) {
 				s = s.replaceAll(/\s/g, "");
 				if (s === "" || s.startsWith("#") || s.startsWith("-")) return;
 				html += ` <!--suppress HtmlUnknownAttribute -->
-<a class="${get(
-					"switch_tool_style",
-					"switch_tool switch_tool_button switch_tool_auto",
-				)}" href = "${s.split(",")[1]}" key = "${s.split(",")[1]}"
+<a class="${get("switch_tool_style", "switch_tool switch_tool_button switch_tool_auto")}" href = "${
+					s.split(",")[1]
+				}" key = "${s.split(",")[1]}"
                          onclick="this.href=this.getAttribute('key').replace('$',document.getElementsByClassName('search-input-awa')[0].getAttribute('value').replaceAll('%', '%25').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('+', '%2B').replaceAll(' ', '%20').replaceAll('?', '%3F').replaceAll('=', '%3D'))">${
 														s.split(",")[0]
 													}</a>
@@ -866,62 +854,50 @@ if (matchList(str2list(searchURLMatchList))) {
 		setTimeoutBeforeLoad(() => {
 			const tool = document.getElementById("engine_switch_tool");
 
-			document
-				.getElementById("switch_tool_style")
-				.addEventListener("click", () => {
-					set(
-						"switch_tool_style",
-						document.getElementsByClassName("switch_tool")[0].className,
-					);
-				});
+			document.getElementById("switch_tool_style").addEventListener("click", () => {
+				set("switch_tool_style", document.getElementsByClassName("switch_tool")[0].className);
+			});
 
 			try {
-				if (
-					document.getElementsByClassName("switch_tool")[0].onclick === null
-				) {
+				if (document.getElementsByClassName("switch_tool")[0].onclick === null) {
 					tool.addEventListener("click", () => {
-						Array.from(document.getElementsByClassName("switch_tool")).forEach(
-							(i) => {
-								i.href = i
-									.getAttribute("key")
-									.replace(
-										"$",
-										document
-											.getElementsByClassName("search-input-awa")[0]
-											.getAttribute("value")
-											.replaceAll("%", "%25")
-											.replaceAll("#", "%23")
-											.replaceAll("&", "%26")
-											.replaceAll("+", "%2B")
-											.replaceAll(" ", "%20")
-											.replaceAll("?", "%3F")
-											.replaceAll("=", "%3D"),
-									);
-							},
-						);
+						Array.from(document.getElementsByClassName("switch_tool")).forEach((i) => {
+							i.href = i
+								.getAttribute("key")
+								.replace(
+									"$",
+									document
+										.getElementsByClassName("search-input-awa")[0]
+										.getAttribute("value")
+										.replaceAll("%", "%25")
+										.replaceAll("#", "%23")
+										.replaceAll("&", "%26")
+										.replaceAll("+", "%2B")
+										.replaceAll(" ", "%20")
+										.replaceAll("?", "%3F")
+										.replaceAll("=", "%3D"),
+								);
+						});
 					});
 				}
 			} catch {}
 
 			window.onscroll = () => {
-				tool.style.top = `${(window.scrollY > 96
-					? 0
-					: 96 - window.scrollY
-				).toString()}px`;
+				tool.style.top = `${(window.scrollY > 96 ? 0 : 96 - window.scrollY).toString()}px`;
 			};
 		}, 800);
 	}
 
-	const index = options(
-		"搜索引擎快速聚焦模式(Ctrl+[K|Q|S])",
-		"search_engine_quick_focus",
-		["清空", "关闭", "选中", "聚焦"],
-	);
+	const index = options("搜索引擎快速聚焦模式(Ctrl+[K|Q|S])", "search_engine_quick_focus", [
+		"清空",
+		"关闭",
+		"选中",
+		"聚焦",
+	]);
 	if (index !== 1) {
 		document.onkeydown = (e) => {
 			if (e.ctrlKey && (e.key === "q" || e.key === "s" || e.key === "k")) {
-				if (index === 0)
-					document.getElementsByClassName("search-input-awa")[0].value = "";
+				if (index === 0) document.getElementsByClassName("search-input-awa")[0].value = "";
 				else if (index === 2) document.querySelector("input").select();
 				document.getElementsByClassName("search-input-awa")[0].focus();
 				e.preventDefault();

@@ -13,9 +13,7 @@
 				style("main { margin: 0px 6px 40px 6px }");
 				if (get("width")) {
 					style("#mainBox > main{ width: 100% !important; }");
-					style(
-						`body #mainBox{ width: ${get("width_value", "82")}% !important; }`,
-					);
+					style(`body #mainBox{ width: ${get("width_value", "82")}% !important; }`);
 				}
 			}
 		});

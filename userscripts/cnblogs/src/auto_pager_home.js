@@ -4,11 +4,7 @@
 	showInMenu: true,
 	value: () => {
 		delay(() => {
-			if (
-				!document.querySelector(".pager") ||
-				document.querySelector("#Autopage_number")
-			)
-				return;
+			if (!document.querySelector(".pager") || document.querySelector("#Autopage_number")) return;
 
 			let timeout = 0;
 			setInterval(() => {
@@ -34,15 +30,10 @@
 				getPage(document.querySelector(".pager > a:nth-last-child(1)").href, {
 					onload: (response) => {
 						try {
-							const doc = new DOMParser().parseFromString(
-								response.responseText,
-								"text/html",
-							); //"text/html"
+							const doc = new DOMParser().parseFromString(response.responseText, "text/html"); //"text/html"
 							const articles = doc.querySelectorAll("#post_list>article");
 							for (const article of articles) {
-								document
-									.querySelector("#post_list")
-									.insertAdjacentElement("beforeend", article);
+								document.querySelector("#post_list").insertAdjacentElement("beforeend", article);
 							}
 							document
 								.querySelector(".pager")

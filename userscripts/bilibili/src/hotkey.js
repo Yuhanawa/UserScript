@@ -10,8 +10,7 @@
 				if (!img_view) return;
 
 				img_view.addEventListener("keydown", (e) => {
-					if (e.key === "Escape")
-						img_view.getElementsByClassName("close-container")[0].click();
+					if (e.key === "Escape") img_view.getElementsByClassName("close-container")[0].click();
 					if (e.key === "a" || e.key === "ArrowLeft")
 						img_view.getElementsByClassName("last-image")[0].click();
 					if (e.key === "d" || e.key === "ArrowRight")

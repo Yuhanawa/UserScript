@@ -11,9 +11,7 @@
 				if (old_pic === pic) return;
 				old_pic = pic;
 				setTimeout(() => {
-					const toolbar = document.querySelector(
-						"#arc_toolbar_report .video-toolbar-right",
-					);
+					const toolbar = document.querySelector("#arc_toolbar_report .video-toolbar-right");
 					if (!toolbar) return;
 					if (!toolbar.querySelector(".video-tool-more")) {
 						// 等待加载完全 否则会出bug
@@ -21,9 +19,7 @@
 						return;
 					}
 
-					toolbar
-						.querySelectorAll(".video-tool-getpic")
-						.forEach((e) => e.remove());
+					toolbar.querySelectorAll(".video-tool-getpic").forEach((e) => e.remove());
 
 					const btn = document.createElement("div");
 					btn.className = "video-toolbar-right-item video-tool-getpic";

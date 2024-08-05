@@ -3,8 +3,7 @@
 	value: {
 		text: () => {
 			delay(() => {
-				const articleTitleBox =
-					document.getElementsByClassName("article-title-box")[0];
+				const articleTitleBox = document.getElementsByClassName("article-title-box")[0];
 				const settingButton = document.createElement("a");
 				settingButton.innerText = "脚本设置";
 				settingButton.onclick = () => {
@@ -17,8 +16,7 @@
 		},
 		icon: () => {
 			delay(() => {
-				const articleTitleBox =
-					document.getElementsByClassName("article-title-box")[0];
+				const articleTitleBox = document.getElementsByClassName("article-title-box")[0];
 				const settingButton = document.createElement("a");
 				settingButton.innerText = "⚙️";
 				settingButton.onclick = () => {

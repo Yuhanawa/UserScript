@@ -7,9 +7,9 @@
 			feature.fn(
 				"[标题]链接",
 				() =>
-					`【${document.querySelector("h1.video-title").innerText}】\t${
-						location.origin
-					}${location.pathname}`,
+					`【${document.querySelector("h1.video-title").innerText}】\t${location.origin}${
+						location.pathname
+					}`,
 			);
 		},
 		BV: (feature) => {
@@ -19,10 +19,7 @@
 			feature.fn("链接", () => `${location.origin}${location.pathname}`);
 		},
 		title: (feature) => {
-			feature.fn(
-				"标题",
-				() => `${document.querySelector("h1.video-title").innerText}`,
-			);
+			feature.fn("标题", () => `${document.querySelector("h1.video-title").innerText}`);
 		},
 		off: null,
 	},
@@ -31,10 +28,7 @@
 			() => {
 				const h1 = document.querySelector("h1.video-title");
 				if (!h1) return;
-				if (
-					document.querySelector("h1.video-title").innerHTML.indexOf("🏷️") !== -1
-				)
-					return;
+				if (document.querySelector("h1.video-title").innerHTML.indexOf("🏷️") !== -1) return;
 
 				const text = getText();
 				const copy_btn = document.createElement("span");
@@ -42,9 +36,7 @@
 				copy_btn.style.cursor = "pointer";
 				copy_btn.style.fontSize = "22px";
 				copy_btn.innerText = "🏷️";
-				copy_btn.addEventListener("click", () =>
-					navigator.clipboard.writeText(text),
-				);
+				copy_btn.addEventListener("click", () => navigator.clipboard.writeText(text));
 
 				document.querySelector("h1.video-title").append(copy_btn);
 			},

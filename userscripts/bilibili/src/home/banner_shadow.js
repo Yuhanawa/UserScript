@@ -1,3 +1,3 @@
 ({
-    value:$STYLE("home/banner_shadow")
-})
+	value: $STYLE("home/banner_shadow"),
+});

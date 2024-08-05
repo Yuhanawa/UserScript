@@ -4,14 +4,11 @@
 		const filter = () => {
 			if (
 				!get("block_on_home") &&
-				(location.href.includes("twitter.com/home") ||
-					location.href.includes("x.com/home"))
+				(location.href.includes("twitter.com/home") || location.href.includes("x.com/home"))
 			)
 				return;
 
-			const articles = document.querySelectorAll(
-				"article:not([data-filter-checked])",
-			);
+			const articles = document.querySelectorAll("article:not([data-filter-checked])");
 			for (const article of articles) {
 				try {
 					article.setAttribute("data-filter-checked", "true");
@@ -30,10 +27,7 @@
 						)?.innerText;
 						const text = article.querySelector("div[lang]")?.innerText ?? "";
 
-						if (
-							articleText === "这个帖子来自一个你已屏蔽的账号。\n查看" &&
-							text === ""
-						) {
+						if (articleText === "这个帖子来自一个你已屏蔽的账号。\n查看" && text === "") {
 							article.style.display = "none";
 							showToast("隐藏了一条来自已屏蔽的账号的推文");
 							continue;

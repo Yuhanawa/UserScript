@@ -39,8 +39,7 @@
 			}
 
 			setTimeout(() => {
-				sidenav_home.querySelector("img").src =
-					document.getElementById("user_icon").src;
+				sidenav_home.querySelector("img").src = document.getElementById("user_icon").src;
 			}, 320);
 		});
 	},

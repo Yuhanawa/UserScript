@@ -83,11 +83,7 @@ async function blockUserById(id, display) {
 	// Send request
 	xhr.send(`user_id=${id}`);
 	console.log(`已为您自动屏蔽用户id ${id}, 用户名:${display ?? "未知"}`);
-	showToast(
-		`已为您自动屏蔽用户id ${id} ${
-			display ? `用户名:${display}` : "(通过id精准匹配)"
-		}`,
-	);
+	showToast(`已为您自动屏蔽用户id ${id} ${display ? `用户名:${display}` : "(通过id精准匹配)"}`);
 }
 
 function check(rule, screen_name, key, target, notShowNote) {
@@ -115,11 +111,7 @@ function check(rule, screen_name, key, target, notShowNote) {
 }
 
 unsafeWindow.addEventListener("load", () => {
-	if (
-		!location.host.includes("x.com") &&
-		!location.host.includes("twitter.com")
-	)
-		return;
+	if (!location.host.includes("x.com") && !location.host.includes("twitter.com")) return;
 
 	const originalOpen = XMLHttpRequest.prototype.open;
 	XMLHttpRequest.prototype.open = function (method, url) {
@@ -146,8 +138,7 @@ unsafeWindow.addEventListener("load", () => {
 						const following = user.following;
 						const url = user.url;
 
-						if (whiteList.has(screen_name) || blackList.has(screen_name))
-							return;
+						if (whiteList.has(screen_name) || blackList.has(screen_name)) return;
 
 						if (following) {
 							whiteList.add(screen_name);
@@ -158,27 +149,13 @@ unsafeWindow.addEventListener("load", () => {
 						const auto_block_by_more = auto_block && get("auto_block_by_more");
 						if (
 							check(internalRule, screen_name, "name", name, auto_block) ||
-							check(
-								internalRule,
-								screen_name,
-								"bio",
-								description,
-								auto_block,
-							) ||
-							check(
-								internalRule,
-								screen_name,
-								"location",
-								location,
-								auto_block,
-							) ||
+							check(internalRule, screen_name, "bio", description, auto_block) ||
+							check(internalRule, screen_name, "location", location, auto_block) ||
 							check(internalRule, screen_name, "url", url, auto_block)
 						) {
 							if (auto_block) {
 								blockUserById(id, screen_name);
-								showToast(
-									`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`,
-								);
+								showToast(`[Beta] 用户${name}@${screen_name}由内置规则自动屏蔽`);
 							}
 							continue;
 						}
@@ -198,9 +175,7 @@ unsafeWindow.addEventListener("load", () => {
 									rule: rule["rule-name"],
 									type: "id",
 								});
-							} else if (
-								rule["id-reg"]?.some((i) => i.test(screen_name ?? ""))
-							) {
+							} else if (rule["id-reg"]?.some((i) => i.test(screen_name ?? ""))) {
 								blackList.set(screen_name, {
 									id: id,
 									screen_name: screen_name,
@@ -209,20 +184,8 @@ unsafeWindow.addEventListener("load", () => {
 								});
 							} else if (
 								check(rule, screen_name, "name", name, auto_block_by_more) ||
-								check(
-									rule,
-									screen_name,
-									"bio",
-									description,
-									auto_block_by_more,
-								) ||
-								check(
-									rule,
-									screen_name,
-									"location",
-									location,
-									auto_block_by_more,
-								) ||
+								check(rule, screen_name, "bio", description, auto_block_by_more) ||
+								check(rule, screen_name, "location", location, auto_block_by_more) ||
 								check(rule, screen_name, "url", url, auto_block_by_more)
 							) {
 								if (auto_block_by_more) blockUserById(id, screen_name);
@@ -275,13 +238,7 @@ unsafeWindow.addEventListener("load", () => {
 					if (
 						check(internalRule, screen_name, "name", name, auto_block) ||
 						check(internalRule, screen_name, "bio", description, auto_block) ||
-						check(
-							internalRule,
-							screen_name,
-							"location",
-							location,
-							auto_block,
-						) ||
+						check(internalRule, screen_name, "location", location, auto_block) ||
 						check(internalRule, screen_name, "url", url, auto_block)
 					) {
 						if (auto_block) {
@@ -317,20 +274,8 @@ unsafeWindow.addEventListener("load", () => {
 							});
 						} else if (
 							check(rule, screen_name, "name", name, auto_block_by_more) ||
-							check(
-								rule,
-								screen_name,
-								"bio",
-								description,
-								auto_block_by_more,
-							) ||
-							check(
-								rule,
-								screen_name,
-								"location",
-								location,
-								auto_block_by_more,
-							) ||
+							check(rule, screen_name, "bio", description, auto_block_by_more) ||
+							check(rule, screen_name, "location", location, auto_block_by_more) ||
 							check(rule, screen_name, "url", url, auto_block_by_more)
 						) {
 							if (auto_block_by_more) blockUserById(id, screen_name);
@@ -341,19 +286,13 @@ unsafeWindow.addEventListener("load", () => {
 				if (this.responseText.startsWith('{"data":{"user":{"result"')) {
 					// 用户页
 					handledResult(JSON.parse(this.responseText).data.user.result);
-				} else if (
-					this.responseText.includes("threaded_conversation_with_injections_v2")
-				) {
+				} else if (this.responseText.includes("threaded_conversation_with_injections_v2")) {
 					// 推文页
 					const instructions = JSON.parse(this.responseText).data
 						.threaded_conversation_with_injections_v2.instructions;
 
-					for (entry of instructions
-						.filter((i) => i.entries)
-						.map((i) => i.entries)) {
-						for (content of entry
-							.filter((i) => i.content)
-							.map((i) => i.content)) {
+					for (entry of instructions.filter((i) => i.entries).map((i) => i.entries)) {
+						for (content of entry.filter((i) => i.content).map((i) => i.content)) {
 							let items = [];
 							if (content.itemContent !== undefined) {
 								items = [
@@ -362,9 +301,7 @@ unsafeWindow.addEventListener("load", () => {
 								];
 							} else if (content.items !== undefined) {
 								items = content.items
-									.filter(
-										(i) => i.item?.itemContent?.tweet_results?.result?.core,
-									)
+									.filter((i) => i.item?.itemContent?.tweet_results?.result?.core)
 									.map((i) => i.item.itemContent.tweet_results.result.core);
 							}
 

@@ -13,8 +13,7 @@
 			unsafeWindow.parent.postMessage(
 				{
 					type: "resizeIframe",
-					height:
-						document.body.scrollHeight ?? document.body.clientHeight + 220,
+					height: document.body.scrollHeight ?? document.body.clientHeight + 220,
 				},
 				"*",
 			);
@@ -77,13 +76,9 @@
 						onload: (response) => {
 							try {
 								const doc = response.responseText;
-								document
-									.querySelector("#feed_list")
-									.insertAdjacentHTML("beforeend", doc);
+								document.querySelector("#feed_list").insertAdjacentHTML("beforeend", doc);
 
-								document
-									.querySelectorAll(".feed_loading")
-									.forEach((e) => e.remove());
+								document.querySelectorAll(".feed_loading").forEach((e) => e.remove());
 								document
 									.querySelector("#feed_list")
 									.insertAdjacentHTML(
