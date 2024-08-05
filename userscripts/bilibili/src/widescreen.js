@@ -84,7 +84,7 @@
 			win.setSize = setSize;
 
 			setSize();
-			setTimeout(setSize, 250);
+			setTimeout(setSize, 200);
 			win.addEventListener("resize", setSize);
 			win.PlayerAgent = {
 				changed: true,
@@ -105,5 +105,8 @@
 			};
 		};
 		change();
+		// 解决有时不生效
+		onload(change)
+		delay(change,200)
 	},
 });
