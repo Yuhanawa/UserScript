@@ -174,11 +174,19 @@
       "type": "bool",
       "defaultValue": true
     },
+    "auto_wide": {
+      "display": "自动进入宽屏模式",
+      "category": "video",
+      "type": "bool",
+      "defaultValue": false,
+      "description": "此功能为自动进入视频播放器的宽屏模式"
+    },
     "widescreen": {
       "display": "宽屏功能",
       "category": "video",
       "type": "bool",
-      "defaultValue": true
+      "defaultValue": true,
+      "description": "此功能为减少页面两侧空白,将页面放宽"
     },
     "widescreen-width-times": {
       "display": "宽屏倍数",
