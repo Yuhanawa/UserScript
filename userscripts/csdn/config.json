@@ -319,7 +319,7 @@
 		"ui_opt_value": {
 			"display": "自定义UI",
 			"category": "ui",
-			"description": "需要UI净化预设为自定义模式",
+			"description": "!勾选要隐藏的部分!!勾选要隐藏的部分!!勾选要隐藏的部分!",
 			"children": [
 				{
 					"key": "#csdn-toolbar",
