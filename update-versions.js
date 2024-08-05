@@ -1,7 +1,7 @@
 
 const fs = require('fs')
 
-const { spawn } = require('child_process')
+const { spawn,exec } = require('child_process')
 
 const diff = spawn('git', 'diff --name-only remotes/origin/master..remotes/origin/releases -- userscripts'.split(' '));
 
@@ -23,7 +23,7 @@ diff.on('close', () => {
                 versionSplits[versionSplits.length - 1] = (Number.parseInt(versionSplits[versionSplits.length - 1]) + 1)
                 json.version = versionSplits.join('.');
                 fs.writeFileSync(filename, JSON.stringify(json, null, 2));
-                spawn('pnpm', ['biome','format', filename, '--write'].join(' '));
+                exec(`pnpm biome format ${filename} --write`);
                 console.log(`(${new Date().toISOString()}) ✅ ${name} update version success, version: ${json.version}`);
             } catch (error) {
                 console.error(`(${new Date().toISOString()}) ❗ ${name} update version failed`);
