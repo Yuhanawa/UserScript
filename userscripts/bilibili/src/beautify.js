@@ -9,6 +9,6 @@
 			style($STYLE("beautify.video_radius"));
 		}
 
-		return $STYLE("beautify");
+		return $STYLE("beautify") + $STYLE("historypage");
 	},
 });

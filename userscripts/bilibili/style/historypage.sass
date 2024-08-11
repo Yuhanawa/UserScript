@@ -1,0 +1,29 @@
+.history-wrap
+    .b-head-search
+        background: rgba(255, 255, 255, 0.5)
+        border: 1px rgba(204, 208, 215, 0.8)
+        backdrop-filter: blur(4px)
+        transition: all 0.25s
+        .b-head-search_input
+            background: transparent
+    #history_list
+        transition: all 0.25s
+        .history-record
+            margin: 8px auto
+
+        .r-info.clearfix
+            background: rgba(255, 255, 255, 0.25)
+            padding: 10px 6px
+            border-radius: 10px
+            backdrop-filter: blur(4px)
+            .r-txt
+                width: auto
+                .history-delete
+                    opacity: 0.4
+                    right: 16px
+            &:hover,&:focus
+                background: rgba(255, 255, 255, 0.45)
+                backdrop-filter: blur(10px)
+                .r-txt
+                    .history-delete
+                        opacity: 1
