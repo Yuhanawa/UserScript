@@ -106,7 +106,7 @@
 		};
 		change();
 		// 解决有时不生效
-		onload(change)
-		delay(change,200)
+		onload(change);
+		delay(change, 200);
 	},
 });
