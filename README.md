@@ -1,5 +1,10 @@
 # Yuhan 的脚本集
 
+
+> [!WARNING]  
+> 脚本永久停止更新   
+> 2024-10-23   
+
 > CSDN 极简化\沉浸式阅读\免登录复制\自定义等等
 > 哔哩哔哩(bilibili)美化\视频快捷分享复制\移除评论区关键字搜索蓝字等等
 > 博客园(cnblog)美化/增强/字体放大
@@ -9,14 +14,11 @@
 ## 脚本
 
 - [哔哩哔哩脚本|美化|增强|自定义背景|评论过滤](https://greasyfork.org/zh-CN/scripts/471069-bilibili-beautify)
-  - 图片截取自 2023-10 距今可能发生较大变化  
     ![image.png](https://s2.loli.net/2023/10/22/Pdq619G5lvDCO8X.png)
 - [CSDN 脚本-优化美化极简化-沉浸式阅读-免登录复制-去广告](https://greasyfork.org/zh-CN/scripts/471071-csdn-optimize-beautify-simplify)
-  - 图片截取自 2023-10 距今可能发生较大变化  
     ![效果截图](https://s2.loli.net/2023/10/22/MNxA6JUz4uCEdDk.png)
     ![设置界面](https://s2.loli.net/2023/10/22/yuOm9iBnS2kxpMq.png)
 - [博客花园-博客园美化增强](https://greasyfork.org/zh-CN/scripts/487754)
-  - 图片截取自 2024-02 距今可能发生较大变化  
     ![效果截图](https://s2.loli.net/2024/02/22/aGYp6m3osOLIUjl.png)
 
 ## 支持功能
@@ -48,8 +50,6 @@
 - 自定义背景
 
 ## How to build
-
-欢迎 PR
 
 请确保已经安装 nodejs 和 pnpm
 

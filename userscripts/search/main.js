@@ -14,6 +14,12 @@
 // @grant        GM_registerMenuCommand
 // ==/UserScript==
 
+/**
+> [!WARNING]  
+> 脚本永久停止更新   
+> 2024-10-23
+ */
+
 const engine_switch_tool_version = 5;
 
 let css = "";

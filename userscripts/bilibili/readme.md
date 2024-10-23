@@ -1,5 +1,11 @@
 # 哔哩哔哩 BILIBILI 美化|增强|自定义背景|评论过滤等
 
+
+> [!WARNING]  
+> 脚本永久停止更新   
+> 2024-10-23   
+
+
 [[Github]](https://github.com/yuhanawa/UserScript): http://github.com/yuhanawa/UserScript  
 [[Greasyfork]](https://greasyfork.org/zh-CN/scripts/471069): https://greasyfork.org/zh-CN/scripts/471069
 

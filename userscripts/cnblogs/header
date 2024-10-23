@@ -1,11 +1,12 @@
 // ==UserScript==
+// @warning      脚本永久停止更新   2024-10-23
+// @namespace    http://github.com/yuhanawa/UserScript
 // @name         cnblogs garden
 // @name:zh      博客花园-博客园(cnblogs)美化增强
 // @name:zh-CN   博客花园-博客园(cnblogs)美化增强
 // @description        better cnblogs
 // @description:zh     博客园 首页及文章美化/自动翻页字体放大/样式调整等
 // @description:zh-CN  博客园 首页及文章美化/自动翻页/字体放大/样式调整等
-// @namespace    http://github.com/yuhanawa/UserScript
 // @version      ${version}
 // @author       Yuhanawa
 // @license      GPL-3.0

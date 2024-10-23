@@ -1,4 +1,6 @@
 // ==UserScript==
+// @warning      脚本永久停止更新   2024-10-23
+// @namespace    http://github.com/yuhanawa/UserScript
 // @name         BILIBILI-Beautify
 // @name:zh      哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
 // @name:zh-CN   哔哩哔哩BILIBILI 美化|增强|自定义背景|评论过滤等
@@ -14,7 +16,6 @@
 // @description:en      Bilibili beautification | enhancement | custom background | comment filtering, etc
 // @description:ja     BILIBILI 美化｜強化｜カスタム背景｜レビューフィルタリングなど
 // @author       Yuhanawa
-// @supportURL   http://github.com/yuhanawa/UserScript
 // @license      GPL-3.0
 // @match        *://*.bilibili.com/*
 // @icon         none
